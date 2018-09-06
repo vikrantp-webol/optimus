@@ -1,0 +1,9 @@
+.background {
+    &.is-primary {
+        background-color: $primary;
+    }
+
+    &.is-secondary {
+        background-color: $secondary;
+    }
+}

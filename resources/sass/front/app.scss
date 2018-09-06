@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+// Setup Variables
+@import "~bulma/sass/utilities/initial-variables"; // Import bulma variables
+
+// Setup site variables
+@import "~optix-sass/variables";
+@import "variables";
+
+@import "~bulma"; // Import Bulma
+@import "~optix-sass"; // Extend Bulma's framework
+
+// Overriding components
+@import "elements/_all"; // Overwrite custom elements
+@import "components/_all"; // Overwrite custom components
+@import "layout/_all"; // Overwrite custom layout
