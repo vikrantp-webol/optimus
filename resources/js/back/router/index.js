@@ -4,9 +4,10 @@ Vue.use(VueRouter);
 import store from '../store';
 
 // Routes
-import authRoutes from './modules/auth';
-import pageRoutes from './modules/pages';
-import userRoutes from './modules/users';
+import authRoutes from './groups/auth';
+import pageRoutes from './groups/pages';
+import postRoutes from './groups/posts';
+import userRoutes from './groups/users';
 
 const router = new VueRouter({
     linkActiveClass: 'is-active',
@@ -20,6 +21,7 @@ const router = new VueRouter({
         
         ...authRoutes,
         ...pageRoutes,
+        ...postRoutes,
         ...userRoutes
     ]
 });

@@ -1,18 +1,21 @@
-import Editor, { styleFormats } from '@optimuscms/editor';
-import store from '../store';
+import Editor, { config as editorConfig } from '@optimuscms/editor';
 
-let index = styleFormats.findIndex(({ title }) => title == 'Inline Styles');
+editorConfig.file_picker_types = 'image';
+editorConfig.file_picker_callback = callback => {
+    Vue.mediaManager.open({
+        limit: 1,
+        accept: Vue.mediaManager.imageExtensions()
+    });
 
-styleFormats[index].items.push({
-    title: 'Button Secondary',
-    classes: 'button is-secondary',
-    selector: 'a'
-});
+    Vue.mediaManager.onMediaSelected(mediaIds => {
+        let image = Vue.mediaManager.getActiveMedia(mediaIds[0]);
+
+        callback(image.url, {
+            alt: image.name
+        });
+    });
+};
 
 Vue.use(Editor, {
-    store,
-    options: {
-        apiKey: 'i9k078qcvbqg8d6gffh58fkky46ltc5d8a3rb7igrn5h6q3i',
-        style_formats: styleFormats
-    }
+    apiKey: 'i9k078qcvbqg8d6gffh58fkky46ltc5d8a3rb7igrn5h6q3i'
 });

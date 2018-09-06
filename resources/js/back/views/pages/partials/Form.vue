@@ -106,14 +106,9 @@
     import Form from 'form-backend-validation';
     import formMixin from '../../../mixins/form';
     import templates from '../templates';
-    
-    import MetaHolder from '../../partials/MetaHolder';
 
     export default {
-        components: {
-            ...templates,
-            MetaHolder
-        },
+        components: { ...templates },
 
         mixins: [ formMixin ],
 

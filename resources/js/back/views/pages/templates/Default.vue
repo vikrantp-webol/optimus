@@ -7,11 +7,7 @@
 
         <!-- Images -->
         <o-form-field input="images" label="Images">
-            <media-picker
-                id="images"
-                :limit="null"
-                v-model="form.images"
-            >
+            <media-picker :limit="null" v-model="form.images">
                 <template slot="help">
                     This image will be constrained to 1000px width
                 </template>

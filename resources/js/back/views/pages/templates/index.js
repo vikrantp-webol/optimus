@@ -1,12 +1,12 @@
 const templateFiles = require.context('.', false, /\.vue$/);
 let templates = {};
 
-files.keys().forEach(key => {
-    if (key === './index.js') {
+templateFiles.keys().forEach(file => {
+    if (file === './index.js') {
         return;
     }
 
-    templates[key.replace(/(\.\/|\.vue)/g, '')] = templateFiles(key);
+    templates[file.replace(/(\.\/|\.vue)/g, '')] = templateFiles(file);
 });
 
 export default templates;

@@ -10,6 +10,7 @@
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
         "optimuscms/pages": "dev-master",
+        "optimuscms/posts": "dev-master",
         "optimuscms/users": "dev-master"
     },
     "require-dev": {

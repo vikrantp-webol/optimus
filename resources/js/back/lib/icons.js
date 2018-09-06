@@ -4,7 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 Vue.component('icon', FontAwesomeIcon);
 
 library.add(
+    require('@fortawesome/free-regular-svg-icons/faNewspaper').definition,
+
     require('@fortawesome/free-solid-svg-icons/faAngleDown').definition,
+    require('@fortawesome/free-solid-svg-icons/faCalendarAlt').definition,
     require('@fortawesome/free-solid-svg-icons/faImages').definition,
     require('@fortawesome/free-solid-svg-icons/faFileAlt').definition,
     require('@fortawesome/free-solid-svg-icons/faPencilAlt').definition,

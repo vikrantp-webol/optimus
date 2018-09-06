@@ -8,6 +8,12 @@
                     exact
                 >Pages</o-nav-item>
 
+                <o-nav-item
+                    :to="{ name: 'posts.index' }"
+                    :icon="['far', 'newspaper']"
+                    exact
+                >News</o-nav-item>
+
                 <li>
                     <a @click="$mediaManager.open({ limit: 0 })">
                         <icon icon="images" size="2x" class="mb-2"></icon>

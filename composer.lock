@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e5f027f87a347721f739dfd19927492",
+    "content-hash": "1d89a74ff3290e907542e44aeae28a6a",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1322,6 +1322,51 @@
             "time": "2018-09-05T13:58:04+00:00"
         },
         {
+            "name": "optimuscms/posts",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/optimuscms/posts.git",
+                "reference": "29cb7e556d9d1798aac1a1db4998fbcf50d8064c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/optimuscms/posts/zipball/29cb7e556d9d1798aac1a1db4998fbcf50d8064c",
+                "reference": "29cb7e556d9d1798aac1a1db4998fbcf50d8064c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.5|~5.6|~5.7",
+                "optix/draftable": "dev-master",
+                "optix/media": "dev-master",
+                "spatie/laravel-sluggable": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Optimus\\Posts\\Providers\\PostServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Optimus\\Posts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Robertson",
+                    "email": "jack@optixsolutions.co.uk"
+                }
+            ],
+            "time": "2018-09-05T13:57:32+00:00"
+        },
+        {
             "name": "optimuscms/users",
             "version": "dev-master",
             "source": {
@@ -1944,6 +1989,55 @@
                 "spatie"
             ],
             "time": "2018-08-28T14:20:07+00:00"
+        },
+        {
+            "name": "spatie/laravel-sluggable",
+            "version": "2.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-sluggable.git",
+                "reference": "2f383e6957b544b200203ca717000b57189ca045"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/2f383e6957b544b200203ca717000b57189ca045",
+                "reference": "2f383e6957b544b200203ca717000b57189ca045",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.5.0|~5.6.0|~5.7.0",
+                "illuminate/support": "~5.5.0|~5.6.0|~5.7.0",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.5.0|~3.6.0|~3.7.0",
+                "phpunit/phpunit": "^6.3|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Sluggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate slugs when saving Eloquent models",
+            "homepage": "https://github.com/spatie/laravel-sluggable",
+            "keywords": [
+                "laravel-sluggable",
+                "spatie"
+            ],
+            "time": "2018-08-28T14:09:46+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4917,6 +5011,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "optimuscms/pages": 20,
+        "optimuscms/posts": 20,
         "optimuscms/users": 20
     },
     "prefer-stable": true,

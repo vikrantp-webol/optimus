@@ -6,7 +6,7 @@
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.4.tgz#7c560ff732c6c7c7c179ae25227ce5449e6f6d65"
 
-"@fortawesome/fontawesome-svg-core@^1.2.2":
+"@fortawesome/fontawesome-svg-core@^1.2.4":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-svg-core/-/fontawesome-svg-core-1.2.4.tgz#2e40c65e66c7ad5aabc179a2d7c5827b1599905c"
   dependencies:
@@ -18,7 +18,7 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "^0.2.4"
 
-"@fortawesome/free-solid-svg-icons@^5.2.0":
+"@fortawesome/free-solid-svg-icons@^5.3.1":
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/free-solid-svg-icons/-/free-solid-svg-icons-5.3.1.tgz#9660bece3c4850d58f1653e26c1693487ff74b08"
   dependencies:
@@ -28,9 +28,9 @@
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@fortawesome/vue-fontawesome/-/vue-fontawesome-0.1.1.tgz#f54cad4028213a011c6ecb10eaf2b99dbd4a8496"
 
-"@optimuscms/editor@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.1.0.tgz#9fa05a8310dae418b5c73d1e131f2e7e34f42072"
+"@optimuscms/editor@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.1.1.tgz#fed6a1360bd482e2af1283d88bc50238d965dc5b"
   dependencies:
     "@tinymce/tinymce-vue" "^1.0.8"
 
@@ -38,12 +38,13 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.1.0.tgz#4a77094a157fffb224dc586a5cd852ba06b2e96b"
 
-"@optimuscms/ui@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@optimuscms/ui/-/ui-1.1.1.tgz#a2299685d517c887a480d5249eb4abdc90725b89"
+"@optimuscms/ui@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@optimuscms/ui/-/ui-1.1.3.tgz#3dbea4fa807ff949596aa29f0f1913b82eece3fb"
   dependencies:
-    "@fortawesome/fontawesome-svg-core" "^1.2.2"
-    "@fortawesome/free-solid-svg-icons" "^5.2.0"
+    "@fortawesome/fontawesome-svg-core" "^1.2.4"
+    "@fortawesome/free-regular-svg-icons" "^5.3.1"
+    "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
     bulma "^0.7.1"
     nprogress "^0.2.0"
@@ -2240,6 +2241,10 @@ find-up@^2.0.0, find-up@^2.1.0:
   resolved "https://registry.yarnpkg.com/find-up/-/find-up-2.1.0.tgz#45d1b7e506c717ddd482775a2b77920a3c0c57a7"
   dependencies:
     locate-path "^2.0.0"
+
+flatpickr@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.2.tgz#47c8ad472a096e5fb7e74b809b0703535383f20d"
 
 flatten@^1.0.2:
   version "1.0.2"
