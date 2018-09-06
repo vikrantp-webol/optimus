@@ -26,25 +26,46 @@
                         ></o-input>
                     </o-form-field>
 
-                    <!-- Username -->
-                    <o-form-field input="username" label="Username" required>
-                        <o-input
-                            id="username"
-                            label="Username"
-                            v-model="form.username"
-                            required
-                        ></o-input>
-                    </o-form-field>
+                    <template v-if="! isEditingAdmin">
+                        <!-- Username -->
+                        <o-form-field input="username" label="Username" required>
+                            <o-input
+                                id="username"
+                                label="Username"
+                                v-model="form.username"
+                                required
+                            ></o-input>
+                        </o-form-field>
 
-                    <!-- Password -->
-                    <o-form-field input="password" label="Password" :required="! item">
-                        <o-input
-                            id="password"
-                            type="password"
-                            label="Password"
-                            v-model="form.password"
-                            :required="! item"
-                        ></o-input>
+                        <!-- Password -->
+                        <o-form-field input="password" label="Password" :required="! item">
+                            <o-input
+                                id="password"
+                                type="password"
+                                label="Password"
+                                v-model="form.password"
+                                :required="! item"
+                            ></o-input>
+                        </o-form-field>
+                    </template>
+
+                    <!-- Permissions -->
+                    <o-form-field label="Permissions" v-if="! isEditingAdmin && ! isEditingSelf">
+                        <div class="control my-1" :key="permission" v-for="(permission, index) in permissions">
+                            <div class="field">
+                                <o-checkbox
+                                    :id="`permission_${index}`"
+                                    :label="permission"
+                                    class="is-capitalized"
+                                    v-model="form.permissions"
+                                    :checked-value="permission"
+                                ></o-checkbox>
+                            </div>
+                        </div>
+                        
+                        <template slot="help">
+                            User will have to re-authenticate for changes to take place.
+                        </template>
                     </o-form-field>
                 </div>
             </div>
@@ -76,8 +97,21 @@
                     name: '',
                     username: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    permissions: []
                 }),
+
+                permissions: []
+            }
+        },
+
+        computed: {
+            isEditingAdmin() {
+                return this.item && this.item.username === 'admin';
+            },
+
+            isEditingSelf() {
+                return this.$route.params.hasOwnProperty('id') && this.$route.params.id == this.$auth.user().id;
             }
         },
 
@@ -87,12 +121,27 @@
                     name: item.name,
                     username: item.username,
                     email: item.email,
-                    password: null
+                    password: null,
+                    permissions: item.permissions
                 });
             }
         },
 
+        created() {
+            this.fetchPermissions();
+        },
+
         methods: {
+            fetchPermissions() {
+                this.$loader.start('permissions');
+
+                axios.get('/api/user-permissions').then(response => {
+                    this.permissions = response.data.data;
+
+                    this.$loader.stop('permissions');
+                });
+            },
+
             submit() {
                 this.form[this.method](this.action)
                     .then(response => {
