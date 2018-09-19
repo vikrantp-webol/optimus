@@ -30,12 +30,12 @@
 
         methods: {
             fetchPost() {
-                this.$loader.start('post');
+                this.$loader.startLoading('post');
 
                 axios.get(this.uri).then(response => {
                     this.post = response.data.data;
 
-                    this.$loader.stop('post');
+                    this.$loader.stopLoading('post');
                 });
             }
         }

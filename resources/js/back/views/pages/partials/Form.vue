@@ -175,24 +175,24 @@
 
         methods: {
             fetchPages() {
-                this.$loader.start('pages');
+                this.$loader.startLoading('pages');
                 
                 axios.get('/api/pages', {
                     params: { parent: 'root' }
                 }).then(response => {
                     this.pages = response.data.data.filter(({ id }) => id !== this.$route.params.id);
                     
-                    this.$loader.stop('pages');
+                    this.$loader.stopLoading('pages');
                 });
             },
 
             fetchTemplates() {
-                this.$loader.start('templates');
+                this.$loader.startLoading('templates');
                 
                 axios.get('/api/page-templates').then(response => {
                     this.templates = response.data.data;
 
-                    this.$loader.stop('templates');
+                    this.$loader.stopLoading('templates');
                 });
             },
 

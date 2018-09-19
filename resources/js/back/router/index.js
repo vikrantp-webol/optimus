@@ -30,7 +30,7 @@ let isRefreshing = false;
 let subscribers = [];
 
 router.beforeEach((to, from, next) => {
-    Vue.loader.clear();
+    Vue.loader.stopLoading();
 
     if (to.matched.some(record => record.meta.requiresAuth) && ! Vue.auth.check()) {
         if (Vue.auth.hasToken()) {

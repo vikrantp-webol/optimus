@@ -2,17 +2,17 @@
     <div class="dashboard background is-grey-lighter" :class="{ 'side-is-open': navIsOpen }">
         <o-main-nav>
             <ul>
-                <o-nav-item
+                <o-main-nav-item
                     :to="{ name: 'pages.index' }"
                     icon="file-alt" 
                     exact
-                >Pages</o-nav-item>
+                >Pages</o-main-nav-item>
 
-                <o-nav-item
+                <o-main-nav-item
                     :to="{ name: 'posts.index' }"
                     :icon="['far', 'newspaper']"
                     exact
-                >News</o-nav-item>
+                >News</o-main-nav-item>
 
                 <li>
                     <a @click="$mediaManager.open({ limit: 0 })">
@@ -21,16 +21,16 @@
                     </a>
                 </li>
 
-                <o-nav-item
+                <o-main-nav-item
                     :to="{ name: 'users.index' }"
                     icon="users"
                     exact
-                >Users</o-nav-item>
+                >Users</o-main-nav-item>
             </ul>
         </o-main-nav>
         
         <section class="main">
-            <o-sub-nav>
+            <o-sub-nav @opened="openNav" @closed="closeNav">
                 <component :is="$route.matched[0].meta.subNav" name="sub-nav"></component>
             </o-sub-nav>
 
@@ -43,7 +43,7 @@
                     </div>
                 </o-header>
                 
-                <o-loader :loading="$loader.isLoading()">
+                <o-loader :loading="$loader.isLoading">
                     <router-view></router-view>
                 </o-loader>
             </div>
@@ -52,17 +52,9 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapMutations } from 'vuex';
 
     export default {
-        data() {
-            return {
-                nav: {
-                    open: false
-                }
-            }
-        },
-
         computed: {
             ...mapGetters({
                 navIsOpen: 'navigation/isOpen'
@@ -74,6 +66,11 @@
         },
 
         methods: {
+            ...mapMutations({
+                openNav: 'navigation/open',
+                closeNav: 'navigation/close'
+            }),
+            
             logout() {
                 axios.post('/api/auth/logout').then(() => {
                     this.$auth.removeToken();

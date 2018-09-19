@@ -133,12 +133,12 @@
 
         methods: {
             fetchPermissions() {
-                this.$loader.start('permissions');
+                this.$loader.startLoading('permissions');
 
                 axios.get('/api/user-permissions').then(response => {
                     this.permissions = response.data.data;
 
-                    this.$loader.stop('permissions');
+                    this.$loader.stopLoading('permissions');
                 });
             },
 

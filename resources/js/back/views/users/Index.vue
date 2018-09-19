@@ -55,12 +55,12 @@
 
         methods: {
             getUsers(params = {}) {
-                this.$loader.start('users');
+                this.$loader.startLoading('users');
 
                 axios.get('/api/users', { params }).then(response => {
                     this.users = response.data.data;
 
-                    this.$loader.stop('users');
+                    this.$loader.stopLoading('users');
                 });
             },
 

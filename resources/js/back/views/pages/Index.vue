@@ -69,10 +69,10 @@
         },
 
         created() {
-            this.$loader.start('pages');
+            this.$loader.startLoading('pages');
 
             this.fetchPages(this.queryParams).then(() => {
-                this.$loader.stop('pages');
+                this.$loader.stopLoading('pages');
             });
         },
 

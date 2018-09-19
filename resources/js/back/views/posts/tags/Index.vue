@@ -55,12 +55,12 @@
 
         methods: {
             fetchTags() {
-                this.$loader.start('tags');
+                this.$loader.startLoading('tags');
 
                 axios.get('/api/post-tags').then(response => {
                     this.tags = response.data.data;
 
-                    this.$loader.stop('tags');
+                    this.$loader.stopLoading('tags');
                 });
             },
 

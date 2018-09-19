@@ -148,7 +148,7 @@
 
         methods: {
             fetchTags() {
-                this.$loader.start('tags');
+                this.$loader.startLoading('tags');
 
                 axios.get('/api/post-tags').then(response => {
                     this.tags = response.data.data.map(({ id, name }) => {
@@ -158,7 +158,7 @@
                         }
                     });
 
-                    this.$loader.stop('tags');
+                    this.$loader.stopLoading('tags');
                 });
             },
 

@@ -30,12 +30,12 @@
 
         methods: {
             fetchPage() {
-                this.$loader.start('page');
+                this.$loader.startLoading('page');
 
                 axios.get(this.uri).then(response => {
                     this.page = response.data.data;
                     
-                    this.$loader.stop('page');
+                    this.$loader.stopLoading('page');
                 });
             }
         }

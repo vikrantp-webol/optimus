@@ -30,12 +30,12 @@
 
         methods: {
             fetchTag() {
-                this.$loader.start('tag');
+                this.$loader.startLoading('tag');
 
                 axios.get(this.uri).then(response => {
                     this.tag = response.data.data;
 
-                    this.$loader.stop('tag');
+                    this.$loader.stopLoading('tag');
                 });
             }
         }
