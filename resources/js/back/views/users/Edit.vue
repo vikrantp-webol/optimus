@@ -26,7 +26,7 @@
         },
 
         created() {
-            this.getUser();
+            this.fetchUser();
         },
 
         methods: {
@@ -35,7 +35,7 @@
                 stopLoading: 'loader/stop'
             }),
 
-            getUser() {
+            fetchUser() {
                 this.startLoading('user');
 
                 axios.get(this.uri).then(response => {

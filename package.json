@@ -22,7 +22,7 @@
     "dependencies": {
         "@optimuscms/editor": "^2.1.1",
         "@optimuscms/media-manager": "^1.1.0",
-        "@optimuscms/ui": "^1.1.4",
+        "@optimuscms/ui": "^1.1.5",
         "@optix/vue-auth": "^1.0.0",
         "@optix/vue-loader": "^1.0.2",
         "flatpickr": "^4.5.2",

@@ -50,11 +50,11 @@
         },
 
         created() {
-            this.getUsers();
+            this.fetchUsers();
         },
 
         methods: {
-            getUsers(params = {}) {
+            fetchUsers(params = {}) {
                 this.$loader.startLoading('users');
 
                 axios.get('/api/users', { params }).then(response => {

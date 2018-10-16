@@ -46,10 +46,10 @@
 </template>
 
 <script>
-    import listing from '../../mixins/listing';
+    import listingMixin from '../../mixins/listing';
 
     export default {
-        mixins: [ listing ],
+        mixins: [ listingMixin ],
 
         data() {
             return {

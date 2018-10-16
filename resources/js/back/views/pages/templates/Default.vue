@@ -17,10 +17,10 @@
 </template>
 
 <script>
-    import template from '../../../mixins/template';
+    import templateMixin from '../../../mixins/template';
 
     export default {
-        mixins: [ template ],
+        mixins: [ templateMixin ],
 
         data() {
             return {

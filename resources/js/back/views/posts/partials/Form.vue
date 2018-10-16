@@ -42,11 +42,11 @@
 
                         <!-- Published at -->
                         <o-form-field input="published_at" label="Published at" required>
-                            <date-picker
+                            <o-date-picker
                                 id="published_at"
                                 v-model="form.published_at"
                                 required
-                            ></date-picker>
+                            ></o-date-picker>
                         </o-form-field>
 
                         <!-- Image -->
@@ -91,11 +91,7 @@
     import Form from 'form-backend-validation';
     import formMixin from '../../../mixins/form';
 
-    import DatePicker from '../../../components/DatePicker';
-
     export default {
-        components: { DatePicker },
-
         mixins: [ formMixin ],
 
         data() {
