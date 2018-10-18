@@ -7,7 +7,6 @@
 </template>
 
 <script>
-    import { mapMutations } from 'vuex';
     import UserForm from './partials/Form';
 
     export default {
@@ -30,18 +29,13 @@
         },
 
         methods: {
-            ...mapMutations({
-                startLoading: 'loader/start',
-                stopLoading: 'loader/stop'
-            }),
-
             fetchUser() {
-                this.startLoading('user');
+                this.$loader.startLoading('user');
 
                 axios.get(this.uri).then(response => {
                     this.user = response.data.data;
 
-                    this.stopLoading('user');
+                    this.$loader.stopLoading('user');
                 });
             }
         }

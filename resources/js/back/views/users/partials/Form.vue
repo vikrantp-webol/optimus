@@ -20,7 +20,6 @@
                         <o-input
                             id="email"
                             type="email"
-                            label="Email"
                             v-model="form.email"
                             required
                         ></o-input>
@@ -31,7 +30,6 @@
                         <o-form-field input="username" label="Username" required>
                             <o-input
                                 id="username"
-                                label="Username"
                                 v-model="form.username"
                                 required
                             ></o-input>
@@ -42,7 +40,6 @@
                             <o-input
                                 id="password"
                                 type="password"
-                                label="Password"
                                 v-model="form.password"
                                 :required="! item"
                             ></o-input>
