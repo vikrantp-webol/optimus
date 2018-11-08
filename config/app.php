@@ -150,9 +150,6 @@ return [
         /*
          * Package Service Providers...
          */
-        Optix\Media\Providers\MediaServiceProvider::class,
-        Optimus\Users\Providers\UserServiceProvider::class,
-        Optimus\Pages\Providers\PageServiceProvider::class,
 
         /*
          * Application Service Providers...

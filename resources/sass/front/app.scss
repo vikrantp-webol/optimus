@@ -1,16 +1,12 @@
-@charset "utf-8";
+@charset 'UTF-8';
 
-// Setup Variables
-@import "~bulma/sass/utilities/initial-variables"; // Import bulma variables
+@tailwind preflight;
+@tailwind components;
 
-// Setup site variables
-@import "~optix-sass/variables";
-@import "variables";
+@import 'variables';
+@import '~@optix/sass';
 
-@import "~bulma"; // Import Bulma
-@import "~optix-sass"; // Extend Bulma's framework
+// @import './components/index';
+// @import './elements/index';
 
-// Overriding components
-@import "elements/_all"; // Overwrite custom elements
-@import "components/_all"; // Overwrite custom components
-@import "layout/_all"; // Overwrite custom layout
+@tailwind utilities;

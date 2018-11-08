@@ -11,8 +11,9 @@ let routes = [
         path: '/users',
         component: Dashboard,
         meta: {
-            requiresAuth: true,
-            subNav: SubNav
+            area: 'users',
+            subNav: SubNav,
+            requiresAuth: true
         },
 
         children: [

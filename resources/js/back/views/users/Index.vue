@@ -1,26 +1,29 @@
 <template>
     <section>
-        <table class="table is-hoverable is-fullwidth is-listing">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Username</th>
-                    <th class="is-narrow has-text-centered">Actions</th>
+                    <th class="narrow">Actions</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr :key="user.id" v-for="user in users">
                     <td>{{ user.name }}</td>
+
                     <td>{{ user.email }}</td>
+
                     <td>{{ user.username }}</td>
-                    <td class="has-actions">
-                        <router-link class="icon is-medium" :to="{ name: 'users.edit', params: { id: user.id } }">
+                    
+                    <td class="actions">
+                        <router-link class="icon medium" :to="{ name: 'users.edit', params: { id: user.id } }">
                             <icon icon="pencil-alt"></icon>
                         </router-link>
 
-                        <a class="icon is-medium" @click="$refs.confirm.open(user)">
+                        <a class="icon medium" @click="$refs.confirm.open(user)">
                             <icon icon="trash-alt"></icon>
                         </a>
                     </td>
@@ -28,16 +31,16 @@
             </tbody>
         </table>
 
-        <o-confirm
+        <o-confirmation
             ref="confirm"
-            type="danger"
-            @confirm="deleteUser">
-                <template slot="confirmButtonText">Delete</template>
-                
-                <template slot-scope="user">
-                    Are you sure you want to delete <strong>"{{ user.name }}"</strong>
-                </template>
-        </o-confirm>
+            @confirm="deleteUser"
+            button-class="button-red"
+            button-text="Delete"
+        >
+            <template slot-scope="user">
+                Are you sure you want to delete <strong>"{{ user.name }}"</strong>
+            </template>
+        </o-confirmation>
     </section>
 </template>
 
@@ -55,17 +58,17 @@
 
         methods: {
             fetchUsers(params = {}) {
-                this.$loader.startLoading('users');
+                this.$loader.startLoading('primary.admin-users');
 
-                axios.get('/api/users', { params }).then(response => {
+                axios.get('/api/admin-users', { params }).then(response => {
                     this.users = response.data.data;
 
-                    this.$loader.stopLoading('users');
+                    this.$loader.stopLoading('primary.admin-users');
                 });
             },
 
             deleteUser(item) {
-                axios.delete('/api/users/' + item.id).then(() => {
+                axios.delete('/api/admin-users/' + item.id).then(() => {
                     this.users = this.users.filter(({ id }) => id !== item.id);
                 });
             }

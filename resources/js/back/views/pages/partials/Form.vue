@@ -1,42 +1,43 @@
 <template>
     <form @submit.prevent="submit">
-        <o-errors :errors="form.errors.all()" v-if="form.errors.any()"></o-errors>
+        <o-errors v-if="anyErrors" :errors="errors"></o-errors>
 
-        <div class="has-border-bottom p-4">
-            <div class="columns is-gapless is-multiline">
-                <div class="column is-12 is-8-fullhd">
-                    <div class="pr-4-fullhd">
-                        <!-- Title -->
-                        <o-form-field input="title" label="Title" required>
-                            <o-input
-                                id="title"
-                                v-model="form.title"
-                                required
-                            ></o-input>
-                        </o-form-field>
+        <div class="p-8 border-b border-grey-light">
+            <div class="xl:w-2/3">
+                <!-- Title -->
+                <o-form-field input="title" label="Title" required>
+                    <o-input
+                        id="title"
+                        v-model="fields.title"
+                        required
+                    ></o-input>
+                </o-form-field>
 
-                        <!-- Parent id -->
+                <div class="lg:flex lg:-mx-4">
+                    <div class="mb-8 flex-grow lg:px-4">
+                        <!-- Parent -->
                         <o-form-field
                             v-if="! item || ! item.has_fixed_slug"
                             input="parent_id"
                             label="Parent"
                         >
-                            <o-select id="parent_id" v-model="form.parent_id">
+                            <o-select id="parent_id" v-model="fields.parent_id">
                                 <option :value="null" disabled>Please select...</option>
                                 <option :value="page.id" :key="page.id" v-for="page in pages">{{
                                     page.title
                                 }}</option>
                             </o-select>
                         </o-form-field>
+                    </div>
 
+                    <div class="mb-8 flex-grow lg:px-4" v-if="! item || ! item.has_fixed_template">
                         <!-- Template -->
                         <o-form-field
-                            v-if="! item || ! item.has_fixed_template"
                             input="template_id"
                             label="Template"
                             required
                         >
-                            <o-select id="template_id" v-model="form.template_id" required>
+                            <o-select id="template_id" v-model="fields.template_id" required>
                                 <option :value="null" disabled>Please select...</option>
                                 <option
                                     :key="template.id"
@@ -46,56 +47,49 @@
                                 >{{ template.name }}</option>
                             </o-select>
                         </o-form-field>
-
-                        <!-- Contents -->
-                        <component
-                            :is="activeTemplate"
-                            v-if="activeTemplate"
-                            :media="media"
-                            v-model="form.contents"
-                            :contents="contents"
-                        ></component>
-
-                        <!-- Stand alone -->
-                        <o-form-field
-                            v-if="! item || item.is_deletable"
-                            input="is_stand_alone"
-                            label="Stand alone"
-                        >
-                            <o-checkbox
-                                id="is_stand_alone"
-                                label="Yes"
-                                v-model="form.is_stand_alone"
-                            ></o-checkbox>
-                        </o-form-field>
                     </div>
                 </div>
 
-                <div class="column is-12 is-4-fullhd">
-                    <hr class="my-4 is-hidden-fullhd">
+                <!-- Contents -->
+                <component
+                    :is="activeTemplate"
+                    v-if="activeTemplate"
+                    v-model="dynamicFields"
+                    :media="media"
+                    :contents="contents"
+                ></component>
 
-                    <div class="pl-4-fullhd">
-                        <meta-holder v-model="form.meta"></meta-holder>
-                    </div>
-                </div>
+                <!-- Stand alone -->
+                <o-form-field
+                    v-if="! item || item.is_deletable"
+                    input="is_stand_alone"
+                    label="Stand alone"
+                >
+                    <o-checkbox
+                        id="is_stand_alone"
+                        label="Yes"
+                        v-model="fields.is_stand_alone"
+                    ></o-checkbox>
+                </o-form-field>
             </div>
         </div>
 
-        <div class="p-4">
-            <div class="field is-grouped is-vcentered">
+        <div class="p-8">
+            <div class="field flex items-center">
                 <div class="control">
                     <button
-                        class="button is-success"
-                        :class="{ 'is-loading': form.processing }"
+                        class="button button-green"
+                        :class="{ 'loading': isProcessing }"
                     >Save</button>
                 </div>
-
+                
                 <!-- Publish -->
                 <o-checkbox
                     id="is_published"
+                    v-if="! item || item.is_deletable"
                     label="Publish"
-                        v-if="! item || item.is_deletable"
-                    v-model="form.is_published"
+                    class="ml-4"
+                    v-model="fields.is_published"
                 ></o-checkbox>
             </div>
         </div>
@@ -103,7 +97,6 @@
 </template>
 
 <script>
-    import Form from 'form-backend-validation';
     import formMixin from '../../../mixins/form';
     import templates from '../templates';
 
@@ -114,19 +107,15 @@
 
         data() {
             return {
-                form: new Form({
+                fields: {
                     title: '',
                     slug: '',
                     parent_id: null,
                     template_id: null,
-                    contents: null,
                     is_published: true,
-                    is_stand_alone: false,
-                    meta: {
-                        title: '',
-                        description: ''
-                    }
-                }),
+                    is_stand_alone: false
+                },
+                dynamicFields: {},
 
                 media: [],
                 contents: [],
@@ -138,29 +127,34 @@
 
         computed: {
             activeTemplate() {
-                let template = this.templates.find(({ id }) => id === this.form.template_id);
+                let template = this.templates.find(({ id }) => {
+                    return id === this.fields.template_id
+                });
 
-                return template ? template.component : null;
+                return template ? template.component_name : null;
+            },
+
+            form() {
+                return Object.assign({}, this.fields, this.dynamicFields);
             }
         },
 
         watch: {
             item(item) {
-                this.form.populate({
+                this.fields = {
                     title: item.title,
                     slug: item.slug,
                     parent_id: item.parent_id,
-                    template_id: item.template.id,
-                    contents: item.contents,
+                    template_id: item.template_id,
                     is_published: item.is_published,
-                    is_stand_alone: item.is_stand_alone,
-                    meta: item.meta
-                });
-
-                this.media = item.media;
-                this.$mediaManager.setActiveMedia(this.media);
+                    is_stand_alone: item.is_stand_alone
+                };
 
                 this.contents = item.contents;
+
+                this.$mediaManager.setActiveMedia(
+                    this.media = item.media
+                );
             }
         },
 
@@ -175,37 +169,34 @@
 
         methods: {
             fetchPages() {
-                this.$loader.startLoading('pages');
+                this.$loader.startLoading('primary.pages');
                 
                 axios.get('/api/pages', {
                     params: { parent: 'root' }
                 }).then(response => {
                     this.pages = response.data.data.filter(({ id }) => id !== this.$route.params.id);
                     
-                    this.$loader.stopLoading('pages');
+                    this.$loader.stopLoading('primary.pages');
                 });
             },
 
             fetchTemplates() {
-                this.$loader.startLoading('templates');
+                this.$loader.startLoading('primary.templates');
                 
                 axios.get('/api/page-templates').then(response => {
                     this.templates = response.data.data;
 
-                    this.$loader.stopLoading('templates');
+                    this.$loader.stopLoading('primary.templates');
                 });
             },
 
-            submit() {
+            onSuccess() {
                 let query = this.form.parent_id ? { parent: this.form.parent_id } : null;
 
-                this.form[this.method](this.action)
-                    .then(response => {
-                        this.$router.push({
-                            name: 'pages.index',
-                            query
-                        });
-                    });
+                this.$router.push({
+                    name: 'pages.index',
+                    query
+                });
             }
         }
     }

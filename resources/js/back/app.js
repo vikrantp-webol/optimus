@@ -20,8 +20,6 @@ Vue.use(MediaManager, { store });
 
 import './util/editor';
 
-Vue.component('meta-holder', require('./views/partials/MetaHolder'));
-
 const app = new Vue({
     el: '#app',
     router,

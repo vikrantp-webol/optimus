@@ -1,11 +1,11 @@
 <template>
     <form @submit.prevent="submit">
-        <errors :errors="form.errors.all()" v-if="form.errors.any()"></errors>
+        <o-errors v-if="anyErrors" :errors="errors"></o-errors>
 
-        <div class="has-border-bottom p-4">
-            <div class="columns is-gapless is-multiline">
-                <div class="column is-12 is-8-fullhd">
-                    <div class="pr-4-fullhd">
+        <div class="p-8 border-b border-grey-light">
+            <div class="xl:w-2/3">
+                <tabs>
+                    <tab name="General">
                         <!-- Title -->
                         <o-form-field input="title" label="Title" required>
                             <o-input
@@ -34,7 +34,7 @@
                                 required
                             ></o-input>
                         </o-form-field>
-                        
+                            
                         <!-- Body -->
                         <o-form-field input="body" label="Body" required>
                             <editor v-model="form.body"></editor>
@@ -61,34 +61,40 @@
                                 </template>
                             </media-picker>
                         </o-form-field>
-                    </div>
-                </div>
+                    </tab>
 
-                <div class="column is-12 is-4-fullhd">
-                    <hr class="my-4 is-hidden-fullhd">
+                    <tab name="Meta">
+                        <!-- Meta title -->
+                        <o-form-field input="meta_title" label="Meta title">
+                            <o-input
+                                id="meta_title"
+                                v-model="form.meta.title"
+                            ></o-input>
+                        </o-form-field>
 
-                    <div class="pl-4-fullhd">
-                        <!-- <meta-holder v-model="form.meta"></meta-holder> -->
-                    </div>
-                </div>
+                        <!-- Meta description -->
+                        <o-form-field input="meta_description" label="Meta description">
+                            <o-input
+                                id="meta_description"
+                                type="textarea"
+                                v-model="form.meta.description"
+                            ></o-input>
+                        </o-form-field>
+                    </tab>
+                </tabs>
             </div>
         </div>
 
-        <div class="p-4">
-            <div class="field">
-                <div class="control">
-                    <button
-                        class="button is-success"
-                        :class="{ 'is-loading': form.processing }"
-                    >Save</button>
-                </div>
-            </div>
+        <div class="p-8">
+            <button
+                class="button button-green"
+                :class="{ 'loading': isProcessing }"
+            >Save</button>
         </div>
     </form>
 </template>
 
 <script>
-    import Form from 'form-backend-validation';
     import formMixin from '../../../mixins/form';
 
     export default {
@@ -96,22 +102,14 @@
 
         data() {
             return {
-                form: new Form({
+                form: {
                     title: '',
                     excerpt: '',
                     body: '',
                     tags: [],
                     image: null,
-                    meta: {
-                        title: '',
-                        description: ''
-                    },
-                    published_at: '',
-                    // meta: {
-                    //     title: '',
-                    //     description: ''
-                    // }
-                }),
+                    published_at: ''
+                },
 
                 tags: []
             }
@@ -119,18 +117,16 @@
 
         watch: {
             item(item) {
-                this.form.populate({
+                this.form = {
                     title: item.title,
                     excerpt: item.excerpt,
-                    tags: item.tags.map(({ id }) => id),
                     body: item.body,
-                    meta: item.meta,
+                    tags: item.tags.map(({ id }) => id),
                     image: item.image.id,
-                    published_at: item.published_at,
-                    // meta: item.meta
-                });
+                    published_at: item.published_at
+                };
 
-                // this.$mediaManager.setActiveMedia([item.image]);
+                this.$mediaManager.setActiveMedia([item.image]);
             }
         },
 
@@ -144,27 +140,22 @@
 
         methods: {
             fetchTags() {
-                this.$loader.startLoading('tags');
+                this.$loader.startLoading('primary.tags');
 
                 axios.get('/api/post-tags').then(response => {
                     this.tags = response.data.data.map(({ id, name }) => {
                         return {
-                            id,
-                            name
+                            value: id,
+                            label: name
                         }
                     });
 
-                    this.$loader.stopLoading('tags');
+                    this.$loader.stopLoading('primary.tags');
                 });
             },
 
-            submit() {
-                this.form[this.method](this.action)
-                    .then(response => {
-                        this.$router.push({
-                            name: 'posts.index'
-                        });
-                    });
+            onSuccess() {
+                this.$router.push({ name: 'posts.index' });
             }
         }
     }

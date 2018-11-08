@@ -1,66 +1,54 @@
 <template>
     <form @submit.prevent="submit">
-        <errors :errors="form.errors.all()" v-if="form.errors.any()"></errors>
+        <o-errors v-if="anyErrors" :errors="errors"></o-errors>
 
-        <div class="has-border-bottom p-4">
-            <div class="columns">
-                <div class="column is-12 is-8-fullhd">
-                    <!-- Title -->
-                    <o-form-field input="name" label="Name" required>
-                        <o-input
-                            id="name"
-                            v-model="form.name"
-                            required
-                        ></o-input>
-                    </o-form-field>
-                </div>
+        <div class="p-8 border-b border-grey-light">
+            <div class="xl:w-2/3">
+                <!-- Title -->
+                <o-form-field input="name" label="Name" required>
+                    <o-input
+                        id="name"
+                        v-model="form.name"
+                        required
+                    ></o-input>
+                </o-form-field>
             </div>
         </div>
 
-        <div class="p-4">
-            <div class="field">
-                <div class="control">
-                    <button
-                        class="button is-success"
-                        :class="{ 'is-loading': form.processing }"
-                    >Save</button>
-                </div>
-            </div>
+        <div class="p-8">
+            <button
+                class="button button-green"
+                :class="{ 'loading': isProcessing }"
+            >Save</button>
         </div>
     </form>
 </template>
 
 <script>
-    import Form from 'form-backend-validation';
-    import formMixin from '../../../../mixins/form';
+    import formMixin from '@/mixins/form';
 
     export default {
         mixins: [ formMixin ],
 
         data() {
             return {
-                form: new Form({
-                    name: '',
-                }),
+                form: {
+                    name: ''
+                },
             }
         },
 
         watch: {
             item(item) {
-                this.form.populate({
+                this.form = {
                     name: item.name
-                });
+                };
             }
         },
 
         methods: {
-            submit() {
-                this.form[this.method](this.action)
-                    .then(response => {
-                        this.$router.push({
-                            name: 'posts.tags.index'
-                        });
-                    });
+            onSuccess() {
+                this.$router.push({ name: 'posts.tags.index' });
             }
         }
     }

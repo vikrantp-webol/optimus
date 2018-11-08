@@ -20,7 +20,7 @@
 
         computed: {
             uri() {
-                return '/api/users/' + this.$route.params.id;
+                return '/api/admin-users/' + this.$route.params.id;
             }
         },
 
@@ -30,12 +30,12 @@
 
         methods: {
             fetchUser() {
-                this.$loader.startLoading('user');
+                this.$loader.startLoading('primary.admin-user');
 
                 axios.get(this.uri).then(response => {
                     this.user = response.data.data;
 
-                    this.$loader.stopLoading('user');
+                    this.$loader.stopLoading('primary.admin-user');
                 });
             }
         }

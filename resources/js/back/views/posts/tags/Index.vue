@@ -1,44 +1,43 @@
 <template>
-    <div>
-        <section>
-            <table class="table is-hoverable is-fullwidth is-listing">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th class="is-narrow has-text-centered">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr :key="tag.id" v-for="tag in tags">
-                        <td>{{ tag.name }}</td>
-                        <td class="has-actions">
-                            <router-link
-                                class="icon is-medium"
-                                :to="{ name: 'posts.tags.edit', params: { id: tag.id } }"
-                            >
-                                <icon icon="pencil-alt"></icon>
-                            </router-link>
+    <section>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="narrow">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr :key="tag.id" v-for="tag in tags">
+                    <td>{{ tag.name }}</td>
+                    
+                    <td class="actions">
+                        <router-link
+                            class="icon medium"
+                            :to="{ name: 'posts.tags.edit', params: { id: tag.id } }"
+                        >
+                            <icon icon="pencil-alt"></icon>
+                        </router-link>
 
-                            <a class="icon is-medium" @click="$refs.confirm.open(tag)">
-                                <icon icon="trash-alt"></icon>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        
-        <o-confirm
+                        <a class="icon medium" @click="$refs.confirm.open(tag)">
+                            <icon icon="trash-alt"></icon>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <o-confirmation
             ref="confirm"
-            type="danger"
-            @confirm="deleteTag">
-                <template slot="confirmButtonText">Delete</template>
-                
-                <template slot-scope="tag">
-                    Are you sure you want to delete <strong>"{{ tag.name }}"</strong>
-                </template>
-        </o-confirm>
-    </div>
+            @confirm="deleteTag"
+            button-class="button-red"
+            button-text="Delete"
+        >
+            <template slot-scope="tag">
+                Are you sure you want to delete <strong>"{{ tag.name }}"</strong>
+            </template>
+        </o-confirmation>
+    </section>
 </template>
 
 <script>
@@ -55,12 +54,12 @@
 
         methods: {
             fetchTags() {
-                this.$loader.startLoading('tags');
+                this.$loader.startLoading('primary.tags');
 
                 axios.get('/api/post-tags').then(response => {
                     this.tags = response.data.data;
 
-                    this.$loader.stopLoading('tags');
+                    this.$loader.stopLoading('primary.tags');
                 });
             },
 

@@ -1,61 +1,28 @@
 <template>
-    <section class="background is-gradient login-holder p-4">
-        <transition :css="false" @leave="loginLeave">
-            <div class="login-wrap has-shadow is-primary" v-if="! isAuthenticated">
-                <div class="login-top background is-white px-5 py-6">
-                    <h1 class="title is-size-1 is-uppercase">Optimus</h1>
-                    <h2 class="subtitle is-size-6 has-text-primary">Managing your content</h2>
+    <section class="bg-gradient-login flex min-h-screen flex-col p-8">
+        <transition :css="false" @leave="slideOut">
+            <div class="w-full m-auto max-w-sm shadow-styled" v-if="! isAuthenticated">
+                <div class="text-center bg-white rounded-t px-6 py-12 md:px-12">
+                    <h1
+                        class="title text-5xl font-bold text-blue uppercase"
+                    >Optimus</h1>
+
+                    <h2 class="subtitle text-primary">
+                        <i>Managing your content</i>
+                    </h2>
                 </div>
 
-                <div class="login-bottom background is-secondary p-5">
-                    <o-errors
-                        v-if="form.errors.any()"
-                        class="mb-2"
-                        :errors="form.errors.all()"
-                    ></o-errors>
-
-                    <form @submit.prevent="submit">
-                        <div class="field mb-2">
-                            <label for="Username" class="is-hidden">Username</label>
-
-                            <div class="control">
-                                <input
-                                    type="text"
-                                    class="input input-primary"
-                                    v-model="form.username"
-                                    placeholder="Username"
-                                >
-                            </div>
-                        </div>
-
-                        <div class="field mb-2">
-                            <label for="Password" class="is-hidden">Password</label>
-
-                            <div class="control">
-                                <input
-                                    type="password"
-                                    class="input input-primary"
-                                    v-model="form.password"
-                                    placeholder="Password"
-                                >
-                            </div>
-                        </div>
-
-                        <div class="field mb-3">
-                            <div class="control">
-                                <button
-                                    type="submit"
-                                    class="button is-primary is-big is-fullwidth"
-                                    :class="{ 'is-loading': form.processing }"
-                                >Login</button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="bg-blue-dark rounded-b px-6 py-12 md:px-12">
+                    <login-form
+                        method="post"
+                        action="/api/auth/login"
+                        @login="isAuthenticated = true"
+                    ></login-form>
                 </div>
             </div>
         </transition>
 
-        <div class="login-logo pt-4">
+        <div class="text-center md:text-right pt-10">
             <optix-logo></optix-logo>
         </div>
     </section>
@@ -63,45 +30,30 @@
 
 <script>
     import Velocity from 'velocity-animate';
-    import Form from 'form-backend-validation';
-
+    import LoginForm from './partials/Form';
     import OptixLogo from './partials/OptixLogo';
 
     export default {
-        components: { OptixLogo },
+        components: {
+            LoginForm,
+            OptixLogo
+        },
 
         data() {
             return  {
-                isAuthenticated: false,
-
-                form: new Form({
-                    username: '',
-                    password: ''
-                })
+                isAuthenticated: false
             }
         },
 
         methods: {
-            submit() {
-                this.form.post('/api/auth/login').then(response => {
-                    this.$auth.setToken(response.access_token);
-                    this.$auth.setUser(response.user);
-
-                    this.isAuthenticated = this.$auth.check();
-                });
-            },
-
-            loginLeave(el, done) {
+            slideOut(el, done) {
                 Velocity(el, {
                     translateX: '-30%',
                     opacity: 0
-                },
-                {
+                }, {
                     duration: 350,
                     complete: () => {
-                        this.$router.push({
-                            name: 'home'
-                        });
+                        this.$router.push({ name: 'home' });
                     }
                 });
             }
@@ -110,45 +62,35 @@
 </script>
 
 <style lang="scss">
-    @import "../../../../sass/back/app.scss";
+    .bg-gradient-login {
+        background-image: linear-gradient(to bottom, #313542 0%, #944744 80%, #824442 100%);
+    }
 
-    .login-holder {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
+    .shadow-styled {
+        z-index: 1;
+        position: relative;
 
-        .login-wrap {
-            width: 100%;
-            margin: auto;
-            max-width: 380px;
-
-            .login-top {
-                text-align: center;
-                border-radius: $radius $radius 0 0;
-            }
-
-            .login-bottom {
-                border-radius: 0 0 $radius $radius;
-            }
+        &:after,
+        &:before {
+            z-index: -1;
+            content: '';
+            height: 20px;
+            bottom: -15px;
+            filter: blur(2px);
+            position: absolute;
+            width: calc(50% - 7px);
         }
 
-        .login-logo {
-            max-width: 80%;
-            margin-left: auto;
-            text-align: center;
-            align-self: flex-end;
+        &:before {
+            left: 5px;
+            transform: skew(-25deg);
+            background: linear-gradient(-185deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .0) 70%);
+        }
 
-            @include mobile {
-                margin-right: auto;
-            }
-
-            svg {
-                max-width: 100%;
-
-                path {
-                    fill: rgba($white, .45);
-                }
-            }
+        &:after {
+            right: 5px;
+            transform: skew(25deg);
+            background: linear-gradient(185deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .0) 70%);
         }
     }
 </style>

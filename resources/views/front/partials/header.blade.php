@@ -1,9 +1,13 @@
-<header class="header">
-    <a class="is-unselectable menu-toggle is-hidden-desktop">
-        <span class="hamburger is-slider is-active">
-            <span class="hamburger-wrap">
-                <span></span>
-            </span>
+<header>
+    <span
+        class="hamburger"
+        @click="toggleNav"
+        :class="{ 'active': navIsActive }"
+    >
+        <span class="hamburger-holder">
+            <span class="hamburger-inner"></span>
         </span>
-    </a>
+    </span>
+
+    @include('front.partials.logo')
 </header>

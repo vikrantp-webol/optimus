@@ -1,12 +1,12 @@
-@charset "utf-8";
+@charset 'UTF-8';
 
-// Setup package variables
-@import "~bulma/sass/utilities/initial-variables";
-@import "~optix-sass/variables";
-@import "~@optimuscms/ui/src/sass/variables";
+@tailwind preflight;
+@tailwind components;
 
-// Import packages
-@import "~bulma";
-@import "~optix-sass";
-@import "~@optimuscms/ui/src/sass/_all";
-@import "~@optimuscms/media-manager/src/sass/_all";
+@import 'variables';
+@import '~@optimuscms/ui/src/sass/variables';
+
+@import '~@optix/sass';
+@import '~@optimuscms/ui/src/sass/index';
+
+@tailwind utilities;

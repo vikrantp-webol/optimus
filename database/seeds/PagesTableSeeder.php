@@ -1,11 +1,11 @@
 <?php
 
 use Carbon\Carbon;
-use Optimus\Pages\Page;
+use Optimus\Pages\Models\Page;
 use App\Templates\HomeTemplate;
-use Optimus\Pages\PageTemplate;
 use Illuminate\Database\Seeder;
 use App\Templates\DefaultTemplate;
+use Optimus\Pages\Models\PageTemplate;
 
 class PagesTableSeeder extends Seeder
 {
@@ -19,13 +19,13 @@ class PagesTableSeeder extends Seeder
         $templates = [
             [ // 1
                 'name' => 'Home',
-                'component' => 'home',
+                'component_name' => 'home',
                 'handler' => HomeTemplate::class,
                 'is_selectable' => false
             ],
             [ // 2
                 'name' => 'Default',
-                'component' => 'default',
+                'component_name' => 'default',
                 'handler' => DefaultTemplate::class,
                 'is_selectable' => true
             ]
@@ -39,7 +39,7 @@ class PagesTableSeeder extends Seeder
             [ // 1
                 'title' => 'Home',
                 'slug' => null,
-                'has_fixed_slug' => true,
+                'has_fixed_uri' => true,
                 'uri' => null,
                 'parent_id' => null,
                 'template_id' => 1,
@@ -52,7 +52,7 @@ class PagesTableSeeder extends Seeder
             [ // 2
                 'title' => 'About',
                 'slug' => 'about',
-                'has_fixed_slug' => false,
+                'has_fixed_uri' => false,
                 'uri' => 'about',
                 'parent_id' => null,
                 'template_id' => 2,

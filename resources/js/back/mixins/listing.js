@@ -2,13 +2,13 @@ import moment from 'moment';
 
 export default {
     filters: {
-        formatDate(date) {
-            return moment(date).format('DD/MM/YYYY');
+        formatDate(date, format = 'DD/MM/YYYY') {
+            return moment(date).format(format);
         },
 
-        truncate(string) {
-            if (string.length > 150) {
-                return string.substring(0, 150).replace(/[^A-Za-z0-9]+$/g, '...');
+        truncate(string, length = 150) {
+            if (string.length > length) {
+                return string.substring(0, length).replace(/[^A-Za-z0-9]+$/g, '...');
             }
             
             return string;
@@ -17,50 +17,70 @@ export default {
 
     data() {
         return {
-            isLoading: false,
-            allowedQueryParams: []
+            filters: {},
+            initialFilters: {}
         }
     },
 
     computed: {
-        queryParams() {
-            let params = {};
+        routeQuery() {
+            return this.$route.query;
+        },
 
-            this.allowedQueryParams.forEach(param => {
-                if (this.hasQueryParam(param)) {
-                    params[param] = this.getQueryParam(param);
+        query() {
+            let query = {};
+
+            Object.keys(this.filters).forEach(key => {
+                if (this.routeQuery[key]) {
+                    query[key] = this.routeQuery[key];
                 }
             });
 
-            return params;
-        },
-
-        currentRoute() {
-            return this.$route;
+            return query;
         }
     },
 
+    watch: {
+        query(query) {
+            this.setFilters(query);
+            this.onFilter(query);
+        },
+
+        filters: {
+            handler(filters) {
+                let query = {};
+
+                Object.keys(filters).forEach(key => {
+                    if (filters[key]) {
+                        query[key] = filters[key];
+                    }
+                });
+
+                this.$router.push({ query });
+            },
+            deep: true
+        }
+    },
+
+    created() {
+        this.initialFilters = Object.assign({}, this.filters);
+        
+        this.setFilters(this.query);
+    },
+
     methods: {
-        hasQueryParam(query) {
-            return this.currentRoute.query.hasOwnProperty(query);
-        },
-
-        getQueryParam(query) {
-            return this.hasQueryParam(query) ? this.currentRoute.query[query] : null;
-        },
-
-        setQueryParam(key, value = null) {
-            let queryParams = Object.assign({}, this.currentRoute.query);
-            
-            if (value) {
-                queryParams[key] = value;
-            } else {
-                delete queryParams[key];
-            }
-
-            this.$router.push({
-                query: queryParams
+        setFilters(query) {
+            Object.keys(this.filters).forEach(key => {
+                if (query.hasOwnProperty(key) && query[key]) {
+                    this.filters[key] = query[key];
+                } else {
+                    this.filters[key] = this.initialFilters[key];
+                }
             });
+        },
+
+        onFilter(query) {
+            //
         }
     }
 };

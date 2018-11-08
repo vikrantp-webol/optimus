@@ -2,27 +2,23 @@
 
 namespace App\Templates;
 
-use Optimus\Pages\Page;
-use Illuminate\Support\Collection;
-use Optimus\Pages\Contracts\Template;
+use Illuminate\Http\Request;
+use Optimus\Pages\Models\Page;
+use Optimus\Pages\TemplateContract;
 
-class DefaultTemplate implements Template
+class DefaultTemplate implements TemplateContract
 {
-    public function validationRules(Page $page = null)
+    public function validate(Request $request)
     {
-        return [
-            'content' => 'required',
-            'images' => 'array',
-            'images.*' => 'exists:media,id'
-        ];
+        $request->validate([
+            'content' => 'required'
+        ]);
     }
 
-    public function saveContents(Page $page, Collection $contents)
+    public function save(Page $page, Request $request)
     {
         $page->addContents([
-            'content' => $contents->get('content'),
+            'content' => $request->input('content'),
         ]);
-
-        $page->attachMedia($contents->get('images', []), 'images', ['1000w']);
     }
 }

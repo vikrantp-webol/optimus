@@ -11,8 +11,9 @@ let routes = [
         path: '/pages',
         component: Dashboard,
         meta: {
-            requiresAuth: true,
-            subNav: SubNav
+            area: 'pages',
+            subNav: SubNav,
+            requiresAuth: true
         },
 
         children: [
