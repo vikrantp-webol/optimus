@@ -18,8 +18,8 @@
     },
     "devDependencies": {
         "@optimuscms/editor": "^2.2.0",
-        "@optimuscms/media-manager": "^1.2.1",
-        "@optimuscms/ui": "^1.2.3",
+        "@optimuscms/media-manager": "^1.2.2",
+        "@optimuscms/ui": "^1.2.5",
         "@optix/vue-auth": "^1.0.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",

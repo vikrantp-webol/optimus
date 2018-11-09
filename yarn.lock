@@ -34,9 +34,9 @@
   dependencies:
     "@tinymce/tinymce-vue" "^1.1.0"
 
-"@optimuscms/media-manager@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.2.1.tgz#e4f733a056cd51f795c0575518cfde8f46a9bb1f"
+"@optimuscms/media-manager@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.2.2.tgz#c1e6c2d2c215808c76cb8a3b3afabe4c80a8363e"
   dependencies:
     "@optimuscms/ui" "1.2.*"
     vuex "^3.0.1"
@@ -45,9 +45,9 @@
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@optimuscms/ui/-/ui-1.2.1.tgz#5f6d91c1b0181a800c366ea01476ddf8403eaf45"
 
-"@optimuscms/ui@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@optimuscms/ui/-/ui-1.2.3.tgz#5e87f66c4417681ebd19922baa695fae4dbbe2c3"
+"@optimuscms/ui@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@optimuscms/ui/-/ui-1.2.5.tgz#adab278e670fe7f3cfb9155f843918878287ddd7"
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
@@ -349,7 +349,7 @@ aws4@^1.6.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
-"axios@>=0.15 <1.0", axios@^0.18:
+axios@^0.18:
   version "0.18.0"
   resolved "http://registry.npmjs.org/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
   dependencies:
@@ -2317,14 +2317,6 @@ for-own@^1.0.0:
 forever-agent@~0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
-
-form-backend-validation@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/form-backend-validation/-/form-backend-validation-2.3.3.tgz#1ed31e95ad031c68921bfe15c947ad5eb93b9600"
-  dependencies:
-    prettier "^1.10.2"
-  optionalDependencies:
-    axios ">=0.15 <1.0"
 
 form-data@~2.3.1:
   version "2.3.2"
@@ -4569,7 +4561,7 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier@^1.10.2, prettier@^1.7.0:
+prettier@^1.7.0:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.14.2.tgz#0ac1c6e1a90baa22a62925f41963c841983282f9"
 

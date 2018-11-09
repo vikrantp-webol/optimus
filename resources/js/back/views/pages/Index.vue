@@ -49,7 +49,7 @@
 </template>
 
 <script>
-    import listingMixin from '../../mixins/listing';
+    import listingMixin from '@/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

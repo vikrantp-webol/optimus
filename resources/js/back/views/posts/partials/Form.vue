@@ -4,84 +4,61 @@
 
         <div class="p-8 border-b border-grey-light">
             <div class="xl:w-2/3">
-                <tabs>
-                    <tab name="General">
-                        <!-- Title -->
-                        <o-form-field input="title" label="Title" required>
-                            <o-input
-                                id="title"
-                                v-model="form.title"
-                                required
-                            ></o-input>
-                        </o-form-field>
+                <!-- Title -->
+                <o-form-field input="title" label="Title" required>
+                    <o-input
+                        id="title"
+                        v-model="form.title"
+                        required
+                    ></o-input>
+                </o-form-field>
 
-                        <!-- Tags -->
-                        <o-form-field input="tags" label="Categories" v-if="tags.length" required>
-                            <o-multi-select
-                                id="tags"
-                                v-model="form.tags"
-                                :options="tags"
-                                required
-                            ></o-multi-select>
-                        </o-form-field>
+                <!-- Tags -->
+                <o-form-field input="tags" label="Categories" v-if="tags.length" required>
+                    <o-multi-select
+                        id="tags"
+                        v-model="form.tags"
+                        :options="tags"
+                        required
+                    ></o-multi-select>
+                </o-form-field>
 
-                        <!-- Excerpt -->
-                        <o-form-field input="excerpt" label="Excerpt" required>
-                            <o-input
-                                id="excerpt"
-                                type="textarea"
-                                v-model="form.excerpt"
-                                required
-                            ></o-input>
-                        </o-form-field>
-                            
-                        <!-- Body -->
-                        <o-form-field input="body" label="Body" required>
-                            <editor v-model="form.body"></editor>
-                        </o-form-field>
+                <!-- Excerpt -->
+                <o-form-field input="excerpt" label="Excerpt" required>
+                    <o-input
+                        id="excerpt"
+                        type="textarea"
+                        v-model="form.excerpt"
+                        required
+                    ></o-input>
+                </o-form-field>
+                    
+                <!-- Body -->
+                <o-form-field input="body" label="Body" required>
+                    <editor v-model="form.body"></editor>
+                </o-form-field>
 
-                        <!-- Published at -->
-                        <o-form-field input="published_at" label="Published at" required>
-                            <o-date-picker
-                                id="published_at"
-                                v-model="form.published_at"
-                                required
-                            ></o-date-picker>
-                        </o-form-field>
+                <!-- Published at -->
+                <o-form-field input="published_at" label="Published at" required>
+                    <o-date-picker
+                        id="published_at"
+                        v-model="form.published_at"
+                        required
+                    ></o-date-picker>
+                </o-form-field>
 
-                        <!-- Image -->
-                        <o-form-field input="image" label="Image" required>
-                            <media-picker
-                                :limit="1"
-                                v-model="form.image"
-                                preview
-                            >
-                                <template slot="help">
-                                    This image will be resized to 1000x500px
-                                </template>
-                            </media-picker>
-                        </o-form-field>
-                    </tab>
-
-                    <tab name="Meta">
-                        <!-- Meta title -->
-                        <o-form-field input="meta_title" label="Meta title">
-                            <o-input
-                                id="meta_title"
-                                v-model="form.meta.title"
-                            ></o-input>
-                        </o-form-field>
-
-                        <!-- Meta description -->
-                        <o-form-field input="meta_description" label="Meta description">
-                            <o-input
-                                id="meta_description"
-                                type="textarea"
-                                v-model="form.meta.description"
-                            ></o-input>
-                        </o-form-field>
-                    </tab>
-                </tabs>
+                <!-- Image -->
+                <o-form-field input="image" label="Image" required>
+                    <media-picker
+                        :limit="1"
+                        v-model="form.image"
+                        preview
+                    >
+                        <template slot="help">
+                            This image will be resized to 1000x500px
+                        </template>
+                    </media-picker>
+                </o-form-field>
             </div>
         </div>
 
@@ -95,7 +72,7 @@
 </template>
 
 <script>
-    import formMixin from '../../../mixins/form';
+    import formMixin from '@/mixins/form';
 
     export default {
         mixins: [ formMixin ],
