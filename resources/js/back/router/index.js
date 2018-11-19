@@ -10,6 +10,13 @@ import postRoutes from './groups/posts';
 import userRoutes from './groups/users';
 
 const router = new VueRouter({
+    base: '/admin',
+    mode: 'history',
+
+    scrollBehavior() {
+        return { x: 0, y: 0 };
+    },
+    
     routes: [
         {
             path: '/',
