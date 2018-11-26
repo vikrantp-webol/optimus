@@ -1,5 +1,16 @@
 <template>
-    <section>
+    <div>
+        <section class="p-8" v-if="! pages.length">
+            <o-notification class="bg-blue-lightest rounded">
+                You haven't added any pages yet,
+
+                <router-link
+                    :to="{ name: 'pages.create' }"
+                    class="underline"
+                >click here to add one</router-link>.
+            </o-notification>
+        </section>
+
         <table class="table">
             <thead>
                 <tr>
@@ -12,13 +23,19 @@
 
             <transition name="fade">
                 <tbody v-show="! $loader.isLoading('secondary.*')">
-                    <tr :key="page.id" v-for="page in pages" :class="{ 'draft': ! page.is_published }">
+                    <tr
+                        :key="page.id"
+                        v-for="page in pages"
+                        :class="{ 'draft': ! page.is_published }"
+                    >
                         <td>{{ page.title }}</td>
 
                         <td>/{{ page.uri }}</td>
 
                         <td>
-                            <a @click="filters.parent = page.id">Sub pages ({{ page.children_count }})</a>
+                            <a @click="filters.parent = page.id">
+                                Sub pages ({{ page.children_count }})
+                            </a>
                         </td>
                         
                         <td class="actions">
@@ -45,7 +62,7 @@
                 Are you sure you want to delete <strong>"{{ page.title }}"</strong>
             </template>
         </o-confirmation>
-    </section>
+    </div>
 </template>
 
 <script>

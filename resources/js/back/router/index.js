@@ -5,9 +5,9 @@ import store from '@/store';
 
 // Routes
 import authRoutes from './groups/auth';
-import pageRoutes from './groups/pages';
-import postRoutes from './groups/posts';
-import userRoutes from './groups/users';
+import pageRoutes from './groups/page';
+import postRoutes from './groups/post';
+import userRoutes from './groups/user';
 
 const router = new VueRouter({
     base: '/admin',

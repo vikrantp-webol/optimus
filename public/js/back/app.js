@@ -39689,9 +39689,9 @@ exports.svgPathData = svgPathData;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_router__ = __webpack_require__(218);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store__ = __webpack_require__(38);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__groups_auth__ = __webpack_require__(220);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__groups_pages__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__groups_posts__ = __webpack_require__(258);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__groups_users__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__groups_page__ = __webpack_require__(573);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__groups_post__ = __webpack_require__(574);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__groups_user__ = __webpack_require__(575);
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 
@@ -39706,11 +39706,19 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]);
 
 
 var router = new __WEBPACK_IMPORTED_MODULE_0_vue_router__["a" /* default */]({
+    base: '/admin',
+    mode: 'history',
+
+    scrollBehavior: function scrollBehavior() {
+        return { x: 0, y: 0 };
+    },
+
+
     routes: [{
         path: '/',
         name: 'home',
         redirect: { name: 'pages.index' }
-    }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__groups_auth__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__groups_pages__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_4__groups_posts__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_5__groups_users__["a" /* default */]))
+    }].concat(_toConsumableArray(__WEBPACK_IMPORTED_MODULE_2__groups_auth__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_3__groups_page__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_4__groups_post__["a" /* default */]), _toConsumableArray(__WEBPACK_IMPORTED_MODULE_5__groups_user__["a" /* default */]))
 });
 
 var isRefreshing = false;
@@ -42488,10 +42496,14 @@ var mutations = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_auth_Login__ = __webpack_require__(221);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_auth_Login___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_auth_Login__);
+
+
 var routes = [{
     path: '/login',
     name: 'login',
-    component: __webpack_require__(221),
+    component: __WEBPACK_IMPORTED_MODULE_0__views_auth_Login___default.a,
     meta: { requiresGuest: true }
 }];
 
@@ -43095,58 +43107,7 @@ if (false) {
 }
 
 /***/ }),
-/* 232 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_pages_Index__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_pages_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_pages_Index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_pages_Create__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_pages_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_pages_Create__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit__ = __webpack_require__(255);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_pages_Edit__);
-
-
-
-// Page components
-
-
-
-
-var routes = [{
-    path: '/pages',
-    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
-    meta: {
-        area: 'pages',
-        subNav: __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav___default.a,
-        requiresAuth: true
-    },
-
-    children: [{
-        path: '',
-        name: 'pages.index',
-        component: __WEBPACK_IMPORTED_MODULE_2__views_pages_Index___default.a,
-        meta: { title: 'Pages' }
-    }, {
-        path: 'create',
-        name: 'pages.create',
-        component: __WEBPACK_IMPORTED_MODULE_3__views_pages_Create___default.a,
-        meta: { title: 'Create page' }
-    }, {
-        path: ':id/edit',
-        name: 'pages.edit',
-        component: __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit___default.a,
-        meta: { title: 'Edit page' }
-    }]
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (routes);
-
-/***/ }),
+/* 232 */,
 /* 233 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -43595,6 +43556,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -43936,8 +43914,37 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "section",
+    "div",
     [
+      !_vm.pages.length
+        ? _c(
+            "section",
+            { staticClass: "p-8" },
+            [
+              _c(
+                "o-notification",
+                { staticClass: "bg-blue-lightest rounded" },
+                [
+                  _vm._v(
+                    "\n            You haven't added any pages yet,\n\n            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "underline",
+                      attrs: { to: { name: "pages.create" } }
+                    },
+                    [_vm._v("click here to add one")]
+                  ),
+                  _vm._v(".\n        ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "table",
         { staticClass: "table" },
@@ -43978,7 +43985,9 @@ var render = function() {
                         },
                         [
                           _vm._v(
-                            "Sub pages (" + _vm._s(page.children_count) + ")"
+                            "\n                            Sub pages (" +
+                              _vm._s(page.children_count) +
+                              ")\n                        "
                           )
                         ]
                       )
@@ -45092,83 +45101,7 @@ if (false) {
 }
 
 /***/ }),
-/* 258 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav__ = __webpack_require__(259);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_posts_Index__ = __webpack_require__(262);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_posts_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_posts_Index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_posts_Create__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_posts_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_posts_Create__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_posts_Edit__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit__ = __webpack_require__(281);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit__);
-
-
-
-// Post components
-
-
-
-
-
-
-
-
-var routes = [{
-    path: '/posts',
-    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
-    meta: {
-        area: 'posts',
-        subNav: __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav___default.a,
-        requiresAuth: true
-    },
-
-    children: [{
-        path: '',
-        name: 'posts.index',
-        component: __WEBPACK_IMPORTED_MODULE_2__views_posts_Index___default.a,
-        meta: { title: 'News' }
-    }, {
-        path: 'create',
-        name: 'posts.create',
-        component: __WEBPACK_IMPORTED_MODULE_3__views_posts_Create___default.a,
-        meta: { title: 'Add news article' }
-    }, {
-        path: ':id/edit',
-        name: 'posts.edit',
-        component: __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit___default.a,
-        meta: { title: 'Edit news article' }
-    }, {
-        path: 'tags',
-        name: 'posts.tags.index',
-        component: __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index___default.a,
-        meta: { title: 'News categories' }
-    }, {
-        path: 'tags/create',
-        name: 'posts.tags.create',
-        component: __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create___default.a,
-        meta: { title: 'Add news category' }
-    }, {
-        path: 'tags/:id/edit',
-        name: 'posts.tags.edit',
-        component: __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit___default.a,
-        meta: { title: 'Edit news category' }
-    }]
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (routes);
-
-/***/ }),
+/* 258 */,
 /* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45464,6 +45397,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -45560,166 +45506,203 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "section",
-        { staticClass: "p-8 flex justify-between border-b border-grey-light" },
-        [
-          _c("o-search", {
-            attrs: { value: _vm.filters.title },
-            on: {
-              submit: function(value) {
-                return (_vm.filters.title = value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("o-dropdown", {
-            staticClass: "right",
-            attrs: { options: _vm.tags, placeholder: "All categories" },
-            model: {
-              value: _vm.filters.tag,
-              callback: function($$v) {
-                _vm.$set(_vm.filters, "tag", $$v)
-              },
-              expression: "filters.tag"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "table" },
-        [
-          _c("thead", [
+      !_vm.posts.length
+        ? _c(
+            "section",
+            { staticClass: "p-8" },
+            [
+              _c(
+                "o-notification",
+                { staticClass: "bg-blue-lightest rounded" },
+                [
+                  _vm._v(
+                    "\n            You haven't added any news articles yet,\n\n            "
+                  ),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "underline",
+                      attrs: { to: { name: "posts.create" } }
+                    },
+                    [_vm._v("click here to add one")]
+                  ),
+                  _vm._v(".\n        ")
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : [
             _c(
-              "tr",
+              "section",
+              {
+                staticClass:
+                  "p-8 flex justify-between border-b border-grey-light"
+              },
               [
-                _c(
-                  "o-th-sort",
-                  {
-                    attrs: { column: "title" },
-                    model: {
-                      value: _vm.filters.sort,
-                      callback: function($$v) {
-                        _vm.$set(_vm.filters, "sort", $$v)
-                      },
-                      expression: "filters.sort"
+                _c("o-search", {
+                  attrs: { value: _vm.filters.title },
+                  on: {
+                    submit: function(value) {
+                      return (_vm.filters.title = value)
                     }
-                  },
-                  [_vm._v("Title")]
-                ),
+                  }
+                }),
                 _vm._v(" "),
-                _c("th", [_vm._v("Categories")]),
-                _vm._v(" "),
-                _c(
-                  "o-th-sort",
-                  {
-                    attrs: { column: "published_at" },
-                    model: {
-                      value: _vm.filters.sort,
-                      callback: function($$v) {
-                        _vm.$set(_vm.filters, "sort", $$v)
-                      },
-                      expression: "filters.sort"
-                    }
-                  },
-                  [_vm._v("Publish Date")]
-                ),
-                _vm._v(" "),
-                _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
+                _c("o-dropdown", {
+                  staticClass: "right",
+                  attrs: { options: _vm.tags, placeholder: "All categories" },
+                  model: {
+                    value: _vm.filters.tag,
+                    callback: function($$v) {
+                      _vm.$set(_vm.filters, "tag", $$v)
+                    },
+                    expression: "filters.tag"
+                  }
+                })
               ],
               1
-            )
-          ]),
-          _vm._v(" "),
-          _c("transition", { attrs: { name: "fade" } }, [
+            ),
+            _vm._v(" "),
             _c(
-              "tbody",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: !_vm.$loader.isLoading("secondary.*"),
-                    expression: "! $loader.isLoading('secondary.*')"
-                  }
-                ]
-              },
-              _vm._l(_vm.posts, function(post) {
-                return _c("tr", { key: post.id }, [
-                  _c("td", [_vm._v(_vm._s(post.title))]),
-                  _vm._v(" "),
+              "table",
+              { staticClass: "table" },
+              [
+                _c("thead", [
                   _c(
-                    "td",
-                    [
-                      _vm._l(post.tags, function(tag, index) {
-                        return [
-                          _c(
-                            "a",
-                            {
-                              key: tag.id,
-                              on: {
-                                click: function($event) {
-                                  _vm.filterPosts("tag", tag.slug)
-                                }
-                              }
-                            },
-                            [_vm._v(_vm._s(tag.name))]
-                          ),
-                          index != post.tags.length - 1
-                            ? [_vm._v(",")]
-                            : _vm._e()
-                        ]
-                      })
-                    ],
-                    2
-                  ),
-                  _vm._v(" "),
-                  _c("td", [
-                    _vm._v(_vm._s(_vm._f("formatDate")(post.published_at)))
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "td",
-                    { staticClass: "actions" },
+                    "tr",
                     [
                       _c(
-                        "router-link",
+                        "o-th-sort",
                         {
-                          staticClass: "icon medium",
-                          attrs: {
-                            to: { name: "posts.edit", params: { id: post.id } }
+                          attrs: { column: "title" },
+                          model: {
+                            value: _vm.filters.sort,
+                            callback: function($$v) {
+                              _vm.$set(_vm.filters, "sort", $$v)
+                            },
+                            expression: "filters.sort"
                           }
                         },
-                        [_c("icon", { attrs: { icon: "pencil-alt" } })],
-                        1
+                        [_vm._v("Title")]
                       ),
                       _vm._v(" "),
+                      _c("th", [_vm._v("Categories")]),
+                      _vm._v(" "),
                       _c(
-                        "a",
+                        "o-th-sort",
                         {
-                          staticClass: "icon medium",
-                          on: {
-                            click: function($event) {
-                              _vm.$refs.confirm.open(post)
-                            }
+                          attrs: { column: "published_at" },
+                          model: {
+                            value: _vm.filters.sort,
+                            callback: function($$v) {
+                              _vm.$set(_vm.filters, "sort", $$v)
+                            },
+                            expression: "filters.sort"
                           }
                         },
-                        [_c("icon", { attrs: { icon: "trash-alt" } })],
-                        1
-                      )
+                        [_vm._v("Publish Date")]
+                      ),
+                      _vm._v(" "),
+                      _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
                     ],
                     1
                   )
+                ]),
+                _vm._v(" "),
+                _c("transition", { attrs: { name: "fade" } }, [
+                  _c(
+                    "tbody",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.$loader.isLoading("secondary.*"),
+                          expression: "! $loader.isLoading('secondary.*')"
+                        }
+                      ]
+                    },
+                    _vm._l(_vm.posts, function(post) {
+                      return _c("tr", { key: post.id }, [
+                        _c("td", [_vm._v(_vm._s(post.title))]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _vm._l(post.tags, function(tag, index) {
+                              return [
+                                _c(
+                                  "a",
+                                  {
+                                    key: tag.id,
+                                    on: {
+                                      click: function($event) {
+                                        _vm.filterPosts("tag", tag.slug)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(tag.name))]
+                                ),
+                                index != post.tags.length - 1
+                                  ? [_vm._v(",")]
+                                  : _vm._e()
+                              ]
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(_vm._f("formatDate")(post.published_at))
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "actions" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "icon medium",
+                                attrs: {
+                                  to: {
+                                    name: "posts.edit",
+                                    params: { id: post.id }
+                                  }
+                                }
+                              },
+                              [_c("icon", { attrs: { icon: "pencil-alt" } })],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "icon medium",
+                                on: {
+                                  click: function($event) {
+                                    _vm.$refs.confirm.open(post)
+                                  }
+                                }
+                              },
+                              [_c("icon", { attrs: { icon: "trash-alt" } })],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    })
+                  )
                 ])
-              })
+              ],
+              1
             )
-          ])
-        ],
-        1
-      ),
+          ],
       _vm._v(" "),
       _c("transition", { attrs: { name: "fade" } }, [
         _vm.pagination
@@ -45768,7 +45751,7 @@ var render = function() {
         ])
       })
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -46915,58 +46898,7 @@ if (false) {
 }
 
 /***/ }),
-/* 284 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_users_Index__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_users_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_users_Index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_users_Create__ = __webpack_require__(291);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_users_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_users_Create__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_users_Edit__ = __webpack_require__(296);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_users_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_users_Edit__);
-
-
-
-// User components
-
-
-
-
-var routes = [{
-    path: '/users',
-    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
-    meta: {
-        area: 'users',
-        subNav: __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav___default.a,
-        requiresAuth: true
-    },
-
-    children: [{
-        path: '',
-        name: 'users.index',
-        component: __WEBPACK_IMPORTED_MODULE_2__views_users_Index___default.a,
-        meta: { title: 'Users' }
-    }, {
-        path: 'create',
-        name: 'users.create',
-        component: __WEBPACK_IMPORTED_MODULE_3__views_users_Create___default.a,
-        meta: { title: 'Add user' }
-    }, {
-        path: ':id/edit',
-        name: 'users.edit',
-        component: __WEBPACK_IMPORTED_MODULE_4__views_users_Edit___default.a,
-        meta: { title: 'Edit user' }
-    }]
-}];
-
-/* harmony default export */ __webpack_exports__["a"] = (routes);
-
-/***/ }),
+/* 284 */,
 /* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49710,7 +49642,7 @@ var render = function() {
   return _c("transition", { attrs: { name: "notification" } }, [
     _c(
       "div",
-      { staticClass: "px-6 py-4" },
+      { staticClass: "p-6" },
       [
         _vm.closeable
           ? _c("a", {
@@ -53397,12 +53329,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         optionValue: {
             type: String,
-            default: 'id'
+            default: 'value'
         },
 
         optionLabel: {
             type: String,
-            default: 'name'
+            default: 'label'
         }
     },
 
@@ -53459,8 +53391,8 @@ var render = function() {
       _c("vue-select", {
         attrs: {
           value: _vm.newValue,
-          options: _vm.options.map(function(category) {
-            return category[this$1.optionValue]
+          options: _vm.options.map(function(option) {
+            return option[this$1.optionValue]
           }),
           multiple: true,
           "custom-label": _vm.label
@@ -64238,6 +64170,187 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 570 */,
+/* 571 */,
+/* 572 */,
+/* 573 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_pages_Index__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_pages_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_pages_Index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_pages_Create__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_pages_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_pages_Create__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_pages_Edit__);
+
+
+
+
+
+
+
+var routes = [{
+    path: '/pages',
+    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
+    meta: {
+        area: 'pages',
+        subNav: __WEBPACK_IMPORTED_MODULE_1__views_pages_partials_Nav___default.a,
+        requiresAuth: true
+    },
+
+    children: [{
+        path: '',
+        name: 'pages.index',
+        component: __WEBPACK_IMPORTED_MODULE_2__views_pages_Index___default.a,
+        meta: { title: 'Pages' }
+    }, {
+        path: 'create',
+        name: 'pages.create',
+        component: __WEBPACK_IMPORTED_MODULE_3__views_pages_Create___default.a,
+        meta: { title: 'Create page' }
+    }, {
+        path: ':id/edit',
+        name: 'pages.edit',
+        component: __WEBPACK_IMPORTED_MODULE_4__views_pages_Edit___default.a,
+        meta: { title: 'Edit page' }
+    }]
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (routes);
+
+/***/ }),
+/* 574 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_posts_Index__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_posts_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_posts_Index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_posts_Create__ = __webpack_require__(265);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_posts_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_posts_Create__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_posts_Edit__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit__ = __webpack_require__(281);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit__);
+
+
+
+
+
+
+
+
+
+
+
+var routes = [{
+    path: '/posts',
+    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
+    meta: {
+        area: 'posts',
+        subNav: __WEBPACK_IMPORTED_MODULE_1__views_posts_partials_Nav___default.a,
+        requiresAuth: true
+    },
+
+    children: [{
+        path: '',
+        name: 'posts.index',
+        component: __WEBPACK_IMPORTED_MODULE_2__views_posts_Index___default.a,
+        meta: { title: 'News' }
+    }, {
+        path: 'create',
+        name: 'posts.create',
+        component: __WEBPACK_IMPORTED_MODULE_3__views_posts_Create___default.a,
+        meta: { title: 'Add news article' }
+    }, {
+        path: ':id/edit',
+        name: 'posts.edit',
+        component: __WEBPACK_IMPORTED_MODULE_4__views_posts_Edit___default.a,
+        meta: { title: 'Edit news article' }
+    }, {
+        path: 'tags',
+        name: 'posts.tags.index',
+        component: __WEBPACK_IMPORTED_MODULE_5__views_posts_tags_Index___default.a,
+        meta: { title: 'News categories' }
+    }, {
+        path: 'tags/create',
+        name: 'posts.tags.create',
+        component: __WEBPACK_IMPORTED_MODULE_6__views_posts_tags_Create___default.a,
+        meta: { title: 'Add news category' }
+    }, {
+        path: 'tags/:id/edit',
+        name: 'posts.tags.edit',
+        component: __WEBPACK_IMPORTED_MODULE_7__views_posts_tags_Edit___default.a,
+        meta: { title: 'Edit news category' }
+    }]
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (routes);
+
+/***/ }),
+/* 575 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_users_Index__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_users_Index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_users_Index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_users_Create__ = __webpack_require__(291);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_users_Create___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_users_Create__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_users_Edit__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_users_Edit___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_users_Edit__);
+
+
+
+
+
+
+
+var routes = [{
+    path: '/users',
+    component: __WEBPACK_IMPORTED_MODULE_0__views_layouts_Dashboard___default.a,
+    meta: {
+        area: 'users',
+        subNav: __WEBPACK_IMPORTED_MODULE_1__views_users_partials_Nav___default.a,
+        requiresAuth: true
+    },
+
+    children: [{
+        path: '',
+        name: 'users.index',
+        component: __WEBPACK_IMPORTED_MODULE_2__views_users_Index___default.a,
+        meta: { title: 'Users' }
+    }, {
+        path: 'create',
+        name: 'users.create',
+        component: __WEBPACK_IMPORTED_MODULE_3__views_users_Create___default.a,
+        meta: { title: 'Add user' }
+    }, {
+        path: ':id/edit',
+        name: 'users.edit',
+        component: __WEBPACK_IMPORTED_MODULE_4__views_users_Edit___default.a,
+        meta: { title: 'Edit user' }
+    }]
+}];
+
+/* harmony default export */ __webpack_exports__["a"] = (routes);
 
 /***/ })
 /******/ ]);

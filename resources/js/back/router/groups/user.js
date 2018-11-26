@@ -1,10 +1,9 @@
-import Dashboard from '../../views/layouts/Dashboard';
-import SubNav from '../../views/users/partials/Nav';
+import Dashboard from '@/views/layouts/Dashboard';
+import SubNav from '@/views/users/partials/Nav';
 
-// User components
-import UserIndex from '../../views/users/Index';
-import UserCreate from '../../views/users/Create';
-import UserEdit from '../../views/users/Edit';
+import UserIndex from '@/views/users/Index';
+import UserCreate from '@/views/users/Create';
+import UserEdit from '@/views/users/Edit';
 
 let routes = [
     {

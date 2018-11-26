@@ -1,14 +1,13 @@
-import Dashboard from '../../views/layouts/Dashboard';
-import SubNav from '../../views/posts/partials/Nav';
+import Dashboard from '@/views/layouts/Dashboard';
+import SubNav from '@/views/posts/partials/Nav';
 
-// Post components
-import PostIndex from '../../views/posts/Index';
-import PostCreate from '../../views/posts/Create';
-import PostEdit from '../../views/posts/Edit';
+import PostIndex from '@/views/posts/Index';
+import PostCreate from '@/views/posts/Create';
+import PostEdit from '@/views/posts/Edit';
 
-import TagIndex from '../../views/posts/tags/Index';
-import TagCreate from '../../views/posts/tags/Create';
-import TagEdit from '../../views/posts/tags/Edit';
+import TagIndex from '@/views/posts/tags/Index';
+import TagCreate from '@/views/posts/tags/Create';
+import TagEdit from '@/views/posts/tags/Edit';
 
 let routes = [
     {

@@ -1,8 +1,10 @@
+import Login from '@/views/auth/Login';
+
 let routes = [
     {
         path: '/login',
         name: 'login',
-        component: require('../../views/auth/Login'),
+        component: Login,
         meta: { requiresGuest: true }
     }
 ];

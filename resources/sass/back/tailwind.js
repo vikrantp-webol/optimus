@@ -66,13 +66,15 @@ let colors = {
 
   'green': '#38c172', // used
 
+  'yellow': '#ffed4a', // used
+
   'blue-darkest': '#1D2023', // used
   'blue-darker': '#292C35', // used
   'blue-dark': '#282C37', // used
   'blue': '#313542', // used
   'blue-light': '#596679', // used
   'blue-lighter': '#a5aEba', // used
-  'blue-lightest': '#eff8ff'
+  'blue-lightest': '#d9eeff' // used
 }
 
 module.exports = {
