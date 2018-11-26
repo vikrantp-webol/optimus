@@ -11,7 +11,7 @@
             </o-notification>
         </section>
 
-        <table class="table">
+        <table class="table" v-else>
             <thead>
                 <tr>
                     <th>Title</th>

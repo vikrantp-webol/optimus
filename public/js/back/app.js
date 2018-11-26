@@ -43943,101 +43943,101 @@ var render = function() {
             ],
             1
           )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "table",
-        { staticClass: "table" },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("transition", { attrs: { name: "fade" } }, [
-            _c(
-              "tbody",
-              {
-                directives: [
+        : _c(
+            "table",
+            { staticClass: "table" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "fade" } }, [
+                _c(
+                  "tbody",
                   {
-                    name: "show",
-                    rawName: "v-show",
-                    value: !_vm.$loader.isLoading("secondary.*"),
-                    expression: "! $loader.isLoading('secondary.*')"
-                  }
-                ]
-              },
-              _vm._l(_vm.pages, function(page) {
-                return _c(
-                  "tr",
-                  { key: page.id, class: { draft: !page.is_published } },
-                  [
-                    _c("td", [_vm._v(_vm._s(page.title))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("/" + _vm._s(page.uri))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c(
-                        "a",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.filters.parent = page.id
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Sub pages (" +
-                              _vm._s(page.children_count) +
-                              ")\n                        "
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      { staticClass: "actions" },
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.$loader.isLoading("secondary.*"),
+                        expression: "! $loader.isLoading('secondary.*')"
+                      }
+                    ]
+                  },
+                  _vm._l(_vm.pages, function(page) {
+                    return _c(
+                      "tr",
+                      { key: page.id, class: { draft: !page.is_published } },
                       [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "icon medium",
-                            attrs: {
-                              to: {
-                                name: "pages.edit",
-                                params: { id: page.id }
-                              }
-                            }
-                          },
-                          [_c("icon", { attrs: { icon: "pencil-alt" } })],
-                          1
-                        ),
+                        _c("td", [_vm._v(_vm._s(page.title))]),
                         _vm._v(" "),
-                        page.is_deletable
-                          ? _c(
-                              "a",
+                        _c("td", [_vm._v("/" + _vm._s(page.uri))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  _vm.filters.parent = page.id
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                            Sub pages (" +
+                                  _vm._s(page.children_count) +
+                                  ")\n                        "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          { staticClass: "actions" },
+                          [
+                            _c(
+                              "router-link",
                               {
                                 staticClass: "icon medium",
-                                on: {
-                                  click: function($event) {
-                                    _vm.$refs.confirm.open(page)
+                                attrs: {
+                                  to: {
+                                    name: "pages.edit",
+                                    params: { id: page.id }
                                   }
                                 }
                               },
-                              [_c("icon", { attrs: { icon: "trash-alt" } })],
+                              [_c("icon", { attrs: { icon: "pencil-alt" } })],
                               1
-                            )
-                          : _vm._e()
-                      ],
-                      1
+                            ),
+                            _vm._v(" "),
+                            page.is_deletable
+                              ? _c(
+                                  "a",
+                                  {
+                                    staticClass: "icon medium",
+                                    on: {
+                                      click: function($event) {
+                                        _vm.$refs.confirm.open(page)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("icon", { attrs: { icon: "trash-alt" } })
+                                  ],
+                                  1
+                                )
+                              : _vm._e()
+                          ],
+                          1
+                        )
+                      ]
                     )
-                  ]
+                  })
                 )
-              })
-            )
-          ])
-        ],
-        1
-      ),
+              ])
+            ],
+            1
+          ),
       _vm._v(" "),
       _c("o-confirmation", {
         ref: "confirm",
