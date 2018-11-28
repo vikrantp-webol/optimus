@@ -103,7 +103,7 @@
 </template>
 
 <script>
-    import listingMixin from '@/mixins/listing';
+    import listingMixin from '@back/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import templateMixin from '@/mixins/template';
+    import templateMixin from '@back/mixins/template';
 
     export default {
         mixins: [ templateMixin ],

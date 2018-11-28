@@ -20,6 +20,6 @@ mix.js('resources/js/back/app.js', 'public/js/back')
    })
    .webpackConfig({
        resolve: {
-           alias: { '@': __dirname + '/resources/js/back' }
+           alias: { '@back': __dirname + '/resources/js/back' }
        }
    });

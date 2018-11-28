@@ -1,9 +1,9 @@
-import Dashboard from '@/views/layouts/Dashboard';
-import SubNav from '@/views/pages/partials/Nav';
+import Dashboard from '@back/views/layouts/Dashboard';
+import SubNav from '@back/views/pages/partials/Nav';
 
-import PageIndex from '@/views/pages/Index';
-import PageCreate from '@/views/pages/Create';
-import PageEdit from '@/views/pages/Edit';
+import PageIndex from '@back/views/pages/Index';
+import PageCreate from '@back/views/pages/Create';
+import PageEdit from '@back/views/pages/Edit';
 
 let routes = [
     {

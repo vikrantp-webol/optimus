@@ -56,7 +56,7 @@
 </template>
 
 <script>
-    import formMixin from '@/mixins/form';
+    import formMixin from '@back/mixins/form';
 
     export default {
         mixins: [ formMixin ],

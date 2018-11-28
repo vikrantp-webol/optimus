@@ -17,4 +17,9 @@ mix.js('resources/js/front/app.js', 'public/js/front')
    .options({
        processCssUrls: false,
        postCss: [ tailwindcss('./resources/sass/front/tailwind.js') ],
+   })
+   .webpackConfig({
+       resolve: {
+           alias: { '@front': __dirname + '/resources/js/front' }
+       }
    });
