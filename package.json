@@ -1,20 +1,12 @@
 {
     "private": true,
     "scripts": {
-        "dev:front": "npm run development:front",
-        "development:front": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch:front": "npm run development:front -- --watch",
-        "watch-poll:front": "npm run watch:front -- --watch-poll",
-        "hot:front": "cross-env process.env.section=front NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod:front": "npm run production:front",
-        "production:front": "cross-env process.env.section=front NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "dev:back": "npm run development:back",
-        "development:back": "cross-env process.env.section=back NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch:back": "npm run development:back -- --watch",
-        "watch-poll:back": "npm run watch:back -- --watch-poll",
-        "hot:back": "cross-env process.env.section=back NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod:back": "npm run production:back",
-        "production:back": "cross-env process.env.section=back NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "front-dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
+        "front-watch": "npm run front-dev -- --watch",
+        "front-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
+        "back-dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.back.mix.js",
+        "back-watch": "npm run back-dev -- --watch",
+        "back-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.back.mix.js"
     },
     "devDependencies": {
         "@optimuscms/editor": "^2.2.0",
@@ -23,12 +15,10 @@
         "@optix/vue-auth": "^1.0.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
-        "bootstrap": "^4.0.0",
         "cross-env": "^5.1",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "moment": "^2.22.2",
-        "popper.js": "^1.12",
         "vue": "^2.5.7",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"
