@@ -1,4 +1,4 @@
-import Login from '@back/views/auth/Login';
+import Login from '@js/views/auth/Login';
 
 let routes = [
     {

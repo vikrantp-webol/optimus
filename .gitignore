@@ -6,9 +6,11 @@
 /.idea
 /.vscode
 /.vagrant
+/.yalc
 Homestead.json
 Homestead.yaml
 npm-debug.log
+yalc.lock
 yarn-error.log
 .env
 .phpunit.result.cache

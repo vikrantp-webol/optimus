@@ -4,8 +4,11 @@
             <thead>
                 <tr>
                     <th>Name</th>
+
                     <th>Email</th>
+
                     <th>Username</th>
+
                     <th class="narrow">Actions</th>
                 </tr>
             </thead>
@@ -19,11 +22,21 @@
                     <td>{{ user.username }}</td>
                     
                     <td class="actions">
-                        <router-link class="icon medium" :to="{ name: 'users.edit', params: { id: user.id } }">
+                        <router-link
+                            class="icon medium"
+                            :to="{
+                                name: 'users.edit',
+                                params: { id: user.id }
+                            }"
+                        >
                             <icon icon="pencil-alt"></icon>
                         </router-link>
 
-                        <a class="icon medium" @click="$refs.confirm.open(user)">
+                        <a
+                            class="icon medium"
+                            @click="$refs.confirm.open(user)"
+                            v-if="user.username !== 'admin'"
+                        >
                             <icon icon="trash-alt"></icon>
                         </a>
                     </td>

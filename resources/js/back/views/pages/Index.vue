@@ -66,7 +66,7 @@
 </template>
 
 <script>
-    import listingMixin from '@back/mixins/listing';
+    import listingMixin from '@optimuscms/core/src/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

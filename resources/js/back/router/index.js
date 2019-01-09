@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
-import store from '@back/store';
+import store from '@js/store';
 
 // Routes
 import authRoutes from './groups/auth';

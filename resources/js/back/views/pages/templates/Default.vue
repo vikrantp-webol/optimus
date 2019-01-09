@@ -5,6 +5,15 @@
             <editor v-model="form.content"></editor>
         </o-form-field>
 
+        <!-- Testing -->
+        <o-form-field input="date" label="Date" required>
+            <o-date-picker
+                id="date"
+                :time="false"
+                v-model="form.date"
+            ></o-date-picker>
+        </o-form-field>
+
         <!-- Images -->
         <o-form-field input="images" label="Images">
             <media-picker :limit="null" v-model="form.images">
@@ -17,7 +26,7 @@
 </template>
 
 <script>
-    import templateMixin from '@back/mixins/template';
+    import templateMixin from '@js/mixins/template';
 
     export default {
         mixins: [ templateMixin ],

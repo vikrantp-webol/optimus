@@ -11,7 +11,6 @@
     "devDependencies": {
         "@optimuscms/editor": "^2.2.0",
         "@optimuscms/media-manager": "^1.2.2",
-        "@optimuscms/ui": "^1.2.5",
         "@optix/vue-auth": "^1.0.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
@@ -19,8 +18,20 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.5",
         "moment": "^2.22.2",
-        "vue": "^2.5.7",
+        "vue": "^2.5.17",
         "vue-router": "^3.0.1",
         "vuex": "^3.0.1"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.4",
+        "@fortawesome/free-regular-svg-icons": "^5.3.1",
+        "@fortawesome/free-solid-svg-icons": "^5.3.1",
+        "@fortawesome/vue-fontawesome": "^0.1.1",
+        "@optix/sass": "0.0.*",
+        "flatpickr": "^4.5.2",
+        "nprogress": "^0.2.0",
+        "tailwindcss": "^0.7.3",
+        "velocity-animate": "^1.5.1",
+        "vue-multiselect": "^2.1.3"
     }
 }

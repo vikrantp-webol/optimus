@@ -1,9 +1,8 @@
-import Dashboard from '@back/views/layouts/Dashboard';
-import SubNav from '@back/views/pages/partials/Nav';
+import Dashboard from '@js/views/layouts/Dashboard';
 
-import PageIndex from '@back/views/pages/Index';
-import PageCreate from '@back/views/pages/Create';
-import PageEdit from '@back/views/pages/Edit';
+import PageIndex from '@js/views/pages/Index';
+import PageCreate from '@js/views/pages/Create';
+import PageEdit from '@js/views/pages/Edit';
 
 let routes = [
     {
@@ -11,7 +10,6 @@ let routes = [
         component: Dashboard,
         meta: {
             area: 'pages',
-            subNav: SubNav,
             requiresAuth: true
         },
 

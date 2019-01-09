@@ -1,13 +1,12 @@
-import Dashboard from '@back/views/layouts/Dashboard';
-import SubNav from '@back/views/posts/partials/Nav';
+import Dashboard from '@js/views/layouts/Dashboard';
 
-import PostIndex from '@back/views/posts/Index';
-import PostCreate from '@back/views/posts/Create';
-import PostEdit from '@back/views/posts/Edit';
+import PostIndex from '@js/views/posts/Index';
+import PostCreate from '@js/views/posts/Create';
+import PostEdit from '@js/views/posts/Edit';
 
-import TagIndex from '@back/views/posts/tags/Index';
-import TagCreate from '@back/views/posts/tags/Create';
-import TagEdit from '@back/views/posts/tags/Edit';
+import TagIndex from '@js/views/posts/tags/Index';
+import TagCreate from '@js/views/posts/tags/Create';
+import TagEdit from '@js/views/posts/tags/Edit';
 
 let routes = [
     {
@@ -15,7 +14,6 @@ let routes = [
         component: Dashboard,
         meta: {
             area: 'posts',
-            subNav: SubNav,
             requiresAuth: true
         },
 

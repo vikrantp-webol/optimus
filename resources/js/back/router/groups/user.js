@@ -1,9 +1,8 @@
-import Dashboard from '@back/views/layouts/Dashboard';
-import SubNav from '@back/views/users/partials/Nav';
+import Dashboard from '@js/views/layouts/Dashboard';
 
-import UserIndex from '@back/views/users/Index';
-import UserCreate from '@back/views/users/Create';
-import UserEdit from '@back/views/users/Edit';
+import UserIndex from '@js/views/users/Index';
+import UserCreate from '@js/views/users/Create';
+import UserEdit from '@js/views/users/Edit';
 
 let routes = [
     {
@@ -11,7 +10,6 @@ let routes = [
         component: Dashboard,
         meta: {
             area: 'users',
-            subNav: SubNav,
             requiresAuth: true
         },
 

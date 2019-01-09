@@ -1,83 +1,67 @@
 <template>
-    <div class="bg-grey-lightest sm:flex sm:min-h-screen" :class="{ 'side-is-open': navIsOpen }">
-        <o-main-nav>
-            <ul class="list-reset">
-                <o-main-nav-item
+    <o-dashboard-layout
+        :title="meta.title"
+        @logout="logout"
+        :loading="$loader.isLoading('primary.*')"
+    >
+        <template slot="side-nav">
+            <o-side-nav-item :to="{ name: 'pages.index' }" area="pages" label="Pages">
+                <o-side-sub-nav-item
                     :to="{ name: 'pages.index' }"
-                    icon="file-alt" 
-                    :class="{ 'is-active': area === 'pages' }"
-                >Pages</o-main-nav-item>
+                >Manage Pages</o-side-sub-nav-item>
 
-                <o-main-nav-item
+                <o-side-sub-nav-item
+                    :to="{ name: 'pages.create' }"
+                >Add Page</o-side-sub-nav-item>
+            </o-side-nav-item>
+
+            <o-side-nav-item :to="{ name: 'posts.index' }" area="posts" label="News">
+                <o-side-sub-nav-item
                     :to="{ name: 'posts.index' }"
-                    :icon="['far', 'newspaper']"
-                    :class="{ 'is-active': area === 'posts' }"
-                >News</o-main-nav-item>
+                >Manage News</o-side-sub-nav-item>
 
-                <li class="nav-item">
-                    <a @click="$mediaManager.open({ limit: 0 })">
-                        <icon icon="images" size="2x"></icon>
-                        <strong>Media</strong>
-                    </a>
-                </li>
+                <o-side-sub-nav-item
+                    :to="{ name: 'posts.create' }"
+                >Add News Article</o-side-sub-nav-item>
 
-                <o-main-nav-item
+                <li class="divide"></li>
+
+                <o-side-sub-nav-item
+                    :to="{ name: 'posts.tags.index' }"
+                >Manage Categories</o-side-sub-nav-item>
+
+                <o-side-sub-nav-item
+                    :to="{ name: 'posts.tags.create' }"
+                >Add Category</o-side-sub-nav-item>
+            </o-side-nav-item>
+
+            <o-side-nav-item
+                label="Media manager"
+                @click="$mediaManager.open({ limit: 0 })"
+            ></o-side-nav-item>
+
+            <o-side-nav-item :to="{ name: 'users.index' }" area="users" label="Users">
+                <o-side-sub-nav-item
                     :to="{ name: 'users.index' }"
-                    icon="users"
-                    :class="{ 'is-active': area === 'users' }"
-                >Users</o-main-nav-item>
-            </ul>
-        </o-main-nav>
+                >Manage Users</o-side-sub-nav-item>
 
-        <section id="main" class="flex-grow md:flex md:min-h-screen">
-            <o-sub-nav @opened="openNav" @closed="closeNav">
-                <component
-                    :is="$route.matched[0].meta.subNav"
-                    name="sub-nav"
-                ></component>
-            </o-sub-nav>
-
-            <div class="lt-md:ml-5 md:flex-grow">
-                <o-header :title="meta.title">
-                    <a class="icon" @click="logout">
-                        <icon icon="sign-out-alt" size="lg"></icon>
-                    </a>
-                </o-header>
-                
-                <o-loader :loading="$loader.isLoading('primary.*')">
-                    <router-view></router-view>
-                </o-loader>
-            </div>
-        </section>
-    </div>
+                <o-side-sub-nav-item
+                    :to="{ name: 'users.create' }"
+                >Add User</o-side-sub-nav-item>
+            </o-side-nav-item>
+        </template>
+    </o-dashboard-layout>
 </template>
 
 <script>
-    import { mapGetters, mapMutations } from 'vuex';
-
     export default {
         computed: {
-            ...mapGetters({
-                navIsOpen: 'navigation/isOpen'
-            }),
-
             meta() {
                 return this.$route.matched[this.$route.matched.length - 1].meta;
-            },
-
-            area() {
-                return this.meta.hasOwnProperty('area')
-                    ? this.meta.area
-                    : this.$route.matched[0].meta.area;
             }
         },
 
         methods: {
-            ...mapMutations({
-                openNav: 'navigation/open',
-                closeNav: 'navigation/close'
-            }),
-            
             logout() {
                 axios.post('/api/auth/logout').then(() => {
                     this.$auth.removeToken();

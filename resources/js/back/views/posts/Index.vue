@@ -103,10 +103,17 @@
 </template>
 
 <script>
-    import listingMixin from '@back/mixins/listing';
+    import moment from 'moment';
+    import listingMixin from '@optimuscms/core/src/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],
+
+        filters: {
+            formatDate(date) {
+                return moment(date).format('DD/MM/YYYY');
+            }
+        },
 
         data() {
             return {

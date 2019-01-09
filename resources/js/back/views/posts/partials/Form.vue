@@ -72,7 +72,7 @@
 </template>
 
 <script>
-    import formMixin from '@back/mixins/form';
+    import formMixin from '@optimuscms/core/src/mixins/form';
 
     export default {
         mixins: [ formMixin ],

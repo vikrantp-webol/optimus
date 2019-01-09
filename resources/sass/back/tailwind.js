@@ -60,7 +60,6 @@ let colors = {
   'grey-lightest': '#fbfbfb', // used
 
   'white': '#ffffff', // used
-  'white-a-01': 'rgba(255, 255, 255, 0.1)', // used
 
   'red': '#e3342f', // used
 
@@ -256,6 +255,7 @@ module.exports = {
     'tight': '-0.05em',
     'normal': '0',
     'wide': '0.05em',
+    'extra-wide': '0.1em',
   },
 
 

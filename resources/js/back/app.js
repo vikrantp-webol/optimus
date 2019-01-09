@@ -1,5 +1,4 @@
 import './bootstrap';
-import './lib/icons';
 
 import router from './router';
 import store from './store';
@@ -10,17 +9,22 @@ import VueAuth from '@optix/vue-auth';
 Vue.use(VueAuth);
 
 import VueLoader from '@optix/vue-loader';
-Vue.use(VueLoader, { store });
+Vue.use(VueLoader);
 
-import OptimusUi from '@optimuscms/ui';
-Vue.use(OptimusUi);
+import OptimusTheme from '@optimuscms/theme';
+Vue.use(OptimusTheme, { store });
 
 import MediaManager from '@optimuscms/media-manager';
 Vue.use(MediaManager, { store });
 
+// Libraries
+import Icons from './lib/icons';
+Icons.register();
+
+// Utilities
 import './util/editor';
 
-const app = new Vue({
+new Vue({
     el: '#app',
     router,
     store,
