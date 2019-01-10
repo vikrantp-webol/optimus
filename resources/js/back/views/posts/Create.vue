@@ -9,6 +9,10 @@
     import PostForm from './partials/Form';
 
     export default {
-        components: { PostForm }
+        components: { PostForm },
+
+        created() {
+            this.setTitle('Add news');
+        }
     }
 </script>

@@ -9,6 +9,10 @@
     import TagForm from './partials/Form';
 
     export default {
-        components: { TagForm }
+        components: { TagForm },
+
+        created() {
+            this.setTitle('Add category');
+        }
     }
 </script>

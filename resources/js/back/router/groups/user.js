@@ -8,29 +8,23 @@ let routes = [
     {
         path: '/users',
         component: Dashboard,
-        meta: {
-            area: 'users',
-            requiresAuth: true
-        },
+        meta: { section: 'users' },
 
         children: [
             {
                 path: '',
                 name: 'users.index',
-                component: UserIndex,
-                meta: { title: 'Users' },
+                component: UserIndex
             },
             {
                 path: 'create',
                 name: 'users.create',
-                component: UserCreate,
-                meta: { title: 'Add user' }
+                component: UserCreate
             },
             {
                 path: ':id/edit',
                 name: 'users.edit',
-                component: UserEdit,
-                meta: { title: 'Edit user' }
+                component: UserEdit
             }
         ]
     }

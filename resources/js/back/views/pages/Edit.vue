@@ -25,6 +25,8 @@
         },
 
         created() {
+            this.setTitle('Edit page');
+            
             this.fetchPage();
         },
 

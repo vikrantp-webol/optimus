@@ -64,8 +64,11 @@
 
                             <td class="actions">
                                 <router-link
+                                    :to="{
+                                        name: 'posts.edit',
+                                        params: { id: post.id }
+                                    }"
                                     class="icon medium"
-                                    :to="{ name: 'posts.edit', params: { id: post.id } }"
                                 >
                                     <icon icon="pencil-alt"></icon>
                                 </router-link>
@@ -132,6 +135,8 @@
         },
 
         created() {
+            this.setTitle('Manage news');
+
             this.$loader.startLoading('primary.posts');
 
             this.fetchPosts(this.query).then(() => {

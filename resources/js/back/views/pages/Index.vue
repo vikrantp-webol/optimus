@@ -15,8 +15,11 @@
             <thead>
                 <tr>
                     <th>Title</th>
+
                     <th>Uri</th>
+
                     <th>Sub pages</th>
+
                     <th class="narrow">Actions</th>
                 </tr>
             </thead>
@@ -39,11 +42,21 @@
                         </td>
                         
                         <td class="actions">
-                            <router-link class="icon medium" :to="{ name: 'pages.edit', params: { id: page.id } }">
+                            <router-link
+                                :to="{
+                                    name: 'pages.edit',
+                                    params: { id: page.id }
+                                }"
+                                class="icon medium"
+                            >
                                 <icon icon="pencil-alt"></icon>
                             </router-link>
 
-                            <a class="icon medium" @click="$refs.confirm.open(page)" v-if="page.is_deletable">
+                            <a
+                                v-if="page.is_deletable"
+                                class="icon medium"
+                                @click="$refs.confirm.open(page)"
+                            >
                                 <icon icon="trash-alt"></icon>
                             </a>
                         </td>
@@ -83,6 +96,8 @@
 
 
         created() {
+            this.setTitle('Manage pages');
+
             this.$loader.startLoading('primary.pages');
 
             this.fetchPages(this.query).then(() => {

@@ -23,19 +23,19 @@
                     
                     <td class="actions">
                         <router-link
-                            class="icon medium"
                             :to="{
                                 name: 'users.edit',
                                 params: { id: user.id }
                             }"
+                            class="icon medium"
                         >
                             <icon icon="pencil-alt"></icon>
                         </router-link>
 
                         <a
+                            v-if="user.username !== 'admin'"
                             class="icon medium"
                             @click="$refs.confirm.open(user)"
-                            v-if="user.username !== 'admin'"
                         >
                             <icon icon="trash-alt"></icon>
                         </a>
@@ -66,6 +66,8 @@
         },
 
         created() {
+            this.setTitle('Manage users');
+
             this.fetchUsers();
         },
 

@@ -9,6 +9,10 @@
     import PageForm from './partials/Form';
 
     export default {
-        components: { PageForm }
+        components: { PageForm },
+
+        created() {
+            this.setTitle('Add page');
+        }
     }
 </script>

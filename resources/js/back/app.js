@@ -17,16 +17,33 @@ Vue.use(OptimusTheme, { store });
 import MediaManager from '@optimuscms/media-manager';
 Vue.use(MediaManager, { store });
 
-// Libraries
-import Icons from './lib/icons';
-Icons.register();
-
 // Utilities
 import './util/editor';
+
+import { mapActions } from 'vuex';
 
 new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
+
+    created() {
+        this.$loader.startLoading('app.ui');
+        this.$loader.startLoading('app.user');
+
+        this.fetchUser().then(response => {
+            this.$loader.stopLoading('app.user');
+        });
+    },
+
+    mounted() {
+        this.$loader.stopLoading('app.ui');
+    },
+
+    methods: {
+        ...mapActions({
+            fetchUser: 'user/fetchUser'
+        })
+    }
 });

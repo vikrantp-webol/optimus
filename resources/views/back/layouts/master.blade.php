@@ -15,7 +15,6 @@
     </head>
 
     <body>
-        <div id="app"></div>
-        <script src="/js/back/app.js"></script>
+        @yield('content')
     </body>
 </html>

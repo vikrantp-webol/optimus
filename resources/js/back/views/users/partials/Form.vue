@@ -56,6 +56,7 @@
 </template>
 
 <script>
+    import { mapMutations } from 'vuex';
     import formMixin from '@optimuscms/core/src/mixins/form';
 
     export default {
@@ -67,7 +68,8 @@
                     name: '',
                     username: '',
                     email: '',
-                    password: ''
+                    password: '',
+                    avatar: null
                 }
             }
         },
@@ -84,13 +86,23 @@
                     name: item.name,
                     username: item.username,
                     email: item.email,
-                    password: null
+                    password: null,
+                    avatar: item.avatar ? item.avatar.id : null
                 };
             }
         },
 
         methods: {
+            ...mapMutations({
+                updateUser: 'user/updateUser'
+            }),
+
             onSuccess() {
+                this.updateUser({
+                    name: this.form.name,
+                    avatar: this.form.avatar
+                });
+                
                 this.$router.push({ name: 'users.index' });
             }
         }

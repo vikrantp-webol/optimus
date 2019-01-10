@@ -51,7 +51,7 @@ let colors = {
 
   'black': '#22292f',
 
-  'grey-darkest': '#3d4852',
+  'grey-darkest': '#3d4852', // used
   'grey-darker': '#636363', // used
   'grey-dark': '#8795a1', // used
   'grey': '#ccc', 
@@ -68,7 +68,7 @@ let colors = {
   'yellow': '#ffed4a', // used
 
   'blue-darkest': '#1D2023', // used
-  'blue-darker': '#292C35', // used
+  'blue-darker': '#23252F', // used
   'blue-dark': '#282C37', // used
   'blue': '#313542', // used
   'blue-light': '#596679', // used

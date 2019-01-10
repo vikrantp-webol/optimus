@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+
                     <th class="narrow">Actions</th>
                 </tr>
             </thead>
@@ -13,8 +14,11 @@
                     
                     <td class="actions">
                         <router-link
+                            :to="{
+                                name: 'posts.tags.edit',
+                                params: { id: tag.id }
+                            }"
                             class="icon medium"
-                            :to="{ name: 'posts.tags.edit', params: { id: tag.id } }"
                         >
                             <icon icon="pencil-alt"></icon>
                         </router-link>
@@ -49,6 +53,8 @@
         },
 
         created() {
+            this.setTitle('News categories');
+
             this.fetchTags();
         },
 

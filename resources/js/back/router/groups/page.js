@@ -8,29 +8,23 @@ let routes = [
     {
         path: '/pages',
         component: Dashboard,
-        meta: {
-            area: 'pages',
-            requiresAuth: true
-        },
+        meta: { section: 'pages' },
 
         children: [
             {
                 path: '',
                 name: 'pages.index',
-                component: PageIndex,
-                meta: { title: 'Pages' },
+                component: PageIndex
             },
             {
                 path: 'create',
                 name: 'pages.create',
-                component: PageCreate,
-                meta: { title: 'Create page' }
+                component: PageCreate
             },
             {
                 path: ':id/edit',
                 name: 'pages.edit',
-                component: PageEdit,
-                meta: { title: 'Edit page' }
+                component: PageEdit
             }
         ]
     }

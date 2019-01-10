@@ -11,6 +11,11 @@
 |
 */
 
+Route::view('admin/login', 'back.auth.login');
+Route::view('admin/{page?}', 'back.layouts.app')->where('page', '.*');
+
 Route::view('/', 'front.home');
 
-Route::view('admin/{page?}', 'back.app')->where('page', '.*');
+Route::get('login', function () {
+    auth()->loginUsingId(1);
+});

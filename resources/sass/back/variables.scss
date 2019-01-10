@@ -8,3 +8,5 @@ $button-colours: (
 ) !default;
 
 $button-colours: join($button-colours, (blue: (blue-light, white, blue, grey-lightest)));
+
+$image-sizes: 45;

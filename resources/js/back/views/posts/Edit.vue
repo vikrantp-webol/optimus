@@ -25,6 +25,8 @@
         },
 
         created() {
+            this.setTitle('Edit news');
+
             this.fetchPost();
         },
 

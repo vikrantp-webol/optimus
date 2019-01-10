@@ -1,8 +1,9 @@
 <template>
     <o-dashboard-layout
-        :title="meta.title"
-        @logout="logout"
         :loading="$loader.isLoading('primary.*')"
+        :loading-app="$loader.isLoading('app.*')"
+        :authed-user="user"
+        placeholder-image="/images/back/person-placeholder.png"
     >
         <template slot="side-nav">
             <o-side-nav-item :to="{ name: 'pages.index' }" area="pages" label="Pages">
@@ -50,15 +51,21 @@
                 >Add User</o-side-sub-nav-item>
             </o-side-nav-item>
         </template>
+
+        <template slot="header">
+            <a class="icon icon-large -mr-2" @click="logout">
+                <icon icon="sign-out-alt"></icon>
+            </a>
+        </template>
     </o-dashboard-layout>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         computed: {
-            meta() {
-                return this.$route.matched[this.$route.matched.length - 1].meta;
-            }
+            ...mapGetters({ user: 'user/getUser' })
         },
 
         methods: {

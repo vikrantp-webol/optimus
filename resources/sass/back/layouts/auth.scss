@@ -1,0 +1,44 @@
+.bg-gradient-login {
+    background-image: linear-gradient(
+        to bottom, 
+        #313542 0%, 
+        #944744 80%, 
+        #824442 100%
+    );
+}
+
+.shadow-styled {
+    z-index: 1;
+    position: relative;
+
+    &:after,
+    &:before {
+        z-index: -1;
+        content: '';
+        height: 20px;
+        bottom: -15px;
+        filter: blur(2px);
+        position: absolute;
+        width: calc(50% - 7px);
+    }
+
+    &:before {
+        left: 5px;
+        transform: skew(-25deg);
+        background: linear-gradient(
+            -185deg, 
+            rgba(0, 0, 0, .35) 0%, 
+            rgba(0, 0, 0, .0) 70%
+        );
+    }
+
+    &:after {
+        right: 5px;
+        transform: skew(25deg);
+        background: linear-gradient(
+            185deg, 
+            rgba(0, 0, 0, .35) 0%, 
+            rgba(0, 0, 0, .0) 70%
+        );
+    }
+}
