@@ -11,7 +11,6 @@
     "devDependencies": {
         "@optimuscms/editor": "^2.2.0",
         "@optimuscms/media-manager": "^1.2.2",
-        "@optix/vue-auth": "^1.0.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
         "cross-env": "^5.1",

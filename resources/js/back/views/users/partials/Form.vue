@@ -42,6 +42,15 @@
                             :required="! item"
                         ></o-input>
                     </o-form-field>
+
+                    <!-- Avatar -->
+                    <o-form-field input="avatar" label="Avatar">
+                        <media-picker
+                            :limit="1"
+                            v-model="form.avatar"
+                            preview
+                        ></media-picker>
+                    </o-form-field>
                 </template>
             </div>
         </div>
@@ -56,7 +65,7 @@
 </template>
 
 <script>
-    import { mapMutations } from 'vuex';
+    import { mapGetters, mapMutations } from 'vuex';
     import formMixin from '@optimuscms/core/src/mixins/form';
 
     export default {
@@ -75,8 +84,16 @@
         },
 
         computed: {
+            ...mapGetters({
+                authedUser: 'user/getData'
+            }),
+
             isEditingAdmin() {
                 return this.item && this.item.username === 'admin';
+            },
+
+            isEditingSelf() {
+                return this.authedUser.id === this.$route.params.id;
             }
         },
 
@@ -94,14 +111,16 @@
 
         methods: {
             ...mapMutations({
-                updateUser: 'user/updateUser'
+                updateAuthedUser: 'user/updateData'
             }),
 
             onSuccess() {
-                this.updateUser({
-                    name: this.form.name,
-                    avatar: this.form.avatar
-                });
+                if (this.isEditingSelf) {
+                    this.updateAuthedUser({
+                        name: this.form.name,
+                        avatar: this.form.avatar
+                    });
+                }
                 
                 this.$router.push({ name: 'users.index' });
             }

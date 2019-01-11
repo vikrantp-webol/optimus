@@ -1,13 +1,11 @@
 import './bootstrap';
+import { mapActions } from 'vuex';
 
 import router from './router';
 import store from './store';
 import App from './views/App';
 
 // Plugins
-import VueAuth from '@optix/vue-auth';
-Vue.use(VueAuth);
-
 import VueLoader from '@optix/vue-loader';
 Vue.use(VueLoader);
 
@@ -20,8 +18,6 @@ Vue.use(MediaManager, { store });
 // Utilities
 import './util/editor';
 
-import { mapActions } from 'vuex';
-
 new Vue({
     el: '#app',
     router,
@@ -32,7 +28,7 @@ new Vue({
         this.$loader.startLoading('app.ui');
         this.$loader.startLoading('app.user');
 
-        this.fetchUser().then(response => {
+        this.fetchUser().then(() => {
             this.$loader.stopLoading('app.user');
         });
     },
@@ -43,7 +39,7 @@ new Vue({
 
     methods: {
         ...mapActions({
-            fetchUser: 'user/fetchUser'
+            fetchUser: 'user/fetchData'
         })
     }
 });
