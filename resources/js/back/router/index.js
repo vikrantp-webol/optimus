@@ -8,8 +8,10 @@ import pageRoutes from './groups/page';
 import postRoutes from './groups/post';
 import userRoutes from './groups/user';
 
+import testRoutes from './groups/test'; // todo delete
+
 const router = new VueRouter({
-    base: '/admin',
+    base: '/manage',
     mode: 'history',
 
     scrollBehavior() {
@@ -27,7 +29,9 @@ const router = new VueRouter({
         
         ...pageRoutes,
         ...postRoutes,
-        ...userRoutes
+        ...userRoutes,
+
+        ...testRoutes // todo delete
     ]
 });
 
@@ -39,5 +43,13 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
     Vue.nextTick(() => store.commit('dashboard/closeSide'));
 });
+
+// axios.interceptors.response.use(response => response, error => {
+//     if (error.response.status === 401) {
+//         return window.location.href = '/admin';
+//     }
+    
+//     return Promise.reject(error);
+// });
 
 export default router;

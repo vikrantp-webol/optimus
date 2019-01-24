@@ -59,10 +59,26 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex';
+
     export default {
+        created() {
+            this.$loader.startLoading('app.user');
+
+            this.fetchUser().then(() => {
+                this.$loader.stopLoading('app.user');
+            });
+        },
+
         methods: {
+            ...mapActions({
+                fetchUser: 'user/fetch'
+            }),
+
             logout() {
-                // todo
+                axios.post('/admin/logout').then(response => {
+                    window.location.href = '/admin/login';
+                });
             }
         }
     }

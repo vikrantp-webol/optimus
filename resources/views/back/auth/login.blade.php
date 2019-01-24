@@ -14,7 +14,7 @@
             </div>
 
             <div class="bg-blue-dark rounded-b px-6 py-12 md:px-12">
-                <form method="post" action="/auth/login">
+                <form method="post" action="{{ route('admin.login') }}">
                     @csrf
 
                     @include('back.partials.errors')
@@ -25,6 +25,7 @@
                         <input
                             id="username"
                             type="text"
+                            name="username"
                             class="input"
                             required
                             placeholder="Username"
@@ -37,6 +38,7 @@
                         <input
                             id="password"
                             type="password"
+                            name="password"
                             class="input"
                             required
                             placeholder="Password"

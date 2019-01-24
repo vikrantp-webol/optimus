@@ -35,7 +35,7 @@
                         <a
                             v-if="user.username !== 'admin'"
                             class="icon medium"
-                            @click="$refs.confirm.open(user)"
+                            @click="openConfirmation(user)"
                         >
                             <icon icon="trash-alt"></icon>
                         </a>
@@ -45,7 +45,6 @@
         </table>
 
         <o-confirmation
-            ref="confirm"
             @confirm="deleteUser"
             button-class="button-red"
             button-text="Delete"
@@ -75,7 +74,7 @@
             fetchUsers(params = {}) {
                 this.$loader.startLoading('primary.admin-users');
 
-                axios.get('/api/admin-users', { params }).then(response => {
+                axios.get('/admin/users', { params }).then(response => {
                     this.users = response.data.data;
 
                     this.$loader.stopLoading('primary.admin-users');
@@ -83,7 +82,7 @@
             },
 
             deleteUser(item) {
-                axios.delete('/api/admin-users/' + item.id).then(() => {
+                axios.delete('/admin/users/' + item.id).then(() => {
                     this.users = this.users.filter(({ id }) => id !== item.id);
                 });
             }

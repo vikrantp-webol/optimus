@@ -1,7 +1,7 @@
 <template>
     <user-form
         method="post"
-        action="/api/admin-users"
+        action="/admin/users"
     ></user-form>
 </template>
 

@@ -19,25 +19,35 @@
         },
 
         computed: {
+            userId() {
+                return this.$route.params.id;
+            },
+
             uri() {
-                return '/api/admin-users/' + this.$route.params.id;
+                return '/admin/users/' + this.userId;
+            }
+        },
+
+        watch: {
+            userId() {
+                this.fetchUser();
             }
         },
 
         created() {
             this.setTitle('Edit user');
-
+            
             this.fetchUser();
         },
 
         methods: {
             fetchUser() {
-                this.$loader.startLoading('primary.admin-user');
+                this.$loader.startLoading('primary.user');
 
                 axios.get(this.uri).then(response => {
                     this.user = response.data.data;
 
-                    this.$loader.stopLoading('primary.admin-user');
+                    this.$loader.stopLoading('primary.user');
                 });
             }
         }

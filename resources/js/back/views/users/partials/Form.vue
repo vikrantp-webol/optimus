@@ -23,35 +23,33 @@
                     ></o-input>
                 </o-form-field>
 
-                <template v-if="! isEditingAdmin">
-                    <!-- Username -->
-                    <o-form-field input="username" label="Username" required>
-                        <o-input
-                            id="username"
-                            v-model="form.username"
-                            required
-                        ></o-input>
-                    </o-form-field>
+                <!-- Username -->
+                <o-form-field input="username" label="Username" required v-if="! isEditingAdmin">
+                    <o-input
+                        id="username"
+                        v-model="form.username"
+                        required
+                    ></o-input>
+                </o-form-field>
 
-                    <!-- Password -->
-                    <o-form-field input="password" label="Password" :required="! item">
-                        <o-input
-                            id="password"
-                            type="password"
-                            v-model="form.password"
-                            :required="! item"
-                        ></o-input>
-                    </o-form-field>
+                <!-- Password -->
+                <o-form-field input="password" label="Password" :required="! item">
+                    <o-input
+                        id="password"
+                        type="password"
+                        v-model="form.password"
+                        :required="! item"
+                    ></o-input>
+                </o-form-field>
 
-                    <!-- Avatar -->
-                    <o-form-field input="avatar" label="Avatar">
-                        <media-picker
-                            :limit="1"
-                            v-model="form.avatar"
-                            preview
-                        ></media-picker>
-                    </o-form-field>
-                </template>
+                <!-- Avatar -->
+                <!-- <o-form-field input="avatar" label="Avatar">
+                    <media-picker
+                        :limit="1"
+                        v-model="form.avatar"
+                        preview
+                    ></media-picker>
+                </o-form-field> -->
             </div>
         </div>
 
@@ -78,14 +76,14 @@
                     username: '',
                     email: '',
                     password: '',
-                    avatar: null
+                    // avatar: null
                 }
             }
         },
 
         computed: {
             ...mapGetters({
-                authedUser: 'user/getData'
+                authedUser: 'user/data'
             }),
 
             isEditingAdmin() {
@@ -93,7 +91,7 @@
             },
 
             isEditingSelf() {
-                return this.authedUser.id === this.$route.params.id;
+                return this.authedUser.id == this.$route.params.id;
             }
         },
 
@@ -104,21 +102,21 @@
                     username: item.username,
                     email: item.email,
                     password: null,
-                    avatar: item.avatar ? item.avatar.id : null
+                    // avatar: item.avatar ? item.avatar.id : null
                 };
             }
         },
 
         methods: {
             ...mapMutations({
-                updateAuthedUser: 'user/updateData'
+                updateAuthedUser: 'user/update'
             }),
 
             onSuccess() {
                 if (this.isEditingSelf) {
                     this.updateAuthedUser({
                         name: this.form.name,
-                        avatar: this.form.avatar
+                        // avatar: this.form.avatar
                     });
                 }
                 

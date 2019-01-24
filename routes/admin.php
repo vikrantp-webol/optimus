@@ -11,4 +11,12 @@
 |
 */
 
-Route::view('/', 'front.home');
+Route::prefix('admin')->group(function() {
+    Route::get('login', 'Auth\LoginController@showLoginForm');
+    Route::post('login', 'Auth\LoginController@login')->name('admin.login');
+    Route::post('logout', 'Auth\LoginController@logout');
+});
+
+Route::view('manage/{page?}', 'back.layouts.app')
+     ->name('admin.dashboard')
+     ->where('page', '.*');

@@ -1,4 +1,6 @@
-import Editor, { config as editorConfig } from '@optimuscms/editor';
+import { config } from '@optimuscms/editor';
+
+let editorConfig = config.defaults();
 
 editorConfig.file_picker_types = 'image';
 editorConfig.file_picker_callback = callback => {
@@ -16,6 +18,4 @@ editorConfig.file_picker_callback = callback => {
     });
 };
 
-Vue.use(Editor, {
-    apiKey: 'i9k078qcvbqg8d6gffh58fkky46ltc5d8a3rb7igrn5h6q3i'
-});
+export default editorConfig;
