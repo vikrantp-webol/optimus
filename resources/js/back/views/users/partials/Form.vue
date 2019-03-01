@@ -32,13 +32,6 @@
                     ></o-input>
                 </o-form-field>
 
-                <!-- <o-form-field input="test" label="Editor">
-                    <editor
-                        id="test"
-                        v-model="form.username"
-                    ></editor>
-                </o-form-field> -->
-
                 <!-- Password -->
                 <o-form-field input="password" label="Password" :required="! item">
                     <o-input
@@ -53,9 +46,9 @@
                 <o-form-field input="avatar" label="Avatar">
                     <media-picker
                         id="avatar"
-                        :limit="10"
                         :media="getMedia('avatar')"
                         v-model="form.avatar"
+                        preview
                         accepted-extensions="image"
                     ></media-picker>
                 </o-form-field>

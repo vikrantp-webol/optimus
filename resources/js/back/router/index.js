@@ -40,12 +40,12 @@ router.afterEach(() => {
     Vue.nextTick(() => store.commit('dashboard/closeSide'));
 });
 
-// axios.interceptors.response.use(response => response, error => {
-//     if (error.response.status === 401) {
-//         return window.location.href = '/admin';
-//     }
+axios.interceptors.response.use(response => response, error => {
+    // if (error.response.status === 401) {
+    //     return window.location.href = '/admin/login';
+    // }
     
-//     return Promise.reject(error);
-// });
+    // return Promise.reject(error);
+});
 
 export default router;

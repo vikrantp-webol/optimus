@@ -4,20 +4,20 @@ import store from '@js/store';
 let editorConfig = config.defaults();
 
 editorConfig.file_picker_types = 'image';
-editorConfig.file_picker_callback = callback => {
+editorConfig.file_picker_callback = function(callback) {
     store.dispatch('mediaManager/setPickerMedia', {
-        pickerId: 'editor',
+        pickerId: this.id,
         media: []
     });
 
     store.dispatch('mediaManager/open', {
-        pickerId: 'editor',
+        pickerId: this.id,
         limit: 1,
         acceptedExtensions: store.getters['mediaManager/imageExtensions']
     });
 
     store.watch(state => {
-        return state.mediaManager.selectedMedia['editor'];
+        return state.mediaManager.selectedMedia[this.id];
     }, selectedMedia => {
         if (selectedMedia.length) {
             let image = selectedMedia[0];
