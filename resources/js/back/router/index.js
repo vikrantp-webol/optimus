@@ -8,8 +8,6 @@ import pageRoutes from './groups/page';
 import postRoutes from './groups/post';
 import userRoutes from './groups/user';
 
-import testRoutes from './groups/test'; // todo delete
-
 const router = new VueRouter({
     base: '/manage',
     mode: 'history',
@@ -29,9 +27,7 @@ const router = new VueRouter({
         
         ...pageRoutes,
         ...postRoutes,
-        ...userRoutes,
-
-        ...testRoutes // todo delete
+        ...userRoutes
     ]
 });
 

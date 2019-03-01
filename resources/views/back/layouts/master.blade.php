@@ -12,6 +12,9 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="/css/back/app.css">
+
+        {{-- Fonts --}}
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
     </head>
 
     <body>

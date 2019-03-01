@@ -107,7 +107,7 @@
 
 <script>
     import moment from 'moment';
-    import listingMixin from '@optimuscms/core/src/mixins/listing';
+    import listingMixin from '@js/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

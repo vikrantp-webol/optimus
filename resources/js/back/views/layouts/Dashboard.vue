@@ -36,7 +36,7 @@
 
             <o-side-nav-item
                 label="Media manager"
-                @click="$mediaManager.open({ limit: 0 })"
+                @click="openMediaManager()"
             ></o-side-nav-item>
 
             <o-side-nav-item :to="{ name: 'users.index' }" label="Users" section="users">
@@ -72,7 +72,8 @@
 
         methods: {
             ...mapActions({
-                fetchUser: 'user/fetch'
+                fetchUser: 'user/fetch',
+                openMediaManager: 'mediaManager/open'
             }),
 
             logout() {

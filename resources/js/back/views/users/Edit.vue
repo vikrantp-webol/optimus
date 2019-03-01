@@ -47,6 +47,11 @@
                 axios.get(this.uri).then(response => {
                     this.user = response.data.data;
 
+                    // todo remove when user package is updated
+                    let item = { avatar: null };
+                    this.user = { ...this.user, ...item };
+                    //
+                    
                     this.$loader.stopLoading('primary.user');
                 });
             }

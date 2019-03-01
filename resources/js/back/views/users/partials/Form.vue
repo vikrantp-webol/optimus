@@ -32,6 +32,13 @@
                     ></o-input>
                 </o-form-field>
 
+                <!-- <o-form-field input="test" label="Editor">
+                    <editor
+                        id="test"
+                        v-model="form.username"
+                    ></editor>
+                </o-form-field> -->
+
                 <!-- Password -->
                 <o-form-field input="password" label="Password" :required="! item">
                     <o-input
@@ -43,13 +50,15 @@
                 </o-form-field>
 
                 <!-- Avatar -->
-                <!-- <o-form-field input="avatar" label="Avatar">
+                <o-form-field input="avatar" label="Avatar">
                     <media-picker
-                        :limit="1"
+                        id="avatar"
+                        :limit="10"
+                        :media="getMedia('avatar')"
                         v-model="form.avatar"
-                        preview
+                        accepted-extensions="image"
                     ></media-picker>
-                </o-form-field> -->
+                </o-form-field>
             </div>
         </div>
 
@@ -63,8 +72,8 @@
 </template>
 
 <script>
-    import { mapGetters, mapMutations } from 'vuex';
-    import formMixin from '@optimuscms/core/src/mixins/form';
+    import { mapGetters, mapMutations, mapActions } from 'vuex';
+    import formMixin from '@js/mixins/form';
 
     export default {
         mixins: [ formMixin ],
@@ -76,7 +85,7 @@
                     username: '',
                     email: '',
                     password: '',
-                    // avatar: null
+                    avatar: null
                 }
             }
         },
@@ -102,7 +111,7 @@
                     username: item.username,
                     email: item.email,
                     password: null,
-                    // avatar: item.avatar ? item.avatar.id : null
+                    avatar: item.avatar ? item.avatar.id : null
                 };
             }
         },
@@ -116,7 +125,7 @@
                 if (this.isEditingSelf) {
                     this.updateAuthedUser({
                         name: this.form.name,
-                        // avatar: this.form.avatar
+                        avatar: this.form.avatar
                     });
                 }
                 
