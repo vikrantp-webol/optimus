@@ -1,5 +1,14 @@
 import './bootstrap';
-// import './lib/icons';
+import icons from './lib/icons';
+
+// Register icons
+icons.register();
+
+// Import components
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+// Register components
+Vue.component('icon', FontAwesomeIcon);
 
 const app = new Vue({
     el: '#app',
