@@ -1,10 +1,8 @@
 import { config } from '@optimuscms/editor';
 import store from '@js/store';
 
-let editorConfig = config.defaults();
-
-editorConfig.file_picker_types = 'image';
-editorConfig.file_picker_callback = function(callback) {
+config.file_picker_types = 'image';
+config.file_picker_callback = function(callback) {
     store.dispatch('mediaManager/setPickerMedia', {
         pickerId: this.id,
         media: []
@@ -29,4 +27,4 @@ editorConfig.file_picker_callback = function(callback) {
     }, { deep: true });
 };
 
-export default editorConfig;
+export default config;
