@@ -1,9 +1,10 @@
 const mix = require('laravel-mix');
 
-mix.js('resources/js/admin/app.js', 'public/js/admin')
-   .sass('resources/sass/admin/app.scss', 'public/css/admin')
+mix.setPublicPath('public/back')
+   .js('resources/js/back/app.js', 'js')
+   .sass('resources/sass/back/app.scss', 'css')
    .webpackConfig({
        resolve: {
-           alias: { '@js': __dirname + '/resources/js/admin' }
+           alias: { '@js': __dirname + '/resources/js/back' }
        }
    });

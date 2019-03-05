@@ -9,7 +9,7 @@ import postRoutes from './groups/post';
 import userRoutes from './groups/user';
 
 const router = new VueRouter({
-    base: '/manage',
+    base: '/admin',
     mode: 'history',
 
     scrollBehavior() {

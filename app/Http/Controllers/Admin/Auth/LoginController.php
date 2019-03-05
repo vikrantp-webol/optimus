@@ -10,9 +10,14 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
+    public function __construct()
+    {
+        $this->middleware('guest:admin')->except('logout');
+    }
+
     public function redirectTo()
     {
-        return route('admin.dashboard');
+        return route('admin');
     }
 
     public function showLoginForm()
