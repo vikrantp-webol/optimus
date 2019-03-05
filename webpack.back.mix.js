@@ -8,3 +8,7 @@ mix.setPublicPath('public/back')
            alias: { '@js': __dirname + '/resources/js/back' }
        }
    });
+
+if (mix.inProduction()) {
+    mix.version();
+}

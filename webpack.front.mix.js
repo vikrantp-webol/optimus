@@ -13,3 +13,7 @@ mix.setPublicPath('public/front')
            alias: { '@js': __dirname + '/resources/js/front' }
        }
    });
+
+if (mix.inProduction()) {
+    mix.version();
+}

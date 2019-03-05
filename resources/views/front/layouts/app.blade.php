@@ -21,7 +21,7 @@
         <meta property="og:image" content="{{ url('/images/layout/og.png') }}" />
 
         {{-- Styles --}}
-        <link rel="stylesheet" href="{{ mix('/front/css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('/css/app.css', 'front') }}">
 
         {{-- Analytics --}}
         {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxxxx-1"></script>
@@ -46,7 +46,7 @@
             @include('front.partials.footer')
         </div>
 
-        <script src="{{ mix('/front/js/app.js') }}"></script>
+        <script src="{{ mix('/js/app.js', 'front') }}"></script>
         @stack('scripts')
     </body>
 </html>
