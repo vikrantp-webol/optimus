@@ -1,4 +1,4 @@
-@extends('back.layouts.master')
+@extends('admin.layouts.master')
 
 @section('content')
     <section class="bg-gradient-login flex min-h-screen flex-col p-8">
@@ -17,7 +17,7 @@
                 <form method="post" action="{{ route('admin.login') }}">
                     @csrf
 
-                    @include('back.partials.errors')
+                    @include('admin.partials.errors')
 
                     <div class="mb-4">
                         <label for="Username" class="hidden">Username</label>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="text-center md:text-right pt-10">
-            @include('back.partials.optix-logo')
+            @include('admin.partials.optix-logo')
         </div>
     </section>
 @endsection

@@ -1,9 +1,9 @@
 const mix = require('laravel-mix');
 
-mix.js('resources/js/back/app.js', 'public/js/back')
-   .sass('resources/sass/back/app.scss', 'public/css/back')
+mix.js('resources/js/admin/app.js', 'public/js/admin')
+   .sass('resources/sass/admin/app.scss', 'public/css/admin')
    .webpackConfig({
        resolve: {
-           alias: { '@js': __dirname + '/resources/js/back' }
+           alias: { '@js': __dirname + '/resources/js/admin' }
        }
    });
