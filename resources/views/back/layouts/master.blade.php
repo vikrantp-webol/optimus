@@ -8,10 +8,10 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name') }}</title>
+        <title>{{ config('app.name') }} | Admin</title>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="/css/back/app.css">
+        <link rel="stylesheet" href="{{ mix('css/app.css', 'back') }}">
 
         {{-- Fonts --}}
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">

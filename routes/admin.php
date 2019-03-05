@@ -10,7 +10,7 @@ Route::prefix('api')->middleware('auth:admin')->group(function () {
     // Register your routes here...
 });
 
-Route::view('{page?}', 'admin.layouts.app')
+Route::view('{page?}', 'back.layouts.app')
      ->middleware('auth:admin')
      ->where('page', '.*')
      ->name('admin');

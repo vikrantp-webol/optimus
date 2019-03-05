@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Auth;
+namespace App\Http\Controllers\Back\Auth;
 
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Admin\Controller;
+use App\Http\Controllers\Back\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -22,7 +22,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('admin.auth.login');
+        return view('back.auth.login');
     }
 
     public function username()

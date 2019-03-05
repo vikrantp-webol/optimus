@@ -18147,7 +18147,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.$route.params.id;
     },
     uri: function uri() {
-      return '/admin/users/' + this.userId;
+      return '/admin/api/users/' + this.userId;
     }
   },
   watch: {
@@ -18263,7 +18263,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.$loader.startLoading('primary.admin-users');
-      axios.get('/admin/users', {
+      axios.get('/admin/api/users', {
         params: params
       }).then(function (response) {
         _this.users = response.data.data;
@@ -18274,7 +18274,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteUser: function deleteUser(item) {
       var _this2 = this;
 
-      axios.delete('/admin/users/' + item.id).then(function () {
+      axios.delete('/admin/api/users/' + item.id).then(function () {
         _this2.users = _this2.users.filter(function (_ref) {
           var id = _ref.id;
           return id !== item.id;
@@ -76119,8 +76119,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/rich/code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
-module.exports = __webpack_require__(/*! /Users/rich/code/optimus/resources/sass/back/app.scss */"./resources/sass/back/app.scss");
+__webpack_require__(/*! /Users/jack/Sites/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
+module.exports = __webpack_require__(/*! /Users/jack/Sites/optimus/resources/sass/back/app.scss */"./resources/sass/back/app.scss");
 
 
 /***/ })

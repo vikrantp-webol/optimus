@@ -74,7 +74,7 @@
             fetchUsers(params = {}) {
                 this.$loader.startLoading('primary.admin-users');
 
-                axios.get('/admin/users', { params }).then(response => {
+                axios.get('/admin/api/users', { params }).then(response => {
                     this.users = response.data.data;
 
                     this.$loader.stopLoading('primary.admin-users');
@@ -82,7 +82,7 @@
             },
 
             deleteUser(item) {
-                axios.delete('/admin/users/' + item.id).then(() => {
+                axios.delete('/admin/api/users/' + item.id).then(() => {
                     this.users = this.users.filter(({ id }) => id !== item.id);
                 });
             }

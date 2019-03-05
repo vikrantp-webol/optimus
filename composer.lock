@@ -1823,16 +1823,16 @@
         },
         {
             "name": "optimuscms/pages",
-            "version": "v0.3.1",
+            "version": "v0.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimuscms/pages.git",
-                "reference": "6d1503fde828259fe707efc7aaa05918c8ff70b3"
+                "reference": "7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimuscms/pages/zipball/6d1503fde828259fe707efc7aaa05918c8ff70b3",
-                "reference": "6d1503fde828259fe707efc7aaa05918c8ff70b3",
+                "url": "https://api.github.com/repos/optimuscms/pages/zipball/7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff",
+                "reference": "7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff",
                 "shasum": ""
             },
             "require": {
@@ -1868,24 +1868,24 @@
                     "email": "jack@optixsolutions.co.uk"
                 }
             ],
-            "time": "2019-03-05T14:53:52+00:00"
+            "time": "2019-03-05T16:44:50+00:00"
         },
         {
             "name": "optimuscms/users",
-            "version": "v0.2.1",
+            "version": "v0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimuscms/users.git",
-                "reference": "30b3f118e4e7f39ca4da77f625a8d363ccca2333"
+                "reference": "043ad256f88b8d6c372f573a347771a0115f87bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimuscms/users/zipball/30b3f118e4e7f39ca4da77f625a8d363ccca2333",
-                "reference": "30b3f118e4e7f39ca4da77f625a8d363ccca2333",
+                "url": "https://api.github.com/repos/optimuscms/users/zipball/043ad256f88b8d6c372f573a347771a0115f87bb",
+                "reference": "043ad256f88b8d6c372f573a347771a0115f87bb",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.5|~5.6|~5.7"
+                "laravel/framework": "^5.7"
             },
             "require-dev": {
                 "mockery/mockery": "^1.1",
@@ -1914,7 +1914,7 @@
                     "email": "jack@optixsolutions.co.uk"
                 }
             ],
-            "time": "2019-03-05T14:29:15+00:00"
+            "time": "2019-03-05T16:37:28+00:00"
         },
         {
             "name": "optix/draftable",

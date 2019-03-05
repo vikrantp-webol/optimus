@@ -24,7 +24,7 @@
             },
 
             uri() {
-                return '/admin/users/' + this.userId;
+                return '/admin/api/users/' + this.userId;
             }
         },
 
