@@ -5,7 +5,10 @@ mix.setPublicPath('public/back')
    .sass('resources/sass/back/app.scss', 'css')
    .webpackConfig({
        resolve: {
-           alias: { '@js': __dirname + '/resources/js/back' }
+           alias: {
+               '@js': __dirname + '/resources/js/back',
+               '@sass': __dirname + '/resources/sass/back'
+           }
        }
    });
 
