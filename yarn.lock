@@ -660,18 +660,18 @@
   dependencies:
     "@tinymce/tinymce-vue" "^1.1.0"
 
-"@optimuscms/media-manager@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.2.4.tgz#428db7c7010154df899af32b453fe6cd04b07839"
-  integrity sha512-lVp2vmCcl07OCGE+na2wwIj7mv5xf7m5s/tUCKgQK5SKftiFSgHKAezL9u49nx6ST1AMFpklbhNdrpRkSmNn2w==
+"@optimuscms/media-manager@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.2.5.tgz#0852ba3ca186c0909e2a31cac720409e6edafae2"
+  integrity sha512-V+YHrVOnaWbg1oMgEmGKEgb1Y2t+Lmn1zdRbwtJMfAR8CSa0tP7thfdSZxoUzJFI5zzNPEsGGt4f1wGvGiPkXw==
   dependencies:
     lodash "^4.17.11"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.0.1.tgz#3e41a67560ec6097ac9a8c9df7bbfd190decf38c"
-  integrity sha512-QwymrbRNdLcW2F9PEOA2LIk8u3QjHUrNZmSy9jvijTa/fZr5ROxRxzTYsi4OUKnR8Dai5HhmxgLUO4Q/HUBTUg==
+"@optimuscms/theme@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.0.2.tgz#e1f6fa9baad524085f352bdb7db82ee67b880a10"
+  integrity sha512-dux03ekMNEyLru7AUjdmEwVVOfaCZXv/60dFzY9sZYHpxHkJaTtz4OWMgmWAUa26lh0skC0gv1HJCwoD7jvyog==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
@@ -684,6 +684,7 @@
     velocity-animate "^1.5.1"
     vue "^2.5.17"
     vue-multiselect "^2.1.3"
+    vuex "^3.1.0"
 
 "@optix/sass@0.0.12", "@optix/sass@^0.0.12":
   version "0.0.12"
@@ -2739,9 +2740,9 @@ findup-sync@^2.0.0:
     resolve-dir "^1.0.1"
 
 flatpickr@^4.5.2:
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.5.tgz#b138050654932f4cf667897d00b51bb930bf392e"
-  integrity sha512-KgAJxBN1BWiOAkwvFSM/nS9YFESOh1yI7uQEd/HQqcTGev84ADO2Mx8C3bUKgIULscb+LireiSDe5D9fh3PFtQ==
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.5.6.tgz#9afdcccf5ffd30445e047a605eb175cb8e00a115"
+  integrity sha512-PYeKKH+5Zm5iGu00SsQPJmXtivolF0goXl00Ced5pEGV6//mxG0pA9Z0aas+X3X4NWqnVNMQuHE8m/fTY86iAQ==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
@@ -6605,7 +6606,7 @@ vue@^2.5.17, vue@^2.6.8:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.8.tgz#f21cbc536bfc14f7d1d792a137bb12f69e60ea91"
   integrity sha512-+vp9lEC2Kt3yom673pzg1J7T1NVGuGzO9j8Wxno+rQN2WYVBX2pyo/RGQ3fXCLh2Pk76Skw/laAPCuBuEQ4diw==
 
-vuex@^3.0.1:
+vuex@^3.0.1, vuex@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
   integrity sha512-mdHeHT/7u4BncpUZMlxNaIdcN/HIt1GsGG5LKByArvYG/v6DvHcOxvDCts+7SRdCoIRGllK8IMZvQtQXLppDYg==

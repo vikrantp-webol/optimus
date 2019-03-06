@@ -107,7 +107,7 @@
 
 <script>
     import moment from 'moment';
-    import listingMixin from '@js/mixins/listing';
+    import listingMixin from 'back/js/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

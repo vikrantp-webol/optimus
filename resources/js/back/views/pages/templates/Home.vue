@@ -2,13 +2,13 @@
     <div class="field">
         <!-- Content -->
         <o-form-field input="content" label="Content" required>
-            <editor v-model="form.content"></editor>
+            <editor id="content" v-model="form.content"></editor>
         </o-form-field>
     </div>
 </template>
 
 <script>
-    import templateMixin from '@js/mixins/template';
+    import templateMixin from 'back/js/mixins/template';
 
     export default {
         mixins: [ templateMixin ],
@@ -19,6 +19,10 @@
                     content: ''
                 }
             }
+        },
+
+        beforeDestroy() {
+            this.clearPickerMedia('content');
         },
 
         methods: {

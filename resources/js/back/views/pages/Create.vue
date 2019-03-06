@@ -1,7 +1,7 @@
 <template>
     <page-form
         method="post"
-        action="/api/pages"
+        action="/admin/api/pages"
     ></page-form>
 </template>
 

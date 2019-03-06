@@ -14,7 +14,7 @@
             </div>
 
             <div class="bg-blue-dark rounded-b px-6 py-12 md:px-12">
-                <form method="post" action="{{ route('admin') }}">
+                <form method="post" action="{{ route('admin.login') }}">
                     @csrf
 
                     @include('back.partials.errors')

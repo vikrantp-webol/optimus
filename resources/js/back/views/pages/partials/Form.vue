@@ -37,14 +37,13 @@
                             label="Template"
                             required
                         >
-                            <o-select id="template_id" v-model="fields.template_id" required>
+                            <o-select id="template_id" v-model="fields.template" required>
                                 <option :value="null" disabled>Please select...</option>
                                 <option
-                                    :key="template.id"
-                                    v-if="template.is_selectable"
+                                    :key="template.name"
                                     v-for="template in templates"
-                                    :value="template.id"
-                                >{{ template.name }}</option>
+                                    :value="template.name"
+                                >{{ template.label }}</option>
                             </o-select>
                         </o-form-field>
                     </div>
@@ -52,8 +51,8 @@
 
                 <!-- Contents -->
                 <component
-                    :is="activeTemplate"
-                    v-if="activeTemplate"
+                    :is="fields.template"
+                    v-if="fields.template"
                     v-model="dynamicFields"
                     :media="media"
                     :contents="contents"
@@ -97,7 +96,7 @@
 </template>
 
 <script>
-    import formMixin from '@js/mixins/form';
+    import formMixin from 'back/js/mixins/form';
     import templates from '../templates';
 
     export default {
@@ -111,7 +110,7 @@
                     title: '',
                     slug: '',
                     parent_id: null,
-                    template_id: null,
+                    template: null,
                     is_published: true,
                     is_stand_alone: false
                 },
@@ -126,14 +125,6 @@
         },
 
         computed: {
-            activeTemplate() {
-                let template = this.templates.find(({ id }) => {
-                    return id === this.fields.template_id
-                });
-
-                return template ? template.component_name : null;
-            },
-
             form() {
                 return Object.assign({}, this.fields, this.dynamicFields);
             }
@@ -145,16 +136,12 @@
                     title: item.title,
                     slug: item.slug,
                     parent_id: item.parent_id,
-                    template_id: item.template_id,
+                    template: item.template,
                     is_published: item.is_published,
                     is_stand_alone: item.is_stand_alone
                 };
 
                 this.contents = item.contents;
-
-                this.$mediaManager.setActiveMedia(
-                    this.media = item.media
-                );
             }
         },
 
@@ -163,15 +150,11 @@
             this.fetchTemplates();
         },
 
-        beforeDestroy() {
-            this.$mediaManager.clearActiveMedia();
-        },
-
         methods: {
             fetchPages() {
                 this.$loader.startLoading('primary.pages');
                 
-                axios.get('/api/pages', {
+                axios.get('/admin/api/pages', {
                     params: { parent: 'root' }
                 }).then(response => {
                     this.pages = response.data.data.filter(({ id }) => id !== this.$route.params.id);
@@ -183,7 +166,7 @@
             fetchTemplates() {
                 this.$loader.startLoading('primary.templates');
                 
-                axios.get('/api/page-templates').then(response => {
+                axios.get('/admin/api/page-templates').then(response => {
                     this.templates = response.data.data;
 
                     this.$loader.stopLoading('primary.templates');

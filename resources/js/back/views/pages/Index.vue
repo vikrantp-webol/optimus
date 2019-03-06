@@ -55,7 +55,7 @@
                             <a
                                 v-if="page.is_deletable"
                                 class="icon medium"
-                                @click="$refs.confirm.open(page)"
+                                @click="openConfirmation(page)"
                             >
                                 <icon icon="trash-alt"></icon>
                             </a>
@@ -66,7 +66,6 @@
         </table>
 
         <o-confirmation
-            ref="confirm"
             @confirm="deletePage"
             button-class="button-red"
             button-text="Delete"
@@ -79,7 +78,7 @@
 </template>
 
 <script>
-    import listingMixin from '@js/mixins/listing';
+    import listingMixin from 'back/js/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],
@@ -111,7 +110,7 @@
                     queryParams['parent'] = 'root';
                 }
 
-                return axios.get('/api/pages', {
+                return axios.get('/admin/api/pages', {
                     params: queryParams
                 }).then(response => {
                     this.pages = response.data.data;
@@ -119,7 +118,7 @@
             },
 
             deletePage(item) {
-                axios.delete('/api/pages/' + item.id).then(() => {
+                axios.delete('/admin/api/pages/' + item.id).then(() => {
                     this.pages = this.pages.filter(({ id }) => id !== item.id);
                 });
             },

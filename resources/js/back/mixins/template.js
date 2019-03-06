@@ -1,3 +1,5 @@
+import { mapActions } from 'vuex';
+
 export default {
     props: {
         contents: {
@@ -31,6 +33,10 @@ export default {
     },
 
     methods: {
+        ...mapActions({
+            clearPickerMedia: 'mediaManager/clearPickerMedia',
+        }),
+
         getMediaIds(collectionName) {
             let media = this.media.filter(({ collection }) => collection === collectionName);
             

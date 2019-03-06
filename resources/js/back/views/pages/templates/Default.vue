@@ -1,8 +1,8 @@
 <template>
     <div class="field">
         <!-- Content -->
-        <o-form-field input="content" label="Content" required>
-            <editor v-model="form.content"></editor>
+        <o-form-field input="default_content" label="Content" required>
+            <editor id="default_content" v-model="form.content"></editor>
         </o-form-field>
 
         <!-- Testing -->
@@ -16,7 +16,12 @@
 
         <!-- Images -->
         <o-form-field input="images" label="Images">
-            <media-picker :limit="null" v-model="form.images">
+            <media-picker
+                id="images"
+                :limit="null"
+                v-model="form.images"
+            >
+            <!-- :media="getMedia('images')" -->
                 <template slot="help">
                     This image will be constrained to 1000px width
                 </template>
@@ -26,7 +31,7 @@
 </template>
 
 <script>
-    import templateMixin from '@js/mixins/template';
+    import templateMixin from 'back/js/mixins/template';
 
     export default {
         mixins: [ templateMixin ],
@@ -38,6 +43,10 @@
                     images: null
                 }
             }
+        },
+
+        beforeDestroy() {
+            this.clearPickerMedia('default_content');
         },
 
         methods: {

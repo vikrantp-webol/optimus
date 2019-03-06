@@ -20,7 +20,7 @@
 
         computed: {
             uri() {
-                return '/api/pages/' + this.$route.params.id;
+                return '/admin/api/pages/' + this.$route.params.id;
             }
         },
 

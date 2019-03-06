@@ -72,7 +72,7 @@
 </template>
 
 <script>
-    import formMixin from '@js/mixins/form';
+    import formMixin from 'back/js/mixins/form';
 
     export default {
         mixins: [ formMixin ],
