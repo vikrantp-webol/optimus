@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+        "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "front-dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
         "front-watch": "npm run front-dev -- --watch",
         "front-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
@@ -12,6 +13,14 @@
         "plugins": [
             "@babel/plugin-proposal-object-rest-spread"
         ]
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.4",
+        "@fortawesome/free-regular-svg-icons": "^5.3.1",
+        "@fortawesome/free-solid-svg-icons": "^5.3.1",
+        "@fortawesome/vue-fontawesome": "^0.1.1",
+        "@optix/sass": "0.0.12",
+        "tailwindcss": "^0.7.3"
     },
     "devDependencies": {
         "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
@@ -30,13 +39,5 @@
         "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.6.8",
         "vuex": "^3.0.1"
-    },
-    "dependencies": {
-        "@fortawesome/fontawesome-svg-core": "^1.2.4",
-        "@fortawesome/free-regular-svg-icons": "^5.3.1",
-        "@fortawesome/free-solid-svg-icons": "^5.3.1",
-        "@fortawesome/vue-fontawesome": "^0.1.1",
-        "@optix/sass": "0.0.12",
-        "tailwindcss": "^0.7.3"
     }
 }
