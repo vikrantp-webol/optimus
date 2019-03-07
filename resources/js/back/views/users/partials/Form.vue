@@ -39,6 +39,7 @@
                         type="password"
                         v-model="form.password"
                         :required="! item"
+                        autocomplete="new-password"
                     ></o-input>
                 </o-form-field>
 
@@ -66,7 +67,7 @@
 
 <script>
     import { mapGetters, mapMutations, mapActions } from 'vuex';
-    import formMixin from 'back/js/mixins/form';
+    import formMixin from '@js/mixins/form';
 
     export default {
         mixins: [ formMixin ],

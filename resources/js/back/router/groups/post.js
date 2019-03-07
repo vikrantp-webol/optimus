@@ -1,12 +1,12 @@
-import Dashboard from 'back/js/views/layouts/Dashboard';
+import Dashboard from '@js/views/layouts/Dashboard';
 
-import PostIndex from 'back/js/views/posts/Index';
-import PostCreate from 'back/js/views/posts/Create';
-import PostEdit from 'back/js/views/posts/Edit';
+import PostIndex from '@js/views/posts/Index';
+import PostCreate from '@js/views/posts/Create';
+import PostEdit from '@js/views/posts/Edit';
 
-import TagIndex from 'back/js/views/posts/tags/Index';
-import TagCreate from 'back/js/views/posts/tags/Create';
-import TagEdit from 'back/js/views/posts/tags/Edit';
+import TagIndex from '@js/views/posts/tags/Index';
+import TagCreate from '@js/views/posts/tags/Create';
+import TagEdit from '@js/views/posts/tags/Edit';
 
 let routes = [
     {

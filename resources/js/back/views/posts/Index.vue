@@ -73,7 +73,7 @@
                                     <icon icon="pencil-alt"></icon>
                                 </router-link>
 
-                                <a class="icon medium" @click="$refs.confirm.open(post)">
+                                <a class="icon medium" @click="openConfirmation(post)">
                                     <icon icon="trash-alt"></icon>
                                 </a>
                             </td>
@@ -93,10 +93,9 @@
         </transition>
 
         <o-confirmation
-            ref="confirm"
             @confirm="deletePost"
-            button-text="Delete"
             button-class="button-red"
+            button-text="Delete"
         >
             <template slot-scope="post">
                 Are you sure you want to delete <strong>"{{ post.title }}"</strong>
@@ -107,7 +106,7 @@
 
 <script>
     import moment from 'moment';
-    import listingMixin from 'back/js/mixins/listing';
+    import listingMixin from '@js/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

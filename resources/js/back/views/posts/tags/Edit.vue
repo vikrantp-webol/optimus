@@ -1,8 +1,8 @@
 <template>
     <tag-form
-        :item="this.tag"
+        :item="tag"
         method="patch"
-        :action="this.uri"
+        :action="uri"
     ></tag-form>
 </template>
 

@@ -23,7 +23,7 @@
                             <icon icon="pencil-alt"></icon>
                         </router-link>
 
-                        <a class="icon medium" @click="$refs.confirm.open(tag)">
+                        <a class="icon medium" @click="openConfirmation(tag)">
                             <icon icon="trash-alt"></icon>
                         </a>
                     </td>
@@ -32,7 +32,6 @@
         </table>
 
         <o-confirmation
-            ref="confirm"
             @confirm="deleteTag"
             button-class="button-red"
             button-text="Delete"

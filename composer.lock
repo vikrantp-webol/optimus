@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2c86d27dfbb8abac40ebfa2ff8424df4",
+    "content-hash": "7471f1e37d069d81e2d887f73bc328ed",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -1257,7 +1257,7 @@
                 {
                     "name": "Luís Otávio Cobucci Oblonczyk",
                     "email": "lcobucci@gmail.com",
-                    "role": "Developer"
+                    "role": "developer"
                 }
             ],
             "description": "A simple library to work with JSON Web Token and JSON Web Signature",
@@ -1776,20 +1776,20 @@
         },
         {
             "name": "optimuscms/media",
-            "version": "dev-master",
+            "version": "v0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimuscms/media.git",
-                "reference": "714ab9588bd2e514a4de3860d4cb55072da3b370"
+                "reference": "a8f9531dbebfeadaf1f815595757bf65bacb5b4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimuscms/media/zipball/714ab9588bd2e514a4de3860d4cb55072da3b370",
-                "reference": "714ab9588bd2e514a4de3860d4cb55072da3b370",
+                "url": "https://api.github.com/repos/optimuscms/media/zipball/a8f9531dbebfeadaf1f815595757bf65bacb5b4d",
+                "reference": "a8f9531dbebfeadaf1f815595757bf65bacb5b4d",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": "~5.5|~5.6|~5.7",
+                "laravel/framework": "^5.7",
                 "optimuscms/users": "^0.2",
                 "optix/media": "dev-master"
             },
@@ -1819,25 +1819,25 @@
                     "email": "jack@optixsolutions.co.uk"
                 }
             ],
-            "time": "2019-03-05T12:50:57+00:00"
+            "time": "2019-03-07T14:22:37+00:00"
         },
         {
             "name": "optimuscms/pages",
-            "version": "v0.3.2",
+            "version": "v0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/optimuscms/pages.git",
-                "reference": "7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff"
+                "reference": "7d29393b50311bd3fb0348f131e67237f1cbd787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/optimuscms/pages/zipball/7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff",
-                "reference": "7f6c669aa0bb7e5d3b7c8157cda9c69b8a6ef8ff",
+                "url": "https://api.github.com/repos/optimuscms/pages/zipball/7d29393b50311bd3fb0348f131e67237f1cbd787",
+                "reference": "7d29393b50311bd3fb0348f131e67237f1cbd787",
                 "shasum": ""
             },
             "require": {
                 "laravel/framework": "^5.7",
-                "optimuscms/media": "dev-master",
+                "optimuscms/media": "^0.1",
                 "optimuscms/users": "^0.2",
                 "optix/draftable": "^1.0",
                 "spatie/laravel-sluggable": "^2.1"
@@ -1868,7 +1868,7 @@
                     "email": "jack@optixsolutions.co.uk"
                 }
             ],
-            "time": "2019-03-05T16:44:50+00:00"
+            "time": "2019-03-07T14:30:40+00:00"
         },
         {
             "name": "optimuscms/users",

@@ -1,8 +1,8 @@
 <template>
     <user-form
-        :item="this.user"
+        :item="user"
         method="patch"
-        :action="this.uri"
+        :action="uri"
     ></user-form>
 </template>
 

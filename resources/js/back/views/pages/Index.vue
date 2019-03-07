@@ -78,7 +78,7 @@
 </template>
 
 <script>
-    import listingMixin from 'back/js/mixins/listing';
+    import listingMixin from '@js/mixins/listing';
 
     export default {
         mixins: [ listingMixin ],
@@ -92,7 +92,6 @@
                 }
             }
         },
-
 
         created() {
             this.setTitle('Manage pages');

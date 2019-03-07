@@ -1,5 +1,5 @@
 import { config } from '@optimuscms/editor';
-import store from 'back/js/store';
+import store from '@js/store';
 
 config.file_picker_types = 'image';
 config.file_picker_callback = function(callback) {

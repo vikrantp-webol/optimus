@@ -1,8 +1,8 @@
 <template>
     <post-form
-        :item="this.post"
+        :item="post"
         method="patch"
-        :action="this.uri"
+        :action="uri"
     ></post-form>
 </template>
 

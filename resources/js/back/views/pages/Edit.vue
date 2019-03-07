@@ -1,8 +1,8 @@
 <template>
     <page-form
-        :item="this.page"
+        :item="page"
         method="patch"
-        :action="this.uri"
+        :action="uri"
     ></page-form>
 </template>
 

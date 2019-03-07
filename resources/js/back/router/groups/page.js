@@ -1,8 +1,8 @@
-import Dashboard from 'back/js/views/layouts/Dashboard';
+import Dashboard from '@js/views/layouts/Dashboard';
 
-import PageIndex from 'back/js/views/pages/Index';
-import PageCreate from 'back/js/views/pages/Create';
-import PageEdit from 'back/js/views/pages/Edit';
+import PageIndex from '@js/views/pages/Index';
+import PageCreate from '@js/views/pages/Create';
+import PageEdit from '@js/views/pages/Edit';
 
 let routes = [
     {

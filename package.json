@@ -13,19 +13,16 @@
             "@babel/plugin-proposal-object-rest-spread"
         ]
     },
-    "dependencies": {
+    "devDependencies": {
+        "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
         "@fortawesome/fontawesome-svg-core": "^1.2.4",
         "@fortawesome/free-regular-svg-icons": "^5.3.1",
         "@fortawesome/free-solid-svg-icons": "^5.3.1",
         "@fortawesome/vue-fontawesome": "^0.1.1",
-        "@optix/sass": "0.0.12",
-        "tailwindcss": "^0.7.3"
-    },
-    "devDependencies": {
-        "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
         "@optimuscms/editor": "^2.2.2",
-        "@optimuscms/media-manager": "^1.2.4",
-        "@optimuscms/theme": "^0.0.1",
+        "@optimuscms/media-manager": "^1.2.5",
+        "@optimuscms/theme": "^0.0.2",
+        "@optix/sass": "0.0.12",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
         "cross-env": "^5.1",
@@ -34,6 +31,7 @@
         "resolve-url-loader": "2.3.1",
         "sass": "^1.17.2",
         "sass-loader": "7.*",
+        "tailwindcss": "^0.7.3",
         "vue": "^2.6.8",
         "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.6.8",
