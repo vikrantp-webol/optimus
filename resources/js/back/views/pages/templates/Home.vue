@@ -21,10 +21,6 @@
             }
         },
 
-        beforeDestroy() {
-            this.clearPickerMedia('content');
-        },
-
         methods: {
             populateForm() {
                 this.form.content = this.getContent('content');

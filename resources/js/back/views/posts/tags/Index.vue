@@ -33,7 +33,7 @@
 
         <o-confirmation
             @confirm="deleteTag"
-            button-class="button-red"
+            button-class="red"
             button-text="Delete"
         >
             <template slot-scope="tag">

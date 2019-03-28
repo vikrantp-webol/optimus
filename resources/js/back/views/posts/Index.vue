@@ -94,7 +94,7 @@
 
         <o-confirmation
             @confirm="deletePost"
-            button-class="button-red"
+            button-class="red"
             button-text="Delete"
         >
             <template slot-scope="post">

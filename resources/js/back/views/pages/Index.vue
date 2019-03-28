@@ -67,7 +67,7 @@
 
         <o-confirmation
             @confirm="deletePage"
-            button-class="button-red"
+            button-class="red"
             button-text="Delete"
         >
             <template slot-scope="page">

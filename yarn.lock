@@ -653,10 +653,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@optimuscms/editor@^2.2.2":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.2.tgz#6b092f48f343ce68b14c65736ab6af83c726ed21"
-  integrity sha512-tWAcEfXOU/NSzRAWnJRCusgo6mlXFzw2qiKjUSM/ERY67SqdmcR0ncSSH/hB/bWHMxXO6buTq9q2e78Rckstlg==
+"@optimuscms/editor@^2.2.3":
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.3.tgz#5d68ed1893195fb019a583f4afdc24fa91e1fd1c"
+  integrity sha512-BC/jAFoLU6XUBUBXcrq9fc6A2sJxIA12RckvM9Mt3Ox/HRcqSepkaxaKDRUUOKuZJ1GzenNMDBBPDB6Thi7oHQ==
   dependencies:
     "@tinymce/tinymce-vue" "^1.1.0"
 
@@ -668,16 +668,16 @@
     lodash "^4.17.11"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.0.2.tgz#e1f6fa9baad524085f352bdb7db82ee67b880a10"
-  integrity sha512-dux03ekMNEyLru7AUjdmEwVVOfaCZXv/60dFzY9sZYHpxHkJaTtz4OWMgmWAUa26lh0skC0gv1HJCwoD7jvyog==
+"@optimuscms/theme@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.0.3.tgz#7e3978d8769fa500357970d0ea2f50f9e0f72737"
+  integrity sha512-H9lvPVgzvxwEF03ni4dLvGbT6JJ/5jaxywR1ldrMaJ9aNkqC8QvDtxV77wutC63BZLN0idCvVI/liMkZTDConw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
-    "@optix/sass" "^0.0.12"
+    "@optix/sass" "^0.1.2"
     flatpickr "^4.5.2"
     nprogress "^0.2.0"
     tailwindcss "^0.7.3"
@@ -686,10 +686,10 @@
     vue-multiselect "^2.1.3"
     vuex "^3.1.0"
 
-"@optix/sass@0.0.12", "@optix/sass@^0.0.12":
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.0.12.tgz#0e02e6ebad936348e803c890b21c4161baf490f5"
-  integrity sha512-s8Qtjd18/3zdySidV0+qNZTcoOxPkgqv7G4KtSUGxU/lCYsVw/mJ3WU5RcMGwiQ7WwznORDgf3Vqmx7wJHORYA==
+"@optix/sass@0.1.2", "@optix/sass@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.1.2.tgz#9595eac14df163e89532335a4e92ed9f39c295c2"
+  integrity sha512-cxqwsk0GshrH6PADiQElEeeOVoP6AMDIRY8giZM9h1NsU0WSqu+AFsgzJtq0FxjKM4Pl+Q32NRedXeThH6Aikw==
   dependencies:
     tailwindcss "^0.6.6"
 

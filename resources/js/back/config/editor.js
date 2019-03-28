@@ -1,6 +1,10 @@
 import { config } from '@optimuscms/editor';
 import store from '@js/store';
 
+config.onBeforeDestroy = function() {
+    store.dispatch('mediaManager/clearPickerMedia', this.id);
+};
+
 config.file_picker_types = 'image';
 config.file_picker_callback = function(callback) {
     store.dispatch('mediaManager/setPickerMedia', {

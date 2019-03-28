@@ -77,7 +77,7 @@
             <div class="field flex items-center">
                 <div class="control">
                     <button
-                        class="button button-green"
+                        class="button green"
                         :class="{ 'loading': isProcessing }"
                     >Save</button>
                 </div>

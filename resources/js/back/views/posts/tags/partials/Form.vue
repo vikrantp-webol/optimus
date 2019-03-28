@@ -17,7 +17,7 @@
 
         <div class="p-8">
             <button
-                class="button button-green"
+                class="button green"
                 :class="{ 'loading': isProcessing }"
             >Save</button>
         </div>
