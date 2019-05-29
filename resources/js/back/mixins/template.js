@@ -31,14 +31,20 @@ export default {
     },
 
     methods: {
-        getMediaIds(collectionName) {
-            let media = this.media.filter(({ collection }) => collection === collectionName);
+        getMedia(groupName) {
+            let media = this.media.filter(({ group }) => group === groupName);
+            
+            return media.length ? media : [];
+        },
+
+        getMediaIds(groupName) {
+            let media = this.media.filter(({ group }) => group === groupName);
             
             return media.length ? media.map(({ id }) => id) : null;
         },
 
-        getFirstMediaId(collectionName) {
-            let media = this.media.find(({ collection }) => collection === collectionName);
+        getFirstMediaId(groupName) {
+            let media = this.media.find(({ group }) => group === groupName);
         
             return media ? media.id : null;
         },

@@ -47,7 +47,7 @@
                     
                     <button
                         type="submit"
-                        class="button button-primary w-full"
+                        class="button red w-full"
                     >Login</button>
                 </form>
             </div>
