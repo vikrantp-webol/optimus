@@ -7,7 +7,7 @@ mix.setPublicPath('public/front')
    .sass('resources/sass/front/app.scss', 'css')
    .options({
        processCssUrls: false,
-       postCss: [ tailwindcss('./resources/sass/front/tailwind.js') ]
+       postCss: [ tailwindcss('./resources/sass/front/tailwind.config.js') ]
    })
    .webpackConfig({
        resolve: {

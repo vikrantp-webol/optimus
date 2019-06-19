@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="p-8" v-if="! pages.length">
-            <o-notification class="bg-blue-lightest rounded">
+            <o-notification class="bg-blue-100 rounded">
                 You haven't added any pages yet,
 
                 <router-link

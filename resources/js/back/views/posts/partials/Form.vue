@@ -2,7 +2,7 @@
     <form @submit.prevent="submit">
         <o-errors v-if="anyErrors" :errors="errors"></o-errors>
 
-        <div class="p-8 border-b border-grey-light">
+        <div class="p-8 border-b border-grey-400">
             <div class="xl:w-2/3">
                 <!-- Title -->
                 <o-form-field input="title" label="Title" required>

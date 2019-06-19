@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="p-8" v-if="! posts.length">
-            <o-notification class="bg-blue-lightest rounded">
+            <o-notification class="bg-blue-100 rounded">
                 You haven't added any news articles yet,
 
                 <router-link
@@ -12,7 +12,7 @@
         </section>
 
         <template v-else>
-            <section class="p-8 flex justify-between border-b border-grey-light">
+            <section class="p-8 flex justify-between border-b border-grey-400">
                 <o-search
                     :value="filters.title"
                     @submit="value => filters.title = value"
