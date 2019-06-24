@@ -3,7 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+        @if(! app()->environment('production'))
+            <meta name="robots" content="noindex">
+        @endif
 
         {{-- CSRF Token --}}
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,13 +16,13 @@
         <title>@yield('meta.title') | {{ config('app.name') }}</title>
 
         @hasSection('meta.description')
-            <meta name="description" content="@yield('meta.description')" />
+            <meta name="description" content="@yield('meta.description')">
         @endif
 
         {{-- Open Graph --}}
-        <meta property="og:title" content="@yield('meta.title') | {{ config('app.name') }}" />
-        <meta property="og:url" content="{{ url()->full() }}" />
-        <meta property="og:image" content="{{ url('/images/layout/og.png') }}" />
+        <meta property="og:title" content="@yield('meta.title') | {{ config('app.name') }}">
+        <meta property="og:url" content="{{ url()->full() }}">
+        <meta property="og:image" content="{{ url('/images/layout/og.png') }}">
 
         {{-- Styles --}}
         <link rel="stylesheet" href="{{ mix('/css/app.css', 'front') }}">
