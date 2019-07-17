@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="p-8" v-if="! pages.length">
-            <o-notification class="bg-blue-100 rounded">
+            <o-notification class="bg-blue-300 rounded">
                 You haven't added any pages yet,
 
                 <router-link
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-    import listingMixin from '@js/mixins/listing';
+    import listingMixin from '../../mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

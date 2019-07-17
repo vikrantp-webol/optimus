@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    import formMixin from '@js/mixins/form';
+    import formMixin from '../../../mixins/form';
     import templates from '../templates';
 
     export default {

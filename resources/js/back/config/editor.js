@@ -1,5 +1,5 @@
 import { config } from '@optimuscms/editor';
-import store from '@js/store';
+import store from '../store';
 
 config.onBeforeDestroy = function() {
     store.dispatch('mediaManager/clearPickerMedia', this.id);

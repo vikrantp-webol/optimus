@@ -1,7 +1,7 @@
 <template>
     <div>
         <section class="p-8" v-if="! posts.length">
-            <o-notification class="bg-blue-100 rounded">
+            <o-notification class="bg-blue-300 rounded">
                 You haven't added any news articles yet,
 
                 <router-link
@@ -106,7 +106,7 @@
 
 <script>
     import moment from 'moment';
-    import listingMixin from '@js/mixins/listing';
+    import listingMixin from '../../mixins/listing';
 
     export default {
         mixins: [ listingMixin ],

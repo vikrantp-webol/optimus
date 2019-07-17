@@ -1,12 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "front-dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
-        "front-watch": "npm run front-dev -- --watch",
-        "front-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.front.mix.js",
-        "back-dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.back.mix.js",
-        "back-watch": "npm run back-dev -- --watch",
-        "back-prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=webpack.back.mix.js"
+        "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run dev -- --watch",
+        "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "babel": {
         "plugins": [
@@ -19,15 +16,15 @@
         "@fortawesome/free-regular-svg-icons": "^5.3.1",
         "@fortawesome/free-solid-svg-icons": "^5.3.1",
         "@fortawesome/vue-fontawesome": "^0.1.1",
+        "@fullhuman/postcss-purgecss": "^1.2.0",
         "@optimuscms/editor": "^2.2.4",
         "@optimuscms/media-manager": "^1.2.5",
-        "@optimuscms/theme": "^0.1.0",
+        "@optimuscms/theme": "^0.1.1",
         "@optix/sass": "^0.2.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
         "cross-env": "^5.1",
         "laravel-mix": "^4.0.0",
-        "laravel-mix-purgecss": "^4.1.0",
         "moment": "^2.22.2",
         "resolve-url-loader": "2.3.1",
         "sass": "^1.17.2",

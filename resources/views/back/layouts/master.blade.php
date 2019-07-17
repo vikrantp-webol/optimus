@@ -12,7 +12,7 @@
         <title>{{ config('app.name') }} | Admin</title>
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ mix('css/app.css', 'back') }}">
+        <link rel="stylesheet" href="{{ mix('/back/css/app.css') }}">
 
         {{-- Fonts --}}
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
