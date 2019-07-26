@@ -3,43 +3,43 @@
         :item="post"
         method="patch"
         :action="uri"
-    ></post-form>
+    />
 </template>
 
 <script>
-    import PostForm from './partials/Form';
+import PostForm from './partials/Form';
 
-    export default {
-        components: { PostForm },
+export default {
+    components: { PostForm },
 
-        data() {
-            return {
-                post: null
-            }
-        },
+    data() {
+        return {
+            post: null
+        };
+    },
 
-        computed: {
-            uri() {
-                return '/api/posts/' + this.$route.params.id;
-            }
-        },
+    computed: {
+        uri() {
+            return '/api/posts/' + this.$route.params.id;
+        }
+    },
 
-        created() {
-            this.setTitle('Edit news');
+    created() {
+        this.setTitle('Edit news');
 
-            this.fetchPost();
-        },
+        this.fetchPost();
+    },
 
-        methods: {
-            fetchPost() {
-                this.$loader.startLoading('primary.post');
+    methods: {
+        fetchPost() {
+            this.$loader.startLoading('primary.post');
 
-                axios.get(this.uri).then(response => {
-                    this.post = response.data.data;
+            axios.get(this.uri).then(response => {
+                this.post = response.data.data;
 
-                    this.$loader.stopLoading('primary.post');
-                });
-            }
+                this.$loader.stopLoading('primary.post');
+            });
         }
     }
+};
 </script>

@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submit">
-        <o-errors v-if="anyErrors" :errors="errors"></o-errors>
+        <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
             <div class="xl:w-2/3">
@@ -10,48 +10,53 @@
                         id="name"
                         v-model="form.name"
                         required
-                    ></o-input>
+                    />
                 </o-form-field>
 
                 <!-- Email -->
                 <o-form-field input="email" label="Email" required>
                     <o-input
                         id="email"
-                        type="email"
                         v-model="form.email"
+                        type="email"
                         required
-                    ></o-input>
+                    />
                 </o-form-field>
 
                 <!-- Username -->
-                <o-form-field input="username" label="Username" required v-if="! isEditingAdmin">
+                <o-form-field
+                    v-if="! isEditingAdmin"
+                    input="username"
+                    label="Username"
+                    required
+                >
                     <o-input
                         id="username"
                         v-model="form.username"
                         required
-                    ></o-input>
+                    />
                 </o-form-field>
 
                 <!-- Password -->
                 <o-form-field input="password" label="Password" :required="! item">
                     <o-input
                         id="password"
-                        type="password"
                         v-model="form.password"
+                        type="password"
                         :required="! item"
                         autocomplete="new-password"
-                    ></o-input>
+                    />
                 </o-form-field>
 
                 <!-- Avatar -->
                 <o-form-field input="avatar" label="Avatar">
                     <media-picker
                         id="avatar"
-                        :media="getMedia('avatar')"
                         v-model="form.avatar"
+                        :media="getMedia('avatar')"
                         preview
                         accepted-extensions="image"
-                    ></media-picker>
+                    />
                 </o-form-field>
             </div>
         </div>
@@ -60,71 +65,73 @@
             <button
                 class="button green"
                 :class="{ 'loading': isProcessing }"
-            >Save</button>
+            >
+                Save
+            </button>
         </div>
     </form>
 </template>
 
 <script>
-    import { mapGetters, mapMutations, mapActions } from 'vuex';
-    import formMixin from '../../../mixins/form';
+import { mapGetters, mapMutations } from 'vuex';
+import formMixin from '../../../mixins/form';
 
-    export default {
-        mixins: [ formMixin ],
+export default {
+    mixins: [ formMixin ],
 
-        data() {
-            return {
-                form: {
-                    name: '',
-                    username: '',
-                    email: '',
-                    password: '',
-                    avatar: null
-                }
+    data() {
+        return {
+            form: {
+                name: '',
+                username: '',
+                email: '',
+                password: '',
+                avatar: null
             }
+        };
+    },
+
+    computed: {
+        ...mapGetters({
+            authedUser: 'user/data'
+        }),
+
+        isEditingAdmin() {
+            return this.item && this.item.username === 'admin';
         },
 
-        computed: {
-            ...mapGetters({
-                authedUser: 'user/data'
-            }),
+        isEditingSelf() {
+            return this.authedUser.id == this.$route.params.id;
+        }
+    },
 
-            isEditingAdmin() {
-                return this.item && this.item.username === 'admin';
-            },
+    watch: {
+        item(item) {
+            this.form = {
+                name: item.name,
+                username: item.username,
+                email: item.email,
+                password: null,
+                avatar: item.avatar ? item.avatar.id : null
+            };
+        }
+    },
 
-            isEditingSelf() {
-                return this.authedUser.id == this.$route.params.id;
+    methods: {
+        ...mapMutations({
+            updateAuthedUser: 'user/update'
+        }),
+
+        onSuccess() {
+            if (this.isEditingSelf) {
+                this.updateAuthedUser({
+                    name: this.form.name,
+                    avatar: this.form.avatar
+                });
             }
-        },
 
-        watch: {
-            item(item) {
-                this.form = {
-                    name: item.name,
-                    username: item.username,
-                    email: item.email,
-                    password: null,
-                    avatar: item.avatar ? item.avatar.id : null
-                };
-            }
-        },
-
-        methods: {
-            ...mapMutations({
-                updateAuthedUser: 'user/update'
-            }),
-
-            onSuccess() {
-                if (this.isEditingSelf) {
-                    this.updateAuthedUser({
-                        name: this.form.name,
-                        avatar: this.form.avatar
-                    });
-                }
-                
-                this.$router.push({ name: 'users.index' });
-            }
+            this.$router.push({ name: 'users.index' });
         }
     }
+};
 </script>

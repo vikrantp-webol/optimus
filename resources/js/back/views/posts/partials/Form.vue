@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submit">
-        <o-errors v-if="anyErrors" :errors="errors"></o-errors>
+        <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
             <div class="xl:w-2/3">
@@ -10,32 +10,37 @@
                         id="title"
                         v-model="form.title"
                         required
-                    ></o-input>
+                    />
                 </o-form-field>
 
                 <!-- Tags -->
-                <o-form-field input="tags" label="Categories" v-if="tags.length" required>
+                <o-form-field
+                    v-if="tags.length"
+                    input="tags"
+                    label="Categories"
+                    required
+                >
                     <o-multi-select
                         id="tags"
                         v-model="form.tags"
                         :options="tags"
                         required
-                    ></o-multi-select>
+                    />
                 </o-form-field>
 
                 <!-- Excerpt -->
                 <o-form-field input="excerpt" label="Excerpt" required>
                     <o-input
                         id="excerpt"
-                        type="textarea"
                         v-model="form.excerpt"
+                        type="textarea"
                         required
-                    ></o-input>
+                    />
                 </o-form-field>
-                    
+
                 <!-- Body -->
                 <o-form-field input="body" label="Body" required>
-                    <editor v-model="form.body"></editor>
+                    <editor v-model="form.body" />
                 </o-form-field>
 
                 <!-- Published at -->
@@ -44,14 +49,14 @@
                         id="published_at"
                         v-model="form.published_at"
                         required
-                    ></o-date-picker>
+                    />
                 </o-form-field>
 
                 <!-- Image -->
                 <o-form-field input="image" label="Image" required>
                     <media-picker
-                        :limit="1"
                         v-model="form.image"
+                        :limit="1"
                         preview
                     >
                         <template slot="help">
@@ -66,74 +71,76 @@
             <button
                 class="button green"
                 :class="{ 'loading': isProcessing }"
-            >Save</button>
+            >
+                Save
+            </button>
         </div>
     </form>
 </template>
 
 <script>
-    import formMixin from '../../../mixins/form';
+import formMixin from '../../../mixins/form';
 
-    export default {
-        mixins: [ formMixin ],
+export default {
+    mixins: [ formMixin ],
 
-        data() {
-            return {
-                form: {
-                    title: '',
-                    excerpt: '',
-                    body: '',
-                    tags: [],
-                    image: null,
-                    published_at: ''
-                },
-
-                tags: []
-            }
-        },
-
-        watch: {
-            item(item) {
-                this.form = {
-                    title: item.title,
-                    excerpt: item.excerpt,
-                    body: item.body,
-                    tags: item.tags.map(({ id }) => id),
-                    image: item.image.id,
-                    published_at: item.published_at
-                };
-
-                this.$mediaManager.setActiveMedia([item.image]);
-            }
-        },
-
-        created() {
-            this.fetchTags();
-        },
-
-        beforeDestroy() {
-            this.$mediaManager.clearActiveMedia();
-        },
-
-        methods: {
-            fetchTags() {
-                this.$loader.startLoading('primary.tags');
-
-                axios.get('/api/post-tags').then(response => {
-                    this.tags = response.data.data.map(({ id, name }) => {
-                        return {
-                            value: id,
-                            label: name
-                        }
-                    });
-
-                    this.$loader.stopLoading('primary.tags');
-                });
+    data() {
+        return {
+            form: {
+                title: '',
+                excerpt: '',
+                body: '',
+                tags: [],
+                image: null,
+                published_at: ''
             },
 
-            onSuccess() {
-                this.$router.push({ name: 'posts.index' });
-            }
+            tags: []
+        };
+    },
+
+    watch: {
+        item(item) {
+            this.form = {
+                title: item.title,
+                excerpt: item.excerpt,
+                body: item.body,
+                tags: item.tags.map(({ id }) => id),
+                image: item.image.id,
+                published_at: item.published_at
+            };
+
+            this.$mediaManager.setActiveMedia([item.image]);
+        }
+    },
+
+    created() {
+        this.fetchTags();
+    },
+
+    beforeDestroy() {
+        this.$mediaManager.clearActiveMedia();
+    },
+
+    methods: {
+        fetchTags() {
+            this.$loader.startLoading('primary.tags');
+
+            axios.get('/api/post-tags').then(response => {
+                this.tags = response.data.data.map(({ id, name }) => {
+                    return {
+                        value: id,
+                        label: name
+                    };
+                });
+
+                this.$loader.stopLoading('primary.tags');
+            });
+        },
+
+        onSuccess() {
+            this.$router.push({ name: 'posts.index' });
         }
     }
+};
 </script>

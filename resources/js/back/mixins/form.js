@@ -20,7 +20,7 @@ export default {
         return {
             errors: {},
             isProcessing: false
-        }
+        };
     },
 
     computed: {
@@ -35,7 +35,7 @@ export default {
                 ? this.item[group]
                 : [];
         },
-        
+
         submit() {
             this.errors = {};
             this.isProcessing = true;
@@ -50,7 +50,7 @@ export default {
                     } else {
                         this.errors = {
                             error: [ 'An unexpected error occured.' ]
-                        }
+                        };
                     }
 
                     window.scroll(0, 0);
@@ -60,14 +60,14 @@ export default {
                     this.isProcessing = false;
 
                     this.onFinally();
-                })
+                });
         },
 
-        onSuccess(response) {
+        onSuccess() {
             //
         },
 
-        onError(error) {
+        onError() {
             //
         },
 

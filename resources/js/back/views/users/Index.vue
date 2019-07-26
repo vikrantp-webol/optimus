@@ -9,18 +9,20 @@
 
                     <th>Username</th>
 
-                    <th class="narrow">Actions</th>
+                    <th class="narrow">
+                        Actions
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr :key="user.id" v-for="user in users">
+                <tr v-for="user in users" :key="user.id">
                     <td>{{ user.name }}</td>
 
                     <td>{{ user.email }}</td>
 
                     <td>{{ user.username }}</td>
-                    
+
                     <td class="actions">
                         <router-link
                             :to="{
@@ -29,7 +31,7 @@
                             }"
                             class="icon medium"
                         >
-                            <icon icon="pencil-alt"></icon>
+                            <icon icon="pencil-alt" />
                         </router-link>
 
                         <a
@@ -37,7 +39,7 @@
                             class="icon medium"
                             @click="openConfirmation(user)"
                         >
-                            <icon icon="trash-alt"></icon>
+                            <icon icon="trash-alt" />
                         </a>
                     </td>
                 </tr>
@@ -45,9 +47,9 @@
         </table>
 
         <o-confirmation
-            @confirm="deleteUser"
             button-class="red"
             button-text="Delete"
+            @confirm="deleteUser"
         >
             <template slot-scope="user">
                 Are you sure you want to delete <strong>"{{ user.name }}"</strong>
@@ -57,35 +59,35 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                users: []
-            }
+export default {
+    data() {
+        return {
+            users: []
+        };
+    },
+
+    created() {
+        this.setTitle('Manage users');
+
+        this.fetchUsers();
+    },
+
+    methods: {
+        fetchUsers(params = {}) {
+            this.$loader.startLoading('primary.admin-users');
+
+            axios.get('/admin/api/users', { params }).then(response => {
+                this.users = response.data.data;
+
+                this.$loader.stopLoading('primary.admin-users');
+            });
         },
 
-        created() {
-            this.setTitle('Manage users');
-
-            this.fetchUsers();
-        },
-
-        methods: {
-            fetchUsers(params = {}) {
-                this.$loader.startLoading('primary.admin-users');
-
-                axios.get('/admin/api/users', { params }).then(response => {
-                    this.users = response.data.data;
-
-                    this.$loader.stopLoading('primary.admin-users');
-                });
-            },
-
-            deleteUser(item) {
-                axios.delete('/admin/api/users/' + item.id).then(() => {
-                    this.users = this.users.filter(({ id }) => id !== item.id);
-                });
-            }
+        deleteUser(item) {
+            axios.delete('/admin/api/users/' + item.id).then(() => {
+                this.users = this.users.filter(({ id }) => id !== item.id);
+            });
         }
     }
+};
 </script>

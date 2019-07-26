@@ -10,13 +10,13 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 // Register components
 Vue.component('icon', FontAwesomeIcon);
 
-const app = new Vue({
+new Vue({
     el: '#app',
 
     data() {
         return {
             navIsActive: false
-        }
+        };
     },
 
     methods: {

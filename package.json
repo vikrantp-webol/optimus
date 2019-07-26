@@ -3,7 +3,8 @@
     "scripts": {
         "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run dev -- --watch",
-        "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "lint": "node_modules/eslint/bin/eslint.js --ext .js,.vue resources/js"
     },
     "babel": {
         "plugins": [
@@ -24,6 +25,8 @@
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
         "cross-env": "^5.1",
+        "eslint": "^6.1.0",
+        "eslint-plugin-vue": "^5.2.3",
         "laravel-mix": "^4.0.0",
         "moment": "^2.22.2",
         "resolve-url-loader": "2.3.1",

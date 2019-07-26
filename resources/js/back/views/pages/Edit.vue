@@ -3,43 +3,43 @@
         :item="page"
         method="patch"
         :action="uri"
-    ></page-form>
+    />
 </template>
 
 <script>
-    import PageForm from './partials/Form';
+import PageForm from './partials/Form';
 
-    export default {
-        components: { PageForm },
+export default {
+    components: { PageForm },
 
-        data() {
-            return {
-                page: null
-            }
-        },
+    data() {
+        return {
+            page: null
+        };
+    },
 
-        computed: {
-            uri() {
-                return '/admin/api/pages/' + this.$route.params.id;
-            }
-        },
+    computed: {
+        uri() {
+            return '/admin/api/pages/' + this.$route.params.id;
+        }
+    },
 
-        created() {
-            this.setTitle('Edit page');
-            
-            this.fetchPage();
-        },
+    created() {
+        this.setTitle('Edit page');
 
-        methods: {
-            fetchPage() {
-                this.$loader.startLoading('primary.page');
+        this.fetchPage();
+    },
 
-                axios.get(this.uri).then(response => {
-                    this.page = response.data.data;
-                    
-                    this.$loader.stopLoading('primary.page');
-                });
-            }
+    methods: {
+        fetchPage() {
+            this.$loader.startLoading('primary.page');
+
+            axios.get(this.uri).then(response => {
+                this.page = response.data.data;
+
+                this.$loader.stopLoading('primary.page');
+            });
         }
     }
+};
 </script>

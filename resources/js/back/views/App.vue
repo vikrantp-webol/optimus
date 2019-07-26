@@ -1,6 +1,6 @@
 <template>
     <div>
-        <router-view></router-view>
-        <media-manager></media-manager>
+        <router-view />
+        <media-manager />
     </div>
 </template>

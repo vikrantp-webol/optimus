@@ -4,10 +4,10 @@ import {
     faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
 
-export default { 
+export default {
     register() {
         library.add(
             faAngleDown
         );
     }
-}
+};

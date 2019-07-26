@@ -1,17 +1,19 @@
 <template>
     <div>
-        <section class="p-8" v-if="! pages.length">
+        <section v-if="! pages.length" class="p-8">
             <o-notification class="bg-blue-300 rounded">
                 You haven't added any pages yet,
 
                 <router-link
                     :to="{ name: 'pages.create' }"
                     class="underline"
-                >click here to add one</router-link>.
+                >
+                    click here to add one
+                </router-link>.
             </o-notification>
         </section>
 
-        <table class="table" v-else>
+        <table v-else class="table">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -20,15 +22,17 @@
 
                     <th>Sub pages</th>
 
-                    <th class="narrow">Actions</th>
+                    <th class="narrow">
+                        Actions
+                    </th>
                 </tr>
             </thead>
 
             <transition name="fade">
                 <tbody v-show="! $loader.isLoading('secondary.*')">
                     <tr
-                        :key="page.id"
                         v-for="page in pages"
+                        :key="page.id"
                         :class="{ 'draft': ! page.is_published }"
                     >
                         <td>{{ page.title }}</td>
@@ -40,7 +44,7 @@
                                 Sub pages ({{ page.children_count }})
                             </a>
                         </td>
-                        
+
                         <td class="actions">
                             <router-link
                                 :to="{
@@ -49,7 +53,7 @@
                                 }"
                                 class="icon medium"
                             >
-                                <icon icon="pencil-alt"></icon>
+                                <icon icon="pencil-alt" />
                             </router-link>
 
                             <a
@@ -57,7 +61,7 @@
                                 class="icon medium"
                                 @click="openConfirmation(page)"
                             >
-                                <icon icon="trash-alt"></icon>
+                                <icon icon="trash-alt" />
                             </a>
                         </td>
                     </tr>
@@ -66,9 +70,9 @@
         </table>
 
         <o-confirmation
-            @confirm="deletePage"
             button-class="red"
             button-text="Delete"
+            @confirm="deletePage"
         >
             <template slot-scope="page">
                 Are you sure you want to delete <strong>"{{ page.title }}"</strong>
@@ -78,57 +82,57 @@
 </template>
 
 <script>
-    import listingMixin from '../../mixins/listing';
+import listingMixin from '../../mixins/listing';
 
-    export default {
-        mixins: [ listingMixin ],
+export default {
+    mixins: [ listingMixin ],
 
-        data() {
-            return {
-                pages: [],
+    data() {
+        return {
+            pages: [],
 
-                filters: {
-                    parent: null
-                }
+            filters: {
+                parent: null
             }
-        },
+        };
+    },
 
-        created() {
-            this.setTitle('Manage pages');
+    created() {
+        this.setTitle('Manage pages');
 
-            this.$loader.startLoading('primary.pages');
+        this.$loader.startLoading('primary.pages');
 
-            this.fetchPages(this.query).then(() => {
-                this.$loader.stopLoading('primary.pages');
+        this.fetchPages(this.query).then(() => {
+            this.$loader.stopLoading('primary.pages');
+        });
+    },
+
+    methods: {
+        fetchPages(queryParams = {}) {
+            if (! queryParams.hasOwnProperty('parent')) {
+                queryParams['parent'] = 'root';
+            }
+
+            return axios.get('/admin/api/pages', {
+                params: queryParams
+            }).then(response => {
+                this.pages = response.data.data;
             });
         },
 
-        methods: {
-            fetchPages(queryParams = {}) {
-                if (! queryParams.hasOwnProperty('parent')) {
-                    queryParams['parent'] = 'root';
-                }
+        deletePage(item) {
+            axios.delete('/admin/api/pages/' + item.id).then(() => {
+                this.pages = this.pages.filter(({ id }) => id !== item.id);
+            });
+        },
 
-                return axios.get('/admin/api/pages', {
-                    params: queryParams
-                }).then(response => {
-                    this.pages = response.data.data;
-                });
-            },
+        onFilter(queryParams) {
+            this.$loader.startLoading('secondary.pages');
 
-            deletePage(item) {
-                axios.delete('/admin/api/pages/' + item.id).then(() => {
-                    this.pages = this.pages.filter(({ id }) => id !== item.id);
-                });
-            },
-
-            onFilter(queryParams) {
-                this.$loader.startLoading('secondary.pages');
-
-                this.fetchPages(queryParams).then(() => {
-                    this.$loader.stopLoading('secondary.pages');
-                });
-            }
+            this.fetchPages(queryParams).then(() => {
+                this.$loader.stopLoading('secondary.pages');
+            });
         }
     }
+};
 </script>

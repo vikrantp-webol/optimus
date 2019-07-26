@@ -16,7 +16,7 @@ if (mix.inProduction()) {
                 'resources/**/front/**/*.vue'
             ],
             whitelistPatterns: [/swiper/]
-       })
+        })
     );
 
     mix.version();

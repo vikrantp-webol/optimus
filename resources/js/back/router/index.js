@@ -15,7 +15,7 @@ const router = new VueRouter({
     scrollBehavior() {
         return { x: 0, y: 0 };
     },
-    
+
     routes: [
         {
             path: '/',
@@ -24,7 +24,7 @@ const router = new VueRouter({
                 name: 'pages.index'
             }
         },
-        
+
         ...pageRoutes,
         ...postRoutes,
         ...userRoutes
@@ -40,12 +40,12 @@ router.afterEach(() => {
     Vue.nextTick(() => store.commit('dashboard/closeSide'));
 });
 
-axios.interceptors.response.use(response => response, error => {
-    // if (error.response.status === 401) {
-    //     return window.location.href = '/admin/login';
-    // }
-    
-    // return Promise.reject(error);
+axios.interceptors.response.use(null, error => {
+    if (error.response.status === 401) {
+        return window.location.href = '/admin/login';
+    }
+
+    return Promise.reject(error);
 });
 
 export default router;

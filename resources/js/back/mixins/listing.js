@@ -4,7 +4,7 @@ export default {
             if (string.length > length) {
                 return string.substring(0, length).replace(/[^A-Za-z0-9]+$/g, '...');
             }
-            
+
             return string;
         }
     },
@@ -13,7 +13,7 @@ export default {
         return {
             filters: {},
             initialFilters: {}
-        }
+        };
     },
 
     computed: {
@@ -58,7 +58,7 @@ export default {
 
     created() {
         this.initialFilters = Object.assign({}, this.filters);
-        
+
         this.setFilters(this.query);
     },
 
@@ -73,7 +73,7 @@ export default {
             });
         },
 
-        onFilter(query) {
+        onFilter() {
             //
         }
     }
