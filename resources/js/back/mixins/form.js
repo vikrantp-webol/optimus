@@ -2,31 +2,31 @@ export default {
     props: {
         method: {
             type: String,
-            required: true
+            required: true,
         },
 
         action: {
             type: String,
-            required: true
+            required: true,
         },
 
         item: {
             type: Object,
-            default: null
-        }
+            default: null,
+        },
     },
 
     data() {
         return {
             errors: {},
-            isProcessing: false
+            isProcessing: false,
         };
     },
 
     computed: {
         anyErrors() {
             return Object.keys(this.errors).length > 0;
-        }
+        },
     },
 
     methods: {
@@ -49,7 +49,7 @@ export default {
                         this.errors = error.response.data.errors;
                     } else {
                         this.errors = {
-                            error: [ 'An unexpected error occured.' ]
+                            error: [ 'An unexpected error occured.' ],
                         };
                     }
 
@@ -73,6 +73,6 @@ export default {
 
         onFinally() {
             //
-        }
-    }
+        },
+    },
 };

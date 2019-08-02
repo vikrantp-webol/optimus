@@ -89,14 +89,14 @@ export default {
     methods: {
         ...mapActions({
             fetchUser: 'user/fetch',
-            openMediaManager: 'mediaManager/open'
+            openMediaManager: 'mediaManager/open',
         }),
 
         logout() {
             axios.post('/admin/logout').then(() => {
                 window.location.href = '/admin/login';
             });
-        }
-    }
+        },
+    },
 };
 </script>

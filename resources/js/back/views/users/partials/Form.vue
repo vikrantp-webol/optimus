@@ -3,7 +3,7 @@
         <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
-            <div class="xl:w-2/3">
+            <div class="max-w-3xl">
                 <!-- Name -->
                 <o-form-field input="name" label="Name" required>
                     <o-input
@@ -86,14 +86,14 @@ export default {
                 username: '',
                 email: '',
                 password: '',
-                avatar: null
-            }
+                avatar: null,
+            },
         };
     },
 
     computed: {
         ...mapGetters({
-            authedUser: 'user/data'
+            authedUser: 'user/data',
         }),
 
         isEditingAdmin() {
@@ -102,7 +102,7 @@ export default {
 
         isEditingSelf() {
             return this.authedUser.id == this.$route.params.id;
-        }
+        },
     },
 
     watch: {
@@ -112,26 +112,28 @@ export default {
                 username: item.username,
                 email: item.email,
                 password: null,
-                avatar: item.avatar ? item.avatar.id : null
+                avatar: item.avatar ? item.avatar.id : null,
             };
-        }
+        },
     },
 
     methods: {
         ...mapMutations({
-            updateAuthedUser: 'user/update'
+            updateAuthedUser: 'user/update',
         }),
 
         onSuccess() {
             if (this.isEditingSelf) {
                 this.updateAuthedUser({
                     name: this.form.name,
-                    avatar: this.form.avatar
+                    avatar: this.form.avatar,
                 });
             }
 
-            this.$router.push({ name: 'users.index' });
-        }
-    }
+            this.$router.push({
+                name: 'users.index',
+            });
+        },
+    },
 };
 </script>

@@ -19,12 +19,12 @@ import editorConfig from './config/editor';
 
 Vue.use(Editor, {
     apiKey: 'i9k078qcvbqg8d6gffh58fkky46ltc5d8a3rb7igrn5h6q3i',
-    config: editorConfig
+    config: editorConfig,
 });
 
 new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(App)
+    render: h => h(App),
 });

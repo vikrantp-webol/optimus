@@ -1,7 +1,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 
 import {
-    faAngleDown
+    faAngleDown,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default {
@@ -9,5 +9,5 @@ export default {
         library.add(
             faAngleDown
         );
-    }
+    },
 };

@@ -14,20 +14,20 @@ let routes = [
             {
                 path: '',
                 name: 'users.index',
-                component: UserIndex
+                component: UserIndex,
             },
             {
                 path: 'create',
                 name: 'users.create',
-                component: UserCreate
+                component: UserCreate,
             },
             {
                 path: ':id/edit',
                 name: 'users.edit',
-                component: UserEdit
-            }
-        ]
-    }
+                component: UserEdit,
+            },
+        ],
+    },
 ];
 
 export default routes;

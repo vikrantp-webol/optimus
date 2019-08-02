@@ -14,20 +14,20 @@ let routes = [
             {
                 path: '',
                 name: 'pages.index',
-                component: PageIndex
+                component: PageIndex,
             },
             {
                 path: 'create',
                 name: 'pages.create',
-                component: PageCreate
+                component: PageCreate,
             },
             {
                 path: ':id/edit',
                 name: 'pages.edit',
-                component: PageEdit
-            }
-        ]
-    }
+                component: PageEdit,
+            },
+        ],
+    },
 ];
 
 export default routes;

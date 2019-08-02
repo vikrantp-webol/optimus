@@ -6,13 +6,13 @@ export default {
             }
 
             return string;
-        }
+        },
     },
 
     data() {
         return {
             filters: {},
-            initialFilters: {}
+            initialFilters: {},
         };
     },
 
@@ -31,7 +31,7 @@ export default {
             });
 
             return query;
-        }
+        },
     },
 
     watch: {
@@ -52,8 +52,8 @@ export default {
 
                 this.$router.push({ query });
             },
-            deep: true
-        }
+            deep: true,
+        },
     },
 
     created() {
@@ -73,8 +73,16 @@ export default {
             });
         },
 
+        applyFilter(filter, value) {
+            if (this.filters.hasOwnProperty('page')) {
+                this.filters.page = null;
+            }
+
+            this.filters[filter] = value;
+        },
+
         onFilter() {
             //
-        }
-    }
+        },
+    },
 };

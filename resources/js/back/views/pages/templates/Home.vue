@@ -16,15 +16,15 @@ export default {
     data() {
         return {
             form: {
-                content: ''
-            }
+                content: '',
+            },
         };
     },
 
     methods: {
         populateForm() {
             this.form.content = this.getContent('content');
-        }
-    }
+        },
+    },
 };
 </script>

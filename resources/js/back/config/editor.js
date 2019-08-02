@@ -9,13 +9,13 @@ config.file_picker_types = 'image';
 config.file_picker_callback = function(callback) {
     store.dispatch('mediaManager/setPickerMedia', {
         pickerId: this.id,
-        media: []
+        media: [],
     });
 
     store.dispatch('mediaManager/open', {
         pickerId: this.id,
         limit: 1,
-        acceptedExtensions: store.getters['mediaManager/imageExtensions']
+        acceptedExtensions: store.getters['mediaManager/imageExtensions'],
     });
 
     store.watch(state => {
@@ -25,7 +25,7 @@ config.file_picker_callback = function(callback) {
             let image = selectedMedia[0];
 
             callback(image.url, {
-                alt: image.name
+                alt: image.name,
             });
         }
     }, { deep: true });

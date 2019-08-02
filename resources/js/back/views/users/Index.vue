@@ -62,7 +62,7 @@
 export default {
     data() {
         return {
-            users: []
+            users: [],
         };
     },
 
@@ -83,11 +83,11 @@ export default {
             });
         },
 
-        deleteUser(item) {
-            axios.delete('/admin/api/users/' + item.id).then(() => {
-                this.users = this.users.filter(({ id }) => id !== item.id);
+        deleteUser(user) {
+            axios.delete(`/admin/api/users/${user.id}`).then(() => {
+                this.users = this.users.filter(({ id }) => id !== user.id);
             });
-        }
-    }
+        },
+    },
 };
 </script>

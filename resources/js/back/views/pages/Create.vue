@@ -13,6 +13,6 @@ export default {
 
     created() {
         this.setTitle('Add page');
-    }
+    },
 };
 </script>

@@ -17,14 +17,15 @@
             <section class="p-8 flex justify-between border-b border-grey-400">
                 <o-search
                     :value="filters.title"
-                    @submit="value => filters.title = value"
+                    @submit="value => applyFilter('title', value)"
                 />
 
                 <o-dropdown
-                    v-model="filters.tag"
+                    :value="filters.tag"
                     class="right"
                     :options="tags"
                     placeholder="All categories"
+                    @input="value => applyFilter('tag', value)"
                 />
             </section>
 
@@ -123,7 +124,7 @@ export default {
     filters: {
         formatDate(date) {
             return moment(date).format('DD/MM/YYYY');
-        }
+        },
     },
     mixins: [ listingMixin ],
 
@@ -138,8 +139,8 @@ export default {
                 title: '',
                 tag: null,
                 sort: null,
-                page: null
-            }
+                page: null,
+            },
         };
     },
 
@@ -157,8 +158,8 @@ export default {
 
     methods: {
         fetchPosts(queryParams = {}) {
-            return axios.get('/api/posts', {
-                params: queryParams
+            return axios.get('/admin/api/posts', {
+                params: queryParams,
             }).then(response => {
                 this.posts = response.data.data;
                 this.pagination = response.data.meta;
@@ -168,21 +169,15 @@ export default {
         fetchTags() {
             this.$loader.startLoading('primary.tags');
 
-            axios.get('/api/post-tags').then(response => {
+            axios.get('/admin/api/post-tags').then(response => {
                 this.tags = response.data.data.map(tag => {
                     return {
                         value: tag.id,
-                        label: tag.name
+                        label: tag.name,
                     };
                 });
 
                 this.$loader.stopLoading('primary.tags');
-            });
-        },
-
-        deletePost(item) {
-            axios.delete('/api/posts/' + item.id).then(() => {
-                this.posts = this.posts.filter(({ id }) => id !== item.id);
             });
         },
 
@@ -192,7 +187,13 @@ export default {
             this.fetchPosts(queryParams).then(() => {
                 this.$loader.stopLoading('secondary.posts');
             });
-        }
-    }
+        },
+
+        deletePost(post) {
+            axios.delete(`/admin/api/posts/${post.id}`).then(() => {
+                this.posts = this.posts.filter(({ id }) => id !== post.id);
+            });
+        },
+    },
 };
 </script>

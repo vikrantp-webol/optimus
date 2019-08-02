@@ -1,7 +1,7 @@
 <template>
     <tag-form
         method="post"
-        action="/api/post-tags"
+        action="/admin/api/post-tags"
     />
 </template>
 
@@ -13,6 +13,6 @@ export default {
 
     created() {
         this.setTitle('Add category');
-    }
+    },
 };
 </script>

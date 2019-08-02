@@ -15,13 +15,13 @@ new Vue({
 
     data() {
         return {
-            navIsActive: false
+            navIsActive: false,
         };
     },
 
     methods: {
         toggleNav() {
             this.navIsActive = ! this.navIsActive;
-        }
-    }
+        },
+    },
 });

@@ -40,8 +40,8 @@ export default {
         return {
             form: {
                 content: '',
-                images: null
-            }
+                images: null,
+            },
         };
     },
 
@@ -49,7 +49,7 @@ export default {
         populateForm() {
             this.form.content = this.getContent('content');
             this.form.images = this.getMediaIds('images');
-        }
-    }
+        },
+    },
 };
 </script>

@@ -18,6 +18,7 @@
     },
     "plugins": ["vue"],
     "rules": {
+        "comma-dangle": ["error", "always-multiline"],
         "eol-last": ["error", "always"],
         "no-trailing-spaces": "error",
         "no-prototype-builtins": "off",

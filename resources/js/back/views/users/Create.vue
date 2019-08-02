@@ -1,7 +1,7 @@
 <template>
     <user-form
         method="post"
-        action="/admin/users"
+        action="/admin/api/users"
     />
 </template>
 
@@ -13,6 +13,6 @@ export default {
 
     created() {
         this.setTitle('Add user');
-    }
+    },
 };
 </script>

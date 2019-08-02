@@ -21,14 +21,14 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             redirect: {
-                name: 'pages.index'
-            }
+                name: 'pages.index',
+            },
         },
 
         ...pageRoutes,
         ...postRoutes,
-        ...userRoutes
-    ]
+        ...userRoutes,
+    ],
 });
 
 router.beforeEach((to, from, next) => {

@@ -14,7 +14,7 @@ export default {
 
     data() {
         return {
-            user: null
+            user: null,
         };
     },
 
@@ -25,13 +25,13 @@ export default {
 
         uri() {
             return '/admin/api/users/' + this.userId;
-        }
+        },
     },
 
     watch: {
         userId() {
             this.fetchUser();
-        }
+        },
     },
 
     created() {
@@ -54,7 +54,7 @@ export default {
 
                 this.$loader.stopLoading('primary.user');
             });
-        }
-    }
+        },
+    },
 };
 </script>

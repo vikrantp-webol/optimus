@@ -14,14 +14,14 @@ export default {
 
     data() {
         return {
-            tag: null
+            tag: null,
         };
     },
 
     computed: {
         uri() {
-            return '/api/post-tags/' + this.$route.params.id;
-        }
+            return '/admin/api/post-tags/' + this.$route.params.id;
+        },
     },
 
     created() {
@@ -39,7 +39,7 @@ export default {
 
                 this.$loader.stopLoading('primary.tag');
             });
-        }
-    }
+        },
+    },
 };
 </script>

@@ -2,18 +2,18 @@ export default {
     props: {
         contents: {
             type: Array,
-            default: () => []
+            default: () => [],
         },
 
         media: {
             type: Array,
-            default: () => []
-        }
+            default: () => [],
+        },
     },
 
     data() {
         return {
-            form: {}
+            form: {},
         };
     },
 
@@ -22,8 +22,8 @@ export default {
             deep: true,
             handler(form) {
                 this.$emit('input', form);
-            }
-        }
+            },
+        },
     },
 
     mounted() {
@@ -53,6 +53,6 @@ export default {
             let content = this.contents.find(({ key }) => key === name);
 
             return content ? content.value : null;
-        }
-    }
+        },
+    },
 };

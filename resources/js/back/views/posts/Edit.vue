@@ -14,14 +14,14 @@ export default {
 
     data() {
         return {
-            post: null
+            post: null,
         };
     },
 
     computed: {
         uri() {
-            return '/api/posts/' + this.$route.params.id;
-        }
+            return '/admin/api/posts/' + this.$route.params.id;
+        },
     },
 
     created() {
@@ -39,7 +39,7 @@ export default {
 
                 this.$loader.stopLoading('primary.post');
             });
-        }
-    }
+        },
+    },
 };
 </script>

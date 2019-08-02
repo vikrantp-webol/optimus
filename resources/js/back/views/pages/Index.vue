@@ -92,8 +92,8 @@ export default {
             pages: [],
 
             filters: {
-                parent: null
-            }
+                parent: null,
+            },
         };
     },
 
@@ -114,15 +114,15 @@ export default {
             }
 
             return axios.get('/admin/api/pages', {
-                params: queryParams
+                params: queryParams,
             }).then(response => {
                 this.pages = response.data.data;
             });
         },
 
-        deletePage(item) {
-            axios.delete('/admin/api/pages/' + item.id).then(() => {
-                this.pages = this.pages.filter(({ id }) => id !== item.id);
+        deletePage(page) {
+            axios.delete(`/admin/api/pages/${page.id}`).then(() => {
+                this.pages = this.pages.filter(({ id }) => id !== page.id);
             });
         },
 
@@ -132,7 +132,7 @@ export default {
             this.fetchPages(queryParams).then(() => {
                 this.$loader.stopLoading('secondary.pages');
             });
-        }
-    }
+        },
+    },
 };
 </script>

@@ -7,5 +7,5 @@ window.axios = axios;
 let token = document.head.querySelector('meta[name="csrf-token"]');
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': token.content
+    'X-CSRF-TOKEN': token.content,
 };

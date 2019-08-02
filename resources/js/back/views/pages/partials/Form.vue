@@ -3,7 +3,7 @@
         <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
-            <div class="xl:w-2/3">
+            <div class="max-w-3xl">
                 <!-- Title -->
                 <o-form-field input="title" label="Title" required>
                     <o-input
@@ -122,7 +122,7 @@ export default {
                 parent_id: null,
                 template: null,
                 is_published: true,
-                is_stand_alone: false
+                is_stand_alone: false,
             },
             dynamicFields: {},
 
@@ -130,14 +130,14 @@ export default {
             contents: [],
 
             pages: [],
-            templates: []
+            templates: [],
         };
     },
 
     computed: {
         form() {
             return Object.assign({}, this.fields, this.dynamicFields);
-        }
+        },
     },
 
     watch: {
@@ -148,11 +148,11 @@ export default {
                 parent_id: item.parent_id,
                 template: item.template,
                 is_published: item.is_published,
-                is_stand_alone: item.is_stand_alone
+                is_stand_alone: item.is_stand_alone,
             };
 
             this.contents = item.contents;
-        }
+        },
     },
 
     created() {
@@ -165,7 +165,7 @@ export default {
             this.$loader.startLoading('primary.pages');
 
             axios.get('/admin/api/pages', {
-                params: { parent: 'root' }
+                params: { parent: 'root' },
             }).then(response => {
                 this.pages = response.data.data.filter(({ id }) => id !== this.$route.params.id);
 
@@ -188,9 +188,9 @@ export default {
 
             this.$router.push({
                 name: 'pages.index',
-                query
+                query,
             });
-        }
-    }
+        },
+    },
 };
 </script>

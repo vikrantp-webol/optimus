@@ -1,7 +1,7 @@
 <template>
     <post-form
         method="post"
-        action="/api/posts"
+        action="/admin/api/posts"
     />
 </template>
 
@@ -13,6 +13,6 @@ export default {
 
     created() {
         this.setTitle('Add news');
-    }
+    },
 };
 </script>

@@ -14,14 +14,14 @@ export default {
 
     data() {
         return {
-            page: null
+            page: null,
         };
     },
 
     computed: {
         uri() {
             return '/admin/api/pages/' + this.$route.params.id;
-        }
+        },
     },
 
     created() {
@@ -39,7 +39,7 @@ export default {
 
                 this.$loader.stopLoading('primary.page');
             });
-        }
-    }
+        },
+    },
 };
 </script>

@@ -3,8 +3,8 @@
         <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
-            <div class="xl:w-2/3">
-                <!-- Title -->
+            <div class="max-w-3xl">
+                <!-- Name -->
                 <o-form-field input="name" label="Name" required>
                     <o-input
                         id="name"
@@ -35,7 +35,7 @@ export default {
     data() {
         return {
             form: {
-                name: ''
+                name: '',
             },
         };
     },
@@ -43,15 +43,17 @@ export default {
     watch: {
         item(item) {
             this.form = {
-                name: item.name
+                name: item.name,
             };
-        }
+        },
     },
 
     methods: {
         onSuccess() {
-            this.$router.push({ name: 'posts.tags.index' });
-        }
-    }
+            this.$router.push({
+                name: 'posts.tags.index',
+            });
+        },
+    },
 };
 </script>

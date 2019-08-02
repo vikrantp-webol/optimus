@@ -3,7 +3,7 @@
         <o-errors v-if="anyErrors" :errors="errors" />
 
         <div class="p-8 border-b border-grey-400">
-            <div class="xl:w-2/3">
+            <div class="max-w-3xl">
                 <!-- Title -->
                 <o-form-field input="title" label="Title" required>
                     <o-input
@@ -55,14 +55,16 @@
                 <!-- Image -->
                 <o-form-field input="image" label="Image" required>
                     <media-picker
+                        id="image"
                         v-model="form.image"
-                        :limit="1"
+                        :media="getMedia('image')"
                         preview
-                    >
-                        <template slot="help">
-                            This image will be resized to 1000x500px
-                        </template>
-                    </media-picker>
+                        accepted-extensions="image"
+                    />
+
+                    <template slot="help">
+                        This image will be resized to 1000x500px
+                    </template>
                 </o-form-field>
             </div>
         </div>
@@ -92,10 +94,10 @@ export default {
                 body: '',
                 tags: [],
                 image: null,
-                published_at: ''
+                published_at: '',
             },
 
-            tags: []
+            tags: [],
         };
     },
 
@@ -106,31 +108,25 @@ export default {
                 excerpt: item.excerpt,
                 body: item.body,
                 tags: item.tags.map(({ id }) => id),
-                image: item.image.id,
-                published_at: item.published_at
+                image: item.image ? item.image.id : null,
+                published_at: item.published_at,
             };
-
-            this.$mediaManager.setActiveMedia([item.image]);
-        }
+        },
     },
 
     created() {
         this.fetchTags();
     },
 
-    beforeDestroy() {
-        this.$mediaManager.clearActiveMedia();
-    },
-
     methods: {
         fetchTags() {
             this.$loader.startLoading('primary.tags');
 
-            axios.get('/api/post-tags').then(response => {
+            axios.get('/admin/api/post-tags').then(response => {
                 this.tags = response.data.data.map(({ id, name }) => {
                     return {
                         value: id,
-                        label: name
+                        label: name,
                     };
                 });
 
@@ -139,8 +135,10 @@ export default {
         },
 
         onSuccess() {
-            this.$router.push({ name: 'posts.index' });
-        }
-    }
+            this.$router.push({
+                name: 'posts.index',
+            });
+        },
+    },
 };
 </script>
