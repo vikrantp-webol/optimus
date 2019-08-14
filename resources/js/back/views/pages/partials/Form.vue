@@ -83,7 +83,36 @@
                     </o-tab>
 
                     <o-tab name="Meta">
-                        Meta stuff
+                        <!-- Meta Title -->
+                        <o-form-field input="meta_title" label="Meta Title">
+                            <o-input
+                                id="meta_title"
+                                v-model="fields.meta.title"
+                            />
+                        </o-form-field>
+
+                        <!-- Meta Description -->
+                        <o-form-field input="meta_description" label="Meta Description">
+                            <o-input
+                                id="meta_description"
+                                v-model="fields.meta.description"
+                            />
+                        </o-form-field>
+
+                        <!-- OG Image -->
+                        <o-form-field input="meta_og_image" label="OG Image">
+                            <media-picker
+                                id="meta_og_image"
+                                v-model="fields.meta.og_image_id"
+                                :media="fields.meta.og_image"
+                                preview
+                                accepted-extensions="image"
+                            />
+
+                            <template slot="help">
+                                This image will be resized to 1200x630px
+                            </template>
+                        </o-form-field>
                     </o-tab>
                 </o-tabs>
             </div>
@@ -131,6 +160,12 @@ export default {
                 template: null,
                 is_published: true,
                 is_stand_alone: false,
+                meta: {
+                    title: null,
+                    description: null,
+                    og_image: [],
+                    og_image_id: null,
+                },
             },
             dynamicFields: {},
 
@@ -157,6 +192,12 @@ export default {
                 template: item.template,
                 is_published: item.is_published,
                 is_stand_alone: item.is_stand_alone,
+                meta: {
+                    title: item.meta.title,
+                    description: item.meta.description,
+                    og_image: item.meta.og_image || [],
+                    og_image_id: item.meta.og_image ? item.meta.og_image.id : null,
+                },
             };
 
             this.contents = item.contents;
