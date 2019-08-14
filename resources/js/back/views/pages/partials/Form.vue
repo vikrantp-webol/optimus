@@ -4,80 +4,88 @@
 
         <div class="p-8 border-b border-grey-400">
             <div class="max-w-3xl">
-                <!-- Title -->
-                <o-form-field input="title" label="Title" required>
-                    <o-input
-                        id="title"
-                        v-model="fields.title"
-                        required
-                    />
-                </o-form-field>
-
-                <div class="lg:flex lg:-mx-4">
-                    <div class="mb-8 flex-grow lg:px-4">
-                        <!-- Parent -->
-                        <o-form-field
-                            v-if="! item || ! item.has_fixed_slug"
-                            input="parent_id"
-                            label="Parent"
-                        >
-                            <o-select id="parent_id" v-model="fields.parent_id">
-                                <option :value="null" disabled>
-                                    Please select...
-                                </option>
-                                <option v-for="page in pages" :key="page.id" :value="page.id">
-                                    {{
-                                        page.title
-                                    }}
-                                </option>
-                            </o-select>
+                <o-tabs>
+                    <o-tab name="Content">
+                        <!-- Title -->
+                        <o-form-field input="title" label="Title" required>
+                            <o-input
+                                id="title"
+                                v-model="fields.title"
+                                required
+                            />
                         </o-form-field>
-                    </div>
 
-                    <div v-if="! item || ! item.has_fixed_template" class="mb-8 flex-grow lg:px-4">
-                        <!-- Template -->
-                        <o-form-field
-                            input="template_id"
-                            label="Template"
-                            required
-                        >
-                            <o-select id="template_id" v-model="fields.template" required>
-                                <option :value="null" disabled>
-                                    Please select...
-                                </option>
-                                <option
-                                    v-for="template in templates"
-                                    :key="template.name"
-                                    :value="template.name"
+                        <div class="lg:flex lg:-mx-4">
+                            <div class="mb-8 flex-grow lg:px-4">
+                                <!-- Parent -->
+                                <o-form-field
+                                    v-if="! item || ! item.has_fixed_slug"
+                                    input="parent_id"
+                                    label="Parent"
                                 >
-                                    {{ template.label }}
-                                </option>
-                            </o-select>
+                                    <o-select id="parent_id" v-model="fields.parent_id">
+                                        <option :value="null" disabled>
+                                            Please select...
+                                        </option>
+                                        <option v-for="page in pages" :key="page.id" :value="page.id">
+                                            {{
+                                                page.title
+                                            }}
+                                        </option>
+                                    </o-select>
+                                </o-form-field>
+                            </div>
+
+                            <div v-if="! item || ! item.has_fixed_template" class="mb-8 flex-grow lg:px-4">
+                                <!-- Template -->
+                                <o-form-field
+                                    input="template_id"
+                                    label="Template"
+                                    required
+                                >
+                                    <o-select id="template_id" v-model="fields.template" required>
+                                        <option :value="null" disabled>
+                                            Please select...
+                                        </option>
+                                        <option
+                                            v-for="template in templates"
+                                            :key="template.name"
+                                            :value="template.name"
+                                        >
+                                            {{ template.label }}
+                                        </option>
+                                    </o-select>
+                                </o-form-field>
+                            </div>
+                        </div>
+
+                        <!-- Contents -->
+                        <component
+                            :is="fields.template"
+                            v-if="fields.template"
+                            v-model="dynamicFields"
+                            :media="media"
+                            :contents="contents"
+                        />
+
+                        <!-- Stand alone -->
+                        <o-form-field
+                            v-if="! item || item.is_deletable"
+                            input="is_stand_alone"
+                            label="Stand alone"
+                        >
+                            <o-checkbox
+                                id="is_stand_alone"
+                                v-model="fields.is_stand_alone"
+                                label="Yes"
+                            />
                         </o-form-field>
-                    </div>
-                </div>
+                    </o-tab>
 
-                <!-- Contents -->
-                <component
-                    :is="fields.template"
-                    v-if="fields.template"
-                    v-model="dynamicFields"
-                    :media="media"
-                    :contents="contents"
-                />
-
-                <!-- Stand alone -->
-                <o-form-field
-                    v-if="! item || item.is_deletable"
-                    input="is_stand_alone"
-                    label="Stand alone"
-                >
-                    <o-checkbox
-                        id="is_stand_alone"
-                        v-model="fields.is_stand_alone"
-                        label="Yes"
-                    />
-                </o-form-field>
+                    <o-tab name="Meta">
+                        Meta stuff
+                    </o-tab>
+                </o-tabs>
             </div>
         </div>
 

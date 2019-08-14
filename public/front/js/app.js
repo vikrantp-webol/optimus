@@ -22188,7 +22188,7 @@ _lib_icons__WEBPACK_IMPORTED_MODULE_1__["default"].register(); // Import compone
  // Register components
 
 Vue.component('icon', _fortawesome_vue_fontawesome__WEBPACK_IMPORTED_MODULE_2__["FontAwesomeIcon"]);
-var app = new Vue({
+new Vue({
   el: '#app',
   data: function data() {
     return {

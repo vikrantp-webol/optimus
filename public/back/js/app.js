@@ -16988,6 +16988,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   created: function created() {
@@ -17003,7 +17019,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openMediaManager: 'mediaManager/open'
   }), {
     logout: function logout() {
-      axios.post('/admin/logout').then(function (response) {
+      axios.post('/admin/logout').then(function () {
         window.location.href = '/admin/login';
       });
     }
@@ -17183,6 +17199,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_listing__WEBPACK_IMPORTED_MODULE_0__["default"]],
@@ -17219,13 +17239,13 @@ __webpack_require__.r(__webpack_exports__);
         _this2.pages = response.data.data;
       });
     },
-    deletePage: function deletePage(item) {
+    deletePage: function deletePage(page) {
       var _this3 = this;
 
-      axios["delete"]('/admin/api/pages/' + item.id).then(function () {
+      axios["delete"]("/admin/api/pages/".concat(page.id)).then(function () {
         _this3.pages = _this3.pages.filter(function (_ref) {
           var id = _ref.id;
-          return id !== item.id;
+          return id !== page.id;
         });
       });
     },
@@ -17259,6 +17279,24 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17602,7 +17640,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     uri: function uri() {
-      return '/api/posts/' + this.$route.params.id;
+      return '/admin/api/posts/' + this.$route.params.id;
     }
   },
   created: function created() {
@@ -17743,15 +17781,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_mixins_listing__WEBPACK_IMPORTED_MODULE_1__["default"]],
   filters: {
     formatDate: function formatDate(date) {
       return moment__WEBPACK_IMPORTED_MODULE_0___default()(date).format('DD/MM/YYYY');
     }
   },
+  mixins: [_mixins_listing__WEBPACK_IMPORTED_MODULE_1__["default"]],
   data: function data() {
     return {
       posts: [],
@@ -17780,7 +17829,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       var queryParams = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return axios.get('/api/posts', {
+      return axios.get('/admin/api/posts', {
         params: queryParams
       }).then(function (response) {
         _this2.posts = response.data.data;
@@ -17791,7 +17840,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       this.$loader.startLoading('primary.tags');
-      axios.get('/api/post-tags').then(function (response) {
+      axios.get('/admin/api/post-tags').then(function (response) {
         _this3.tags = response.data.data.map(function (tag) {
           return {
             value: tag.id,
@@ -17802,22 +17851,22 @@ __webpack_require__.r(__webpack_exports__);
         _this3.$loader.stopLoading('primary.tags');
       });
     },
-    deletePost: function deletePost(item) {
-      var _this4 = this;
-
-      axios["delete"]('/api/posts/' + item.id).then(function () {
-        _this4.posts = _this4.posts.filter(function (_ref) {
-          var id = _ref.id;
-          return id !== item.id;
-        });
-      });
-    },
     onFilter: function onFilter(queryParams) {
-      var _this5 = this;
+      var _this4 = this;
 
       this.$loader.startLoading('secondary.posts');
       this.fetchPosts(queryParams).then(function () {
-        _this5.$loader.stopLoading('secondary.posts');
+        _this4.$loader.stopLoading('secondary.posts');
+      });
+    },
+    deletePost: function deletePost(post) {
+      var _this5 = this;
+
+      axios["delete"]("/admin/api/posts/".concat(post.id)).then(function () {
+        _this5.posts = _this5.posts.filter(function (_ref) {
+          var id = _ref.id;
+          return id !== post.id;
+        });
       });
     }
   }
@@ -17835,6 +17884,15 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/form */ "./resources/js/back/mixins/form.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -17934,24 +17992,20 @@ __webpack_require__.r(__webpack_exports__);
           var id = _ref.id;
           return id;
         }),
-        image: _item.image.id,
+        image: _item.image ? _item.image.id : null,
         published_at: _item.published_at
       };
-      this.$mediaManager.setActiveMedia([_item.image]);
     }
   },
   created: function created() {
     this.fetchTags();
-  },
-  beforeDestroy: function beforeDestroy() {
-    this.$mediaManager.clearActiveMedia();
   },
   methods: {
     fetchTags: function fetchTags() {
       var _this = this;
 
       this.$loader.startLoading('primary.tags');
-      axios.get('/api/post-tags').then(function (response) {
+      axios.get('/admin/api/post-tags').then(function (response) {
         _this.tags = response.data.data.map(function (_ref2) {
           var id = _ref2.id,
               name = _ref2.name;
@@ -18033,7 +18087,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     uri: function uri() {
-      return '/api/post-tags/' + this.$route.params.id;
+      return '/admin/api/post-tags/' + this.$route.params.id;
     }
   },
   created: function created() {
@@ -18110,6 +18164,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -18125,19 +18197,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.$loader.startLoading('primary.tags');
-      axios.get('/api/post-tags').then(function (response) {
+      axios.get('/admin/api/post-tags').then(function (response) {
         _this.tags = response.data.data;
 
         _this.$loader.stopLoading('primary.tags');
       });
     },
-    deleteTag: function deleteTag(item) {
+    deleteTag: function deleteTag(tag) {
       var _this2 = this;
 
-      axios["delete"]('/api/post-tags/' + item.id).then(function () {
+      axios["delete"]("/admin/api/post-tags/".concat(tag.id)).then(function () {
         _this2.tags = _this2.tags.filter(function (_ref) {
           var id = _ref.id;
-          return id !== item.id;
+          return id !== tag.id;
         });
       });
     }
@@ -18156,6 +18228,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form */ "./resources/js/back/mixins/form.js");
+//
+//
 //
 //
 //
@@ -18378,6 +18452,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -18402,13 +18478,13 @@ __webpack_require__.r(__webpack_exports__);
         _this.$loader.stopLoading('primary.admin-users');
       });
     },
-    deleteUser: function deleteUser(item) {
+    deleteUser: function deleteUser(user) {
       var _this2 = this;
 
-      axios["delete"]('/admin/api/users/' + item.id).then(function () {
+      axios["delete"]("/admin/api/users/".concat(user.id)).then(function () {
         _this2.users = _this2.users.filter(function (_ref) {
           var id = _ref.id;
-          return id !== item.id;
+          return id !== user.id;
         });
       });
     }
@@ -18434,6 +18510,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -56646,13 +56729,13 @@ var render = function() {
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "pages.index" } } },
-                [_vm._v("Manage Pages")]
+                [_vm._v("\n                Manage Pages\n            ")]
               ),
               _vm._v(" "),
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "pages.create" } } },
-                [_vm._v("Add Page")]
+                [_vm._v("\n                Add Page\n            ")]
               )
             ],
             1
@@ -56671,13 +56754,13 @@ var render = function() {
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "posts.index" } } },
-                [_vm._v("Manage News")]
+                [_vm._v("\n                Manage News\n            ")]
               ),
               _vm._v(" "),
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "posts.create" } } },
-                [_vm._v("Add News Article")]
+                [_vm._v("\n                Add News Article\n            ")]
               ),
               _vm._v(" "),
               _c("li", { staticClass: "divide" }),
@@ -56685,13 +56768,13 @@ var render = function() {
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "posts.tags.index" } } },
-                [_vm._v("Manage Categories")]
+                [_vm._v("\n                Manage Categories\n            ")]
               ),
               _vm._v(" "),
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "posts.tags.create" } } },
-                [_vm._v("Add Category")]
+                [_vm._v("\n                Add Category\n            ")]
               )
             ],
             1
@@ -56719,13 +56802,13 @@ var render = function() {
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "users.index" } } },
-                [_vm._v("Manage Users")]
+                [_vm._v("\n                Manage Users\n            ")]
               ),
               _vm._v(" "),
               _c(
                 "o-side-sub-nav-item",
                 { attrs: { to: { name: "users.create" } } },
-                [_vm._v("Add User")]
+                [_vm._v("\n                Add User\n            ")]
               )
             ],
             1
@@ -56841,7 +56924,11 @@ var render = function() {
                       staticClass: "underline",
                       attrs: { to: { name: "pages.create" } }
                     },
-                    [_vm._v("click here to add one")]
+                    [
+                      _vm._v(
+                        "\n                click here to add one\n            "
+                      )
+                    ]
                   ),
                   _vm._v(".\n        ")
                 ],
@@ -56979,7 +57066,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Sub pages")]),
         _vm._v(" "),
-        _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
+        _c("th", { staticClass: "narrow" }, [
+          _vm._v("\n                    Actions\n                ")
+        ])
       ])
     ])
   }
@@ -57023,171 +57112,220 @@ var render = function() {
       _c("div", { staticClass: "p-8 border-b border-grey-400" }, [
         _c(
           "div",
-          { staticClass: "xl:w-2/3" },
+          { staticClass: "max-w-3xl" },
           [
             _c(
-              "o-form-field",
-              { attrs: { input: "title", label: "Title", required: "" } },
+              "o-tabs",
               [
-                _c("o-input", {
-                  attrs: { id: "title", required: "" },
-                  model: {
-                    value: _vm.fields.title,
-                    callback: function($$v) {
-                      _vm.$set(_vm.fields, "title", $$v)
-                    },
-                    expression: "fields.title"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "lg:flex lg:-mx-4" }, [
-              _c(
-                "div",
-                { staticClass: "mb-8 flex-grow lg:px-4" },
-                [
-                  !_vm.item || !_vm.item.has_fixed_slug
-                    ? _c(
-                        "o-form-field",
-                        { attrs: { input: "parent_id", label: "Parent" } },
-                        [
-                          _c(
-                            "o-select",
-                            {
-                              attrs: { id: "parent_id" },
-                              model: {
-                                value: _vm.fields.parent_id,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.fields, "parent_id", $$v)
-                                },
-                                expression: "fields.parent_id"
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: { disabled: "" },
-                                  domProps: { value: null }
-                                },
-                                [_vm._v("Please select...")]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.pages, function(page) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: page.id,
-                                    domProps: { value: page.id }
-                                  },
-                                  [_vm._v(_vm._s(page.title))]
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
-                    : _vm._e()
-                ],
-                1
-              ),
-              _vm._v(" "),
-              !_vm.item || !_vm.item.has_fixed_template
-                ? _c(
-                    "div",
-                    { staticClass: "mb-8 flex-grow lg:px-4" },
-                    [
-                      _c(
-                        "o-form-field",
-                        {
-                          attrs: {
-                            input: "template_id",
-                            label: "Template",
-                            required: ""
-                          }
-                        },
-                        [
-                          _c(
-                            "o-select",
-                            {
-                              attrs: { id: "template_id", required: "" },
-                              model: {
-                                value: _vm.fields.template,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.fields, "template", $$v)
-                                },
-                                expression: "fields.template"
-                              }
-                            },
-                            [
-                              _c(
-                                "option",
-                                {
-                                  attrs: { disabled: "" },
-                                  domProps: { value: null }
-                                },
-                                [_vm._v("Please select...")]
-                              ),
-                              _vm._v(" "),
-                              _vm._l(_vm.templates, function(template) {
-                                return _c(
-                                  "option",
-                                  {
-                                    key: template.name,
-                                    domProps: { value: template.name }
-                                  },
-                                  [_vm._v(_vm._s(template.label))]
-                                )
-                              })
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ]),
-            _vm._v(" "),
-            _vm.fields.template
-              ? _c(_vm.fields.template, {
-                  tag: "component",
-                  attrs: { media: _vm.media, contents: _vm.contents },
-                  model: {
-                    value: _vm.dynamicFields,
-                    callback: function($$v) {
-                      _vm.dynamicFields = $$v
-                    },
-                    expression: "dynamicFields"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.item || _vm.item.is_deletable
-              ? _c(
-                  "o-form-field",
-                  { attrs: { input: "is_stand_alone", label: "Stand alone" } },
+                _c(
+                  "o-tab",
+                  { attrs: { name: "Content" } },
                   [
-                    _c("o-checkbox", {
-                      attrs: { id: "is_stand_alone", label: "Yes" },
-                      model: {
-                        value: _vm.fields.is_stand_alone,
-                        callback: function($$v) {
-                          _vm.$set(_vm.fields, "is_stand_alone", $$v)
-                        },
-                        expression: "fields.is_stand_alone"
-                      }
-                    })
+                    _c(
+                      "o-form-field",
+                      {
+                        attrs: { input: "title", label: "Title", required: "" }
+                      },
+                      [
+                        _c("o-input", {
+                          attrs: { id: "title", required: "" },
+                          model: {
+                            value: _vm.fields.title,
+                            callback: function($$v) {
+                              _vm.$set(_vm.fields, "title", $$v)
+                            },
+                            expression: "fields.title"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "lg:flex lg:-mx-4" }, [
+                      _c(
+                        "div",
+                        { staticClass: "mb-8 flex-grow lg:px-4" },
+                        [
+                          !_vm.item || !_vm.item.has_fixed_slug
+                            ? _c(
+                                "o-form-field",
+                                {
+                                  attrs: { input: "parent_id", label: "Parent" }
+                                },
+                                [
+                                  _c(
+                                    "o-select",
+                                    {
+                                      attrs: { id: "parent_id" },
+                                      model: {
+                                        value: _vm.fields.parent_id,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.fields, "parent_id", $$v)
+                                        },
+                                        expression: "fields.parent_id"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "" },
+                                          domProps: { value: null }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Please select...\n                                    "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.pages, function(page) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: page.id,
+                                            domProps: { value: page.id }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(page.title) +
+                                                "\n                                    "
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      !_vm.item || !_vm.item.has_fixed_template
+                        ? _c(
+                            "div",
+                            { staticClass: "mb-8 flex-grow lg:px-4" },
+                            [
+                              _c(
+                                "o-form-field",
+                                {
+                                  attrs: {
+                                    input: "template_id",
+                                    label: "Template",
+                                    required: ""
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "o-select",
+                                    {
+                                      attrs: {
+                                        id: "template_id",
+                                        required: ""
+                                      },
+                                      model: {
+                                        value: _vm.fields.template,
+                                        callback: function($$v) {
+                                          _vm.$set(_vm.fields, "template", $$v)
+                                        },
+                                        expression: "fields.template"
+                                      }
+                                    },
+                                    [
+                                      _c(
+                                        "option",
+                                        {
+                                          attrs: { disabled: "" },
+                                          domProps: { value: null }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                        Please select...\n                                    "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _vm._l(_vm.templates, function(template) {
+                                        return _c(
+                                          "option",
+                                          {
+                                            key: template.name,
+                                            domProps: { value: template.name }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(template.label) +
+                                                "\n                                    "
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _vm.fields.template
+                      ? _c(_vm.fields.template, {
+                          tag: "component",
+                          attrs: { media: _vm.media, contents: _vm.contents },
+                          model: {
+                            value: _vm.dynamicFields,
+                            callback: function($$v) {
+                              _vm.dynamicFields = $$v
+                            },
+                            expression: "dynamicFields"
+                          }
+                        })
+                      : _vm._e(),
+                    _vm._v(" "),
+                    !_vm.item || _vm.item.is_deletable
+                      ? _c(
+                          "o-form-field",
+                          {
+                            attrs: {
+                              input: "is_stand_alone",
+                              label: "Stand alone"
+                            }
+                          },
+                          [
+                            _c("o-checkbox", {
+                              attrs: { id: "is_stand_alone", label: "Yes" },
+                              model: {
+                                value: _vm.fields.is_stand_alone,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.fields, "is_stand_alone", $$v)
+                                },
+                                expression: "fields.is_stand_alone"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      : _vm._e()
                   ],
                   1
-                )
-              : _vm._e()
+                ),
+                _vm._v(" "),
+                _c("o-tab", { attrs: { name: "Meta" } }, [
+                  _vm._v("\n                    Meta stuff\n                ")
+                ])
+              ],
+              1
+            )
           ],
           1
         )
@@ -57205,7 +57343,7 @@ var render = function() {
                   staticClass: "button green",
                   class: { loading: _vm.isProcessing }
                 },
-                [_vm._v("Save")]
+                [_vm._v("\n                    Save\n                ")]
               )
             ]),
             _vm._v(" "),
@@ -57393,7 +57531,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("post-form", { attrs: { method: "post", action: "/api/posts" } })
+  return _c("post-form", {
+    attrs: { method: "post", action: "/admin/api/posts" }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57464,7 +57604,11 @@ var render = function() {
                       staticClass: "underline",
                       attrs: { to: { name: "posts.create" } }
                     },
-                    [_vm._v("click here to add one")]
+                    [
+                      _vm._v(
+                        "\n                click here to add one\n            "
+                      )
+                    ]
                   ),
                   _vm._v(".\n        ")
                 ],
@@ -57484,20 +57628,22 @@ var render = function() {
                   attrs: { value: _vm.filters.title },
                   on: {
                     submit: function(value) {
-                      return (_vm.filters.title = value)
+                      return _vm.applyFilter("title", value)
                     }
                   }
                 }),
                 _vm._v(" "),
                 _c("o-dropdown", {
                   staticClass: "right",
-                  attrs: { options: _vm.tags, placeholder: "All categories" },
-                  model: {
+                  attrs: {
                     value: _vm.filters.tag,
-                    callback: function($$v) {
-                      _vm.$set(_vm.filters, "tag", $$v)
-                    },
-                    expression: "filters.tag"
+                    options: _vm.tags,
+                    placeholder: "All categories"
+                  },
+                  on: {
+                    input: function(value) {
+                      return _vm.applyFilter("tag", value)
+                    }
                   }
                 })
               ],
@@ -57524,7 +57670,11 @@ var render = function() {
                             expression: "filters.sort"
                           }
                         },
-                        [_vm._v("Title")]
+                        [
+                          _vm._v(
+                            "\n                        Title\n                    "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
                       _c("th", [_vm._v("Categories")]),
@@ -57541,10 +57691,18 @@ var render = function() {
                             expression: "filters.sort"
                           }
                         },
-                        [_vm._v("Publish Date")]
+                        [
+                          _vm._v(
+                            "\n                        Publish Date\n                    "
+                          )
+                        ]
                       ),
                       _vm._v(" "),
-                      _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
+                      _c("th", { staticClass: "narrow" }, [
+                        _vm._v(
+                          "\n                        Actions\n                    "
+                        )
+                      ])
                     ],
                     1
                   )
@@ -57585,7 +57743,11 @@ var render = function() {
                                   [_vm._v(_vm._s(tag.name))]
                                 ),
                                 index != post.tags.length - 1
-                                  ? [_vm._v(",")]
+                                  ? [
+                                      _vm._v(
+                                        "\n                                    ,\n                                "
+                                      )
+                                    ]
                                   : _vm._e()
                               ]
                             })
@@ -57733,7 +57895,7 @@ var render = function() {
       _c("div", { staticClass: "p-8 border-b border-grey-400" }, [
         _c(
           "div",
-          { staticClass: "xl:w-2/3" },
+          { staticClass: "max-w-3xl" },
           [
             _c(
               "o-form-field",
@@ -57838,29 +58000,29 @@ var render = function() {
               "o-form-field",
               { attrs: { input: "image", label: "Image", required: "" } },
               [
-                _c(
-                  "media-picker",
-                  {
-                    attrs: { limit: 1, preview: "" },
-                    model: {
-                      value: _vm.form.image,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "image", $$v)
-                      },
-                      expression: "form.image"
-                    }
+                _c("media-picker", {
+                  attrs: {
+                    id: "image",
+                    media: _vm.getMedia("image"),
+                    preview: "",
+                    "accepted-extensions": "image"
                   },
-                  [
-                    _c("template", { slot: "help" }, [
-                      _vm._v(
-                        "\n                        This image will be resized to 1000x500px\n                    "
-                      )
-                    ])
-                  ],
-                  2
-                )
+                  model: {
+                    value: _vm.form.image,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form, "image", $$v)
+                    },
+                    expression: "form.image"
+                  }
+                }),
+                _vm._v(" "),
+                _c("template", { slot: "help" }, [
+                  _vm._v(
+                    "\n                    This image will be resized to 1000x500px\n                "
+                  )
+                ])
               ],
-              1
+              2
             )
           ],
           1
@@ -57871,7 +58033,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "button green", class: { loading: _vm.isProcessing } },
-          [_vm._v("Save")]
+          [_vm._v("\n            Save\n        ")]
         )
       ])
     ],
@@ -57900,7 +58062,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("tag-form", { attrs: { method: "post", action: "/api/post-tags" } })
+  return _c("tag-form", {
+    attrs: { method: "post", action: "/admin/api/post-tags" }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -57951,75 +58115,110 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "section",
+    "div",
     [
-      _c("table", { staticClass: "table" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.tags, function(tag) {
-            return _c("tr", { key: tag.id }, [
-              _c("td", [_vm._v(_vm._s(tag.name))]),
-              _vm._v(" "),
+      !_vm.tags.length
+        ? _c(
+            "section",
+            { staticClass: "p-8" },
+            [
               _c(
-                "td",
-                { staticClass: "actions" },
+                "o-notification",
+                { staticClass: "bg-blue-300 rounded" },
                 [
+                  _vm._v(
+                    "\n            You haven't added any tags yet,\n\n            "
+                  ),
                   _c(
                     "router-link",
                     {
-                      staticClass: "icon medium",
-                      attrs: {
-                        to: {
-                          name: "posts.tags.edit",
-                          params: { id: tag.id }
-                        }
-                      }
+                      staticClass: "underline",
+                      attrs: { to: { name: "posts.tags.create" } }
                     },
-                    [_c("icon", { attrs: { icon: "pencil-alt" } })],
-                    1
+                    [
+                      _vm._v(
+                        "\n                click here to add one\n            "
+                      )
+                    ]
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "icon medium",
-                      on: {
-                        click: function($event) {
-                          return _vm.openConfirmation(tag)
-                        }
-                      }
-                    },
-                    [_c("icon", { attrs: { icon: "trash-alt" } })],
-                    1
-                  )
+                  _vm._v(".\n        ")
                 ],
                 1
               )
-            ])
-          }),
-          0
-        )
-      ]),
-      _vm._v(" "),
-      _c("o-confirmation", {
-        attrs: { "button-class": "red", "button-text": "Delete" },
-        on: { confirm: _vm.deleteTag },
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function(tag) {
-              return [
-                _vm._v("\n            Are you sure you want to delete "),
-                _c("strong", [_vm._v('"' + _vm._s(tag.name) + '"')])
-              ]
-            }
-          }
-        ])
-      })
+            ],
+            1
+          )
+        : [
+            _c("table", { staticClass: "table" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.tags, function(tag) {
+                  return _c("tr", { key: tag.id }, [
+                    _c("td", [_vm._v(_vm._s(tag.name))]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      { staticClass: "actions" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "icon medium",
+                            attrs: {
+                              to: {
+                                name: "posts.tags.edit",
+                                params: { id: tag.id }
+                              }
+                            }
+                          },
+                          [_c("icon", { attrs: { icon: "pencil-alt" } })],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "icon medium",
+                            on: {
+                              click: function($event) {
+                                return _vm.openConfirmation(tag)
+                              }
+                            }
+                          },
+                          [_c("icon", { attrs: { icon: "trash-alt" } })],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                }),
+                0
+              )
+            ]),
+            _vm._v(" "),
+            _c("o-confirmation", {
+              attrs: { "button-class": "red", "button-text": "Delete" },
+              on: { confirm: _vm.deleteTag },
+              scopedSlots: _vm._u([
+                {
+                  key: "default",
+                  fn: function(tag) {
+                    return [
+                      _vm._v(
+                        "\n                Are you sure you want to delete "
+                      ),
+                      _c("strong", [_vm._v('"' + _vm._s(tag.name) + '"')])
+                    ]
+                  }
+                }
+              ])
+            })
+          ]
     ],
-    1
+    2
   )
 }
 var staticRenderFns = [
@@ -58031,7 +58230,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
+        _c("th", { staticClass: "narrow" }, [
+          _vm._v("\n                        Actions\n                    ")
+        ])
       ])
     ])
   }
@@ -58075,7 +58276,7 @@ var render = function() {
       _c("div", { staticClass: "p-8 border-b border-grey-400" }, [
         _c(
           "div",
-          { staticClass: "xl:w-2/3" },
+          { staticClass: "max-w-3xl" },
           [
             _c(
               "o-form-field",
@@ -58103,7 +58304,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "button green", class: { loading: _vm.isProcessing } },
-          [_vm._v("Save")]
+          [_vm._v("\n            Save\n        ")]
         )
       ])
     ],
@@ -58132,7 +58333,9 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("user-form", { attrs: { method: "post", action: "/admin/users" } })
+  return _c("user-form", {
+    attrs: { method: "post", action: "/admin/api/users" }
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -58273,7 +58476,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Username")]),
         _vm._v(" "),
-        _c("th", { staticClass: "narrow" }, [_vm._v("Actions")])
+        _c("th", { staticClass: "narrow" }, [
+          _vm._v("\n                    Actions\n                ")
+        ])
       ])
     ])
   }
@@ -58317,7 +58522,7 @@ var render = function() {
       _c("div", { staticClass: "p-8 border-b border-grey-400" }, [
         _c(
           "div",
-          { staticClass: "xl:w-2/3" },
+          { staticClass: "max-w-3xl" },
           [
             _c(
               "o-form-field",
@@ -58441,7 +58646,7 @@ var render = function() {
         _c(
           "button",
           { staticClass: "button green", class: { loading: _vm.isProcessing } },
-          [_vm._v("Save")]
+          [_vm._v("\n            Save\n        ")]
         )
       ])
     ],
@@ -74509,9 +74714,9 @@ __webpack_require__.r(__webpack_exports__);
         _this.onFinally();
       });
     },
-    onSuccess: function onSuccess(response) {//
+    onSuccess: function onSuccess() {//
     },
-    onError: function onError(error) {//
+    onError: function onError() {//
     },
     onFinally: function onFinally() {//
     }
@@ -74599,7 +74804,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    onFilter: function onFilter(query) {//
+    applyFilter: function applyFilter(filter, value) {
+      if (this.filters.hasOwnProperty('page')) {
+        this.filters.page = null;
+      }
+
+      this.filters[filter] = value;
+    },
+    onFilter: function onFilter() {//
     }
   }
 });
@@ -74879,12 +75091,12 @@ router.afterEach(function () {
     return _store__WEBPACK_IMPORTED_MODULE_1__["default"].commit('dashboard/closeSide');
   });
 });
-axios.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {// if (error.response.status === 401) {
-  //     return window.location.href = '/admin/login';
-  // }
-  // return Promise.reject(error);
+axios.interceptors.response.use(null, function (error) {
+  if (error.response.status === 401) {
+    return window.location.href = '/admin/login';
+  }
+
+  return Promise.reject(error);
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 
