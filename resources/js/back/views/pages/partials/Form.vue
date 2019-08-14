@@ -29,7 +29,7 @@
                                         </option>
                                         <option v-for="page in pages" :key="page.id" :value="page.id">
                                             {{
-                                                page.title
+                                            page.title
                                             }}
                                         </option>
                                     </o-select>
@@ -99,6 +99,22 @@
                             />
                         </o-form-field>
 
+                        <!-- OG Title -->
+                        <o-form-field input="meta_og_title" label="OG Title">
+                            <o-input
+                                id="meta_og_title"
+                                v-model="fields.meta.og_title"
+                            />
+                        </o-form-field>
+
+                        <!-- OG Description -->
+                        <o-form-field input="meta_og_description" label="OG Description">
+                            <o-input
+                                id="meta_og_description"
+                                v-model="fields.meta.og_description"
+                            />
+                        </o-form-field>
+
                         <!-- OG Image -->
                         <o-form-field input="meta_og_image" label="OG Image">
                             <media-picker
@@ -112,6 +128,15 @@
                             <template slot="help">
                                 This image will be resized to 1200x630px
                             </template>
+                        </o-form-field>
+
+                        <!-- Custom Tags -->
+                        <o-form-field input="meta_custom_tags" label="Custom Tags">
+                            <o-input
+                                id="meta_custom_tags"
+                                type="textarea"
+                                v-model="fields.meta.custom_tags"
+                            />
                         </o-form-field>
                     </o-tab>
                 </o-tabs>
@@ -163,8 +188,11 @@ export default {
                 meta: {
                     title: null,
                     description: null,
+                    og_title: null,
+                    og_description: null,
                     og_image: [],
                     og_image_id: null,
+                    custom_tags: null,
                 },
             },
             dynamicFields: {},
@@ -193,12 +221,17 @@ export default {
                 is_published: item.is_published,
                 is_stand_alone: item.is_stand_alone,
                 meta: {
-                    title: item.meta.title,
-                    description: item.meta.description,
-                    og_image: item.meta.og_image || [],
-                    og_image_id: item.meta.og_image ? item.meta.og_image.id : null,
+                    title: item.meta ? item.meta.title : null,
+                    description: item.meta ? item.meta.description : null,
+                    og_title: item.meta ? item.meta.og_title : null,
+                    og_description: item.meta ? item.meta.og_description : null,
+                    og_image: item.meta ? item.meta.og_image || [] : [],
+                    og_image_id: item.meta && item.meta.og_image ? item.meta.og_image.id : null,
+                    custom_tags: item.meta ? item.meta.custom_tags : null,
                 },
             };
+
+            this.media = item.media;
 
             this.contents = item.contents;
         },
