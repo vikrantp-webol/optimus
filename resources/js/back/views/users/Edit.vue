@@ -1,12 +1,9 @@
 <template>
-    <user-form
-        :item="user"
-        method="patch"
-        :action="uri"
-    />
+    <user-form :item="user" />
 </template>
 
 <script>
+import { getUser } from '../../util/api-client';
 import UserForm from './partials/Form';
 
 export default {
@@ -21,10 +18,6 @@ export default {
     computed: {
         userId() {
             return this.$route.params.id;
-        },
-
-        uri() {
-            return '/admin/api/users/' + this.userId;
         },
     },
 
@@ -42,9 +35,9 @@ export default {
 
     methods: {
         fetchUser() {
-            this.$loader.startLoading('primary.user');
+            this.startLoading('primary.user');
 
-            axios.get(this.uri).then(response => {
+            getUser(this.userId).then(response => {
                 this.user = response.data.data;
 
                 // todo remove when user package is updated
@@ -52,7 +45,7 @@ export default {
                 this.user = { ...this.user, ...item };
                 //
 
-                this.$loader.stopLoading('primary.user');
+                this.stopLoading('primary.user');
             });
         },
     },

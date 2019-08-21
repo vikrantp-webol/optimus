@@ -1,12 +1,9 @@
 <template>
-    <tag-form
-        :item="tag"
-        method="patch"
-        :action="uri"
-    />
+    <tag-form :item="tag" />
 </template>
 
 <script>
+import { getPostTag } from '../../../util/api-client';
 import TagForm from './partials/Form';
 
 export default {
@@ -18,12 +15,6 @@ export default {
         };
     },
 
-    computed: {
-        uri() {
-            return '/admin/api/post-tags/' + this.$route.params.id;
-        },
-    },
-
     created() {
         this.setTitle('Edit category');
 
@@ -32,12 +23,12 @@ export default {
 
     methods: {
         fetchTag() {
-            this.$loader.startLoading('primary.tag');
+            this.startLoading('primary.tag');
 
-            axios.get(this.uri).then(response => {
+            getPostTag(this.$route.params.id).then(response => {
                 this.tag = response.data.data;
 
-                this.$loader.stopLoading('primary.tag');
+                this.stopLoading('primary.tag');
             });
         },
     },

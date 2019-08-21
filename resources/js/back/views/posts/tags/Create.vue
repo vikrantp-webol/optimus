@@ -1,8 +1,5 @@
 <template>
-    <tag-form
-        method="post"
-        action="/admin/api/post-tags"
-    />
+    <tag-form />
 </template>
 
 <script>

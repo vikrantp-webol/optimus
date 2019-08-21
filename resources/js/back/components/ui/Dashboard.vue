@@ -1,8 +1,5 @@
 <template>
-    <o-dashboard-layout
-        :loading-app="$loader.isLoading('app.*')"
-        :loading-route="$loader.isLoading('primary.*')"
-    >
+    <o-dashboard-layout :loading="isLoading('app.*')">
         <template slot="side-nav">
             <o-side-nav-item :to="{ name: 'pages.index' }" label="Pages" section="pages">
                 <o-side-sub-nav-item
@@ -79,10 +76,10 @@ import { mapActions } from 'vuex';
 
 export default {
     created() {
-        this.$loader.startLoading('app.user');
+        this.startLoading('app.user');
 
         this.fetchUser().then(() => {
-            this.$loader.stopLoading('app.user');
+            this.stopLoading('app.user');
         });
     },
 

@@ -5,9 +5,6 @@ import store from './store';
 import App from './views/App';
 
 // Plugins
-import VueLoader from '@optix/vue-loader';
-Vue.use(VueLoader);
-
 import OptimusTheme from '@optimuscms/theme';
 Vue.use(OptimusTheme, { store });
 

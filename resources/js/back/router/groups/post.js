@@ -1,4 +1,4 @@
-import Dashboard from '../../views/layouts/Dashboard';
+import Dashboard from '../../components/ui/Dashboard';
 
 import PostIndex from '../../views/posts/Index';
 import PostCreate from '../../views/posts/Create';

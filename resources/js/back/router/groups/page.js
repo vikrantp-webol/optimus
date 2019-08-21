@@ -1,4 +1,4 @@
-import Dashboard from '../../views/layouts/Dashboard';
+import Dashboard from '../../components/ui/Dashboard';
 
 import PageIndex from '../../views/pages/Index';
 import PageCreate from '../../views/pages/Create';

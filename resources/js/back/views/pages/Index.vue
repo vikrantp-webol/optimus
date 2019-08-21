@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <o-loader :loading="isLoading('primary.*')">
         <section v-if="! pages.length" class="p-8">
-            <o-notification class="bg-blue-300 rounded">
+            <o-notification class="rounded">
                 You haven't added any pages yet,
 
                 <router-link
@@ -28,8 +28,8 @@
                 </tr>
             </thead>
 
-            <transition name="fade">
-                <tbody v-show="! $loader.isLoading('secondary.*')">
+            <o-loader :loading="isLoading('secondary.*')">
+                <tbody>
                     <tr
                         v-for="page in pages"
                         :key="page.id"
@@ -40,7 +40,7 @@
                         <td>/{{ page.uri }}</td>
 
                         <td>
-                            <a @click="filters.parent = page.id">
+                            <a @click="applyFilter('parent', page.id)">
                                 Sub pages ({{ page.children_count }})
                             </a>
                         </td>
@@ -66,23 +66,28 @@
                         </td>
                     </tr>
                 </tbody>
-            </transition>
+            </o-loader>
         </table>
 
         <o-confirmation
+            v-slot="{ item: page }"
             button-class="red"
             button-text="Delete"
             @confirm="deletePage"
         >
-            <template slot-scope="page">
-                Are you sure you want to delete <strong>"{{ page.title }}"</strong>
-            </template>
+            Are you sure you want to delete page<br>
+            <strong>{{ page.title }}</strong>
         </o-confirmation>
-    </div>
+    </o-loader>
 </template>
 
 <script>
 import listingMixin from '../../mixins/listing';
+
+import {
+    getPages,
+    deletePage,
+} from '../../util/api-client';
 
 export default {
     mixins: [ listingMixin ],
@@ -100,10 +105,10 @@ export default {
     created() {
         this.setTitle('Manage pages');
 
-        this.$loader.startLoading('primary.pages');
+        this.startLoading('primary.pages');
 
         this.fetchPages(this.query).then(() => {
-            this.$loader.stopLoading('primary.pages');
+            this.stopLoading('primary.pages');
         });
     },
 
@@ -113,25 +118,23 @@ export default {
                 queryParams['parent'] = 'root';
             }
 
-            return axios.get('/admin/api/pages', {
-                params: queryParams,
-            }).then(response => {
+            return getPages(queryParams).then(response => {
                 this.pages = response.data.data;
             });
         },
 
-        deletePage(page) {
-            axios.delete(`/admin/api/pages/${page.id}`).then(() => {
-                this.pages = this.pages.filter(({ id }) => id !== page.id);
+        onFilter(queryParams) {
+            this.startLoading('secondary.pages');
+
+            this.fetchPages(queryParams).then(() => {
+                this.stopLoading('secondary.pages');
             });
         },
 
-        onFilter(queryParams) {
-            this.$loader.startLoading('secondary.pages');
+        deletePage(page) {
+            deletePage(page.id);
 
-            this.fetchPages(queryParams).then(() => {
-                this.$loader.stopLoading('secondary.pages');
-            });
+            this.pages = this.pages.filter(({ id }) => id !== page.id);
         },
     },
 };

@@ -1,8 +1,5 @@
 <template>
-    <user-form
-        method="post"
-        action="/admin/api/users"
-    />
+    <user-form />
 </template>
 
 <script>

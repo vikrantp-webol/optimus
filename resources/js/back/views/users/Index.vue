@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <o-loader :loading="isLoading('primary.*')">
         <table class="table">
             <thead>
                 <tr>
@@ -47,18 +47,23 @@
         </table>
 
         <o-confirmation
+            v-slot="{ item: user }"
             button-class="red"
             button-text="Delete"
             @confirm="deleteUser"
         >
-            <template slot-scope="user">
-                Are you sure you want to delete <strong>"{{ user.name }}"</strong>
-            </template>
+            Are you sure you want to delete user<br>
+            <strong>{{ user.name }}</strong>
         </o-confirmation>
-    </section>
+    </o-loader>
 </template>
 
 <script>
+import {
+    getUsers,
+    deleteUser,
+} from '../../util/api-client';
+
 export default {
     data() {
         return {
@@ -74,19 +79,19 @@ export default {
 
     methods: {
         fetchUsers(params = {}) {
-            this.$loader.startLoading('primary.admin-users');
+            this.startLoading('primary.admin-users');
 
-            axios.get('/admin/api/users', { params }).then(response => {
+            getUsers(params).then(response => {
                 this.users = response.data.data;
 
-                this.$loader.stopLoading('primary.admin-users');
+                this.stopLoading('primary.admin-users');
             });
         },
 
         deleteUser(user) {
-            axios.delete(`/admin/api/users/${user.id}`).then(() => {
-                this.users = this.users.filter(({ id }) => id !== user.id);
-            });
+            deleteUser(user.id);
+
+            this.users = this.users.filter(({ id }) => id !== user.id);
         },
     },
 };

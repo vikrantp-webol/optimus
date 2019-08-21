@@ -1,12 +1,9 @@
 <template>
-    <page-form
-        :item="page"
-        method="patch"
-        :action="uri"
-    />
+    <page-form :item="page" />
 </template>
 
 <script>
+import { getPage } from '../../util/api-client';
 import PageForm from './partials/Form';
 
 export default {
@@ -18,12 +15,6 @@ export default {
         };
     },
 
-    computed: {
-        uri() {
-            return '/admin/api/pages/' + this.$route.params.id;
-        },
-    },
-
     created() {
         this.setTitle('Edit page');
 
@@ -32,12 +23,12 @@ export default {
 
     methods: {
         fetchPage() {
-            this.$loader.startLoading('primary.page');
+            this.startLoading('primary.page');
 
-            axios.get(this.uri).then(response => {
+            getPage(this.$route.params.id).then(response => {
                 this.page = response.data.data;
 
-                this.$loader.stopLoading('primary.page');
+                this.stopLoading('primary.page');
             });
         },
     },

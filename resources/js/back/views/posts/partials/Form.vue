@@ -1,87 +1,95 @@
 <template>
-    <form @submit.prevent="submit">
-        <o-errors v-if="anyErrors" :errors="errors" />
+    <o-loader :loading="isLoading('primary.*')">
+        <form @submit.prevent="submit">
+            <o-errors v-if="anyErrors" :errors="errors" />
 
-        <div class="p-8 border-b border-grey-400">
-            <div class="max-w-3xl">
-                <!-- Title -->
-                <o-form-field input="title" label="Title" required>
-                    <o-input
-                        id="title"
-                        v-model="form.title"
+            <div class="p-8 border-b border-grey-400">
+                <div class="max-w-3xl">
+                    <!-- Title -->
+                    <o-form-field input="title" label="Title" required>
+                        <o-input
+                            id="title"
+                            v-model="form.title"
+                            required
+                        />
+                    </o-form-field>
+
+                    <!-- Tags -->
+                    <o-form-field
+                        v-if="tags.length"
+                        input="tags"
+                        label="Categories"
                         required
-                    />
-                </o-form-field>
+                    >
+                        <o-multi-select
+                            id="tags"
+                            v-model="form.tags"
+                            :options="tags"
+                            required
+                        />
+                    </o-form-field>
 
-                <!-- Tags -->
-                <o-form-field
-                    v-if="tags.length"
-                    input="tags"
-                    label="Categories"
-                    required
-                >
-                    <o-multi-select
-                        id="tags"
-                        v-model="form.tags"
-                        :options="tags"
-                        required
-                    />
-                </o-form-field>
+                    <!-- Excerpt -->
+                    <o-form-field input="excerpt" label="Excerpt" required>
+                        <o-input
+                            id="excerpt"
+                            v-model="form.excerpt"
+                            type="textarea"
+                            required
+                        />
+                    </o-form-field>
 
-                <!-- Excerpt -->
-                <o-form-field input="excerpt" label="Excerpt" required>
-                    <o-input
-                        id="excerpt"
-                        v-model="form.excerpt"
-                        type="textarea"
-                        required
-                    />
-                </o-form-field>
+                    <!-- Body -->
+                    <o-form-field input="body" label="Body" required>
+                        <editor v-model="form.body" />
+                    </o-form-field>
 
-                <!-- Body -->
-                <o-form-field input="body" label="Body" required>
-                    <editor v-model="form.body" />
-                </o-form-field>
+                    <!-- Published at -->
+                    <o-form-field input="published_at" label="Published at" required>
+                        <o-date-picker
+                            id="published_at"
+                            v-model="form.published_at"
+                            required
+                        />
+                    </o-form-field>
 
-                <!-- Published at -->
-                <o-form-field input="published_at" label="Published at" required>
-                    <o-date-picker
-                        id="published_at"
-                        v-model="form.published_at"
-                        required
-                    />
-                </o-form-field>
+                    <!-- Image -->
+                    <o-form-field input="image" label="Image" required>
+                        <media-picker
+                            id="image"
+                            v-model="form.image"
+                            :media="getMedia('image')"
+                            preview
+                            accepted-extensions="image"
+                        />
 
-                <!-- Image -->
-                <o-form-field input="image" label="Image" required>
-                    <media-picker
-                        id="image"
-                        v-model="form.image"
-                        :media="getMedia('image')"
-                        preview
-                        accepted-extensions="image"
-                    />
-
-                    <template slot="help">
-                        This image will be resized to 1000x500px
-                    </template>
-                </o-form-field>
+                        <template slot="help">
+                            This image will be resized to 1000x500px
+                        </template>
+                    </o-form-field>
+                </div>
             </div>
-        </div>
 
-        <div class="p-8">
-            <button
-                class="button green"
-                :class="{ 'loading': isProcessing }"
-            >
-                Save
-            </button>
-        </div>
-    </form>
+            <div class="p-8">
+                <button
+                    class="button green"
+                    :class="{ 'loading': isProcessing }"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
+    </o-loader>
 </template>
 
 <script>
 import formMixin from '../../../mixins/form';
+
+import {
+    createPost,
+    updatePost,
+    getPostTags,
+} from '../../../util/api-client';
 
 export default {
     mixins: [ formMixin ],
@@ -120,9 +128,9 @@ export default {
 
     methods: {
         fetchTags() {
-            this.$loader.startLoading('primary.tags');
+            this.startLoading('primary.tags');
 
-            axios.get('/admin/api/post-tags').then(response => {
+            getPostTags().then(response => {
                 this.tags = response.data.data.map(({ id, name }) => {
                     return {
                         value: id,
@@ -130,8 +138,16 @@ export default {
                     };
                 });
 
-                this.$loader.stopLoading('primary.tags');
+                this.stopLoading('primary.tags');
             });
+        },
+
+        save() {
+            if (this.isEditing) {
+                return updatePost(this.item.id, this.form);
+            }
+
+            return createPost(this.form);
         },
 
         onSuccess() {

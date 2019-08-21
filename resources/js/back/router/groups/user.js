@@ -1,4 +1,4 @@
-import Dashboard from '../../views/layouts/Dashboard';
+import Dashboard from '../../components/ui/Dashboard';
 
 import UserIndex from '../../views/users/Index';
 import UserCreate from '../../views/users/Create';

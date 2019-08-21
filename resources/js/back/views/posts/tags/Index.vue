@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <o-loader :loading="isLoading('primary.*')">
         <section v-if="! tags.length" class="p-8">
-            <o-notification class="bg-blue-300 rounded">
+            <o-notification class="rounded">
                 You haven't added any tags yet,
 
                 <router-link
@@ -49,19 +49,24 @@
             </table>
 
             <o-confirmation
+                v-slot="{ item: tag }"
                 button-class="red"
                 button-text="Delete"
                 @confirm="deleteTag"
             >
-                <template slot-scope="tag">
-                    Are you sure you want to delete <strong>"{{ tag.name }}"</strong>
-                </template>
+                Are you sure you want to delete tag<br>
+                <strong>{{ tag.name }}</strong>
             </o-confirmation>
         </template>
-    </div>
+    </o-loader>
 </template>
 
 <script>
+import {
+    getPostTags,
+    deletePostTag,
+} from '../../../util/api-client';
+
 export default {
     data() {
         return {
@@ -77,19 +82,18 @@ export default {
 
     methods: {
         fetchTags() {
-            this.$loader.startLoading('primary.tags');
+            this.startLoading('primary.tags');
 
-            axios.get('/admin/api/post-tags').then(response => {
+            getPostTags().then(response => {
                 this.tags = response.data.data;
 
-                this.$loader.stopLoading('primary.tags');
+                this.stopLoading('primary.tags');
             });
         },
 
         deleteTag(tag) {
-            axios.delete(`/admin/api/post-tags/${tag.id}`).then(() => {
-                this.tags = this.tags.filter(({ id }) => id !== tag.id);
-            });
+            deletePostTag(tag.id);
+            this.tags = this.tags.filter(({ id }) => id !== tag.id);
         },
     },
 };

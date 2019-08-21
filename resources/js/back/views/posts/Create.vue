@@ -1,8 +1,5 @@
 <template>
-    <post-form
-        method="post"
-        action="/admin/api/posts"
-    />
+    <post-form />
 </template>
 
 <script>

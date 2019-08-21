@@ -20,7 +20,7 @@
         "@fullhuman/postcss-purgecss": "^1.2.0",
         "@optimuscms/editor": "^2.2.4",
         "@optimuscms/media-manager": "^1.2.5",
-        "@optimuscms/theme": "^0.1.1",
+        "@optimuscms/theme": "^0.2.0",
         "@optix/sass": "^0.2.0",
         "@optix/vue-loader": "^1.0.3",
         "axios": "^0.18",
@@ -33,7 +33,7 @@
         "sass": "^1.17.2",
         "sass-loader": "7.*",
         "tailwindcss": "^1.0",
-        "vue": "^2.6.8",
+        "vue": "^2.6.10",
         "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.6.8",
         "vuex": "^3.0.1"

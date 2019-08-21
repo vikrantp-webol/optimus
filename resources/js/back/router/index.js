@@ -31,13 +31,12 @@ const router = new VueRouter({
     ],
 });
 
-router.beforeEach((to, from, next) => {
-    Vue.loader.stopLoading();
-    next();
-});
-
 router.afterEach(() => {
-    Vue.nextTick(() => store.commit('dashboard/closeSide'));
+    store.dispatch('loader/stop');
+
+    Vue.nextTick(() => {
+        store.dispatch('dashboard/closeSide');
+    });
 });
 
 axios.interceptors.response.use(null, error => {

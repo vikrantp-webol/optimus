@@ -1,12 +1,9 @@
 <template>
-    <post-form
-        :item="post"
-        method="patch"
-        :action="uri"
-    />
+    <post-form :item="post" />
 </template>
 
 <script>
+import { getPost } from '../../util/api-client';
 import PostForm from './partials/Form';
 
 export default {
@@ -18,12 +15,6 @@ export default {
         };
     },
 
-    computed: {
-        uri() {
-            return '/admin/api/posts/' + this.$route.params.id;
-        },
-    },
-
     created() {
         this.setTitle('Edit news');
 
@@ -32,12 +23,12 @@ export default {
 
     methods: {
         fetchPost() {
-            this.$loader.startLoading('primary.post');
+            this.startLoading('primary.post');
 
-            axios.get(this.uri).then(response => {
+            getPost(this.$route.params.id).then(response => {
                 this.post = response.data.data;
 
-                this.$loader.stopLoading('primary.post');
+                this.stopLoading('primary.post');
             });
         },
     },
