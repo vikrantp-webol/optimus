@@ -4,6 +4,7 @@ namespace App\Templates;
 
 use OptimusCMS\Pages\Models\Page;
 use OptimusCMS\Pages\Contracts\Template;
+use OptimusCMS\Media\Http\Resources\MediaResource;
 
 class DefaultTemplate implements Template
 {
@@ -37,7 +38,11 @@ class DefaultTemplate implements Template
      */
     public function validate(array $data)
     {
-        //
+        validator($data, [
+            'content' => 'required|string',
+            'date' => 'required|date',
+            'image_id' => 'required|exists:media,id',
+        ])->validate();
     }
 
     /**
@@ -49,7 +54,12 @@ class DefaultTemplate implements Template
      */
     public function save(Page $page, array $data)
     {
-        //
+        $page->addContents([
+            'content' => $data['content'],
+            'date' => $data['date'],
+        ]);
+
+        $page->attachMedia($data['image_id'], 'image');
     }
 
     /**
@@ -60,7 +70,8 @@ class DefaultTemplate implements Template
      */
     public function reset(Page $page)
     {
-        //
+        $page->clearContents();
+        $page->detachMedia();
     }
 
     /**
@@ -83,7 +94,9 @@ class DefaultTemplate implements Template
     public function toArray(Page $page): array
     {
         return [
-            //
+            'content' => $page->getContent('content'),
+            'date' => $page->getContent('date'),
+            'image' => new MediaResource($page->getFirstMedia('image')),
         ];
     }
 }

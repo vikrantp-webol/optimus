@@ -17570,26 +17570,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
@@ -18162,15 +18142,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixin: [_mixins_template__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_template__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
       form: {
         content: '',
         date: '',
-        image_ids: null
+        image_id: null
       },
-      images: []
+      image: null
     };
   },
   watch: {
@@ -18178,12 +18158,9 @@ __webpack_require__.r(__webpack_exports__);
       this.form = {
         content: _item.content,
         date: _item.date,
-        image_ids: _item.images.map(function (_ref) {
-          var id = _ref.id;
-          return id;
-        })
+        image_id: _item.image ? _item.image.id : null
       };
-      this.images = _item.images;
+      this.image = _item.image;
     }
   }
 });
@@ -18214,7 +18191,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixin: [_mixins_template__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_mixins_template__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
       form: {
@@ -54760,45 +54737,6 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "o-side-nav-item",
-            {
-              attrs: {
-                to: { name: "posts.index" },
-                label: "News",
-                section: "posts"
-              }
-            },
-            [
-              _c(
-                "o-side-sub-nav-item",
-                { attrs: { to: { name: "posts.index" } } },
-                [_vm._v("\n                Manage News\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "o-side-sub-nav-item",
-                { attrs: { to: { name: "posts.create" } } },
-                [_vm._v("\n                Add News Article\n            ")]
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "divide" }),
-              _vm._v(" "),
-              _c(
-                "o-side-sub-nav-item",
-                { attrs: { to: { name: "posts.tags.index" } } },
-                [_vm._v("\n                Manage Categories\n            ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "o-side-sub-nav-item",
-                { attrs: { to: { name: "posts.tags.create" } } },
-                [_vm._v("\n                Add Category\n            ")]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
           _c("o-side-nav-item", {
             attrs: { label: "Media manager" },
             on: {
@@ -55541,18 +55479,18 @@ var render = function() {
       _vm._v(" "),
       _c(
         "o-form-field",
-        { attrs: { input: "image_ids", label: "Images" } },
+        { attrs: { input: "image_id", label: "Image" } },
         [
           _c(
             "media-picker",
             {
-              attrs: { id: "images", media: _vm.images, limit: null },
+              attrs: { id: "image_id", media: _vm.image, preview: "" },
               model: {
-                value: _vm.form.image_ids,
+                value: _vm.form.image_id,
                 callback: function($$v) {
-                  _vm.$set(_vm.form, "image_ids", $$v)
+                  _vm.$set(_vm.form, "image_id", $$v)
                 },
-                expression: "form.image_ids"
+                expression: "form.image_id"
               }
             },
             [
@@ -73051,10 +72989,6 @@ __webpack_require__.r(__webpack_exports__);
     item: {
       type: Object,
       "default": null
-    },
-    value: {
-      type: Object,
-      required: true
     }
   },
   data: function data() {
@@ -73067,7 +73001,8 @@ __webpack_require__.r(__webpack_exports__);
       handler: function handler(form) {
         this.$emit('input', form);
       },
-      deep: true
+      deep: true,
+      immediate: true
     }
   }
 });

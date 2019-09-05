@@ -11,26 +11,6 @@
                 </o-side-sub-nav-item>
             </o-side-nav-item>
 
-            <o-side-nav-item :to="{ name: 'posts.index' }" label="News" section="posts">
-                <o-side-sub-nav-item :to="{ name: 'posts.index' }">
-                    Manage News
-                </o-side-sub-nav-item>
-
-                <o-side-sub-nav-item :to="{ name: 'posts.create' }">
-                    Add News Article
-                </o-side-sub-nav-item>
-
-                <li class="divide" />
-
-                <o-side-sub-nav-item :to="{ name: 'posts.tags.index' }">
-                    Manage Categories
-                </o-side-sub-nav-item>
-
-                <o-side-sub-nav-item :to="{ name: 'posts.tags.create' }">
-                    Add Category
-                </o-side-sub-nav-item>
-            </o-side-nav-item>
-
             <o-side-nav-item
                 label="Media manager"
                 @click="openMediaManager()"

@@ -14,7 +14,7 @@
 import templateMixin from '../../mixins/template';
 
 export default {
-    mixin: [ templateMixin ],
+    mixins: [ templateMixin ],
 
     data() {
         return {

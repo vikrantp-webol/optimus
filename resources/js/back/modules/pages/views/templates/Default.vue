@@ -18,12 +18,12 @@
         </o-form-field>
 
         <!-- Images -->
-        <o-form-field input="image_ids" label="Images">
+        <o-form-field input="image_id" label="Image">
             <media-picker
-                id="images"
-                v-model="form.image_ids"
-                :media="images"
-                :limit="null"
+                id="image_id"
+                v-model="form.image_id"
+                :media="image"
+                preview
             >
                 <template slot="help">
                     This image will be constrained to 1000px width
@@ -37,17 +37,17 @@
 import templateMixin from '../../mixins/template';
 
 export default {
-    mixin: [ templateMixin ],
+    mixins: [ templateMixin ],
 
     data() {
         return {
             form: {
                 content: '',
                 date: '',
-                image_ids: null,
+                image_id: null,
             },
 
-            images: [],
+            image: null,
         };
     },
 
@@ -56,10 +56,10 @@ export default {
             this.form = {
                 content: item.content,
                 date: item.date,
-                image_ids: item.images.map(({ id }) => id),
+                image_id: item.image ? item.image.id : null,
             };
 
-            this.images = item.images;
+            this.image = item.image;
         },
     },
 };

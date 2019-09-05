@@ -4,11 +4,6 @@ export default {
             type: Object,
             default: null,
         },
-
-        value: {
-            type: Object,
-            required: true,
-        },
     },
 
     data() {
@@ -23,6 +18,7 @@ export default {
                 this.$emit('input', form);
             },
             deep: true,
+            immediate: true,
         },
     },
 };
