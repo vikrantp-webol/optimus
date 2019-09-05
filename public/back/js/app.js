@@ -15177,7 +15177,11 @@ const mutations = {
 
 const actions = {
     setTitle({ commit }, title) {
+        let appName = "";
+
         commit('setTitle', title);
+
+        document.title = `${title} | ${appName ? appName + ' -' : '' } Optimus`;
     },
 
     toggleSide({ commit, state }) {
