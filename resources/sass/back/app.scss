@@ -3,3 +3,7 @@
 @import '~@optimuscms/theme/dist/styles.css';
 @import '~@optimuscms/editor/dist/styles.css';
 @import '~@optimuscms/media-manager/dist/styles.css';
+
+.flip-list-move {
+    transition: transform 250ms;
+}
