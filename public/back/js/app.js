@@ -17586,16 +17586,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    csrfToken: function csrfToken() {
+      return document.head.querySelector('meta[name="csrf-token"]').content;
+    }
+  },
   created: function created() {
     var _this = this;
 
@@ -17607,13 +17604,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     fetchUser: 'user/fetch',
     openMediaManager: 'mediaManager/open'
-  }), {
-    logout: function logout() {
-      axios.post('/admin/logout').then(function () {
-        window.location.href = '/admin/login';
-      });
-    }
-  })
+  }))
 });
 
 /***/ }),
@@ -54842,12 +54833,19 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("template", { slot: "header" }, [
-        _c(
-          "a",
-          { staticClass: "icon icon-large -mr-2", on: { click: _vm.logout } },
-          [_c("icon", { attrs: { icon: "sign-out-alt" } })],
-          1
-        )
+        _c("form", { attrs: { method: "post", action: "/admin/logout" } }, [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrfToken }
+          }),
+          _vm._v(" "),
+          _c(
+            "button",
+            { staticClass: "icon icon-large -mr-2" },
+            [_c("icon", { attrs: { icon: "sign-out-alt" } })],
+            1
+          )
+        ])
       ])
     ],
     2
