@@ -5,7 +5,6 @@ import store from '../store';
 
 // Routes
 import pageRoutes from '../modules/pages/routes/app';
-import postRoutes from '../modules/posts/routes/app';
 import userRoutes from '../modules/users/routes/app';
 
 const router = new VueRouter({
@@ -26,7 +25,6 @@ const router = new VueRouter({
         },
 
         ...pageRoutes,
-        ...postRoutes,
         ...userRoutes,
     ],
 });

@@ -647,18 +647,16 @@
     lodash "^4.17.11"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.1.tgz#3c412383e1ddbea45f2dad750d6efe16739ff3f4"
-  integrity sha512-oKt4hPr7e2QCq73uAc9dmRHXnE9GWYoEg+cIQvkUqIzeLWicKf+jRzGK8Wzpem0ObdF1H4aKe5VZBtk1Jdnevw==
+"@optimuscms/theme@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.2.tgz#12220430fb079e5010872534c1d4c56988600852"
+  integrity sha512-As91nGKdtJaa4nyIlFKOZR4Mcu52KHXKKPIZMzRjSfFxJhxZkbFRDkdJnQW4wcWRsFd6ljtU2J4Z78xlKet9dQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
     "@optix/sass" "^0.2.1"
-    core-js "^3.2.1"
-    flatpickr "^4.5.2"
     matcher "^2.0.0"
     tailwindcss "^1.0"
     velocity-animate "^1.5.1"
@@ -1712,11 +1710,6 @@ core-js-compat@^3.1.1:
     browserslist "^4.6.6"
     semver "^6.3.0"
 
-core-js@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.2.1.tgz#cd41f38534da6cc59f7db050fe67307de9868b09"
-  integrity sha512-Qa5XSVefSVPRxy2XfUC13WbvqkxhkwB3ve+pgCQveNgYzbM/UxZeu1dcOX/xr4UmfUd+muuvsaxilQzCyUurMw==
-
 core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
@@ -2683,11 +2676,6 @@ flat-cache@^2.0.1:
     flatted "^2.0.0"
     rimraf "2.6.3"
     write "1.0.3"
-
-flatpickr@^4.5.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.2.tgz#50e1b4fc84fbf67c5b0919ba3ddc330221f126da"
-  integrity sha512-bRfBPyxohUQWgCTg6jPALUO1t/x+sRJ/S/RVti/NzYvHqGRpCAesKSWKLzOuLmpu+vGHfXBld4SXvOCLFgYb+g==
 
 flatted@^2.0.0:
   version "2.0.1"

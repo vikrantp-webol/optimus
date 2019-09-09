@@ -8,15 +8,6 @@
             />
         </o-form-field>
 
-        <!-- Testing -->
-        <o-form-field input="date" label="Date" required>
-            <o-date-picker
-                id="date"
-                v-model="form.date"
-                :time="false"
-            />
-        </o-form-field>
-
         <!-- Images -->
         <o-form-field input="image_id" label="Image">
             <media-picker
@@ -43,7 +34,6 @@ export default {
         return {
             form: {
                 content: '',
-                date: '',
                 image_id: null,
             },
 
@@ -55,7 +45,6 @@ export default {
         item(item) {
             this.form = {
                 content: item.content,
-                date: item.date,
                 image_id: item.image ? item.image.id : null,
             };
 
