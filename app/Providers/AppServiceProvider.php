@@ -25,8 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        auth('admin')->loginUsingId(1);
-
         Template::registerMany([
             DefaultTemplate::class,
         ]);
