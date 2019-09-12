@@ -7,6 +7,20 @@
                 v-model="form.content"
             />
         </o-form-field>
+
+        <!-- Images -->
+        <o-form-field input="image_id" label="Image">
+            <media-picker
+                id="image_id"
+                v-model="form.image_id"
+                :media="image"
+                preview
+            >
+                <template slot="help">
+                    This image will be constrained to 1000px width
+                </template>
+            </media-picker>
+        </o-form-field>
     </div>
 </template>
 
@@ -20,15 +34,26 @@ export default {
         return {
             form: {
                 content: '',
+                image_id: null,
             },
+
+            image: null,
         };
     },
 
     watch: {
-        item(item) {
-            this.form = {
-                content: item.content,
-            };
+        item: {
+            handler(item) {
+                if (item) {
+                    this.form = {
+                        content: item.content,
+                        image_id: item.image ? item.image.id : null,
+                    };
+
+                    this.image = item.image;
+                }
+            },
+            immediate: true,
         },
     },
 };

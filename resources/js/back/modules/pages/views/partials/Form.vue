@@ -65,7 +65,7 @@
                                 :is="form.template.name"
                                 v-if="form.template.name"
                                 v-model="form.template.data"
-                                :item="item ? item.template : null"
+                                :item="item ? item.template.data : null"
                             />
 
                             <!-- Stand alone -->
@@ -180,7 +180,7 @@ export default {
                 slug: item.slug,
                 template: {
                     name: template.name,
-                    data: {},
+                    data: template.data,
                 },
                 parent_id: item.parent ? item.parent.id : null,
                 is_standalone: item.is_standalone,

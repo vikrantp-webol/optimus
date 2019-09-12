@@ -42,13 +42,18 @@ export default {
     },
 
     watch: {
-        item(item) {
-            this.form = {
-                content: item.content,
-                image_id: item.image ? item.image.id : null,
-            };
+        item: {
+            handler(item) {
+                if (item) {
+                    this.form = {
+                        content: item.content,
+                        image_id: item.image ? item.image.id : null,
+                    };
 
-            this.image = item.image;
+                    this.image = item.image;
+                }
+            },
+            immediate: true,
         },
     },
 };

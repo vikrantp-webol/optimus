@@ -16942,9 +16942,17 @@ var script$k = {
           tab.isActive = tab.hash === selectedTab.hash;
         });
         this.activeTabHash = selectedTab.hash;
-        this.$router.push({
-          hash: this.activeTabHash !== this.firstTab.hash ? this.activeTabHash : null
-        });
+        var firstTabIsActive = this.activeTabHash === this.firstTab.hash;
+
+        if (firstTabIsActive && window.location.hash) {
+          this.$router.push({
+            hash: null
+          });
+        } else if (!firstTabIsActive && this.activeTabHash !== window.location.hash) {
+          this.$router.push({
+            hash: this.activeTabHash
+          });
+        }
       }
     }
   }
@@ -20143,7 +20151,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         slug: _item.slug,
         template: {
           name: template.name,
-          data: {}
+          data: template.data
         },
         parent_id: _item.parent ? _item.parent.id : null,
         is_standalone: _item.is_standalone,
@@ -20264,12 +20272,17 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   watch: {
-    item: function item(_item) {
-      this.form = {
-        content: _item.content,
-        image_id: _item.image ? _item.image.id : null
-      };
-      this.image = _item.image;
+    item: {
+      handler: function handler(item) {
+        if (item) {
+          this.form = {
+            content: item.content,
+            image_id: item.image ? item.image.id : null
+          };
+          this.image = item.image;
+        }
+      },
+      immediate: true
     }
   }
 });
@@ -20298,21 +20311,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_mixins_template__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
     return {
       form: {
-        content: ''
-      }
+        content: '',
+        image_id: null
+      },
+      image: null
     };
   },
   watch: {
-    item: function item(_item) {
-      this.form = {
-        content: _item.content
-      };
+    item: {
+      handler: function handler(item) {
+        if (item) {
+          this.form = {
+            content: item.content,
+            image_id: item.image ? item.image.id : null
+          };
+          this.image = item.image;
+        }
+      },
+      immediate: true
     }
   }
 });
@@ -29746,7 +29782,7 @@ var render = function() {
                         ? _c(_vm.form.template.name, {
                             tag: "component",
                             attrs: {
-                              item: _vm.item ? _vm.item.template : null
+                              item: _vm.item ? _vm.item.template.data : null
                             },
                             model: {
                               value: _vm.form.template.data,
@@ -29988,6 +30024,35 @@ var render = function() {
               expression: "form.content"
             }
           })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "o-form-field",
+        { attrs: { input: "image_id", label: "Image" } },
+        [
+          _c(
+            "media-picker",
+            {
+              attrs: { id: "image_id", media: _vm.image, preview: "" },
+              model: {
+                value: _vm.form.image_id,
+                callback: function($$v) {
+                  _vm.$set(_vm.form, "image_id", $$v)
+                },
+                expression: "form.image_id"
+              }
+            },
+            [
+              _c("template", { slot: "help" }, [
+                _vm._v(
+                  "\n                This image will be constrained to 1000px width\n            "
+                )
+              ])
+            ],
+            2
+          )
         ],
         1
       )
