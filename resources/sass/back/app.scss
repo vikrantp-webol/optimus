@@ -1,9 +1,5 @@
 @charset 'UTF-8';
 
 @import '~@optimuscms/theme/dist/optimus.min.css';
-@import '~@optimuscms/editor/dist/styles.css';
-@import '~@optimuscms/media-manager/dist/styles.css';
-
-.flip-list-move {
-    transition: transform 250ms;
-}
+@import '~@optimuscms/editor/dist/editor.min.css';
+@import '~@optimuscms/media-manager/dist/media-manager.min.css';
