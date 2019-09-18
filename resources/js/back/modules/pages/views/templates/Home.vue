@@ -13,7 +13,7 @@
             <media-picker
                 id="image_id"
                 v-model="form.image_id"
-                :media="image"
+                :media="getItemAttribute('image')"
                 preview
             >
                 <template slot="help">
@@ -36,8 +36,6 @@ export default {
                 content: '',
                 image_id: null,
             },
-
-            image: null,
         };
     },
 
@@ -49,8 +47,6 @@ export default {
                         content: item.content,
                         image_id: item.image ? item.image.id : null,
                     };
-
-                    this.image = item.image;
                 }
             },
             immediate: true,

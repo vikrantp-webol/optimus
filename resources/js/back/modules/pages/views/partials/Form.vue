@@ -93,7 +93,7 @@
 
                             <o-meta-fields
                                 v-model="form.meta"
-                                :item="item ? item.meta : null"
+                                :item="getItemAttribute('meta')"
                             />
                         </o-tab>
                     </o-tabs>
@@ -182,7 +182,7 @@ export default {
                     name: template.name,
                     data: template.data,
                 },
-                parent_id: item.parent ? item.parent.id : null,
+                parent_id: item.parent_id,
                 is_standalone: item.is_standalone,
                 is_published: item.is_published,
                 meta: {
@@ -191,7 +191,7 @@ export default {
                     og_title: meta.og_title,
                     og_description: meta.og_description,
                     og_image_id: meta.og_image ? meta.og_image.id : null,
-                    additional_tags: meta.custom_tags,
+                    additional_tags: meta.additional_tags,
                 },
             };
         },

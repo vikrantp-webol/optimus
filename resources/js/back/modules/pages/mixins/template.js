@@ -1,4 +1,8 @@
+import { formHelpersMixin } from '@optimuscms/theme';
+
 export default {
+    mixins: [ formHelpersMixin ],
+
     props: {
         item: {
             type: Object,
