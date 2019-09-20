@@ -6,7 +6,7 @@ templateFiles.keys().forEach(file => {
         return;
     }
 
-    templates[file.replace(/(\.\/|\.vue)/g, '')] = templateFiles(file).default;
+    templates[`Template${file.replace(/(\.\/|\.vue)/g, '')}`] = templateFiles(file).default;
 });
 
 export default templates;

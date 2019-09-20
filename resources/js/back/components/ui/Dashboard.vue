@@ -1,5 +1,5 @@
 <template>
-    <o-dashboard-layout :loading="isLoading('app.*')">
+    <o-dashboard-layout :loading="isLoading('app.*')" :avatar="avatar">
         <template slot="side-nav">
             <o-side-nav-item :to="{ name: 'pages.index' }" label="Pages" section="pages">
                 <o-side-sub-nav-item :to="{ name: 'pages.index' }">
@@ -44,10 +44,22 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     computed: {
+        ...mapGetters({
+            user: 'user/data',
+        }),
+
+        avatar() {
+            if (this.user) {
+                return `${this.user.gravatar_url}?d=identicon&s=96`;
+            }
+
+            return null;
+        },
+
         csrfToken() {
             return document.head.querySelector('meta[name="csrf-token"]').content;
         },

@@ -17,16 +17,16 @@
                             </o-form-field>
 
                             <div class="lg:flex lg:-mx-4">
-                                <div class="mb-8 flex-grow lg:px-4">
+                                <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Parent -->
-                                    <o-form-field
-                                        v-if="! item || ! item.template.is_fixed"
-                                        input="parent_id"
-                                        label="Parent"
-                                    >
-                                        <o-select id="parent_id" v-model="form.parent_id">
-                                            <option :value="null" disabled>
-                                                Please select...
+                                    <o-form-field input="parent_id" label="Parent">
+                                        <o-select
+                                            id="parent_id"
+                                            v-model="form.parent_id"
+                                            :disabled="getItemAttribute('has_fixed_path', false)"
+                                        >
+                                            <option :value="null">
+                                                No parent...
                                             </option>
 
                                             <option v-for="page in pages" :key="page.id" :value="page.id">
@@ -36,14 +36,15 @@
                                     </o-form-field>
                                 </div>
 
-                                <div v-if="! item || ! item.template.is_fixed" class="mb-8 flex-grow lg:px-4">
+                                <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Template -->
-                                    <o-form-field
-                                        input="template_id"
-                                        label="Template"
-                                        required
-                                    >
-                                        <o-select id="template_id" v-model="form.template.name" required>
+                                    <o-form-field input="template_id" label="Template" required>
+                                        <o-select
+                                            id="template_id"
+                                            v-model="form.template.name"
+                                            required
+                                            :disabled="item && item.template.is_fixed"
+                                        >
                                             <option value="" disabled>
                                                 Please select...
                                             </option>
@@ -62,18 +63,14 @@
 
                             <!-- Contents -->
                             <component
-                                :is="form.template.name"
+                                :is="getTemplateComponent(form.template.name)"
                                 v-if="form.template.name"
                                 v-model="form.template.data"
                                 :item="item ? item.template.data : null"
                             />
 
                             <!-- Stand alone -->
-                            <o-form-field
-                                v-if="! item || item.is_deletable"
-                                input="is_stand_alone"
-                                label="Stand alone"
-                            >
+                            <o-form-field input="is_stand_alone" label="Stand alone">
                                 <o-checkbox
                                     id="is_stand_alone"
                                     v-model="form.is_standalone"
@@ -88,6 +85,7 @@
                                 <o-input
                                     id="slug"
                                     v-model="form.slug"
+                                    :disabled="getItemAttribute('has_fixed_path', false)"
                                 />
                             </o-form-field>
 
@@ -114,7 +112,7 @@
 
                     <!-- Publish -->
                     <o-checkbox
-                        v-if="! item || item.is_deletable"
+                        v-if="! getItemAttribute('is_deletable', false)"
                         id="is_published"
                         v-model="form.is_published"
                         label="Publish"
@@ -223,6 +221,10 @@ export default {
 
                 this.stopLoading('primary.templates');
             });
+        },
+
+        getTemplateComponent(templateName) {
+            return `Template${templateName.charAt(0).toUpperCase()}${templateName.slice(1)}`;
         },
 
         save() {

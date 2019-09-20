@@ -28,6 +28,7 @@
                             name="username"
                             class="input"
                             required
+                            autofocus
                             placeholder="Username"
                         >
                     </div>

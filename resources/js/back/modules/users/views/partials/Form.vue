@@ -50,14 +50,22 @@
                     </o-form-field>
 
                     <!-- Avatar -->
-                    <o-form-field input="avatar_id" label="Avatar">
-                        <media-picker
-                            id="avatar_id"
-                            v-model="form.avatar_id"
-                            :media="avatar"
-                            preview
-                            accepted-extensions="image"
-                        />
+                    <o-form-field v-if="isEditing" label="Avatar">
+                        <div class="control">
+                            <div class="w-48 h-48 border border-grey-500 rounded">
+                                <img
+                                    :src="avatar"
+                                    class="rounded"
+                                >
+                            </div>
+                        </div>
+
+                        <template slot="help">
+                            Change your avatar via
+                            <a href="http://en.gravatar.com/" class="underline" target="_blank">
+                                gravatar.com
+                            </a>.
+                        </template>
                     </o-form-field>
                 </div>
             </div>
@@ -91,10 +99,7 @@ export default {
                 username: '',
                 email: '',
                 password: '',
-                avatar_id: null,
             },
-
-            avatar: null,
         };
     },
 
@@ -110,6 +115,14 @@ export default {
         isEditingSelf() {
             return this.authedUser.id == this.$route.params.id;
         },
+
+        avatar() {
+            if (this.item && this.item.hasOwnProperty('gravatar_url')) {
+                return `${this.item.gravatar_url}?d=identicon&s=384`;
+            }
+
+            return null;
+        },
     },
 
     watch: {
@@ -119,16 +132,13 @@ export default {
                 username: item.username,
                 email: item.email,
                 password: null,
-                avatar_id: item.avatar ? item.avatar.id : null,
             };
-
-            this.avatar = item.avatar;
         },
     },
 
     methods: {
         ...mapActions({
-            updateAuthedUser: 'user/update',
+            updateCurrentUser: 'user/update',
         }),
 
         save() {
@@ -139,12 +149,9 @@ export default {
             return createUser(this.form);
         },
 
-        onSuccess() {
+        onSuccess(response) {
             if (this.isEditingSelf) {
-                this.updateAuthedUser({
-                    name: this.form.name,
-                    avatar: this.form.avatar,
-                });
+                this.updateCurrentUser(response.data.data);
             }
 
             this.$router.push({

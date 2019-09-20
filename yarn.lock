@@ -653,10 +653,10 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.2.6":
-  version "0.2.6"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.6.tgz#71b5a2898c0a044a2f5bcad2e1be2f56be1f54d5"
-  integrity sha512-sC24BwMJJU9Fwt4kUMcaizMSguOQRzPhIYRJpoAhhzTU/Wd18bSjNnhpMTM6TUgnkJXoNbEMLXs6rHgjRXI/oA==
+"@optimuscms/theme@^0.2.7":
+  version "0.2.7"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.7.tgz#7be640e4bd9e59e7e9c15e035863099922f50d10"
+  integrity sha512-XTy72XkOc8OzfRyFuYDi6HPjokUoiNLxf67qPStJN0Ke4+Z7ldClyMycwsUPVON9WSsKo1tOnaSA6rUWQcPaFQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"

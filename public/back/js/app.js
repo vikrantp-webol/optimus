@@ -86,10 +86,10 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./.yalc/@optimuscms/editor/dist/editor.esm.js":
-/*!*****************************************************!*\
-  !*** ./.yalc/@optimuscms/editor/dist/editor.esm.js ***!
-  \*****************************************************/
+/***/ "./node_modules/@optimuscms/editor/dist/editor.esm.js":
+/*!************************************************************!*\
+  !*** ./node_modules/@optimuscms/editor/dist/editor.esm.js ***!
+  \************************************************************/
 /*! exports provided: default, config */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -192,8 +192,9 @@ function config() {
   };
 }
 
-var config$1 = config(); //
+var config$1 = config();
 
+//
 var script = {
   components: {
     BaseEditor: _tinymce_tinymce_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -201,7 +202,7 @@ var script = {
   props: {
     config: {
       type: Object,
-      "default": function _default() {}
+      default: function _default() {}
     },
     id: {
       type: String,
@@ -209,7 +210,7 @@ var script = {
     },
     value: {
       type: String,
-      "default": null
+      default: null
     }
   },
   data: function data() {
@@ -311,8 +312,8 @@ function normalizeComponent(template, style, script, scopeId, isFunctionalTempla
 }
 
 var normalizeComponent_1 = normalizeComponent;
-/* script */
 
+/* script */
 var __vue_script__ = script;
 /* template */
 
@@ -369,7 +370,7 @@ function install(Vue) {
     componentName: options.componentName || 'editor'
   };
   Vue.component(defaultOptions.componentName, Vue.extend({
-    "extends": Editor,
+    extends: Editor,
     data: function data() {
       return {
         apiKey: options.apiKey
@@ -399,6 +400,7 @@ function install(Vue) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (install);
+
 
 
 /***/ }),
@@ -7108,12 +7110,13 @@ function install(Vue) {
 /*!************************************************************!*\
   !*** ./node_modules/@optimuscms/theme/dist/optimus.esm.js ***!
   \************************************************************/
-/*! exports provided: default, formMixin, listingMixin, sortableMixin */
+/*! exports provided: default, formHelpersMixin, formMixin, listingMixin, sortableMixin */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formMixin", function() { return form; });
+/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formHelpersMixin", function() { return formHelpersMixin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formMixin", function() { return form; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listingMixin", function() { return listing; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortableMixin", function() { return sortable; });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
@@ -9631,7 +9634,13 @@ var Field = normalizeComponent_1({
 
 //
 var script$4 = {
-  mixins: [inputMixin]
+  mixins: [inputMixin],
+  props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    }
+  }
 };
 
 /* script */
@@ -9656,7 +9665,8 @@ var __vue_render__$4 = function __vue_render__() {
     }],
     attrs: {
       id: _vm.id,
-      required: _vm.required
+      required: _vm.required,
+      disabled: _vm.disabled
     },
     on: {
       change: function change($event) {
@@ -9880,16 +9890,21 @@ var script$6 = {
     };
   },
   watch: {
-    item: function item(_item) {
-      this.form = {
-        title: _item.title,
-        description: _item.description,
-        og_title: _item.og_title,
-        og_description: _item.og_description,
-        og_image_id: _item.og_image ? _item.og_image.id : null,
-        additional_tags: _item.custom_tags
-      };
-      this.og_image = _item.og_image;
+    item: {
+      handler: function handler(item) {
+        if (item) {
+          this.form = {
+            title: item.title,
+            description: item.description,
+            og_title: item.og_title,
+            og_description: item.og_description,
+            og_image_id: item.og_image ? item.og_image.id : null,
+            additional_tags: item.additional_tags
+          };
+          this.og_image = item.og_image;
+        }
+      },
+      immediate: true
     },
     form: {
       handler: function handler(form) {
@@ -9998,12 +10013,12 @@ var __vue_render__$6 = function __vue_render__() {
     slot: "help"
   }, [_vm._v("\n            This image will be resized to 1200x630px\n        ")])], 2), _vm._v(" "), _c("o-form-field", {
     attrs: {
-      input: "meta_custom_tags",
+      input: "meta_additional_tags",
       label: "Custom Tags"
     }
   }, [_c("o-input", {
     attrs: {
-      id: "meta_custom_tags",
+      id: "meta_additional_tags",
       type: "textarea"
     },
     model: {
@@ -12108,7 +12123,29 @@ var ThSort = normalizeComponent_1({
   staticRenderFns: __vue_staticRenderFns__$o
 }, __vue_inject_styles__$o, __vue_script__$m, __vue_scope_id__$o, __vue_is_functional_template__$o, __vue_module_identifier__$o, undefined, undefined);
 
+var formHelpersMixin = {
+  methods: {
+    accessItem: function accessItem() {
+      return this.item;
+    },
+    itemAttributeExists: function itemAttributeExists(attribute) {
+      var item = this.accessItem();
+      return item && item.hasOwnProperty(attribute);
+    },
+    getItemAttribute: function getItemAttribute(attribute) {
+      var defaultValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var item = this.accessItem();
+
+      if (this.itemAttributeExists(attribute)) {
+        return item[attribute];
+      }
+
+      return defaultValue;
+    }
+  }
+};
 var form = {
+  mixins: [formHelpersMixin],
   props: {
     item: {
       type: Object,
@@ -12131,9 +12168,6 @@ var form = {
     }
   },
   methods: {
-    getMedia: function getMedia(group) {
-      return this.item && this.item[group] ? this.item[group] : [];
-    },
     submit: function submit() {
       var _this = this;
 
@@ -14571,11 +14605,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    user: 'user/data'
+  }), {
+    avatar: function avatar() {
+      if (this.user) {
+        return "".concat(this.user.gravatar_url, "?d=identicon&s=96");
+      }
+
+      return null;
+    },
     csrfToken: function csrfToken() {
       return document.head.querySelector('meta[name="csrf-token"]').content;
     }
-  },
+  }),
   created: function created() {
     var _this = this;
 
@@ -14980,8 +15023,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -15024,7 +15065,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           name: template.name,
           data: template.data
         },
-        parent_id: _item.parent ? _item.parent.id : null,
+        parent_id: _item.parent_id,
         is_standalone: _item.is_standalone,
         is_published: _item.is_published,
         meta: {
@@ -15033,7 +15074,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           og_title: meta.og_title,
           og_description: meta.og_description,
           og_image_id: meta.og_image ? meta.og_image.id : null,
-          additional_tags: meta.custom_tags
+          additional_tags: meta.additional_tags
         }
       };
     }
@@ -15067,6 +15108,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this2.stopLoading('primary.templates');
       });
+    },
+    getTemplateComponent: function getTemplateComponent(templateName) {
+      return "Template".concat(templateName.charAt(0).toUpperCase()).concat(templateName.slice(1));
     },
     save: function save() {
       if (this.isEditing) {
@@ -15138,8 +15182,7 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         content: '',
         image_id: null
-      },
-      image: null
+      }
     };
   },
   watch: {
@@ -15150,7 +15193,6 @@ __webpack_require__.r(__webpack_exports__);
             content: item.content,
             image_id: item.image ? item.image.id : null
           };
-          this.image = item.image;
         }
       },
       immediate: true
@@ -15204,8 +15246,7 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         content: '',
         image_id: null
-      },
-      image: null
+      }
     };
   },
   watch: {
@@ -15216,7 +15257,6 @@ __webpack_require__.r(__webpack_exports__);
             content: item.content,
             image_id: item.image ? item.image.id : null
           };
-          this.image = item.image;
         }
       },
       immediate: true
@@ -15509,6 +15549,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -15520,10 +15568,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: '',
         username: '',
         email: '',
-        password: '',
-        avatar_id: null
-      },
-      avatar: null
+        password: ''
+      }
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -15534,6 +15580,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isEditingSelf: function isEditingSelf() {
       return this.authedUser.id == this.$route.params.id;
+    },
+    avatar: function avatar() {
+      if (this.item && this.item.hasOwnProperty('gravatar_url')) {
+        return "".concat(this.item.gravatar_url, "?d=identicon&s=384");
+      }
+
+      return null;
     }
   }),
   watch: {
@@ -15542,14 +15595,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: _item.name,
         username: _item.username,
         email: _item.email,
-        password: null,
-        avatar_id: _item.avatar ? _item.avatar.id : null
+        password: null
       };
-      this.avatar = _item.avatar;
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    updateAuthedUser: 'user/update'
+    updateCurrentUser: 'user/update'
   }), {
     save: function save() {
       if (this.isEditing) {
@@ -15558,12 +15609,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return Object(_routes_api__WEBPACK_IMPORTED_MODULE_2__["createUser"])(this.form);
     },
-    onSuccess: function onSuccess() {
+    onSuccess: function onSuccess(response) {
       if (this.isEditingSelf) {
-        this.updateAuthedUser({
-          name: this.form.name,
-          avatar: this.form.avatar
-        });
+        this.updateCurrentUser(response.data.data);
       }
 
       this.$router.push({
@@ -16060,7 +16108,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "o-dashboard-layout",
-    { attrs: { loading: _vm.isLoading("app.*") } },
+    { attrs: { loading: _vm.isLoading("app.*"), avatar: _vm.avatar } },
     [
       _c(
         "template",
@@ -16497,150 +16545,140 @@ var render = function() {
                       _c("div", { staticClass: "lg:flex lg:-mx-4" }, [
                         _c(
                           "div",
-                          { staticClass: "mb-8 flex-grow lg:px-4" },
+                          { staticClass: "mb-8 lg:w-1/2 lg:px-4" },
                           [
-                            !_vm.item || !_vm.item.template.is_fixed
-                              ? _c(
-                                  "o-form-field",
-                                  {
-                                    attrs: {
-                                      input: "parent_id",
-                                      label: "Parent"
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "o-select",
-                                      {
-                                        attrs: { id: "parent_id" },
-                                        model: {
-                                          value: _vm.form.parent_id,
-                                          callback: function($$v) {
-                                            _vm.$set(_vm.form, "parent_id", $$v)
-                                          },
-                                          expression: "form.parent_id"
-                                        }
-                                      },
-                                      [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: { disabled: "" },
-                                            domProps: { value: null }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                            Please select...\n                                        "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _vm._l(_vm.pages, function(page) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: page.id,
-                                              domProps: { value: page.id }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                            " +
-                                                  _vm._s(page.title) +
-                                                  "\n                                        "
-                                              )
-                                            ]
-                                          )
-                                        })
-                                      ],
-                                      2
-                                    )
-                                  ],
-                                  1
-                                )
-                              : _vm._e()
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        !_vm.item || !_vm.item.template.is_fixed
-                          ? _c(
-                              "div",
-                              { staticClass: "mb-8 flex-grow lg:px-4" },
+                            _c(
+                              "o-form-field",
+                              {
+                                attrs: { input: "parent_id", label: "Parent" }
+                              },
                               [
                                 _c(
-                                  "o-form-field",
+                                  "o-select",
                                   {
                                     attrs: {
-                                      input: "template_id",
-                                      label: "Template",
-                                      required: ""
+                                      id: "parent_id",
+                                      disabled: _vm.getItemAttribute(
+                                        "has_fixed_path",
+                                        false
+                                      )
+                                    },
+                                    model: {
+                                      value: _vm.form.parent_id,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form, "parent_id", $$v)
+                                      },
+                                      expression: "form.parent_id"
                                     }
                                   },
                                   [
                                     _c(
-                                      "o-select",
-                                      {
-                                        attrs: {
-                                          id: "template_id",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.form.template.name,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.form.template,
-                                              "name",
-                                              $$v
-                                            )
-                                          },
-                                          expression: "form.template.name"
-                                        }
-                                      },
+                                      "option",
+                                      { domProps: { value: null } },
                                       [
-                                        _c(
-                                          "option",
-                                          {
-                                            attrs: { value: "", disabled: "" }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n                                            Please select...\n                                        "
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _vm._l(_vm.templates, function(
-                                          template
-                                        ) {
-                                          return _c(
-                                            "option",
-                                            {
-                                              key: template.name,
-                                              domProps: { value: template.name }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n                                            " +
-                                                  _vm._s(template.label) +
-                                                  "\n                                        "
-                                              )
-                                            ]
+                                        _vm._v(
+                                          "\n                                            No parent...\n                                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.pages, function(page) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: page.id,
+                                          domProps: { value: page.id }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(page.title) +
+                                              "\n                                        "
                                           )
-                                        })
-                                      ],
-                                      2
-                                    )
+                                        ]
+                                      )
+                                    })
                                   ],
-                                  1
+                                  2
                                 )
                               ],
                               1
                             )
-                          : _vm._e()
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "mb-8 lg:w-1/2 lg:px-4" },
+                          [
+                            _c(
+                              "o-form-field",
+                              {
+                                attrs: {
+                                  input: "template_id",
+                                  label: "Template",
+                                  required: ""
+                                }
+                              },
+                              [
+                                _c(
+                                  "o-select",
+                                  {
+                                    attrs: {
+                                      id: "template_id",
+                                      required: "",
+                                      disabled:
+                                        _vm.item && _vm.item.template.is_fixed
+                                    },
+                                    model: {
+                                      value: _vm.form.template.name,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.form.template, "name", $$v)
+                                      },
+                                      expression: "form.template.name"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "option",
+                                      { attrs: { value: "", disabled: "" } },
+                                      [
+                                        _vm._v(
+                                          "\n                                            Please select...\n                                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._l(_vm.templates, function(template) {
+                                      return _c(
+                                        "option",
+                                        {
+                                          key: template.name,
+                                          domProps: { value: template.name }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(template.label) +
+                                              "\n                                        "
+                                          )
+                                        ]
+                                      )
+                                    })
+                                  ],
+                                  2
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
                       ]),
                       _vm._v(" "),
                       _vm.form.template.name
-                        ? _c(_vm.form.template.name, {
+                        ? _c(_vm.getTemplateComponent(_vm.form.template.name), {
                             tag: "component",
                             attrs: {
                               item: _vm.item ? _vm.item.template.data : null
@@ -16655,30 +16693,28 @@ var render = function() {
                           })
                         : _vm._e(),
                       _vm._v(" "),
-                      !_vm.item || _vm.item.is_deletable
-                        ? _c(
-                            "o-form-field",
-                            {
-                              attrs: {
-                                input: "is_stand_alone",
-                                label: "Stand alone"
-                              }
-                            },
-                            [
-                              _c("o-checkbox", {
-                                attrs: { id: "is_stand_alone", label: "Yes" },
-                                model: {
-                                  value: _vm.form.is_standalone,
-                                  callback: function($$v) {
-                                    _vm.$set(_vm.form, "is_standalone", $$v)
-                                  },
-                                  expression: "form.is_standalone"
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        : _vm._e()
+                      _c(
+                        "o-form-field",
+                        {
+                          attrs: {
+                            input: "is_stand_alone",
+                            label: "Stand alone"
+                          }
+                        },
+                        [
+                          _c("o-checkbox", {
+                            attrs: { id: "is_stand_alone", label: "Yes" },
+                            model: {
+                              value: _vm.form.is_standalone,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "is_standalone", $$v)
+                              },
+                              expression: "form.is_standalone"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
@@ -16692,7 +16728,13 @@ var render = function() {
                         { attrs: { input: "slug", label: "Slug" } },
                         [
                           _c("o-input", {
-                            attrs: { id: "slug" },
+                            attrs: {
+                              id: "slug",
+                              disabled: _vm.getItemAttribute(
+                                "has_fixed_path",
+                                false
+                              )
+                            },
                             model: {
                               value: _vm.form.slug,
                               callback: function($$v) {
@@ -16706,7 +16748,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("o-meta-fields", {
-                        attrs: { item: _vm.item ? _vm.item.meta : null },
+                        attrs: { item: _vm.getItemAttribute("meta") },
                         model: {
                           value: _vm.form.meta,
                           callback: function($$v) {
@@ -16747,7 +16789,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              !_vm.item || _vm.item.is_deletable
+              !_vm.getItemAttribute("is_deletable", false)
                 ? _c("o-checkbox", {
                     staticClass: "ml-4",
                     attrs: { id: "is_published", label: "Publish" },
@@ -16820,7 +16862,11 @@ var render = function() {
           _c(
             "media-picker",
             {
-              attrs: { id: "image_id", media: _vm.image, preview: "" },
+              attrs: {
+                id: "image_id",
+                media: _vm.getItemAttribute("image"),
+                preview: ""
+              },
               model: {
                 value: _vm.form.image_id,
                 callback: function($$v) {
@@ -16896,7 +16942,11 @@ var render = function() {
           _c(
             "media-picker",
             {
-              attrs: { id: "image_id", media: _vm.image, preview: "" },
+              attrs: {
+                id: "image_id",
+                media: _vm.getItemAttribute("image"),
+                preview: ""
+              },
               model: {
                 value: _vm.form.image_id,
                 callback: function($$v) {
@@ -17219,28 +17269,52 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "o-form-field",
-                { attrs: { input: "avatar_id", label: "Avatar" } },
-                [
-                  _c("media-picker", {
-                    attrs: {
-                      id: "avatar_id",
-                      media: _vm.avatar,
-                      preview: "",
-                      "accepted-extensions": "image"
-                    },
-                    model: {
-                      value: _vm.form.avatar_id,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "avatar_id", $$v)
-                      },
-                      expression: "form.avatar_id"
-                    }
-                  })
-                ],
-                1
-              )
+              _vm.isEditing
+                ? _c(
+                    "o-form-field",
+                    { attrs: { label: "Avatar" } },
+                    [
+                      _c("div", { staticClass: "control" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-48 h-48 border border-grey-500 rounded"
+                          },
+                          [
+                            _c("img", {
+                              staticClass: "rounded",
+                              attrs: { src: _vm.avatar }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("template", { slot: "help" }, [
+                        _vm._v(
+                          "\n                        Change your avatar via\n                        "
+                        ),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "underline",
+                            attrs: {
+                              href: "http://en.gravatar.com/",
+                              target: "_blank"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                            gravatar.com\n                        "
+                            )
+                          ]
+                        ),
+                        _vm._v(".\n                    ")
+                      ])
+                    ],
+                    2
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -33348,7 +33422,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_App__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/App */ "./resources/js/back/views/App.vue");
 /* harmony import */ var _optimuscms_theme__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @optimuscms/theme */ "./node_modules/@optimuscms/theme/dist/optimus.esm.js");
 /* harmony import */ var _optimuscms_media_manager__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @optimuscms/media-manager */ "./node_modules/@optimuscms/media-manager/dist/media-manager.esm.js");
-/* harmony import */ var _optimuscms_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @optimuscms/editor */ "./.yalc/@optimuscms/editor/dist/editor.esm.js");
+/* harmony import */ var _optimuscms_editor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @optimuscms/editor */ "./node_modules/@optimuscms/editor/dist/editor.esm.js");
 /* harmony import */ var _config_editor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./config/editor */ "./resources/js/back/config/editor.js");
 
 
@@ -33483,7 +33557,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _optimuscms_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @optimuscms/editor */ "./.yalc/@optimuscms/editor/dist/editor.esm.js");
+/* harmony import */ var _optimuscms_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @optimuscms/editor */ "./node_modules/@optimuscms/editor/dist/editor.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../store */ "./resources/js/back/store/index.js");
 
 
@@ -33533,7 +33607,10 @@ _optimuscms_editor__WEBPACK_IMPORTED_MODULE_0__["config"].file_picker_callback =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _optimuscms_theme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @optimuscms/theme */ "./node_modules/@optimuscms/theme/dist/optimus.esm.js");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_optimuscms_theme__WEBPACK_IMPORTED_MODULE_0__["formHelpersMixin"]],
   props: {
     item: {
       type: Object,
@@ -34110,7 +34187,7 @@ templateFiles.keys().forEach(function (file) {
     return;
   }
 
-  templates[file.replace(/(\.\/|\.vue)/g, '')] = templateFiles(file)["default"];
+  templates["Template".concat(file.replace(/(\.\/|\.vue)/g, ''))] = templateFiles(file)["default"];
 });
 /* harmony default export */ __webpack_exports__["default"] = (templates);
 
