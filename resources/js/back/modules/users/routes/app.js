@@ -1,9 +1,9 @@
 
 import Dashboard from '../../../components/ui/Dashboard';
 
-import UserIndex from '../views/Index';
-import UserCreate from '../views/Create';
-import UserEdit from '../views/Edit';
+import Index from '../views/Index';
+import Create from '../views/Create';
+import Edit from '../views/Edit';
 
 let routes = [
     {
@@ -15,17 +15,17 @@ let routes = [
             {
                 path: '',
                 name: 'users.index',
-                component: UserIndex,
+                component: Index,
             },
             {
                 path: 'create',
                 name: 'users.create',
-                component: UserCreate,
+                component: Create,
             },
             {
                 path: ':id/edit',
                 name: 'users.edit',
-                component: UserEdit,
+                component: Edit,
             },
         ],
     },

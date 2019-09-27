@@ -3,11 +3,17 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>
+                        Name
+                    </th>
 
-                    <th>Email</th>
+                    <th>
+                        Email
+                    </th>
 
-                    <th>Username</th>
+                    <th>
+                        Username
+                    </th>
 
                     <th class="narrow">
                         Actions
@@ -17,17 +23,23 @@
 
             <tbody>
                 <tr v-for="user in users" :key="user.id">
-                    <td>{{ user.name }}</td>
+                    <td>
+                        {{ user.name }}
+                    </td>
 
-                    <td>{{ user.email }}</td>
+                    <td>
+                        {{ user.email }}
+                    </td>
 
-                    <td>{{ user.username }}</td>
+                    <td>
+                        {{ user.username }}
+                    </td>
 
                     <td class="actions">
                         <router-link
                             :to="{
                                 name: 'users.edit',
-                                params: { id: user.id }
+                                params: { id: user.id },
                             }"
                             class="icon medium"
                         >
@@ -69,7 +81,7 @@ export default {
     },
 
     created() {
-        this.setTitle('Manage users');
+        this.setTitle('Manage Users');
 
         this.fetchUsers();
     },

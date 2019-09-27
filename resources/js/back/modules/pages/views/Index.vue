@@ -18,11 +18,17 @@
                 <tr>
                     <th class="narrow" />
 
-                    <th>Title</th>
+                    <th>
+                        Title
+                    </th>
 
-                    <th>Path</th>
+                    <th>
+                        Path
+                    </th>
 
-                    <th>Sub pages</th>
+                    <th>
+                        Sub pages
+                    </th>
 
                     <th class="narrow">
                         Actions
@@ -54,9 +60,13 @@
                         </a>
                     </td>
 
-                    <td>{{ page.title }}</td>
+                    <td>
+                        {{ page.title }}
+                    </td>
 
-                    <td>/{{ page.path }}</td>
+                    <td>
+                        /{{ page.path }}
+                    </td>
 
                     <td>
                         <a @click="applyFilter('parent', page.id)">
@@ -68,7 +78,7 @@
                         <router-link
                             :to="{
                                 name: 'pages.edit',
-                                params: { id: page.id }
+                                params: { id: page.id },
                             }"
                             class="icon medium"
                         >
@@ -125,7 +135,7 @@ export default {
     },
 
     created() {
-        this.setTitle('Manage pages');
+        this.setTitle('Manage Pages');
 
         this.startLoading('primary.pages');
 

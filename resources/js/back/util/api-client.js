@@ -2,6 +2,14 @@ const client = axios.create({
     baseURL: '/admin/api/',
 });
 
+client.interceptors.response.use(null, error => {
+    if (error.response.status === 401) {
+        return window.location.href = '/admin/login';
+    }
+
+    return Promise.reject(error);
+});
+
 export default {
     // Make a get request
     fetch(uri, params = {}) {

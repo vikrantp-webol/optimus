@@ -37,12 +37,4 @@ router.afterEach(() => {
     });
 });
 
-axios.interceptors.response.use(null, error => {
-    if (error.response.status === 401) {
-        return window.location.href = '/admin/login';
-    }
-
-    return Promise.reject(error);
-});
-
 export default router;

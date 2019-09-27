@@ -1,7 +1,8 @@
-@extends('front.layouts.app', ['homePage' => true])
-
-@section('meta.title', 'Home')
-{{-- @section('meta.description', ) --}}
+@extends('front.layouts.app', [
+    // 'pageTitle' => $page->title,
+    // 'meta' => $page->meta,
+    'homePage' => true,
+])
 
 @section('content')
     <div class="container py-16">

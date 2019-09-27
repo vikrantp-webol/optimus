@@ -9,7 +9,7 @@ export default {
     components: { PageForm },
 
     created() {
-        this.setTitle('Add page');
+        this.setTitle('Add Page');
     },
 };
 </script>

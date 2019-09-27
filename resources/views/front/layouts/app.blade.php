@@ -13,16 +13,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         {{-- Meta --}}
-        <title>@yield('meta.title') | {{ config('app.name') }}</title>
-
-        @hasSection('meta.description')
-            <meta name="description" content="@yield('meta.description')">
-        @endif
-
-        {{-- Open Graph --}}
-        <meta property="og:title" content="@yield('meta.title') | {{ config('app.name') }}">
-        <meta property="og:url" content="{{ url()->full() }}">
-        <meta property="og:image" content="{{ url('/images/layout/og.png') }}">
+        @include('front.partials.meta')
 
         {{-- Styles --}}
         <link rel="stylesheet" href="{{ mix('/front/css/app.css') }}">

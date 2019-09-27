@@ -28,7 +28,7 @@ export default {
     },
 
     created() {
-        this.setTitle('Edit user');
+        this.setTitle('Edit User');
 
         this.fetchUser();
     },

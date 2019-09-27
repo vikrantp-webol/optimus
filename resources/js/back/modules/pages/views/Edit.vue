@@ -16,7 +16,7 @@ export default {
     },
 
     created() {
-        this.setTitle('Edit page');
+        this.setTitle('Edit Page');
 
         this.fetchPage();
     },

@@ -9,7 +9,7 @@ export default {
     components: { UserForm },
 
     created() {
-        this.setTitle('Add user');
+        this.setTitle('Add User');
     },
 };
 </script>
