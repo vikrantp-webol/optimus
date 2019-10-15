@@ -14,7 +14,7 @@
                 id="image_id"
                 v-model="form.image_id"
                 :media="getItemAttribute('image')"
-                preview
+                show-preview
             >
                 <template slot="help">
                     This image will be constrained to 1000px width

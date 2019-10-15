@@ -14,7 +14,7 @@
         "@fullhuman/postcss-purgecss": "^1.2.0",
         "@optimuscms/editor": "^2.2.5",
         "@optimuscms/media-manager": "^1.2.8",
-        "@optimuscms/theme": "^0.2.9",
+        "@optimuscms/theme": "^0.2.10",
         "@optix/sass": "^0.2.1",
         "axios": "^0.19",
         "cross-env": "^5.1",
