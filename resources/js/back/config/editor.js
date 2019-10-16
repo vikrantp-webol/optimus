@@ -13,14 +13,14 @@ config.file_picker_callback = function(callback) {
         mediaIds: [],
     });
 
-    store.dispatch('mediaManager/open', {
+    store.dispatch('mediaManager/openMediaManager', {
         pickerId: this.id,
         limit: 1,
         acceptedExtensions: imageExtensions,
     });
 
     store.watch((state, getters) => {
-        return getters['mediaManagerPickers/pickerMedia'](this.id);
+        return getters['mediaManagerPickers/getPickerMedia'](this.id);
     }, selectedMedia => {
         if (selectedMedia.length) {
             const image = selectedMedia[0];

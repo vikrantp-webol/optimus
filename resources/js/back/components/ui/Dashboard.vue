@@ -76,7 +76,7 @@ export default {
     methods: {
         ...mapActions({
             fetchUser: 'user/fetch',
-            openMediaManager: 'mediaManager/open',
+            openMediaManager: 'mediaManager/openMediaManager',
         }),
     },
 };

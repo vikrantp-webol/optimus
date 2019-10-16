@@ -640,29 +640,31 @@
     "@tinymce/tinymce-vue" "^1.1.0"
     vue "^2.6.10"
 
-"@optimuscms/media-manager@^1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.2.8.tgz#817da33216574ac0bda55fd70d78c08e3d7159f1"
-  integrity sha512-lw43sQV6xZkhYdRDxnDeuiF6Tdcq0/EjPp8PG+f84+1wXDd+XHn99vMPlGr6/ldWSVH/HtYwZuBkUTsuyXkpzQ==
+"@optimuscms/media-manager@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.0.tgz#ab6870f59774e3b4942b930083fed3514e6fd45e"
+  integrity sha512-o79GjPetAiPBrQyif6xTrn75E5ofAS75jhy7seECp7VaM253Tw8MNWv1a8xSEUROAlT+JlsS98GaOSBaRg09wg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-regular-svg-icons" "^5.10.2"
     "@fortawesome/free-solid-svg-icons" "^5.10.2"
     "@fortawesome/vue-fontawesome" "^0.1.7"
-    lodash "^4.17.11"
+    lodash "^4.17.15"
+    moment "^2.24.0"
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.2.9":
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.9.tgz#ba966b9f89dcfc4da40f72caa4f50ea03125e83a"
-  integrity sha512-G1uHObegBMx2tHT5SMgrL078O7/1jVClqaQRVsxtF6G6IgEWYGUAv8r8y3vWxqZMZzy4USMpG/qwMLePl67L6w==
+"@optimuscms/theme@^0.2.10":
+  version "0.2.10"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.10.tgz#19541b50b988e0bd5501cdf2d3cba29ed36febc1"
+  integrity sha512-nvBrPdDBjnrHx4pdRdqPCVq5ZyAGhnMKq3c7xGVciWKWmEwKnGRsWL8SZM4PHuHq/OyjgyX+83XK9wfCkisd3g==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
     "@optix/sass" "^0.2.1"
+    lodash "^4.17.15"
     matcher "^2.0.0"
     tailwindcss "^1.0"
     vue "^2.6.10"
