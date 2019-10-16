@@ -40,8 +40,7 @@ class DefaultTemplate implements Template
     {
         validator($data, [
             'content' => 'required|string',
-            'date' => 'required|date',
-            'image_id' => 'required|exists:media,id',
+            'image_id' => 'exists:media,id',
         ])->validate();
     }
 
@@ -56,7 +55,6 @@ class DefaultTemplate implements Template
     {
         $page->addContents([
             'content' => $data['content'],
-            'date' => $data['date'],
         ]);
 
         $page->attachMedia($data['image_id'], 'image');
@@ -95,7 +93,6 @@ class DefaultTemplate implements Template
     {
         return [
             'content' => $page->getContent('content'),
-            'date' => $page->getContent('date'),
             'image' => new MediaResource($page->getFirstMedia('image')),
         ];
     }

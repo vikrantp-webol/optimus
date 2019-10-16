@@ -1,31 +1,32 @@
-import { config } from '@optimuscms/editor';
 import store from '../store';
+import { config } from '@optimuscms/editor';
+import { imageExtensions } from '@optimuscms/media-manager';
 
 config.onBeforeDestroy = function() {
-    store.dispatch('mediaManager/clearPickerMedia', this.id);
+    store.dispatch('mediaManagerPickers/clearPickerMediaIds', this.id);
 };
 
 config.file_picker_types = 'image';
 config.file_picker_callback = function(callback) {
-    store.dispatch('mediaManager/setPickerMedia', {
+    store.dispatch('mediaManagerPickers/setPickerMediaIds', {
         pickerId: this.id,
-        media: [],
+        mediaIds: [],
     });
 
     store.dispatch('mediaManager/open', {
         pickerId: this.id,
         limit: 1,
-        acceptedExtensions: store.getters['mediaManager/imageExtensions'],
+        acceptedExtensions: imageExtensions,
     });
 
-    store.watch(state => {
-        return state.mediaManager.selectedMedia[this.id];
+    store.watch((state, getters) => {
+        return getters['mediaManagerPickers/pickerMedia'](this.id);
     }, selectedMedia => {
         if (selectedMedia.length) {
-            let image = selectedMedia[0];
+            const image = selectedMedia[0];
 
             callback(image.url, {
-                alt: image.name,
+                alt: image.alt_text || image.name,
             });
         }
     }, { deep: true });
