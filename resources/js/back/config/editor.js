@@ -14,8 +14,8 @@ config.file_picker_callback = function(callback) {
     });
 
     store.dispatch('mediaManager/openMediaManager', {
-        pickerId: this.id,
         limit: 1,
+        pickerId: this.id,
         acceptedExtensions: imageExtensions,
     });
 
