@@ -13,7 +13,7 @@
         "@fortawesome/vue-fontawesome": "^0.1.7",
         "@fullhuman/postcss-purgecss": "^1.2.0",
         "@optimuscms/editor": "^2.2.5",
-        "@optimuscms/media-manager": "^1.3.0",
+        "@optimuscms/media-manager": "^1.3.2",
         "@optimuscms/theme": "^0.2.10",
         "@optix/sass": "^0.2.1",
         "axios": "^0.19",

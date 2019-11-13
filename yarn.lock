@@ -640,10 +640,10 @@
     "@tinymce/tinymce-vue" "^1.1.0"
     vue "^2.6.10"
 
-"@optimuscms/media-manager@^1.3.0":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.0.tgz#ab6870f59774e3b4942b930083fed3514e6fd45e"
-  integrity sha512-o79GjPetAiPBrQyif6xTrn75E5ofAS75jhy7seECp7VaM253Tw8MNWv1a8xSEUROAlT+JlsS98GaOSBaRg09wg==
+"@optimuscms/media-manager@^1.3.2":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.2.tgz#a72c88d4cbf2d2704cd8f22ddee570ce0e17aac2"
+  integrity sha512-dtfTYf+difQH3+vDehLRBYjUXseFOduM0DHQDzgZ+o+DghWolF8QFn2gwHIJJSrmJyRinNf3nuLA9HUqsdwCQg==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-regular-svg-icons" "^5.10.2"
