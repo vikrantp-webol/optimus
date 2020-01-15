@@ -18120,6 +18120,8 @@ var Confirmation = normalizeComponent_1({
 //
 //
 //
+//
+//
 var script$e = {
   props: {
     value: {
@@ -18229,9 +18231,11 @@ var __vue_render__$g = function __vue_render__() {
       }
     }
   }, [_vm._t("button", [_c("span", {
-    staticClass: "button",
+    staticClass: "button max-w-xs",
     class: _vm.buttonClass
-  }, [_c("span", [_vm._v(_vm._s(_vm.buttonText))]), _vm._v(" "), _c("span", {
+  }, [_c("span", {
+    staticClass: "truncate"
+  }, [_vm._v("\n                    " + _vm._s(_vm.buttonText) + "\n                ")]), _vm._v(" "), _c("span", {
     staticClass: "icon"
   }, [_c("icon", {
     attrs: {
@@ -18247,9 +18251,9 @@ var __vue_render__$g = function __vue_render__() {
       }
     }
   }, [_c("div", {
-    staticClass: "dropdown-scroll"
-  }, [_c("div", {
     staticClass: "dropdown-content"
+  }, [_c("div", {
+    staticClass: "dropdown-scroll"
   }, [_vm._t("default", [_vm.defaultOption ? _c("a", {
     staticClass: "dropdown-item",
     class: {
@@ -21894,6 +21898,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.page = response.data.data;
 
         _this.stopLoading('primary.page');
+      }).then(function () {
+        _this.$router.push({
+          name: 'pages.index'
+        });
       });
     }
   }
@@ -22546,6 +22554,10 @@ __webpack_require__.r(__webpack_exports__);
         _this.user = response.data.data;
 
         _this.stopLoading('primary.user');
+      }).then(function () {
+        _this.$router.push({
+          name: 'users.index'
+        });
       });
     }
   }

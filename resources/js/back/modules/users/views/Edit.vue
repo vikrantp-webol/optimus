@@ -41,6 +41,10 @@ export default {
                 this.user = response.data.data;
 
                 this.stopLoading('primary.user');
+            }).then(() => {
+                this.$router.push({
+                    name: 'users.index',
+                });
             });
         },
     },

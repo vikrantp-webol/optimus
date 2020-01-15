@@ -654,16 +654,16 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.2.10":
-  version "0.2.10"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.10.tgz#19541b50b988e0bd5501cdf2d3cba29ed36febc1"
-  integrity sha512-nvBrPdDBjnrHx4pdRdqPCVq5ZyAGhnMKq3c7xGVciWKWmEwKnGRsWL8SZM4PHuHq/OyjgyX+83XK9wfCkisd3g==
+"@optimuscms/theme@^0.2.13":
+  version "0.2.13"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.2.13.tgz#10f19bec9a6d9901b80674000d67c75084c344f7"
+  integrity sha512-plJpaBA2c8zk7sUhegeLlPpp1X0PZS9g3/qC9u1OIKmJm7XNXekL7VEsTHb/8D7oAjbK3BdPibDOjc7YHpvD7g==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
-    "@optix/sass" "^0.2.1"
+    "@optix/sass" "^0.2.3"
     lodash "^4.17.15"
     matcher "^2.0.0"
     tailwindcss "^1.0"
@@ -675,6 +675,13 @@
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.2.1.tgz#40c4d17591b668bfb56dcfb5d29cc40ad7ba0b5d"
   integrity sha512-zMM8I97vacVlp/zm+ol3PzolUR9vnSfZtxB4eLSCbOUPiTsRX4Ovnyehuw0+8oWPwZj1qX+VnIOJTrus8DE40Q==
+  dependencies:
+    tailwindcss "^1.0"
+
+"@optix/sass@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.2.3.tgz#5a3785ea64e6e348e9f0a36aef5c0900df3a48f4"
+  integrity sha512-L7PJ/YQ6YlQitm+sFE4D/bc9E5swTvw/WI8FHoY/hZ5IjZOfN3UBFPjr9HKnoDMF9imbfpkAAGL/ljNHL+HN8A==
   dependencies:
     tailwindcss "^1.0"
 

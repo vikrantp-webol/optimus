@@ -29,6 +29,10 @@ export default {
                 this.page = response.data.data;
 
                 this.stopLoading('primary.page');
+            }).then(() => {
+                this.$router.push({
+                    name: 'pages.index',
+                });
             });
         },
     },
