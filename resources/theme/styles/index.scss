@@ -1,0 +1,14 @@
+@charset 'UTF-8';
+
+@tailwind base;
+@tailwind components;
+
+@import 'variables';
+@import '~@optix/sass';
+
+@import 'base/index';
+@import 'components/index';
+@import 'elements/index';
+@import 'layouts/index';
+
+@tailwind utilities;

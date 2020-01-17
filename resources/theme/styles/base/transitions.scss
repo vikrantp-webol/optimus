@@ -1,0 +1,36 @@
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 200ms;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.loader-enter-active {
+    transition: opacity 250ms;
+}
+
+.loader-enter {
+    opacity: 0;
+}
+
+.loader-leave-active {
+    display: none;
+}
+
+.flip-list-move {
+    transition: transform 250ms;
+}
+
+.pulse {
+    opacity: 0.6;
+    animation: pulse 3000ms ease-out infinite; 
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1.0; }
+    100% { opacity: 0.6; }
+}

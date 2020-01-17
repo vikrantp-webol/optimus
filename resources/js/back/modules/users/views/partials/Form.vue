@@ -5,6 +5,34 @@
 
             <div class="p-8 border-b border-grey-400">
                 <div class="max-w-3xl">
+                    <!-- Vue select example -->
+                    <o-form-field input="vue_select" label="Vue select example" required>
+                        <vue-select
+                            id="vue_select"
+                            v-model="form.vue_select"
+                            :options="users"
+                        />
+                    </o-form-field>
+
+                    <!-- Select example -->
+                    <o-form-field input="select" label="Select example" required>
+                        <o-select
+                            id="select"
+                            v-model="form.select"
+                        >
+                            <option :value="null">
+                                Please select
+                            </option>
+
+                            <option
+                                v-for="user in users"
+                                :key="user.value"
+                            >
+                                {{ user.label }}
+                            </option>
+                        </o-select>
+                    </o-form-field>
+
                     <!-- Name -->
                     <o-form-field input="name" label="Name" required>
                         <o-input
@@ -87,7 +115,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import { formMixin } from '@optimuscms/theme';
 
-import { createUser, updateUser } from '../../routes/api';
+import {
+    getUsers,
+    createUser,
+    updateUser,
+} from '../../routes/api';
 
 export default {
     mixins: [ formMixin ],
@@ -95,11 +127,14 @@ export default {
     data() {
         return {
             form: {
+                vue_select: '',
                 name: '',
                 username: '',
                 email: '',
                 password: '',
             },
+
+            users: [],
         };
     },
 
@@ -136,10 +171,25 @@ export default {
         },
     },
 
+    created() {
+        this.fetchUsers();
+    },
+
     methods: {
         ...mapActions({
             updateCurrentUser: 'user/update',
         }),
+
+        fetchUsers() {
+            getUsers().then(response => {
+                this.users = response.data.data.map(user => {
+                    return {
+                        value: user.id,
+                        label: user.name,
+                    };
+                });
+            });
+        },
 
         save() {
             if (this.isEditing) {

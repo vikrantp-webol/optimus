@@ -1,0 +1,39 @@
+$body-color: theme('colors.grey.700');
+$link-color: theme('colors.blue.500');
+
+$button-color: theme('colors.grey.700');
+$button-static-color: theme('colors.grey.600');
+$button-font-weight: theme('fontWeight.semibold');
+
+$button-border-width: 1px;
+$button-border-color: theme('colors.grey.400');
+$button-hover-border-color: theme('colors.grey.500');
+
+$title-color: theme('colors.blue.600');
+$title-font-size: theme('fontSize.xl');
+$title-font-weight: theme('fontWeight.normal');
+
+$field-margin: theme('margin.8');
+
+$label-color: theme('colors.blue.500');
+$label-font-size: theme('fontSize.sm');
+$label-font-weight: theme('fontWeight.semibold');
+
+$input-color: theme('colors.grey.700');
+$input-hover-color: theme('colors.grey.800');
+
+$select-placeholder-color: theme('colors.grey.700');
+$select-hover-placeholder-color: theme('colors.grey.800');
+
+$checkbox-checked-color: theme('colors.coral.500');
+$checkbox-checked-hover-color: theme('colors.coral.600');
+$checkbox-checked-focus-color: theme('colors.coral.600');
+
+$radio-checked-color: theme('colors.coral.500');
+$radio-checked-hover-color: theme('colors.coral.600');
+$radio-checked-focus-color: theme('colors.coral.600');
+
+$help-color: theme('colors.grey.700');
+
+$pagination-color: theme('colors.grey.600');
+$pagination-current-background-color: theme('colors.blue.500');

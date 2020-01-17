@@ -6,6 +6,10 @@ let frontOptions = [
     tailwindcss('./resources/sass/front/tailwind.config.js'),
 ];
 
+let backOptions = [
+    tailwindcss('./resources/theme/styles/tailwind.config.js'),
+];
+
 if (mix.inProduction()) {
     frontOptions.push(
         purgecss({
@@ -40,5 +44,10 @@ mix.js('resources/js/front/app.js', 'public/front/js')
         {},
         frontOptions
     )
-    .sass('resources/sass/back/app.scss', 'public/back/css')
+    .sass(
+        'resources/sass/back/app.scss',
+        'public/back/css',
+        {},
+        backOptions,
+    )
     .options({ processCssUrls: false });

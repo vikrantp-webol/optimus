@@ -1,0 +1,135 @@
+$button-colors: blue coral green red;
+
+.button {
+    @each $color in $button-colors {
+        &.#{"" + $color} {
+            color: theme('colors.white');
+            border-color: theme('colors.#{$color}.500');
+            background-color: theme('colors.#{$color}.500');
+    
+            &:hover {
+                color: theme('colors.white');
+                border-color: theme('colors.#{$color}.600');
+                background-color: theme('colors.#{$color}.600');
+            }
+    
+            &.loading {
+                color: transparent;
+    
+                &:after {
+                    border-left-color: theme('colors.white');
+                    border-bottom-color: theme('colors.white');
+                }
+            }
+    
+            &[disabled] {
+                opacity: 0.5;
+                background-color: theme('colors.#{$color}.500');
+            }
+    
+            &.outlined {
+                background-color: transparent;
+                color: theme('colors.#{$color}.500');
+                
+                &:hover {
+                    color: theme('colors.white');
+                    border-color: theme('colors.#{$color}.500');
+                    background-color: theme('colors.#{$color}.500');
+                }
+    
+                &.loading {
+                    &:after {
+                        border-left-color: theme('colors.#{$color}.500');
+                        border-bottom-color: theme('colors.#{$color}.500');
+                    }
+                }
+                
+                &[disabled] {
+                    color: transparent;
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+
+    &.grey {
+        color: theme('colors.black');
+        border-color: theme('colors.grey.500');
+        background-color: theme('colors.grey.500');
+
+        &:hover {
+            color: theme('colors.black');
+            border-color: theme('colors.grey.600');
+            background-color: theme('colors.grey.600');
+        }
+
+        &.loading {
+            color: transparent;
+
+            &:after {
+                border-left-color: theme('colors.black');
+                border-bottom-color: theme('colors.black');
+            }
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+            background-color: theme('colors.grey.400');
+        }
+
+        &.outlined {
+            color: theme('colors.black');
+            background-color: transparent;
+
+            &:hover {
+                color: theme('colors.black');
+                border-color: theme('colors.grey.600');
+                background-color: theme('colors.grey.600');
+            }
+
+            &.loading {
+                color: transparent;
+            }
+            
+            &[disabled] {
+                color: transparent;
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+.button-group {
+    display: flex;
+
+    .button {
+        flex-grow: 1;
+
+        &:hover {
+            z-index: 2
+        }
+
+        &:focus,
+        &:active {
+            z-index: 3;
+
+            &:hover {
+                z-index: 4
+            }
+        }
+
+        &:not(:first-child) {
+            margin-left: -1px;
+        }
+
+        &:first-child {
+            border-left: 0;
+            border-radius: 0 0 0 theme('borderRadius.default');
+        }
+
+        &:last-child {
+            border-right: 0;
+            border-radius: 0 0 theme('borderRadius.default') 0;
+        }
+    }
+}

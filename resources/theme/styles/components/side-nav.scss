@@ -1,0 +1,86 @@
+.side-nav {
+    > li {
+        &:not(:last-child) {
+            position: relative;
+
+            &:after {
+                left: 0;
+                right: 0;
+                height: 1px;
+                content: '';
+                position: absolute;
+                background-size: 8px 1px;
+                background-image: linear-gradient(to right, 
+                    rgba(255, 255, 255, 0.4) 0px, 
+                    rgba(255, 255, 255, 0) 1px,
+                    rgba(255, 255, 255, 0) 100%
+                ); 
+            }
+        }
+
+        > a {
+            display: flex;
+            padding: 0.5rem 0;
+            align-items: center;
+            color: theme('colors.white');
+            justify-content: space-between;
+
+            > span {
+                &:not(.icon) {
+                    text-transform: uppercase;
+                    letter-spacing: theme('letterSpacing.widest');
+                }
+
+                &.icon {
+                    margin-right: -0.5rem;
+                }
+            }
+        }
+
+        &:hover,
+        &.active {
+            > a {
+                color: theme('colors.coral.500');
+            }
+        }
+    }
+}
+
+.side-sub-nav {
+    margin-bottom: 0.5rem;
+
+    > li {
+        &:not(.divide) {
+            padding-left: 0.5rem;
+            padding-bottom: 0.35rem;
+
+            &:not(:first-child) {
+                padding-top: 0.35rem;
+            }
+        }
+
+        &.divide {
+            height: 1px;
+            display: block;
+            margin: 0.5rem 0 0.5rem 0.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        > a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            text-transform: uppercase;
+            color: theme('colors.white');
+            font-size: theme('fontSize.xs');
+            border-radius: theme('borderRadius.sm');
+            letter-spacing: theme('letterSpacing.widest');
+        }
+
+        &:hover,
+        &.active {
+            > a {
+                background-color: theme('colors.blue.900');
+            }
+        }
+    }
+}

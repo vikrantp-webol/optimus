@@ -1,0 +1,41 @@
+@import '@optix/vue-select/src/styles/variables/_index';
+
+$vs-text-size: $body-font-size;
+$vs-text-color: $input-color;
+$vs-select-min-height: $control-height;
+$vs-select-value-padding: 0.25rem 0.75rem;
+$vs-select-border-radius: $input-border-radius;
+
+$vs-select-border-color: $input-border-color;
+$vs-select-border-hover-color: $input-hover-border-color;
+
+$vs-select-arrow-color: $select-arrow-color;
+$vs-select-arrow-hover-color: $select-hover-arrow-color;
+
+$vs-select-loader-color: theme('colors.coral.500');
+
+$vs-select-input-color: $input-color;
+$vs-select-placeholder-color: $select-placeholder-color;
+$vs-select-placeholder-hover-color: $select-hover-placeholder-color;
+
+$vs-select-single-value-color: $input-color;
+$vs-select-single-value-hover-color: $input-hover-color;
+
+$vs-select-multiple-value-color: theme('colors.grey.700');
+$vs-select-multiple-value-font-size: $body-font-size;
+
+$vs-select-multiple-value-background-color: theme('colors.grey.400');
+$vs-select-multiple-value-hover-background-color: theme('colors.grey.400');
+
+$vs-select-multiple-value-remove-color: theme('colors.grey.700');
+$vs-select-multiple-value-remove-hover-color: theme('colors.grey.800');
+$vs-select-multiple-value-remove-hover-background-color: theme('colors.grey.500');
+
+$vue-dropdown-option-color: $input-color;
+$vue-dropdown-option-hover-background-color: theme('colors.grey.300');
+$vue-dropdown-option-selected-background-color: theme('colors.blue.400');
+$vue-dropdown-option-selected-focused-background-color: theme('colors.blue.500');
+$vue-dropdown-option-disabled-color: theme('colors.grey.200');
+
+@import '@optix/vue-select/src/styles/base/_index';
+@import '@optix/vue-select/src/styles/elements/_index';
