@@ -19,9 +19,6 @@ Vue.use(Editor, {
     config: editorConfig,
 });
 
-import VueSelect from '@optix/vue-select/src/index';
-Vue.use(VueSelect);
-
 new Vue({
     el: '#app',
     router,

@@ -6,31 +6,12 @@
             <div class="p-8 border-b border-grey-400">
                 <div class="max-w-3xl">
                     <!-- Vue select example -->
-                    <o-form-field input="vue_select" label="Vue select example" required>
-                        <vue-select
-                            id="vue_select"
+                    <o-form-field input="users" label="Vue select example" required>
+                        <o-select
+                            id="users"
                             v-model="form.vue_select"
                             :options="users"
                         />
-                    </o-form-field>
-
-                    <!-- Select example -->
-                    <o-form-field input="select" label="Select example" required>
-                        <o-select
-                            id="select"
-                            v-model="form.select"
-                        >
-                            <option :value="null">
-                                Please select
-                            </option>
-
-                            <option
-                                v-for="user in users"
-                                :key="user.value"
-                            >
-                                {{ user.label }}
-                            </option>
-                        </o-select>
                     </o-form-field>
 
                     <!-- Name -->

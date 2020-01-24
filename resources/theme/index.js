@@ -2,6 +2,9 @@
 import Icons from './lib/icons';
 import { mapActions, mapGetters } from 'vuex';
 
+// Import plugins
+import VueSelect from '@optix/vue-select';
+
 // Import vuex modules
 import alertStore from './store/modules/alert';
 import confirmationStore from './store/modules/confirmation';
@@ -16,8 +19,6 @@ import Errors from './components/form/Errors.vue';
 import Checkbox from './components/form/Checkbox.vue';
 import Input from './components/form/Input.vue';
 import Field from './components/form/Field.vue';
-import Select from './components/form/Select.vue';
-import MultiSelect from './components/form/MultiSelect.vue';
 import MetaFields from './components/form/MetaFields.vue';
 
 import Dashboard from './components/layout/Dashboard.vue';
@@ -69,6 +70,11 @@ export default function install(Vue, options = {}) {
         });
     }
 
+    // Register Plugins
+    Vue.use(VueSelect, {
+        componentName: 'o-select',
+    });
+
     // Register icons
     Icons.register();
 
@@ -80,8 +86,6 @@ export default function install(Vue, options = {}) {
     Vue.component('o-checkbox', Checkbox);
     Vue.component('o-input', Input);
     Vue.component('o-form-field', Field);
-    Vue.component('o-select', Select);
-    Vue.component('o-multi-select', MultiSelect);
     Vue.component('o-meta-fields', MetaFields);
 
     // Register layout components

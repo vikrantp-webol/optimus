@@ -16,6 +16,7 @@
         "@optimuscms/media-manager": "^1.3.2",
         "@optimuscms/theme": "^0.2.13",
         "@optix/sass": "^0.2.1",
+        "@optix/vue-select": "^0.0.1",
         "axios": "^0.19",
         "cross-env": "^5.1",
         "eslint": "^6.3.0",
