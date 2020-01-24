@@ -13,7 +13,7 @@
             <media-picker
                 id="image_ids"
                 v-model="form.image_ids"
-                :limit="5"
+                :limit="null"
                 :media="getItemAttribute('images')"
                 accepted-extensions="image"
             >

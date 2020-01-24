@@ -743,6 +743,7 @@ a:hover {
 
 hr {
   height: 1px;
+  border: none;
   background-color: #a0aec0;
 }
 
@@ -753,7 +754,7 @@ blockquote {
 }
 
 [v-cloak] {
-  display: none;
+  display: none !important;
 }
 
 .transition {
@@ -816,18 +817,18 @@ blockquote {
 }
 
 .button .icon:first-child:not(:last-child) {
-  margin-right: 0.1875em;
-  margin-left: calc(-0.5em - 2px);
+  margin-right: 0.5em;
+  margin-left: -0.8em;
 }
 
 .button .icon:last-child:not(:first-child) {
-  margin-left: 0.1875em;
-  margin-right: calc(-0.5em - 2px);
+  margin-left: 0.5em;
+  margin-right: -0.8em;
 }
 
 .button .icon:first-child:last-child {
-  margin-left: calc(-0.5em - 2px);
-  margin-right: calc(-0.5em - 2px);
+  margin-left: -0.8em;
+  margin-right: -0.8em;
 }
 
 .button:hover {
@@ -909,12 +910,31 @@ blockquote {
   margin-bottom: 1.5rem;
 }
 
+.content h1:not(:last-child),
 .content h2:not(:last-child),
 .content h3:not(:last-child),
 .content h4:not(:last-child),
 .content h5:not(:last-child),
 .content h6:not(:last-child) {
   margin-bottom: 0.75rem;
+}
+
+.content h1.subtitle + .title,
+.content h2.subtitle + .title,
+.content h3.subtitle + .title,
+.content h4.subtitle + .title,
+.content h5.subtitle + .title,
+.content h6.subtitle + .title {
+  margin-top: -0.75rem;
+}
+
+.content h1.title + .subtitle,
+.content h2.title + .subtitle,
+.content h3.title + .subtitle,
+.content h4.title + .subtitle,
+.content h5.title + .subtitle,
+.content h6.title + .subtitle {
+  margin-top: -0.75rem;
 }
 
 .content hr {
@@ -1242,12 +1262,12 @@ blockquote {
 
 .checkbox[type=radio]:checked + label:after {
   content: "";
-  left: 0.2rem;
-  width: 0.6rem;
-  height: 0.6rem;
+  left: 0.25rem;
+  width: 0.5rem;
+  height: 0.5rem;
   position: absolute;
   border-radius: 999px;
-  top: calc(0.25rem + 0.2rem);
+  top: calc(0.25rem + 0.25rem);
   background-color: #4299e1;
 }
 
@@ -1318,6 +1338,7 @@ blockquote {
   display: block;
   cursor: pointer;
   max-width: 100%;
+  color: #a0aec0;
 }
 
 .select select:focus, .select select:active {
@@ -1421,12 +1442,20 @@ blockquote {
   padding: 0.5rem 1rem;
 }
 
+.select select:hover {
+  color: #718096;
+}
+
 .select:not(.multiple):hover:after {
   border-top-color: #718096;
 }
 
 .select.disabled:after {
   border-color: #cbd5e0;
+}
+
+.select.disabled select {
+  color: #cbd5e0;
 }
 
 .select.w-full select {
@@ -1640,7 +1669,7 @@ blockquote {
 }
 
 .image.ratio-1by2 {
-  padding-top: 50%;
+  padding-top: 200%;
 }
 
 .image.ratio-1by3 {
@@ -1853,7 +1882,9 @@ td {
 .dropdown-item {
   display: block;
   text-align: left;
+  overflow: hidden;
   white-space: nowrap;
+  text-overflow: ellipsis;
   font-size: 0.875rem;
   padding: 0.3rem 1rem;
   line-height: 1.5;

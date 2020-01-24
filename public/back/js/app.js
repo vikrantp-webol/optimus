@@ -19473,6 +19473,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
  // Components
 
@@ -20818,6 +20821,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -57510,7 +57515,7 @@ var render = function() {
             {
               attrs: {
                 id: "image_ids",
-                limit: 5,
+                limit: null,
                 media: _vm.getItemAttribute("images"),
                 "accepted-extensions": "image"
               },
@@ -58265,15 +58270,23 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        Insert (" +
-                            _vm._s(
-                              _vm.selectedAndFocusedMedia.length +
-                                "/" +
-                                _vm.limit
-                            ) +
-                            ")\n                    "
-                        )
-                      ]
+                          "\n                        Insert\n                        "
+                        ),
+                        _vm.limit
+                          ? [
+                              _vm._v(
+                                "\n                            (" +
+                                  _vm._s(
+                                    _vm.selectedAndFocusedMedia.length +
+                                      "/" +
+                                      _vm.limit
+                                  ) +
+                                  ")\n                        "
+                              )
+                            ]
+                          : _vm._e()
+                      ],
+                      2
                     )
                   : _vm._e(),
                 _vm._v(" "),
@@ -59299,14 +59312,14 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.showSelectedMedia
-    ? _c(
-        "div",
-        { staticClass: "mm-selected-media" },
-        [
-          _c("h4", { staticClass: "mm-actions-panel-title" }, [
-            _vm._v("\n        Inserted Media\n    ")
-          ]),
-          _vm._v(" "),
+    ? _c("div", { staticClass: "mm-selected-media" }, [
+        _c("h4", { staticClass: "mm-actions-panel-title" }, [
+          _vm._v("\n        Inserted Media\n    ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "mm-selected-media-content" },
           _vm._l(_vm.selectedMedia, function(mediaItem) {
             return _c(
               "div",
@@ -59323,7 +59336,9 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n            " + _vm._s(mediaItem.name) + "\n        "
+                      "\n                " +
+                        _vm._s(mediaItem.name) +
+                        "\n            "
                     )
                   ]
                 ),
@@ -59343,10 +59358,10 @@ var render = function() {
                 )
               ]
             )
-          })
-        ],
-        2
-      )
+          }),
+          0
+        )
+      ])
     : _vm._e()
 }
 var staticRenderFns = []
