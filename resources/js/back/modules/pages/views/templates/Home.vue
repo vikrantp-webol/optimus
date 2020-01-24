@@ -8,7 +8,7 @@
             />
         </o-form-field>
 
-        <!-- Images -->
+        <!-- Image -->
         <o-form-field input="image_id" label="Image">
             <media-picker
                 id="image_id"
