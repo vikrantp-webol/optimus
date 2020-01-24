@@ -1,0 +1,145 @@
+.mm-button {
+    @include mm-control;
+
+    cursor: pointer;
+    overflow: visible;
+    text-align: center;
+    align-items: center;
+    white-space: nowrap;
+    text-decoration: none;
+    justify-content: center;
+    color: $mm-button-color;
+    padding: $mm-button-padding;
+    font-weight: $mm-button-weight;
+    font-size: $mm-button-font-size;
+    border-width: $mm-button-border-width;
+    border-color: $mm-button-border-color;
+    border-radius: $mm-button-border-radius;
+    background-color: $mm-button-background-color;
+
+    .mm-icon {
+        &:first-child:not(:last-child) {
+            margin-right: 0.35em;
+            margin-left: calc(-0.5em - 2px);
+        }
+        
+        &:last-child:not(:first-child) {
+            margin-left: 0.35em;
+            margin-right: calc(-0.5em - 2px);
+        }
+
+        &:first-child:last-child {
+            margin-left: calc(-0.5em - 2px);
+            margin-right: calc(-0.5em - 2px);
+        }
+    }
+
+    &:hover {
+        color: $mm-button-hover-color;
+        border-color: $mm-button-hover-border-color;
+        background-color: $mm-button-hover-background-color;
+    }
+
+    &.confirm {
+        color: $mm-button-confirm-color;
+        border-color: $mm-button-confirm-border-color;
+        background-color: $mm-button-confirm-background-color;
+
+        &:hover {
+            color: $mm-button-confirm-hover-color;
+            border-color: $mm-button-confirm-hover-border-color;
+            background-color: $mm-button-confirm-hover-background-color;
+        }
+
+        &.loading {
+            &:after {
+                border-left-color: $mm-button-confirm-color;
+                border-bottom-color: $mm-button-confirm-color;
+            }
+        }
+    }
+
+    &.danger {
+        color: $mm-button-danger-color;
+        border-color: $mm-button-danger-border-color;
+        background-color: $mm-button-danger-background-color;
+
+        &:hover {
+            color: $mm-button-danger-hover-color;
+            border-color: $mm-button-danger-hover-border-color;
+            background-color: $mm-button-danger-hover-background-color;
+        }
+    }
+
+    &.picker {
+        color: $mm-button-picker-color;
+        font-weight: $mm-button-picker-font-weight;
+        border-color: $mm-button-picker-border-color;
+        background-color: $mm-button-picker-background-color;
+    
+        &:hover {
+            color: $mm-button-picker-hover-color;
+            border-color: $mm-button-picker-hover-border-color;
+            background-color: $mm-button-picker-hover-background-color;
+        }
+    }
+
+    // &.selected-items {
+    //     text-transform: none;
+    //     font-weight: $mm-font-weight-normal;
+    //     color: $mm-button-selected-items-color;
+    //     border-color: $mm-button-selected-items-border-color;
+    //     background-color: $mm-button-selected-items-background-color;
+    
+    //     &:hover {
+    //         color: $mm-button-selected-items-hover-color;
+    //         border-color: $mm-button-selected-items-hover-border-color;
+    //         background-color: $mm-button-selected-items-hover-background-color;
+    //     }
+    // }
+
+    // &.selected-info {
+    //     pointer-events: none;
+    //     text-transform: none;
+    //     font-weight: $mm-font-weight-normal;
+    //     color: $mm-button-selected-info-color;
+    //     border-color: $mm-button-selected-info-border-color;
+    //     background-color: $mm-button-selected-info-background-color;
+    // }
+
+    &[disabled] {
+        opacity: $mm-button-disabled-opacity;
+    }
+
+    &.full {
+        width: 100%;
+    }
+
+    &.loading {
+        color: transparent;
+        pointer-events: none;
+
+        &:after {
+            content: '';
+            width: 1em;
+            height: 1em;
+            display: block;
+            position: absolute;
+            border-radius: 100px;
+            top: calc(50% - (1em / 2));
+            left: calc(50% - (1em / 2));
+            border: 2px solid transparent;
+            animation: mm-spin 500ms infinite linear;
+            border-left-color: $mm-button-border-color;
+            border-bottom-color: $mm-button-border-color;
+        }
+    }
+}
+
+.mm-button-group {
+    > * {
+        &:not(:last-child) {
+            margin-right: 0.75em;
+        }
+    }
+}

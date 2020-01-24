@@ -9,12 +9,12 @@
         </o-form-field>
 
         <!-- Images -->
-        <o-form-field input="image_id" label="Image">
+        <o-form-field input="image_ids" label="Images">
             <media-picker
-                id="image_id"
-                v-model="form.image_id"
-                :media="getItemAttribute('image')"
-                show-preview
+                id="image_ids"
+                v-model="form.image_ids"
+                :limit="5"
+                :media="getItemAttribute('images')"
                 accepted-extensions="image"
             >
                 <template slot="help">
@@ -35,7 +35,7 @@ export default {
         return {
             form: {
                 content: '',
-                image_id: null,
+                image_ids: [],
             },
         };
     },
@@ -46,7 +46,7 @@ export default {
                 if (item) {
                     this.form = {
                         content: item.content,
-                        image_id: item.image ? item.image.id : null,
+                        image_ids: item.images.map(({ id }) => id),
                     };
                 }
             },

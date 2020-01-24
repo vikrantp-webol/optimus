@@ -1,0 +1,39 @@
+.mm-breadcrumb {
+    display: none;
+    font-size: $mm-breadcrumb-font-size;
+
+    > li {
+        position: relative;
+
+        &:not(:first-child) {
+            margin-left: 1em;
+
+            &:before {
+                left: -1em;
+                width: 1em;
+                content: '/';
+                text-align: center;
+                position: absolute;
+                color: $mm-breadcrumb-color;
+            }
+        }
+
+        > a {
+            user-select: none;
+            font-weight: $mm-breadcrumb-font-weight;
+        }
+
+        &.active {
+            > a {
+                pointer-events: none;
+                color: $mm-breadcrumb-active-color;
+            }
+        }
+    }
+}
+
+@include mm-screen-lg {
+    .mm-breadcrumb {
+        display: flex;
+    }
+}

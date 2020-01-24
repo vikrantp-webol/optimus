@@ -1,0 +1,78 @@
+.mm-modal {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    position: fixed;
+    overflow: hidden;
+    align-items: center;
+    z-index: $mm-z-index;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mm-modal-overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    background-color: $mm-modal-overlay-color;
+}
+
+.mm-modal-wrap {
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+    position: relative;
+    border-radius: $mm-modal-border-radius;
+    background-color: $mm-modal-background-color;
+    max-width: calc(100vw - #{$mm-modal-padding} * 2);
+    max-height: calc(100vh - #{$mm-modal-padding} * 2);
+}
+
+.mm-modal-header {
+    display: flex;
+    flex-shrink: 0;
+    padding: 1em 1.5em;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $mm-modal-header-background-color;
+    border-bottom: solid 1px $mm-modal-header-border-color;
+    border-radius: $mm-modal-border-radius $mm-modal-border-radius 0 0;
+}
+
+.mm-modal-content {
+    position: relative;
+    padding: $mm-modal-content-padding;
+    background-color: $mm-modal-content-background-color;
+}
+
+.mm-modal-footer {
+    display: flex;
+    flex-shrink: 0;
+    position: relative;
+    padding: 1em 1.5em;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $mm-modal-footer-background-color;
+    border-top: solid 1px $mm-modal-footer-border-color;
+    border-radius: 0 0 $mm-modal-border-radius $mm-modal-border-radius;
+
+    .mm-button-group {
+        &:last-child {
+            margin-left: auto;
+        }
+    }
+}
+
+.mm-modal-fade-enter-active,
+.mm-modal-fade-leave-active {
+    transition: opacity 250ms;
+}
+
+.mm-modal-fade-enter,
+.mm-modal-fade-leave-to {
+    opacity: 0;
+}

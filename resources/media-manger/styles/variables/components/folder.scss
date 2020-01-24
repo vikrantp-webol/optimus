@@ -1,0 +1,21 @@
+$mm-folders-background-color: $mm-blue-600 !default;
+$mm-folders-header-background: linear-gradient(
+    to top,
+    $mm-blue-800 0%,
+    $mm-blue-700 30%,
+    $mm-blue-700 100%,
+) !default;
+
+$mm-folders-title-color: $mm-white !default;
+$mm-folders-title-font-size: $mm-font-size-base !default;
+$mm-folders-title-font-weight: $mm-font-weight-semibold !default;
+
+$mm-folders-folder-color: $mm-white !default;
+$mm-folders-folder-hover-color: $mm-primary-500 !default;
+
+$mm-folders-footer-background: linear-gradient(
+    to bottom,
+    $mm-blue-800 0%,
+    $mm-blue-700 30%,
+    $mm-blue-700 100%,
+) !default;

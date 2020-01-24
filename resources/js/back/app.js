@@ -8,7 +8,8 @@ import App from './views/App';
 import OptimusTheme from '@optimuscms/theme';
 Vue.use(OptimusTheme, { store });
 
-import MediaManager from '@optimuscms/media-manager';
+// import MediaManager from '@optimuscms/media-manager';
+import MediaManager from '../../media-manger';
 Vue.use(MediaManager, { store });
 
 import Editor from '@optimuscms/editor';

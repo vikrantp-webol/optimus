@@ -1,0 +1,66 @@
+@mixin mm-input {
+    @include mm-control;
+
+    margin: 0;
+    line-height: 1.15;
+    font-family: inherit;
+    color: $mm-input-color;
+    padding: $mm-input-padding;
+    font-size: $mm-input-font-size;
+    border-color: $mm-input-border-color;
+    border-radius: $mm-input-border-radius;
+    background-color: $mm-input-background-color;
+
+    @include mm-placeholder {
+        color: $mm-input-placeholder-color;
+    }
+
+    &:hover {
+        color: $mm-input-hover-color;
+        border-color: $mm-input-hover-border-color;
+        background-color: $mm-input-hover-background-color;
+
+        @include mm-placeholder {
+            color: $mm-input-hover-placeholder-color;
+        }
+    }
+
+    &:focus,
+    &:active {
+        border-color: $mm-input-active-border-color;
+    }
+
+    &[disabled] {
+        color: $mm-input-disabled-color;
+        border-color: $mm-input-disabled-border-color;
+        background-color: $mm-input-disabled-background-color;
+
+        @include mm-placeholder {
+            color: $mm-input-disabled-placeholder-color;
+        }
+    }
+}
+
+.mm-input {
+    @include mm-input;
+    width: 100%;
+    max-width: 100%;
+    overflow: visible;
+}
+
+.mm-label {
+    display: block;
+    color: $mm-label-color;
+    font-weight: $mm-label-weight;
+    font-size: $mm-label-font-size;
+
+    &:not(:last-child) {
+        margin-bottom: $mm-label-margin;
+    }
+}
+
+.mm-field {
+    + .mm-field {
+        margin-top: $mm-field-margin;
+    }
+}

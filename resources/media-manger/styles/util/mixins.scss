@@ -1,0 +1,22 @@
+@mixin mm-screen-lg() {
+    @media (min-width: $mm-screen-lg) {
+        @content;
+    }
+}
+
+@mixin mm-screen-xl() {
+    @media (min-width: $mm-screen-xl) {
+        @content;
+    }
+}
+
+@mixin mm-placeholder {
+    $placeholders: ':-moz' ':-webkit-input' '-moz' '-ms-input';
+
+    @each $placeholder in $placeholders {
+        &:#{$placeholder}-placeholder {
+            @content;
+            opacity: 1;
+        }
+    }
+}

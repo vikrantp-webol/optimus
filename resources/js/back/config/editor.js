@@ -1,6 +1,7 @@
 import store from '../store';
 import { config } from '@optimuscms/editor';
-import { imageExtensions } from '@optimuscms/media-manager';
+// import { imageExtensions } from '@optimuscms/media-manager';
+import { imageExtensions } from '../../../media-manger';
 
 config.onBeforeDestroy = function() {
     store.dispatch('mediaManagerPickers/clearPickerMediaIds', this.id);
