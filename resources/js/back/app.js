@@ -5,7 +5,8 @@ import store from './store';
 import App from './views/App';
 
 // Plugins
-import OptimusTheme from '../../theme/index';
+import OptimusTheme from '@optimuscms/theme';
+// import OptimusTheme from '../../theme/index';
 Vue.use(OptimusTheme, { store });
 
 import MediaManager from '@optimuscms/media-manager';

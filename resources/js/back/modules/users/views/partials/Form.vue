@@ -5,21 +5,21 @@
 
             <div class="p-8 border-b border-grey-400">
                 <div class="max-w-3xl">
-                    <!-- Vue select example -->
-                    <o-form-field input="users" label="Vue select example" required>
-                        <o-select
-                            id="users"
-                            v-model="form.vue_select"
-                            :options="users"
-                        />
-                    </o-form-field>
-
                     <!-- Name -->
                     <o-form-field input="name" label="Name" required>
                         <o-input
                             id="name"
                             v-model="form.name"
                             required
+                        />
+                    </o-form-field>
+
+                    <!-- Vue select example -->
+                    <o-form-field input="users" label="Vue select example" required>
+                        <o-select
+                            id="users"
+                            v-model="form.vue_select"
+                            :options="users"
                         />
                     </o-form-field>
 
