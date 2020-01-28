@@ -654,17 +654,17 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.0.tgz#d29b362b5d89c48843dbe5c8d68fe7f30228af4e"
-  integrity sha512-ABb1wKbEJ+wLFdjS/2k3SHTrJDuzsfCLuN9BE7ZmtF8JNVsFsesM3tj694vQZIjj6vcl9uHmtrXNZonAdjeIcA==
+"@optimuscms/theme@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.1.tgz#fdd0b1f32f33a5e43728fe001d82466e9d5430b8"
+  integrity sha512-jZahx8PoVtCODnsZfshsN1O3qrEVLySNPiZDFxRUD18S0yFCIa9+UWPHwq1nIM/vxvyAZVfUT/TsgWdXiG9UWQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
     "@optix/sass" "^0.2.4"
-    "@optix/vue-select" "^0.0.3"
+    "@optix/vue-select" "^0.0.4"
     lodash "^4.17.15"
     matcher "^2.0.0"
     tailwindcss "^1.0"
@@ -678,10 +678,10 @@
   dependencies:
     tailwindcss "^1.0"
 
-"@optix/vue-select@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@optix/vue-select/-/vue-select-0.0.3.tgz#6e1932e6082da852c5339a47a3a7682901266a15"
-  integrity sha512-4vb4IvAqRSyGPQNz1Q9R07TXMN0c7LZnTEJX0QOHr2TtZnMzWxL8e11Ctj99UnuEfk1yTy1IIn1A8tA2jkTL+A==
+"@optix/vue-select@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@optix/vue-select/-/vue-select-0.0.4.tgz#9ae69cc29fdd726571f0ce4db4b56ccbbfd8ac12"
+  integrity sha512-gbVCE/rdMdxmufgQICW1X4PDRWKVu8E0WFh3S1fX0E8XhOJy8dmEBKRStQSYJ/gIOozcVXR/wfCcgoZCmAfUsw==
   dependencies:
     vue "^2.6.10"
 
