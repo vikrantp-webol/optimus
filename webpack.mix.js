@@ -50,4 +50,14 @@ mix.js('resources/js/front/app.js', 'public/front/js')
         {},
         backOptions,
     )
-    .options({ processCssUrls: false });
+    .options({
+        cssNano: {
+            // Preserve quotes around font names
+            minifyFontValues: false,
+        },
+        terser: {
+            // Disable license files
+            extractComments: false,
+        },
+        processCssUrls: false,
+    });

@@ -1,0 +1,41 @@
+.vs-reset {
+    text-align: left;
+    box-sizing: border-box;
+    text-size-adjust: 100%;
+    color: $vs-text-color;
+    font-size: $vs-text-size;
+    font-weight: $vs-font-weight;
+    font-family: $vs-font-family;
+    line-height: $vs-line-height;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+
+    * {
+        &,
+        &:after,
+        &:before {
+            box-sizing: border-box;
+        }
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        font-family: $vs-font-family;
+    }
+
+    a {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    strong {
+        font-weight: $vs-font-weight-semibold;
+    }
+}

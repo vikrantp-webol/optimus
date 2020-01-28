@@ -1,4 +1,4 @@
-@import '@optix/vue-select/src/styles/variables/_index';
+@import '~@optix/vue-select/src/styles/variables/_index';
 
 $vs-text-size: $body-font-size;
 $vs-text-color: $input-color;
@@ -37,5 +37,5 @@ $vue-dropdown-option-selected-background-color: theme('colors.blue.400');
 $vue-dropdown-option-selected-focused-background-color: theme('colors.blue.500');
 $vue-dropdown-option-disabled-color: theme('colors.grey.200');
 
-@import '@optix/vue-select/src/styles/base/_index';
-@import '@optix/vue-select/src/styles/elements/_index';
+@import '~@optix/vue-select/src/styles/base/_index';
+@import '~@optix/vue-select/src/styles/elements/_index';

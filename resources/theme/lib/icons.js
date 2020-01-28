@@ -27,7 +27,7 @@ export default {
             faSortDown,
             faSortUp,
             faSpinner,
-            faTrashAlt
+            faTrashAlt,
         );
     },
 };

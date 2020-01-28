@@ -1,4 +1,4 @@
-import { formHelpersMixin } from '@optimuscms/theme';
+import { formHelpersMixin } from '../../../../../theme';
 
 export default {
     mixins: [ formHelpersMixin ],

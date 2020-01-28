@@ -94,7 +94,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { formMixin } from '@optimuscms/theme';
+import { formMixin } from '../../../../../../theme';
 
 import {
     getUsers,

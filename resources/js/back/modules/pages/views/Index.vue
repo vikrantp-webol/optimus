@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { listingMixin, sortableMixin } from '@optimuscms/theme';
+import { listingMixin, sortableMixin } from '../../../../../theme';
 
 import {
     getPages,

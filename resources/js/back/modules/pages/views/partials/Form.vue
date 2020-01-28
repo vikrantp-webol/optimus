@@ -23,40 +23,22 @@
                                         <o-select
                                             id="parent_id"
                                             v-model="form.parent_id"
-                                            :disabled="getItemAttribute('has_fixed_path', false)"
-                                        >
-                                            <option :value="null">
-                                                No parent...
-                                            </option>
-
-                                            <option v-for="page in pages" :key="page.id" :value="page.id">
-                                                {{ page.title }}
-                                            </option>
-                                        </o-select>
+                                            :options="pages"
+                                            placeholder="No parent"
+                                            :disabled="! getItemAttribute('has_fixed_path', false)"
+                                        />
                                     </o-form-field>
                                 </div>
 
                                 <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Template -->
-                                    <o-form-field input="template_id" label="Template" required>
+                                    <o-form-field input="template_name" label="Template" required>
                                         <o-select
-                                            id="template_id"
+                                            id="template_name"
                                             v-model="form.template.name"
-                                            required
+                                            :options="templates"
                                             :disabled="item && item.template.is_fixed"
-                                        >
-                                            <option value="" disabled>
-                                                Please select...
-                                            </option>
-
-                                            <option
-                                                v-for="template in templates"
-                                                :key="template.name"
-                                                :value="template.name"
-                                            >
-                                                {{ template.label }}
-                                            </option>
-                                        </o-select>
+                                        />
                                     </o-form-field>
                                 </div>
                             </div>
@@ -125,7 +107,7 @@
 </template>
 
 <script>
-import { formMixin } from '@optimuscms/theme';
+import { formMixin } from '../../../../../../theme';
 
 import {
     getPages,
@@ -207,6 +189,11 @@ export default {
             getPages({ parent: 'root' }).then(response => {
                 this.pages = response.data.data.filter(({ id }) => {
                     return id !== this.$route.params.id;
+                }).map(({ id, title }) => {
+                    return {
+                        value: id,
+                        label: title,
+                    };
                 });
 
                 this.stopLoading('primary.pages');
@@ -217,7 +204,12 @@ export default {
             this.startLoading('primary.templates');
 
             getPageTemplates().then(response => {
-                this.templates = response.data.data;
+                this.templates = response.data.data.map(({ name, label }) => {
+                    return {
+                        value: name,
+                        label,
+                    };
+                });
 
                 this.stopLoading('primary.templates');
             });
