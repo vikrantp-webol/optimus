@@ -41,4 +41,14 @@ mix.js('resources/js/front/app.js', 'public/front/js')
         frontOptions
     )
     .sass('resources/sass/back/app.scss', 'public/back/css')
-    .options({ processCssUrls: false });
+    .options({
+        cssNano: {
+            // Preserve quotes around font names
+            minifyFontValues: false,
+        },
+        terser: {
+            // Disable license files
+            extractComments: false,
+        },
+        processCssUrls: false,
+    });
