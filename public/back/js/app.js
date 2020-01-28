@@ -29134,9 +29134,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-// Todo
-// Ability to disable
-// Preselect option
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -29265,57 +29264,75 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   watch: {
-    searchQuery: function searchQuery(_searchQuery) {
-      if (this.hasSearchQuery) {
-        this.showDropdown();
-      }
+    options: {
+      handler: function handler(options) {
+        var _this3 = this;
 
-      this.$refs.input.setAttribute('size', _searchQuery.length + 2);
-      this.$emit('search-change', _searchQuery);
+        var values = Array.isArray(this.value) ? this.value : [this.value];
+        this.selectedOptions = options.filter(function (selectedOption) {
+          return values.includes(selectedOption[_this3.optionIdentifier]);
+        });
+      },
+      deep: true,
+      immediate: true
+    },
+    searchQuery: function searchQuery(_searchQuery) {
+      if (!this.disabled) {
+        if (this.hasSearchQuery) {
+          this.showDropdown();
+        }
+
+        this.$refs.input.setAttribute('size', _searchQuery.length + 2);
+        this.$emit('search-change', _searchQuery);
+      }
     },
     selectedOptionValues: function selectedOptionValues(_selectedOptionValues) {
-      if (this.multiple) {
-        return this.$emit('input', _selectedOptionValues);
-      }
+      if (!this.disabled) {
+        if (this.multiple) {
+          return this.$emit('input', _selectedOptionValues);
+        }
 
-      if (_selectedOptionValues.length !== 0) {
-        return this.$emit('input', _selectedOptionValues[0]);
-      }
+        if (_selectedOptionValues.length !== 0) {
+          return this.$emit('input', _selectedOptionValues[0]);
+        }
 
-      this.$emit('input', null);
+        this.$emit('input', null);
+      }
     }
   },
   created: function created() {
-    var _this3 = this;
+    var _this4 = this;
 
     ['click', 'touchstart'].forEach(function (action) {
-      document.addEventListener(action, _this3.deactivateSelectOnClick);
+      document.addEventListener(action, _this4.deactivateSelectOnClick);
     });
     document.addEventListener('keydown', this.keydownListener);
   },
   destroyed: function destroyed() {
-    var _this4 = this;
+    var _this5 = this;
 
     ['click', 'touchstart'].forEach(function (action) {
-      document.removeEventListener(action, _this4.deactivateSelectOnClick);
+      document.removeEventListener(action, _this5.deactivateSelectOnClick);
     });
     document.removeEventListener('keydown', this.keydownListener);
   },
   methods: {
     keydownListener: function keydownListener(e) {
-      // Arrow down
-      if (e.keyCode === 40 && this.inputIsActive && !this.dropdownIsVisible) {
-        this.dropdownIsVisible = true;
-      } // Delete
+      if (!this.disabled) {
+        // Arrow down
+        if (e.keyCode === 40 && this.inputIsActive && !this.dropdownIsVisible) {
+          this.dropdownIsVisible = true;
+        } // Delete
 
 
-      if (e.keyCode === 8 && this.inputIsActive && this.hasValue && !this.multiple) {
-        this.selectedOptions = [];
-      } // Escape
+        if (e.keyCode === 8 && this.inputIsActive && this.hasValue && !this.multiple) {
+          this.selectedOptions = [];
+        } // Tab, Escape
 
 
-      if (e.keyCode === 27 && this.dropdownIsVisible) {
-        this.dropdownIsVisible = false;
+        if ((e.keyCode === 9 || e.keyCode === 27) && this.dropdownIsVisible) {
+          this.dropdownIsVisible = false;
+        }
       }
     },
     setDropdownPosition: function setDropdownPosition() {
@@ -29333,23 +29350,25 @@ __webpack_require__.r(__webpack_exports__);
       return this.dropdownOpenDirection = this.openDirection;
     },
     activateSelect: function activateSelect() {
-      this.focusInput();
-      this.showDropdown();
+      if (!this.disabled) {
+        this.focusInput();
+        this.showDropdown();
+      }
     },
     focusInput: function focusInput() {
       this.$refs.input.focus();
       this.inputIsActive = true;
     },
     blurInput: function blurInput() {
-      this.inputIsActive = false;
+      this.inputIsActive = false; // this.dropdownIsVisible = false;
     },
     showDropdown: function showDropdown() {
-      var _this5 = this;
+      var _this6 = this;
 
-      if (!this.dropdownIsVisible) {
+      if (!this.disabled && !this.dropdownIsVisible) {
         this.dropdownIsVisible = true;
         this.$nextTick(function () {
-          _this5.setDropdownPosition();
+          _this6.setDropdownPosition();
         });
       }
     },
@@ -29361,25 +29380,29 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     selectOption: function selectOption(option) {
-      this.focusInput();
-      this.searchQuery = '';
-      this.dropdownIsVisible = false;
-      this.$emit('select', option);
+      if (!this.disabled) {
+        this.focusInput();
+        this.searchQuery = '';
+        this.dropdownIsVisible = false;
+        this.$emit('select', option);
 
-      if (this.multiple) {
-        return this.selectedOptions.push(option);
+        if (this.multiple) {
+          return this.selectedOptions.push(option);
+        }
+
+        this.selectedOptions = [option];
       }
-
-      this.selectedOptions = [option];
     },
     deselectOption: function deselectOption(option) {
-      var _this6 = this;
+      var _this7 = this;
 
-      this.dropdownIsVisible = false;
-      this.$emit('deselect', option);
-      this.selectedOptions = this.selectedOptions.filter(function (selectedOption) {
-        return selectedOption[_this6.optionIdentifier] !== option[_this6.optionIdentifier];
-      });
+      if (!this.disabled) {
+        this.dropdownIsVisible = false;
+        this.$emit('deselect', option);
+        this.selectedOptions = this.selectedOptions.filter(function (selectedOption) {
+          return selectedOption[_this7.optionIdentifier] !== option[_this7.optionIdentifier];
+        });
+      }
     }
   }
 });
@@ -65165,7 +65188,7 @@ var render = function() {
                                     id: "parent_id",
                                     options: _vm.pages,
                                     placeholder: "No parent",
-                                    disabled: !_vm.getItemAttribute(
+                                    disabled: _vm.getItemAttribute(
                                       "has_fixed_path",
                                       false
                                     )
@@ -67851,6 +67874,8 @@ var render = function() {
                     id: _vm.id,
                     size: "2",
                     type: "text",
+                    readonly: _vm.disabled,
+                    tabindex: _vm.disabled ? -1 : 0,
                     autocomplete: "off"
                   },
                   domProps: { value: _vm.searchQuery },
@@ -86909,7 +86934,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return install; });
 /* harmony import */ var _lib_icons__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lib/icons */ "./resources/theme/lib/icons.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _vue_select__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ../vue-select */ "./resources/vue-select/index.js");
+/* harmony import */ var _vue_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../vue-select */ "./resources/vue-select/index.js");
 /* harmony import */ var _store_modules_alert__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store/modules/alert */ "./resources/theme/store/modules/alert.js");
 /* harmony import */ var _store_modules_confirmation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/modules/confirmation */ "./resources/theme/store/modules/confirmation.js");
 /* harmony import */ var _store_modules_dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store/modules/dashboard */ "./resources/theme/store/modules/dashboard.js");
@@ -87013,7 +87038,7 @@ function install(Vue) {
   } // Register Plugins
 
 
-  Vue.use(_vue_select__WEBPACK_IMPORTED_MODULE_31__["default"], {
+  Vue.use(_vue_select__WEBPACK_IMPORTED_MODULE_2__["default"], {
     componentName: 'o-select'
   }); // Register icons
 

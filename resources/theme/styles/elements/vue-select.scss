@@ -1,4 +1,12 @@
-@import '~@optix/vue-select/src/styles/variables/_index';
+// @import '~@optix/vue-select/src/styles/variables/_index';
+@import '../../../vue-select/styles/variables/_index';
+
+// $vs-select-border-disabled-color: $vs-grey-400 !default;
+// $vs-select-background-disabled-color: $vs-white !default;
+
+// $vs-select-arrow-disabled-color: $vs-grey-400 !default;
+// $vs-select-placeholder-disabled-color: $vs-grey-400 !default;
+// $vs-select-single-value-disabled-color: $vs-grey-400 !default;
 
 $vs-text-size: $body-font-size;
 $vs-text-color: $input-color;
@@ -6,20 +14,28 @@ $vs-select-min-height: $control-height;
 $vs-select-value-padding: 0.25rem 0.75rem;
 $vs-select-border-radius: $input-border-radius;
 
+$vs-select-background-disabled-color: $input-disabled-background-color;
+
 $vs-select-border-color: $input-border-color;
 $vs-select-border-hover-color: $input-hover-border-color;
+$vs-select-border-disabled-color: $input-disabled-border-color;
 
 $vs-select-arrow-color: $select-arrow-color;
 $vs-select-arrow-hover-color: $select-hover-arrow-color;
+$vs-select-arrow-disabled-color: $input-disabled-color;
 
 $vs-select-loader-color: theme('colors.coral.500');
 
 $vs-select-input-color: $input-color;
+$vs-select-input-disabled-color: $input-disabled-color;
+
 $vs-select-placeholder-color: $select-placeholder-color;
 $vs-select-placeholder-hover-color: $select-hover-placeholder-color;
+$vs-select-placeholder-disabled-color: $select-disabled-placeholder-color;
 
 $vs-select-single-value-color: $input-color;
 $vs-select-single-value-hover-color: $input-hover-color;
+$vs-select-single-value-disabled-color: $input-disabled-color;
 
 $vs-select-multiple-value-color: theme('colors.grey.700');
 $vs-select-multiple-value-font-size: $body-font-size;
@@ -37,5 +53,7 @@ $vue-dropdown-option-selected-background-color: theme('colors.blue.400');
 $vue-dropdown-option-selected-focused-background-color: theme('colors.blue.500');
 $vue-dropdown-option-disabled-color: theme('colors.grey.200');
 
-@import '~@optix/vue-select/src/styles/base/_index';
-@import '~@optix/vue-select/src/styles/elements/_index';
+// @import '~@optix/vue-select/src/styles/base/_index';
+// @import '~@optix/vue-select/src/styles/elements/_index';
+@import '../../../vue-select/styles/base/_index';
+@import '../../../vue-select/styles/elements/_index';

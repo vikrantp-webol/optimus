@@ -25,7 +25,7 @@
                                             v-model="form.parent_id"
                                             :options="pages"
                                             placeholder="No parent"
-                                            :disabled="! getItemAttribute('has_fixed_path', false)"
+                                            :disabled="getItemAttribute('has_fixed_path', false)"
                                         />
                                     </o-form-field>
                                 </div>

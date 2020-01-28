@@ -4340,6 +4340,48 @@ td {
   position: relative;
 }
 
+.vs-select:not(.disabled) .vs-select-control:hover {
+  border-color: #cccccc;
+  background-color: #fff;
+}
+
+.vs-select:not(.disabled) .vs-select-control:hover .vs-select-arrow:before {
+  border-top-color: #afaeae;
+}
+
+.vs-select:not(.disabled) .vs-select-control:hover .vs-select-placeholder {
+  color: #464646;
+}
+
+.vs-select:not(.disabled) .vs-select-control:hover .vs-select-single {
+  color: #464646;
+}
+
+.vs-select.disabled {
+  pointer-events: none;
+}
+
+.vs-select.disabled .vs-select-control {
+  border-color: #d7d8dc;
+  background-color: #f7f7f7;
+}
+
+.vs-select.disabled .vs-select-control .vs-select-arrow:before {
+  border-top-color: #d7d8dc;
+}
+
+.vs-select.disabled .vs-select-placeholder {
+  color: #d7d8dc;
+}
+
+.vs-select.disabled .vs-select-input {
+  color: #d7d8dc;
+}
+
+.vs-select.disabled .vs-select-single {
+  color: #d7d8dc;
+}
+
 .vs-select-control {
   display: flex;
   cursor: default;
@@ -4351,23 +4393,6 @@ td {
   border-radius: 0.25rem;
   border: 1px solid #d7d8dc;
   background-color: #fff;
-}
-
-.vs-select-control:hover {
-  border-color: #cccccc;
-  background-color: #fff;
-}
-
-.vs-select-control:hover .vs-select-arrow:before {
-  border-top-color: #afaeae;
-}
-
-.vs-select-control:hover .vs-select-placeholder {
-  color: #464646;
-}
-
-.vs-select-control:hover .vs-select-single {
-  color: #464646;
 }
 
 .vs-select-container {
