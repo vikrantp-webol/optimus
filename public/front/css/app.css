@@ -1541,15 +1541,24 @@ blockquote {
   z-index: 4;
 }
 
-.g-recaptcha {
-  display: flex;
+.control.control-icon-right {
+  position: relative;
 }
 
-@media (max-width: 370px) {
-  .g-recaptcha {
-    transform: scale(0.77);
-    justify-content: center;
-  }
+.control.control-icon-right .icon {
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  width: 3rem;
+  z-index: 10;
+  height: auto;
+  position: absolute;
+  color: #a0aec0;
+  background-color: #fff;
+}
+
+.control.control-icon-right .icon:hover {
+  color: #718096;
 }
 
 .hamburger {

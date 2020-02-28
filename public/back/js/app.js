@@ -11963,7 +11963,7 @@ var mutations$2 = {
 var actions$2 = {
   setTitle: function setTitle(_ref, title) {
     var commit = _ref.commit;
-    var appName = "Optimus Template";
+    var appName = "Optimus";
     commit('setTitle', title);
     document.title = "".concat(title, " | ").concat(appName ? appName + ' -' : '', " Optimus");
   },
@@ -19511,6 +19511,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     acceptedExtensions: 'mediaManager/acceptedExtensions',
     currentPickerId: 'mediaManagerPickers/currentPickerId',
     selectedMediaIds: 'mediaManagerMedia/selectedMediaIds',
+    actionsPanelIsVisible: 'mediaManager/showActionsPanel',
     folderBeingManaged: 'mediaManagerFolders/folderBeingManaged'
   }), {
     pickerMediaCount: function pickerMediaCount() {
@@ -19552,6 +19553,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
     openFolder: 'mediaManagerFolders/openFolder',
     showActionsPanel: 'mediaManager/showActionsPanel',
+    hideActionsPanel: 'mediaManager/hideActionsPanel',
     closeMediaManager: 'mediaManager/closeMediaManager',
     showFoldersPanel: 'mediaManagerFolders/showFoldersPanel',
     setPickerMediaIds: 'mediaManagerPickers/setPickerMediaIds',
@@ -19560,6 +19562,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearSelectedMediaIds: 'mediaManagerMedia/clearSelectedMediaIds',
     disableMultipleMediaFocus: 'mediaManagerMedia/disableMultipleMediaFocus'
   }), {
+    toggleActionsPanel: function toggleActionsPanel() {
+      if (this.actionsPanelIsVisible) {
+        return this.hideActionsPanel();
+      }
+
+      return this.showActionsPanel();
+    },
     confirm: function confirm() {
       if (!this.limitIsExceeded && this.focusedMediaHasChanged) {
         this.setPickerMediaIds({
@@ -58226,7 +58235,7 @@ var render = function() {
                     "a",
                     {
                       staticClass: "mm-actions-panel-show mm-icon",
-                      on: { click: _vm.showActionsPanel }
+                      on: { click: _vm.toggleActionsPanel }
                     },
                     [_c("icon", { attrs: { icon: "info-circle" } })],
                     1
@@ -79911,7 +79920,7 @@ var client = axios.create({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/rich/code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
+module.exports = __webpack_require__(/*! /Users/rich/Code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
 
 
 /***/ })

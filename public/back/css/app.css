@@ -961,6 +961,7 @@ a:hover.mm-text-danger {
   right: 0;
   width: 85%;
   bottom: 4em;
+  z-index: 10;
   flex-grow: 1;
   display: flex;
   flex-shrink: 0;
@@ -1133,6 +1134,7 @@ a:hover.mm-text-danger {
 .mm-media-manager-wrap {
   height: 100%;
   display: flex;
+  overflow-x: hidden;
   position: relative;
   background-color: transparent;
   min-height: calc(100vh - 3em);
