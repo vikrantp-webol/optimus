@@ -59,6 +59,11 @@ export default {
             default: false,
         },
 
+        multiple: {
+            type: Boolean,
+            required: true,
+        },
+
         noOptionsMessage: {
             type: String,
             required: true,
@@ -111,6 +116,16 @@ export default {
         },
     },
 
+    watch: {
+        options: {
+            handler() {
+                this.lastScroll = 0;
+                this.setScrollableHeight();
+            },
+            deep: true,
+        },
+    },
+
     created() {
         document.addEventListener('keydown', this.keydownListener);
     },
@@ -118,9 +133,7 @@ export default {
     mounted() {
         this.$refs.scrollContent.addEventListener('scroll', this.scrollListener);
 
-        this.scrollableHeight = (
-            this.$refs.scrollContent.scrollHeight - this.$refs.scrollContent.clientHeight
-        );
+        this.setScrollableHeight();
 
         if (this.hasFocusableOptions) {
             this.setFocusedOption(this.focusableOptions[0]);
@@ -170,6 +183,12 @@ export default {
                     this.scrollToOption(nextIndex);
                 }
             }
+        },
+
+        setScrollableHeight() {
+            this.scrollableHeight = (
+                this.$refs.scrollContent.scrollHeight - this.$refs.scrollContent.clientHeight
+            );
         },
 
         scrollListener() {
@@ -249,12 +268,19 @@ export default {
                     return;
                 }
 
-                if (this.optionIsSelected(option[this.optionIdentifier])) {
+                if (
+                    this.optionIsSelected(option[this.optionIdentifier])
+                    && this.multiple
+                ) {
                     return this.$emit('deselect-option', option);
                 }
 
                 this.$emit('select-option', option);
             }
+        },
+
+        scrollToTop() {
+            this.$refs.scrollContent.scrollTo(0, 0);
         },
 
         scrollToOption(index) {

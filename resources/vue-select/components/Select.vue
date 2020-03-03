@@ -45,9 +45,8 @@
                             :id="id"
                             ref="input"
                             v-model="searchQuery"
-                            size="2"
                             type="text"
-                            :readonly="disabled"
+                            :readonly="disabled || ! searchable"
                             :tabindex="disabled ? -1 : 0"
                             autocomplete="off"
                             @blur="blurInput"
@@ -71,7 +70,8 @@
             <select-dropdown
                 v-if="dropdownIsVisible"
                 ref="dropdown"
-                :options="filteredOptions"
+                :options="options"
+                :multiple="multiple"
                 :loading-more="loadingMore"
                 :selected-options="selectedOptions"
                 :option-identifier="optionIdentifier"
@@ -101,6 +101,9 @@
 </template>
 
 <script>
+// Throttle scroll
+// Throttle searchQuery emit
+
 import SelectDropdown from './Dropdown.vue';
 
 export default {
@@ -152,11 +155,6 @@ export default {
             default: true,
         },
 
-        hideSelected: {
-            type: Boolean,
-            default: false,
-        },
-
         placeholder: {
             type: String,
             default: 'Please select...',
@@ -206,6 +204,10 @@ export default {
             return this.selectedOptions.length !== 0;
         },
 
+        hasOptions() {
+            return this.options.length !== 0;
+        },
+
         hasSearchQuery() {
             return this.searchQuery.length !== 0;
         },
@@ -223,41 +225,23 @@ export default {
 
             return this.selectedOptions[0];
         },
-
-        filteredOptions() {
-            let options = this.options;
-
-            if (this.hideSelected) {
-                options = options.filter(option => {
-                    return ! this.selectedOptionValues.includes(
-                        option[this.optionIdentifier],
-                    );
-                });
-            }
-
-            if (this.searchable) {
-                options = options.filter(option => {
-                    return option[this.optionLabel].toUpperCase().indexOf(
-                        this.searchQuery.toUpperCase(),
-                    ) !== -1;
-                });
-            }
-
-            return options;
-        },
     },
 
     watch: {
-        options: {
-            handler(options) {
-                const values = Array.isArray(this.value) ? this.value : [ this.value ];
+        value: {
+            handler(value) {
+                if (this.hasOptions) {
+                    this.setSelectedOptions(value, 'value');
+                }
+            },
+            immediate: true,
+        },
 
-                this.selectedOptions = options.filter(selectedOption => {
-                    return values.includes(selectedOption[this.optionIdentifier]);
-                });
+        options: {
+            handler() {
+                this.setSelectedOptions(this.value, 'options');
             },
             deep: true,
-            immediate: true,
         },
 
         searchQuery(searchQuery) {
@@ -266,8 +250,12 @@ export default {
                     this.showDropdown();
                 }
 
-                this.$refs.input.setAttribute('size', searchQuery.length + 2);
-                this.$emit('search-change', searchQuery);
+                if (this.dropdownIsVisible) {
+                    this.$refs.dropdown.scrollToTop();
+                }
+
+                // this.$refs.input.setAttribute('size', searchQuery.length + 2);
+                this.$emit('query-change', searchQuery);
             }
         },
 
@@ -322,6 +310,18 @@ export default {
             }
         },
 
+        setSelectedOptions(value) {
+            if (! value) {
+                return this.selectedOptions = [];
+            }
+
+            const values = Array.isArray(value) ? value : [ value ];
+
+            this.selectedOptions = this.options.filter(selectedOption => {
+                return values.includes(selectedOption[this.optionIdentifier]);
+            });
+        },
+
         setDropdownPosition() {
             if (this.openDirection === 'auto') {
                 const selectRect = this.$refs.select.getBoundingClientRect();
@@ -351,7 +351,6 @@ export default {
 
         blurInput() {
             this.inputIsActive = false;
-            // this.dropdownIsVisible = false;
         },
 
         showDropdown() {
@@ -382,6 +381,7 @@ export default {
                 this.searchQuery = '';
                 this.dropdownIsVisible = false;
 
+                this.$emit('change');
                 this.$emit('select', option);
 
                 if (this.multiple) {
@@ -395,6 +395,8 @@ export default {
         deselectOption(option) {
             if (! this.disabled) {
                 this.dropdownIsVisible = false;
+
+                this.$emit('change');
                 this.$emit('deselect', option);
 
                 this.selectedOptions = this.selectedOptions.filter(selectedOption => {
