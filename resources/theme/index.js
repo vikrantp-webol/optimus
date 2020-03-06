@@ -3,7 +3,8 @@ import Icons from './lib/icons';
 import { mapActions, mapGetters } from 'vuex';
 
 // Import plugins
-import VueSelect from '../vue-select';
+// import VueSelect from '../vue-select';
+import VueSelect from '@optix/vue-select';
 
 // Import vuex modules
 import alertStore from './store/modules/alert';

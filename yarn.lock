@@ -685,6 +685,13 @@
   dependencies:
     vue "^2.6.10"
 
+"@optix/vue-select@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@optix/vue-select/-/vue-select-0.0.6.tgz#492fde7e626e3d82acea9bf652257335cd3b1135"
+  integrity sha512-pXn4S9H3Csl7f48y3NMFpUqDba1IpmdGBzscvS5qUtElBPYaepA8+ipRV4aWhCrfVDBUq930P6VVjC14vXWclQ==
+  dependencies:
+    vue "^2.6.10"
+
 "@tinymce/tinymce-vue@^1.1.0":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tinymce/tinymce-vue/-/tinymce-vue-1.1.2.tgz#78322742d268b67ad4da5544ad03cd9b7cb30326"
