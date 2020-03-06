@@ -640,10 +640,10 @@
     "@tinymce/tinymce-vue" "^1.1.0"
     vue "^2.6.10"
 
-"@optimuscms/media-manager@^1.3.4":
-  version "1.3.4"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.4.tgz#9005e6e0ba93d1dba24da3aac0236c19f57a0205"
-  integrity sha512-BpyqT7qLIg9uQNEXR2uodPc0DIhWwVxUf+rdNfkTIVhpSS0AiIPcchbJmnB2ZeKq68f7WdLyQ4etvSdtfBmQsg==
+"@optimuscms/media-manager@^1.3.5":
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.5.tgz#f697436797cb3432fae15dde14ee4b4ddce3ff5b"
+  integrity sha512-CB3EJNryK8PuhPBpR7Plb8ikB6d6hgE/2ob5L+GEq6+v5INK3RKAddx9b55mTL4aT8pgiMxgpXU5YinKxJHC3g==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-regular-svg-icons" "^5.10.2"
@@ -654,17 +654,17 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.1.tgz#fdd0b1f32f33a5e43728fe001d82466e9d5430b8"
-  integrity sha512-jZahx8PoVtCODnsZfshsN1O3qrEVLySNPiZDFxRUD18S0yFCIa9+UWPHwq1nIM/vxvyAZVfUT/TsgWdXiG9UWQ==
+"@optimuscms/theme@^0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.2.tgz#d79c2863b53ffd30240f8a2b66198264202723e0"
+  integrity sha512-sc8ubWawsWkBW3y9Ahm7YZEhTnN10x1gUWf40Q61OcZ9vfBxlqy2sm3wk1lKHASG/8pJ6i90fqArJaMqz79W9w==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"
     "@fortawesome/free-solid-svg-icons" "^5.3.1"
     "@fortawesome/vue-fontawesome" "^0.1.1"
-    "@optix/sass" "^0.2.4"
-    "@optix/vue-select" "^0.0.4"
+    "@optix/sass" "^0.2.5"
+    "@optix/vue-select" "^0.0.6"
     lodash "^4.17.15"
     matcher "^2.0.0"
     tailwindcss "^1.0"
@@ -678,10 +678,17 @@
   dependencies:
     tailwindcss "^1.0"
 
-"@optix/vue-select@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/@optix/vue-select/-/vue-select-0.0.4.tgz#9ae69cc29fdd726571f0ce4db4b56ccbbfd8ac12"
-  integrity sha512-gbVCE/rdMdxmufgQICW1X4PDRWKVu8E0WFh3S1fX0E8XhOJy8dmEBKRStQSYJ/gIOozcVXR/wfCcgoZCmAfUsw==
+"@optix/sass@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.2.5.tgz#126ea7d79d3e5e44d9af76cb5bd59ad80d2b123d"
+  integrity sha512-rmzdHCvTZ9NlrdplxjTQi4/bEFedBt0twjqKMRxaX1LJuVBK0F2qBONg+F28vX2D3NUrqUXlJ629348BIE2ufA==
+  dependencies:
+    tailwindcss "^1.0"
+
+"@optix/vue-select@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@optix/vue-select/-/vue-select-0.0.6.tgz#492fde7e626e3d82acea9bf652257335cd3b1135"
+  integrity sha512-pXn4S9H3Csl7f48y3NMFpUqDba1IpmdGBzscvS5qUtElBPYaepA8+ipRV4aWhCrfVDBUq930P6VVjC14vXWclQ==
   dependencies:
     vue "^2.6.10"
 

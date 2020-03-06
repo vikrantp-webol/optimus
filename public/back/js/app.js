@@ -427,6 +427,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -474,13 +476,13 @@ function _objectSpread2(target) {
     var source = arguments[i] != null ? arguments[i] : {};
 
     if (i % 2) {
-      ownKeys(source, true).forEach(function (key) {
+      ownKeys(Object(source), true).forEach(function (key) {
         _defineProperty(target, key, source[key]);
       });
     } else if (Object.getOwnPropertyDescriptors) {
       Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
     } else {
-      ownKeys(source).forEach(function (key) {
+      ownKeys(Object(source)).forEach(function (key) {
         Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
       });
     }
@@ -11125,9 +11127,7 @@ var styles$2 = namespace.styles;
 
 var styles$3 = namespace.styles;
 
-var Library =
-/*#__PURE__*/
-function () {
+var Library = /*#__PURE__*/function () {
   function Library() {
     _classCallCheck(this, Library);
 
@@ -11318,90 +11318,80 @@ var script = {
   })
 };
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier
-/* server only */
-, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-  if (typeof shadowMode !== 'boolean') {
-    createInjectorSSR = createInjector;
-    createInjector = shadowMode;
-    shadowMode = false;
-  } // Vue.extend constructor export interop.
-
-
-  var options = typeof script === 'function' ? script.options : script; // render functions
-
-  if (template && template.render) {
-    options.render = template.render;
-    options.staticRenderFns = template.staticRenderFns;
-    options._compiled = true; // functional template
-
-    if (isFunctionalTemplate) {
-      options.functional = true;
+function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
+    if (typeof shadowMode !== 'boolean') {
+        createInjectorSSR = createInjector;
+        createInjector = shadowMode;
+        shadowMode = false;
     }
-  } // scopedId
-
-
-  if (scopeId) {
-    options._scopeId = scopeId;
-  }
-
-  var hook;
-
-  if (moduleIdentifier) {
-    // server build
-    hook = function hook(context) {
-      // 2.3 injection
-      context = context || // cached call
-      this.$vnode && this.$vnode.ssrContext || // stateful
-      this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext; // functional
-      // 2.2 with runInNewContext: true
-
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__;
-      } // inject component styles
-
-
-      if (style) {
-        style.call(this, createInjectorSSR(context));
-      } // register component module identifier for async chunk inference
-
-
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier);
-      }
-    }; // used by ssr in case component is cached and beforeCreate
-    // never gets called
-
-
-    options._ssrRegister = hook;
-  } else if (style) {
-    hook = shadowMode ? function () {
-      style.call(this, createInjectorShadow(this.$root.$options.shadowRoot));
-    } : function (context) {
-      style.call(this, createInjector(context));
-    };
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // register for functional component in vue file
-      var originalRender = options.render;
-
-      options.render = function renderWithStyleInjection(h, context) {
-        hook.call(context);
-        return originalRender(h, context);
-      };
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate;
-      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+    // Vue.extend constructor export interop.
+    const options = typeof script === 'function' ? script.options : script;
+    // render functions
+    if (template && template.render) {
+        options.render = template.render;
+        options.staticRenderFns = template.staticRenderFns;
+        options._compiled = true;
+        // functional template
+        if (isFunctionalTemplate) {
+            options.functional = true;
+        }
     }
-  }
-
-  return script;
+    // scopedId
+    if (scopeId) {
+        options._scopeId = scopeId;
+    }
+    let hook;
+    if (moduleIdentifier) {
+        // server build
+        hook = function (context) {
+            // 2.3 injection
+            context =
+                context || // cached call
+                    (this.$vnode && this.$vnode.ssrContext) || // stateful
+                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+            // 2.2 with runInNewContext: true
+            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+                context = __VUE_SSR_CONTEXT__;
+            }
+            // inject component styles
+            if (style) {
+                style.call(this, createInjectorSSR(context));
+            }
+            // register component module identifier for async chunk inference
+            if (context && context._registeredComponents) {
+                context._registeredComponents.add(moduleIdentifier);
+            }
+        };
+        // used by ssr in case component is cached and beforeCreate
+        // never gets called
+        options._ssrRegister = hook;
+    }
+    else if (style) {
+        hook = shadowMode
+            ? function (context) {
+                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
+            }
+            : function (context) {
+                style.call(this, createInjector(context));
+            };
+    }
+    if (hook) {
+        if (options.functional) {
+            // register for functional component in vue file
+            const originalRender = options.render;
+            options.render = function renderWithStyleInjection(h, context) {
+                hook.call(context);
+                return originalRender(h, context);
+            };
+        }
+        else {
+            // inject component registration as beforeCreate hook
+            const existing = options.beforeCreate;
+            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
+        }
+    }
+    return script;
 }
-
-var normalizeComponent_1 = normalizeComponent;
 
 /* script */
 var __vue_script__ = script;
@@ -11450,10 +11440,12 @@ var __vue_is_functional_template__ = false;
 
 /* style inject SSR */
 
-var Breadcrumb = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__ = normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, undefined, undefined);
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 //
 //
@@ -11519,14 +11511,16 @@ var __vue_is_functional_template__$1 = false;
 
 /* style inject SSR */
 
-var Modal = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$1 = normalizeComponent({
   render: __vue_render__$1,
   staticRenderFns: __vue_staticRenderFns__$1
-}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, undefined, undefined);
+}, __vue_inject_styles__$1, __vue_script__$1, __vue_scope_id__$1, __vue_is_functional_template__$1, __vue_module_identifier__$1, false, undefined, undefined, undefined);
 
 var script$2 = {
   components: {
-    Modal: Modal
+    Modal: __vue_component__$1
   },
   computed: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     type: 'mediaManager/confirmationType',
@@ -11664,10 +11658,12 @@ var __vue_is_functional_template__$2 = false;
 
 /* style inject SSR */
 
-var Confirmation = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$2 = normalizeComponent({
   render: __vue_render__$2,
   staticRenderFns: __vue_staticRenderFns__$2
-}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, undefined, undefined);
+}, __vue_inject_styles__$2, __vue_script__$2, __vue_scope_id__$2, __vue_is_functional_template__$2, __vue_module_identifier__$2, false, undefined, undefined, undefined);
 
 var script$3 = {
   computed: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -11849,10 +11845,12 @@ var __vue_is_functional_template__$3 = false;
 
 /* style inject SSR */
 
-var MediaPanel = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$3 = normalizeComponent({
   render: __vue_render__$3,
   staticRenderFns: __vue_staticRenderFns__$3
-}, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, undefined, undefined);
+}, __vue_inject_styles__$3, __vue_script__$3, __vue_scope_id__$3, __vue_is_functional_template__$3, __vue_module_identifier__$3, false, undefined, undefined, undefined);
 
 //
 //
@@ -11957,14 +11955,16 @@ var __vue_is_functional_template__$4 = false;
 
 /* style inject SSR */
 
-var Dropdown = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$4 = normalizeComponent({
   render: __vue_render__$4,
   staticRenderFns: __vue_staticRenderFns__$4
-}, __vue_inject_styles__$4, __vue_script__$4, __vue_scope_id__$4, __vue_is_functional_template__$4, __vue_module_identifier__$4, undefined, undefined);
+}, __vue_inject_styles__$4, __vue_script__$4, __vue_scope_id__$4, __vue_is_functional_template__$4, __vue_module_identifier__$4, false, undefined, undefined, undefined);
 
 var script$5 = {
   components: {
-    Dropdown: Dropdown
+    Dropdown: __vue_component__$4
   },
   computed: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     childFolders: 'mediaManagerFolders/childFolders',
@@ -12151,10 +12151,12 @@ var __vue_is_functional_template__$5 = false;
 
 /* style inject SSR */
 
-var FoldersPanel = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$5 = normalizeComponent({
   render: __vue_render__$5,
   staticRenderFns: __vue_staticRenderFns__$5
-}, __vue_inject_styles__$5, __vue_script__$5, __vue_scope_id__$5, __vue_is_functional_template__$5, __vue_module_identifier__$5, undefined, undefined);
+}, __vue_inject_styles__$5, __vue_script__$5, __vue_scope_id__$5, __vue_is_functional_template__$5, __vue_module_identifier__$5, false, undefined, undefined, undefined);
 
 //
 var script$6 = {
@@ -12207,14 +12209,16 @@ var __vue_is_functional_template__$6 = false;
 
 /* style inject SSR */
 
-var MediaDetails = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$6 = normalizeComponent({
   render: __vue_render__$6,
   staticRenderFns: __vue_staticRenderFns__$6
-}, __vue_inject_styles__$6, __vue_script__$6, __vue_scope_id__$6, __vue_is_functional_template__$6, __vue_module_identifier__$6, undefined, undefined);
+}, __vue_inject_styles__$6, __vue_script__$6, __vue_scope_id__$6, __vue_is_functional_template__$6, __vue_module_identifier__$6, false, undefined, undefined, undefined);
 
 var script$7 = {
   components: {
-    Dropdown: Dropdown
+    Dropdown: __vue_component__$4
   },
   props: {
     media: {
@@ -12366,10 +12370,12 @@ var __vue_is_functional_template__$7 = false;
 
 /* style inject SSR */
 
-var MediaDropdown = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$7 = normalizeComponent({
   render: __vue_render__$7,
   staticRenderFns: __vue_staticRenderFns__$7
-}, __vue_inject_styles__$7, __vue_script__$7, __vue_scope_id__$7, __vue_is_functional_template__$7, __vue_module_identifier__$7, undefined, undefined);
+}, __vue_inject_styles__$7, __vue_script__$7, __vue_scope_id__$7, __vue_is_functional_template__$7, __vue_module_identifier__$7, false, undefined, undefined, undefined);
 
 var formMixin = {
   props: {
@@ -12641,10 +12647,12 @@ var __vue_is_functional_template__$8 = false;
 
 /* style inject SSR */
 
-var MediaForm = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$8 = normalizeComponent({
   render: __vue_render__$8,
   staticRenderFns: __vue_staticRenderFns__$8
-}, __vue_inject_styles__$8, __vue_script__$8, __vue_scope_id__$8, __vue_is_functional_template__$8, __vue_module_identifier__$8, undefined, undefined);
+}, __vue_inject_styles__$8, __vue_script__$8, __vue_scope_id__$8, __vue_is_functional_template__$8, __vue_module_identifier__$8, false, undefined, undefined, undefined);
 
 var script$9 = {
   computed: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
@@ -12750,17 +12758,19 @@ var __vue_is_functional_template__$9 = false;
 
 /* style inject SSR */
 
-var SelectedMedia = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$9 = normalizeComponent({
   render: __vue_render__$9,
   staticRenderFns: __vue_staticRenderFns__$9
-}, __vue_inject_styles__$9, __vue_script__$9, __vue_scope_id__$9, __vue_is_functional_template__$9, __vue_module_identifier__$9, undefined, undefined);
+}, __vue_inject_styles__$9, __vue_script__$9, __vue_scope_id__$9, __vue_is_functional_template__$9, __vue_module_identifier__$9, false, undefined, undefined, undefined);
 
 var script$a = {
   components: {
-    MediaDetails: MediaDetails,
-    MediaDropdown: MediaDropdown,
-    MediaForm: MediaForm,
-    SelectedMedia: SelectedMedia
+    MediaDetails: __vue_component__$6,
+    MediaDropdown: __vue_component__$7,
+    MediaForm: __vue_component__$8,
+    SelectedMedia: __vue_component__$9
   },
   data: function data() {
     return {
@@ -12912,10 +12922,12 @@ var __vue_is_functional_template__$a = false;
 
 /* style inject SSR */
 
-var ActionsPanel = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$a = normalizeComponent({
   render: __vue_render__$a,
   staticRenderFns: __vue_staticRenderFns__$a
-}, __vue_inject_styles__$a, __vue_script__$a, __vue_scope_id__$a, __vue_is_functional_template__$a, __vue_module_identifier__$a, undefined, undefined);
+}, __vue_inject_styles__$a, __vue_script__$a, __vue_scope_id__$a, __vue_is_functional_template__$a, __vue_module_identifier__$a, false, undefined, undefined, undefined);
 
 //
 //
@@ -12978,10 +12990,12 @@ var __vue_is_functional_template__$b = false;
 
 /* style inject SSR */
 
-var Errors = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$b = normalizeComponent({
   render: __vue_render__$b,
   staticRenderFns: __vue_staticRenderFns__$b
-}, __vue_inject_styles__$b, __vue_script__$b, __vue_scope_id__$b, __vue_is_functional_template__$b, __vue_module_identifier__$b, undefined, undefined);
+}, __vue_inject_styles__$b, __vue_script__$b, __vue_scope_id__$b, __vue_is_functional_template__$b, __vue_module_identifier__$b, false, undefined, undefined, undefined);
 
 var initialValues = function initialValues() {
   return {
@@ -12992,8 +13006,8 @@ var initialValues = function initialValues() {
 
 var script$c = {
   components: {
-    Errors: Errors,
-    Modal: Modal
+    Errors: __vue_component__$b,
+    Modal: __vue_component__$1
   },
   mixins: [formMixin],
   data: function data() {
@@ -13155,14 +13169,16 @@ var __vue_is_functional_template__$c = false;
 
 /* style inject SSR */
 
-var FolderManager = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$c = normalizeComponent({
   render: __vue_render__$c,
   staticRenderFns: __vue_staticRenderFns__$c
-}, __vue_inject_styles__$c, __vue_script__$c, __vue_scope_id__$c, __vue_is_functional_template__$c, __vue_module_identifier__$c, undefined, undefined);
+}, __vue_inject_styles__$c, __vue_script__$c, __vue_scope_id__$c, __vue_is_functional_template__$c, __vue_module_identifier__$c, false, undefined, undefined, undefined);
 
 var script$d = {
   components: {
-    Modal: Modal
+    Modal: __vue_component__$1
   },
   data: function data() {
     return {
@@ -13439,14 +13455,16 @@ var __vue_is_functional_template__$d = false;
 
 /* style inject SSR */
 
-var MediaMover = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$d = normalizeComponent({
   render: __vue_render__$d,
   staticRenderFns: __vue_staticRenderFns__$d
-}, __vue_inject_styles__$d, __vue_script__$d, __vue_scope_id__$d, __vue_is_functional_template__$d, __vue_module_identifier__$d, undefined, undefined);
+}, __vue_inject_styles__$d, __vue_script__$d, __vue_scope_id__$d, __vue_is_functional_template__$d, __vue_module_identifier__$d, false, undefined, undefined, undefined);
 
 var script$e = {
   components: {
-    Errors: Errors
+    Errors: __vue_component__$b
   },
   data: function data() {
     return {
@@ -13746,22 +13764,24 @@ var __vue_is_functional_template__$e = false;
 
 /* style inject SSR */
 
-var MediaUploader = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$e = normalizeComponent({
   render: __vue_render__$e,
   staticRenderFns: __vue_staticRenderFns__$e
-}, __vue_inject_styles__$e, __vue_script__$e, __vue_scope_id__$e, __vue_is_functional_template__$e, __vue_module_identifier__$e, undefined, undefined);
+}, __vue_inject_styles__$e, __vue_script__$e, __vue_scope_id__$e, __vue_is_functional_template__$e, __vue_module_identifier__$e, false, undefined, undefined, undefined);
 
 var script$f = {
   components: {
-    Breadcrumb: Breadcrumb,
-    Confirmation: Confirmation,
-    Modal: Modal,
-    MediaPanel: MediaPanel,
-    FoldersPanel: FoldersPanel,
-    ActionsPanel: ActionsPanel,
-    FolderManager: FolderManager,
-    MediaMover: MediaMover,
-    MediaUploader: MediaUploader
+    Breadcrumb: __vue_component__,
+    Confirmation: __vue_component__$2,
+    Modal: __vue_component__$1,
+    MediaPanel: __vue_component__$3,
+    FoldersPanel: __vue_component__$5,
+    ActionsPanel: __vue_component__$a,
+    FolderManager: __vue_component__$c,
+    MediaMover: __vue_component__$d,
+    MediaUploader: __vue_component__$e
   },
   computed: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     limit: 'mediaManager/mediaSelectionLimit',
@@ -13774,6 +13794,7 @@ var script$f = {
     acceptedExtensions: 'mediaManager/acceptedExtensions',
     currentPickerId: 'mediaManagerPickers/currentPickerId',
     selectedMediaIds: 'mediaManagerMedia/selectedMediaIds',
+    actionsPanelIsVisible: 'mediaManager/showActionsPanel',
     folderBeingManaged: 'mediaManagerFolders/folderBeingManaged'
   }), {
     pickerMediaCount: function pickerMediaCount() {
@@ -13815,6 +13836,7 @@ var script$f = {
   methods: _objectSpread2({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     openFolder: 'mediaManagerFolders/openFolder',
     showActionsPanel: 'mediaManager/showActionsPanel',
+    hideActionsPanel: 'mediaManager/hideActionsPanel',
     closeMediaManager: 'mediaManager/closeMediaManager',
     showFoldersPanel: 'mediaManagerFolders/showFoldersPanel',
     setPickerMediaIds: 'mediaManagerPickers/setPickerMediaIds',
@@ -13823,6 +13845,13 @@ var script$f = {
     clearSelectedMediaIds: 'mediaManagerMedia/clearSelectedMediaIds',
     disableMultipleMediaFocus: 'mediaManagerMedia/disableMultipleMediaFocus'
   }), {
+    toggleActionsPanel: function toggleActionsPanel() {
+      if (this.actionsPanelIsVisible) {
+        return this.hideActionsPanel();
+      }
+
+      return this.showActionsPanel();
+    },
     confirm: function confirm() {
       if (!this.limitIsExceeded && this.focusedMediaHasChanged) {
         this.setPickerMediaIds({
@@ -13896,7 +13925,7 @@ var __vue_render__$f = function __vue_render__() {
   }, [_vm._v("\n                        " + _vm._s(_vm.currentFolder.name) + "\n                    ")]), _vm._v(" "), _c("breadcrumb")], 1), _vm._v(" "), _vm.hasFocusedMedia ? _c("a", {
     staticClass: "mm-actions-panel-show mm-icon",
     on: {
-      click: _vm.showActionsPanel
+      click: _vm.toggleActionsPanel
     }
   }, [_c("icon", {
     attrs: {
@@ -13955,10 +13984,12 @@ var __vue_is_functional_template__$f = false;
 
 /* style inject SSR */
 
-var MediaManager = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$f = normalizeComponent({
   render: __vue_render__$f,
   staticRenderFns: __vue_staticRenderFns__$f
-}, __vue_inject_styles__$f, __vue_script__$f, __vue_scope_id__$f, __vue_is_functional_template__$f, __vue_module_identifier__$f, undefined, undefined);
+}, __vue_inject_styles__$f, __vue_script__$f, __vue_scope_id__$f, __vue_is_functional_template__$f, __vue_module_identifier__$f, false, undefined, undefined, undefined);
 
 var script$g = {
   props: {
@@ -14180,10 +14211,12 @@ var __vue_is_functional_template__$g = false;
 
 /* style inject SSR */
 
-var MediaPicker = normalizeComponent_1({
+/* style inject shadow dom */
+
+var __vue_component__$g = normalizeComponent({
   render: __vue_render__$g,
   staticRenderFns: __vue_staticRenderFns__$g
-}, __vue_inject_styles__$g, __vue_script__$g, __vue_scope_id__$g, __vue_is_functional_template__$g, __vue_module_identifier__$g, undefined, undefined);
+}, __vue_inject_styles__$g, __vue_script__$g, __vue_scope_id__$g, __vue_is_functional_template__$g, __vue_module_identifier__$g, false, undefined, undefined, undefined);
 
 var actions$4 = _objectSpread2({}, defaultActions);
 
@@ -14205,8 +14238,8 @@ function install(Vue) {
 
   icons.register(); // Register components
 
-  Vue.component('media-manager', MediaManager);
-  Vue.component('media-picker', MediaPicker); // Setup options
+  Vue.component('media-manager', __vue_component__$f);
+  Vue.component('media-picker', __vue_component__$g); // Setup options
 
   if (options.hasOwnProperty('actions')) {
     var userActions = options.actions;
@@ -14267,6 +14300,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function _typeof(obj) {
+  "@babel/helpers - typeof";
+
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
       return typeof obj;
@@ -15292,9 +15327,7 @@ function css() {
   return s;
 }
 
-var Library =
-/*#__PURE__*/
-function () {
+var Library = /*#__PURE__*/function () {
   function Library() {
     _classCallCheck(this, Library);
 
@@ -15462,14 +15495,84 @@ var icon = resolveIcons(function (iconDefinition) {
   });
 });
 
-var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[320,512,[],"f107","M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"]};var faAngleRight={prefix:'fas',iconName:'angle-right',icon:[256,512,[],"f105","M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"]};var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[320,512,[],"f106","M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"]};var faCalendarAlt={prefix:'fas',iconName:'calendar-alt',icon:[448,512,[],"f073","M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"]};var faCog={prefix:'fas',iconName:'cog',icon:[512,512,[],"f013","M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"]};var faPencilAlt={prefix:'fas',iconName:'pencil-alt',icon:[512,512,[],"f303","M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"]};var faSearch={prefix:'fas',iconName:'search',icon:[512,512,[],"f002","M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"]};var faSignOutAlt={prefix:'fas',iconName:'sign-out-alt',icon:[512,512,[],"f2f5","M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"]};var faSort={prefix:'fas',iconName:'sort',icon:[320,512,[],"f0dc","M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z"]};var faSortDown={prefix:'fas',iconName:'sort-down',icon:[320,512,[],"f0dd","M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"]};var faSortUp={prefix:'fas',iconName:'sort-up',icon:[320,512,[],"f0de","M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"]};var faSpinner={prefix:'fas',iconName:'spinner',icon:[512,512,[],"f110","M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"]};var faTrashAlt={prefix:'fas',iconName:'trash-alt',icon:[448,512,[],"f2ed","M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"]};
+var faAngleDown={prefix:'fas',iconName:'angle-down',icon:[320,512,[],"f107","M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"]};var faAngleRight={prefix:'fas',iconName:'angle-right',icon:[256,512,[],"f105","M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"]};var faAngleUp={prefix:'fas',iconName:'angle-up',icon:[320,512,[],"f106","M177 159.7l136 136c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0L160 255.9l-96.4 96.4c-9.4 9.4-24.6 9.4-33.9 0L7 329.7c-9.4-9.4-9.4-24.6 0-33.9l136-136c9.4-9.5 24.6-9.5 34-.1z"]};var faCalendarAlt={prefix:'fas',iconName:'calendar-alt',icon:[448,512,[],"f073","M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm320-196c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM192 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12h-40c-6.6 0-12-5.4-12-12v-40zM64 268c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zm0 128c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H76c-6.6 0-12-5.4-12-12v-40zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"]};var faCog={prefix:'fas',iconName:'cog',icon:[512,512,[],"f013","M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"]};var faExternalLinkAlt={prefix:'fas',iconName:'external-link-alt',icon:[512,512,[],"f35d","M432,320H400a16,16,0,0,0-16,16V448H64V128H208a16,16,0,0,0,16-16V80a16,16,0,0,0-16-16H48A48,48,0,0,0,0,112V464a48,48,0,0,0,48,48H400a48,48,0,0,0,48-48V336A16,16,0,0,0,432,320ZM488,0h-128c-21.37,0-32.05,25.91-17,41l35.73,35.73L135,320.37a24,24,0,0,0,0,34L157.67,377a24,24,0,0,0,34,0L435.28,133.32,471,169c15,15,41,4.5,41-17V24A24,24,0,0,0,488,0Z"]};var faHandPointer={prefix:'fas',iconName:'hand-pointer',icon:[448,512,[],"f25a","M448 240v96c0 3.084-.356 6.159-1.063 9.162l-32 136C410.686 499.23 394.562 512 376 512H168a40.004 40.004 0 0 1-32.35-16.473l-127.997-176c-12.993-17.866-9.043-42.883 8.822-55.876 17.867-12.994 42.884-9.043 55.877 8.823L104 315.992V40c0-22.091 17.908-40 40-40s40 17.909 40 40v200h8v-40c0-22.091 17.908-40 40-40s40 17.909 40 40v40h8v-24c0-22.091 17.908-40 40-40s40 17.909 40 40v24h8c0-22.091 17.908-40 40-40s40 17.909 40 40zm-256 80h-8v96h8v-96zm88 0h-8v96h8v-96zm88 0h-8v96h8v-96z"]};var faPencilAlt={prefix:'fas',iconName:'pencil-alt',icon:[512,512,[],"f303","M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"]};var faSearch={prefix:'fas',iconName:'search',icon:[512,512,[],"f002","M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"]};var faSignInAlt={prefix:'fas',iconName:'sign-in-alt',icon:[512,512,[],"f2f6","M416 448h-84c-6.6 0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h84c17.7 0 32-14.3 32-32V160c0-17.7-14.3-32-32-32h-84c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h84c53 0 96 43 96 96v192c0 53-43 96-96 96zm-47-201L201 79c-15-15-41-4.5-41 17v96H24c-13.3 0-24 10.7-24 24v96c0 13.3 10.7 24 24 24h136v96c0 21.5 26 32 41 17l168-168c9.3-9.4 9.3-24.6 0-34z"]};var faSignOutAlt={prefix:'fas',iconName:'sign-out-alt',icon:[512,512,[],"f2f5","M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"]};var faSort={prefix:'fas',iconName:'sort',icon:[320,512,[],"f0dc","M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41zm255-105L177 64c-9.4-9.4-24.6-9.4-33.9 0L24 183c-15.1 15.1-4.4 41 17 41h238c21.4 0 32.1-25.9 17-41z"]};var faSortDown={prefix:'fas',iconName:'sort-down',icon:[320,512,[],"f0dd","M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z"]};var faSortUp={prefix:'fas',iconName:'sort-up',icon:[320,512,[],"f0de","M279 224H41c-21.4 0-32.1-25.9-17-41L143 64c9.4-9.4 24.6-9.4 33.9 0l119 119c15.2 15.1 4.5 41-16.9 41z"]};var faSpinner={prefix:'fas',iconName:'spinner',icon:[512,512,[],"f110","M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"]};var faStop={prefix:'fas',iconName:'stop',icon:[448,512,[],"f04d","M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48z"]};var faTimes={prefix:'fas',iconName:'times',icon:[352,512,[],"f00d","M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"]};var faTrashAlt={prefix:'fas',iconName:'trash-alt',icon:[448,512,[],"f2ed","M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"]};
 
 var Icons = {
   register: function register() {
-    library.add(faAngleDown, faAngleRight, faAngleUp, faCalendarAlt, faCog, faPencilAlt, faSignOutAlt, faSearch, faSort, faSortDown, faSortUp, faSpinner, faTrashAlt);
+    library.add(faAngleDown, faAngleRight, faAngleUp, faCalendarAlt, faCog, faExternalLinkAlt, faHandPointer, faPencilAlt, faSignInAlt, faSignOutAlt, faSearch, faSort, faSortDown, faSortUp, faSpinner, faStop, faTimes, faTrashAlt);
   }
 };
 
+function _defineProperty$2(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys$1(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys$1(Object(source), true).forEach(function (key) {
+        _defineProperty$2(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys$1(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _toConsumableArray$1(arr) {
+  return _arrayWithoutHoles$1(arr) || _iterableToArray$1(arr) || _nonIterableSpread$1();
+}
+
+function _arrayWithoutHoles$1(arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  }
+}
+
+function _iterableToArray$1(iter) {
+  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
+}
+
+function _nonIterableSpread$1() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance");
+} //
 //
 //
 //
@@ -15508,6 +15611,9 @@ var Icons = {
 //
 //
 //
+//
+
+
 var script = {
   props: {
     options: {
@@ -15530,6 +15636,18 @@ var script = {
       type: Boolean,
       default: false
     },
+    multiple: {
+      type: Boolean,
+      required: true
+    },
+    scrollThrottleDelay: {
+      type: Number,
+      required: true
+    },
+    loadMoreThreshold: {
+      type: Number,
+      required: true
+    },
     noOptionsMessage: {
       type: String,
       required: true
@@ -15537,10 +15655,11 @@ var script = {
   },
   data: function data() {
     return {
+      showPointer: true,
       focusedOption: null,
       lastScroll: 0,
       scrollableHeight: 0,
-      scrollLoaderThreshold: 60
+      throttlingScroll: false
     };
   },
   computed: {
@@ -15565,24 +15684,41 @@ var script = {
     focusedOptionIndex: function focusedOptionIndex() {
       var _this2 = this;
 
-      if (this.focusedOption) {
-        return this.options.findIndex(function (option) {
-          return option[_this2.optionIdentifier] === _this2.focusedOption[_this2.optionIdentifier];
-        });
+      if (!this.focusedOption) {
+        return null;
       }
 
-      return null;
+      return this.options.findIndex(function (option) {
+        return option[_this2.optionIdentifier] === _this2.focusedOption[_this2.optionIdentifier];
+      });
     },
     lastOptionIndex: function lastOptionIndex() {
       return this.options.length - 1;
     }
   },
+  watch: {
+    options: {
+      handler: function handler() {
+        this.lastScroll = 0;
+        this.setScrollableHeight();
+      },
+      deep: true
+    },
+    throttlingScroll: function throttlingScroll(_throttlingScroll) {
+      if (_throttlingScroll) {
+        return;
+      }
+
+      this.handleScrollEvent();
+    }
+  },
   created: function created() {
     document.addEventListener('keydown', this.keydownListener);
+    document.addEventListener('mousemove', this.mouseMove);
   },
   mounted: function mounted() {
-    this.$refs.scrollContent.addEventListener('scroll', this.scrollListener);
-    this.scrollableHeight = this.$refs.scrollContent.scrollHeight - this.$refs.scrollContent.clientHeight;
+    this.$refs.scrollContent.addEventListener('scroll', this.throttleScroll);
+    this.setScrollableHeight();
 
     if (this.hasFocusableOptions) {
       this.setFocusedOption(this.focusableOptions[0]);
@@ -15590,41 +15726,70 @@ var script = {
   },
   beforeDestroy: function beforeDestroy() {
     document.removeEventListener('keydown', this.keydownListener);
-    this.$refs.scrollContent.removeEventListener('keydown', this.scrollListener);
+    document.removeEventListener('mousemove', this.mouseMove);
+    this.$refs.scrollContent.removeEventListener('keydown', this.throttleScroll);
   },
   methods: {
     keydownListener: function keydownListener(e) {
-      if (this.hasFocusableOptions) {
-        // Enter
-        if (e.keyCode === 13) {
-          e.preventDefault();
-
-          if (this.focusableOptions.length === 1) {
-            return this.toggleSelectedOption(this.focusableOptions[0]);
-          }
-
-          return this.toggleSelectedOption(this.options[this.focusedOptionIndex]);
-        } // Arrow up
+      if (!this.hasFocusableOptions) {
+        return;
+      } // Enter
 
 
-        if (e.keyCode === 38) {
-          var previousIndex = this.getPreviousFocusableIndex(this.focusedOptionIndex);
-          this.setFocusedOption(this.options[previousIndex]);
-          this.scrollToOption(previousIndex);
-        } // Arrow down
+      if (e.keyCode === 13) {
+        e.preventDefault();
 
-
-        if (e.keyCode === 40) {
-          var nextIndex = this.getNextFocusableIndex(this.focusedOptionIndex);
-          this.setFocusedOption(this.options[nextIndex]);
-          this.scrollToOption(nextIndex);
+        if (this.focusableOptions.length === 1) {
+          this.toggleSelectedOption(this.focusableOptions[0]);
+          return;
         }
+
+        this.toggleSelectedOption(this.options[this.focusedOptionIndex]);
+      } // Arrow up
+
+
+      if (e.keyCode === 38) {
+        this.showPointer = false;
+        var previousIndex = this.getPreviousFocusableIndex(this.focusedOptionIndex);
+        this.setFocusedOption(this.options[previousIndex]);
+        this.scrollToOption(previousIndex);
+      } // Arrow down
+
+
+      if (e.keyCode === 40) {
+        this.showPointer = false;
+        var nextIndex = this.getNextFocusableIndex(this.focusedOptionIndex);
+        this.setFocusedOption(this.options[nextIndex]);
+        this.scrollToOption(nextIndex);
       }
     },
-    scrollListener: function scrollListener() {
+    mouseMove: function mouseMove() {
+      this.showPointer = true;
+    },
+    setScrollableHeight: function setScrollableHeight() {
+      this.scrollableHeight = this.$refs.scrollContent.scrollHeight - this.$refs.scrollContent.clientHeight;
+    },
+    throttleScroll: function throttleScroll() {
+      var _this3 = this;
+
+      if (this.scrollThrottleDelay <= 0) {
+        this.handleScrollEvent();
+        return;
+      }
+
+      if (this.throttlingScroll) {
+        return;
+      }
+
+      this.throttlingScroll = true;
+      setTimeout(function () {
+        _this3.throttlingScroll = false;
+      }, this.scrollThrottleDelay);
+    },
+    handleScrollEvent: function handleScrollEvent() {
       var currentScroll = this.$refs.scrollContent.scrollTop;
 
-      if (!this.loadingMore && currentScroll > this.lastScroll && this.scrollableHeight - currentScroll < this.scrollLoaderThreshold) {
+      if (!this.loadingMore && currentScroll > this.lastScroll && this.scrollableHeight - currentScroll < this.loadMoreThreshold) {
         this.lastScroll = currentScroll;
         this.$emit('load-more');
       }
@@ -15666,9 +15831,6 @@ var script = {
     setFocusedOption: function setFocusedOption(option) {
       this.focusedOption = option;
     },
-    clearFocusedOption: function clearFocusedOption() {
-      this.focusedOption = null;
-    },
     optionIsFocused: function optionIsFocused(value) {
       return this.focusedOption && this.focusedOption[this.optionIdentifier] === value;
     },
@@ -15679,21 +15841,22 @@ var script = {
       return option.disabled || false;
     },
     toggleSelectedOption: function toggleSelectedOption(option) {
-      if (option) {
-        if (this.optionIsDisabled(option)) {
-          return;
-        }
-
-        if (this.optionIsSelected(option[this.optionIdentifier])) {
-          return this.$emit('deselect-option', option);
-        }
-
-        this.$emit('select-option', option);
+      if (!option || this.optionIsDisabled(option)) {
+        return;
       }
+
+      if (this.optionIsSelected(option[this.optionIdentifier]) && this.multiple) {
+        this.$emit('deselect-option', option);
+        return;
+      }
+
+      this.$emit('select-option', option);
+    },
+    scrollToTop: function scrollToTop() {
+      this.$refs.scrollContent.scrollTo(0, 0);
     },
     scrollToOption: function scrollToOption(index) {
       this.$refs["option-".concat(index)][0].scrollIntoView({
-        behavior: 'smooth',
         block: 'nearest',
         inline: 'start'
       });
@@ -15797,7 +15960,8 @@ var __vue_render__ = function __vue_render__() {
   var _c = _vm._self._c || _h;
 
   return _c("div", {
-    staticClass: "vs-dropdown"
+    staticClass: "vs-dropdown",
+    class: !_vm.showPointer ? "pointer-events-none" : ""
   }, [_c("div", {
     ref: "scrollContent",
     staticClass: "vs-dropdown-scroll"
@@ -15813,7 +15977,6 @@ var __vue_render__ = function __vue_render__() {
           $event.stopPropagation();
           return _vm.toggleSelectedOption(option);
         },
-        mouseout: _vm.clearFocusedOption,
         mouseenter: function mouseenter($event) {
           return _vm.setFocusedOption(option);
         }
@@ -15852,8 +16015,7 @@ var __vue_is_functional_template__ = false;
 var __vue_component__ = normalizeComponent({
   render: __vue_render__,
   staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined); //
-
+}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
 
 var script$1 = {
   components: {
@@ -15898,10 +16060,6 @@ var script$1 = {
     },
     searchable: {
       type: Boolean,
-      default: true
-    },
-    hideSelected: {
-      type: Boolean,
       default: false
     },
     placeholder: {
@@ -15919,6 +16077,22 @@ var script$1 = {
         return ['auto', 'down', 'up'].indexOf(value) !== -1;
       }
     },
+    closeOnSelect: {
+      type: Boolean,
+      default: null
+    },
+    searchDebounceDelay: {
+      type: Number,
+      default: 150
+    },
+    scrollThrottleDelay: {
+      type: Number,
+      default: 150
+    },
+    loadMoreThreshold: {
+      type: Number,
+      default: 60
+    },
     noOptionsMessage: {
       type: String,
       default: 'No options found.'
@@ -15930,7 +16104,8 @@ var script$1 = {
       inputIsActive: false,
       dropdownIsVisible: false,
       dropdownOpenDirection: 'down',
-      selectedOptions: []
+      selectedOptions: [],
+      searchTimeout: null
     };
   },
   computed: {
@@ -15943,6 +16118,9 @@ var script$1 = {
     },
     hasValue: function hasValue() {
       return this.selectedOptions.length !== 0;
+    },
+    hasOptions: function hasOptions() {
+      return this.options.length !== 0;
     },
     hasSearchQuery: function hasSearchQuery() {
       return this.searchQuery.length !== 0;
@@ -15961,97 +16139,159 @@ var script$1 = {
 
       return this.selectedOptions[0];
     },
-    filteredOptions: function filteredOptions() {
-      var _this2 = this;
-
-      var options = this.options;
-
-      if (this.hideSelected) {
-        options = options.filter(function (option) {
-          return !_this2.selectedOptionValues.includes(option[_this2.optionIdentifier]);
-        });
+    hideDropdownOnSelect: function hideDropdownOnSelect() {
+      if (this.closeOnSelect === null) {
+        return !this.multiple;
       }
 
-      if (this.searchable) {
-        options = options.filter(function (option) {
-          return option[_this2.optionLabel].toUpperCase().indexOf(_this2.searchQuery.toUpperCase()) !== -1;
-        });
-      }
-
-      return options;
+      return this.closeOnSelect;
     }
   },
   watch: {
-    options: {
-      handler: function handler(options) {
-        var _this3 = this;
+    value: {
+      handler: function handler(values) {
+        var _this2 = this;
 
-        var values = Array.isArray(this.value) ? this.value : [this.value];
-        this.selectedOptions = options.filter(function (selectedOption) {
-          return values.includes(selectedOption[_this3.optionIdentifier]);
-        });
+        if (!this.hasOptions) {
+          return;
+        }
+
+        if (!this.selectedOptionValues) {
+          this.setSelectedOptions(values);
+          return;
+        }
+
+        if (!Array.isArray(values)) {
+          values = [values];
+        }
+
+        var diff = values.filter(function (value) {
+          return !_this2.selectedOptionValues.includes(value);
+        }); // Don't set select options if nothing has changed...
+
+        if (values.length === this.selectedOptionValues.length && diff.length === 0) {
+          return;
+        }
+
+        this.setSelectedOptions(values);
       },
-      deep: true,
       immediate: true
     },
-    searchQuery: function searchQuery(_searchQuery) {
-      if (!this.disabled) {
-        if (this.hasSearchQuery) {
-          this.showDropdown();
+    options: {
+      handler: function handler() {
+        if (this.options.length === 0) {
+          this.setSelectedOptions(this.value);
         }
-
-        this.$refs.input.setAttribute('size', _searchQuery.length + 2);
-        this.$emit('search-change', _searchQuery);
-      }
+      },
+      deep: true
     },
-    selectedOptionValues: function selectedOptionValues(_selectedOptionValues) {
-      if (!this.disabled) {
-        if (this.multiple) {
-          return this.$emit('input', _selectedOptionValues);
-        }
-
-        if (_selectedOptionValues.length !== 0) {
-          return this.$emit('input', _selectedOptionValues[0]);
-        }
-
-        this.$emit('input', null);
+    searchQuery: function searchQuery(_searchQuery) {
+      if (this.disabled) {
+        return;
       }
+
+      if (this.hasSearchQuery) {
+        this.showDropdown();
+      }
+
+      if (this.$refs.dropdown) {
+        this.$refs.dropdown.scrollToTop();
+      }
+
+      this.emitSearchQuery(_searchQuery);
+    },
+    selectedOptionValues: function selectedOptionValues(values) {
+      // Don't do anything if the select is disabled...
+      if (this.disabled) {
+        return;
+      }
+
+      if (this.multiple) {
+        return this.$emit('input', values);
+      } // Return null if nothing has been selected...
+
+
+      if (values.length === 0) {
+        return this.$emit('input', null);
+      } // Return the first selected value...
+
+
+      this.$emit('input', values[0]);
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this3 = this;
 
     ['click', 'touchstart'].forEach(function (action) {
-      document.addEventListener(action, _this4.deactivateSelectOnClick);
+      document.addEventListener(action, _this3.deactivateSelectOnClick);
     });
     document.addEventListener('keydown', this.keydownListener);
   },
   destroyed: function destroyed() {
-    var _this5 = this;
+    var _this4 = this;
 
     ['click', 'touchstart'].forEach(function (action) {
-      document.removeEventListener(action, _this5.deactivateSelectOnClick);
+      document.removeEventListener(action, _this4.deactivateSelectOnClick);
     });
     document.removeEventListener('keydown', this.keydownListener);
   },
   methods: {
     keydownListener: function keydownListener(e) {
-      if (!this.disabled) {
-        // Arrow down
-        if (e.keyCode === 40 && this.inputIsActive && !this.dropdownIsVisible) {
-          this.dropdownIsVisible = true;
-        } // Delete
+      if (this.disabled) {
+        return;
+      } // Arrow down
 
 
-        if (e.keyCode === 8 && this.inputIsActive && this.hasValue && !this.multiple) {
-          this.selectedOptions = [];
-        } // Tab, Escape
+      if (e.keyCode === 40 && this.inputIsActive && !this.dropdownIsVisible) {
+        this.dropdownIsVisible = true;
+      } // Delete
 
 
-        if ((e.keyCode === 9 || e.keyCode === 27) && this.dropdownIsVisible) {
-          this.dropdownIsVisible = false;
-        }
+      if (e.keyCode === 8 && this.inputIsActive && this.hasValue && !this.multiple) {
+        this.selectedOptions = [];
+      } // Tab, Escape
+
+
+      if ((e.keyCode === 9 || e.keyCode === 27) && this.dropdownIsVisible) {
+        this.dropdownIsVisible = false;
       }
+    },
+    setSelectedOptions: function setSelectedOptions(values) {
+      var _this5 = this;
+
+      if (!Array.isArray(values)) {
+        values = [values];
+      }
+
+      if (values.length === 0) {
+        this.selectedOptions = [];
+        return;
+      }
+
+      var options = _toConsumableArray$1(this.options);
+
+      var optionsCache = {};
+      var selectedOptions = [];
+      values.forEach(function (value) {
+        var cachedOption = optionsCache[value];
+
+        if (cachedOption) {
+          selectedOptions.push(_this5.formatSelectedOption(cachedOption));
+          return;
+        }
+
+        options.some(function (option, index) {
+          optionsCache[option[_this5.optionIdentifier]] = _objectSpread2$1({}, option);
+
+          if (option[_this5.optionIdentifier] === value) {
+            selectedOptions.push(_this5.formatSelectedOption(option)); // Remove all options before current index...
+
+            options.splice(0, index + 1);
+            return true;
+          }
+        });
+      });
+      this.selectedOptions = selectedOptions;
     },
     setDropdownPosition: function setDropdownPosition() {
       if (this.openDirection === 'auto') {
@@ -16059,19 +16299,23 @@ var script$1 = {
         var dropdownRect = this.$refs.dropdown.$el.getBoundingClientRect();
 
         if (selectRect.y + selectRect.height + dropdownRect.height > window.innerHeight) {
-          return this.dropdownOpenDirection = 'up';
+          this.dropdownOpenDirection = 'up';
+          return;
         }
 
-        return this.dropdownOpenDirection = 'down';
+        this.dropdownOpenDirection = 'down';
+        return;
       }
 
-      return this.dropdownOpenDirection = this.openDirection;
+      this.dropdownOpenDirection = this.openDirection;
     },
     activateSelect: function activateSelect() {
-      if (!this.disabled) {
-        this.focusInput();
-        this.showDropdown();
+      if (this.disabled) {
+        return;
       }
+
+      this.focusInput();
+      this.showDropdown();
     },
     focusInput: function focusInput() {
       this.$refs.input.focus();
@@ -16083,12 +16327,14 @@ var script$1 = {
     showDropdown: function showDropdown() {
       var _this6 = this;
 
-      if (!this.disabled && !this.dropdownIsVisible) {
-        this.dropdownIsVisible = true;
-        this.$nextTick(function () {
-          _this6.setDropdownPosition();
-        });
+      if (this.disabled || this.dropdownIsVisible) {
+        return;
       }
+
+      this.dropdownIsVisible = true;
+      this.$nextTick(function () {
+        _this6.setDropdownPosition();
+      });
     },
     deactivateSelectOnClick: function deactivateSelectOnClick(event) {
       if (this.dropdownIsVisible && this.$refs.select !== event.target && !this.$refs.select.contains(event.target)) {
@@ -16097,30 +16343,61 @@ var script$1 = {
         this.dropdownIsVisible = false;
       }
     },
+    formatSelectedOption: function formatSelectedOption(option) {
+      var _ref;
+
+      return _ref = {}, _defineProperty$2(_ref, this.optionIdentifier, option[this.optionIdentifier]), _defineProperty$2(_ref, this.optionLabel, option[this.optionLabel]), _ref;
+    },
     selectOption: function selectOption(option) {
-      if (!this.disabled) {
+      if (this.disabled) {
+        return;
+      }
+
+      if (this.hideDropdownOnSelect) {
         this.focusInput();
         this.searchQuery = '';
         this.dropdownIsVisible = false;
-        this.$emit('select', option);
-
-        if (this.multiple) {
-          return this.selectedOptions.push(option);
-        }
-
-        this.selectedOptions = [option];
       }
+
+      this.$emit('change');
+      this.$emit('select', option);
+
+      if (this.multiple) {
+        this.selectedOptions.push(option);
+        return;
+      }
+
+      this.selectedOptions = [option];
     },
     deselectOption: function deselectOption(option) {
       var _this7 = this;
 
-      if (!this.disabled) {
-        this.dropdownIsVisible = false;
-        this.$emit('deselect', option);
-        this.selectedOptions = this.selectedOptions.filter(function (selectedOption) {
-          return selectedOption[_this7.optionIdentifier] !== option[_this7.optionIdentifier];
-        });
+      if (this.disabled) {
+        return;
       }
+
+      if (this.hideDropdownOnSelect) {
+        this.dropdownIsVisible = false;
+      }
+
+      this.$emit('change');
+      this.$emit('deselect', option);
+      this.selectedOptions = this.selectedOptions.filter(function (selectedOption) {
+        return selectedOption[_this7.optionIdentifier] !== option[_this7.optionIdentifier];
+      });
+    },
+    emitSearchQuery: function emitSearchQuery(searchQuery) {
+      var _this8 = this;
+
+      if (this.searchDebounceDelay <= 0) {
+        this.$emit('query-change', searchQuery);
+        return;
+      }
+
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = setTimeout(function () {
+        _this8.$emit('query-change', searchQuery);
+      }, this.searchDebounceDelay);
     }
   }
 };
@@ -16151,9 +16428,9 @@ var __vue_render__$1 = function __vue_render__() {
     staticClass: "vs-select-container"
   }, [!_vm.hasValue && !_vm.hasSearchQuery ? _c("div", {
     staticClass: "vs-select-placeholder"
-  }, [_vm._v("\n                    " + _vm._s(_vm.placeholder) + "\n                ")]) : _vm._e(), _vm._v(" "), _vm.hasValue && _vm.multiple ? _vm._l(_vm.selectedOptions, function (selectedOption) {
+  }, [_vm._v("\n                    " + _vm._s(_vm.placeholder) + "\n                ")]) : _vm._e(), _vm._v(" "), _vm.hasValue && _vm.multiple ? _vm._l(_vm.selectedOptions, function (selectedOption, index) {
     return _c("div", {
-      key: selectedOption[_vm.optionIdentifier],
+      key: index,
       staticClass: "vs-select-multiple-value",
       on: {
         click: function click($event) {
@@ -16184,9 +16461,9 @@ var __vue_render__$1 = function __vue_render__() {
     ref: "input",
     attrs: {
       id: _vm.id,
-      size: "2",
       type: "text",
-      readonly: _vm.disabled,
+      size: _vm.disabled || !_vm.searchable ? 2 : null,
+      readonly: _vm.disabled || !_vm.searchable,
       tabindex: _vm.disabled ? -1 : 0,
       autocomplete: "off"
     },
@@ -16217,11 +16494,14 @@ var __vue_render__$1 = function __vue_render__() {
   })])]), _vm._v(" "), _vm.dropdownIsVisible ? _c("select-dropdown", {
     ref: "dropdown",
     attrs: {
-      options: _vm.filteredOptions,
+      options: _vm.options,
+      multiple: _vm.multiple,
       "loading-more": _vm.loadingMore,
       "selected-options": _vm.selectedOptions,
       "option-identifier": _vm.optionIdentifier,
-      "no-options-message": _vm.noOptionsMessage
+      "no-options-message": _vm.noOptionsMessage,
+      "scroll-throttle-delay": _vm.scrollThrottleDelay,
+      "load-more-threshold": _vm.loadMoreThreshold
     },
     on: {
       "load-more": function loadMore($event) {
@@ -16248,7 +16528,9 @@ var __vue_render__$1 = function __vue_render__() {
       fn: function fn() {
         return [_vm._t("dropdown-loader", [_c("div", {
           staticClass: "vs-dropdown-loader"
-        }, [_vm._v("\n                        Loading...\n                    ")])])];
+        }, [_c("div", {
+          staticClass: "vs-loader-dots"
+        }, [_vm._v("\n                            Loading\n                        ")])])])];
       },
       proxy: true
     }], null, true)
@@ -16391,7 +16673,7 @@ var mutations$2 = {
 var actions$2 = {
   setTitle: function setTitle(_ref, title) {
     var commit = _ref.commit;
-    var appName = "Optimus Template";
+    var appName = "Optimus";
     commit('setTitle', title);
     document.title = "".concat(title, " | ").concat(appName ? appName + ' -' : '', " Optimus");
   },
@@ -77349,7 +77631,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/rich/code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
+module.exports = __webpack_require__(/*! /Users/rich/Code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
 
 
 /***/ })
