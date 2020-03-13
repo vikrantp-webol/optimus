@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Templates\DefaultTemplate;
-use OptimusCMS\Pages\Facades\Template;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,8 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Template::registerMany([
-            DefaultTemplate::class,
-        ]);
+        //
     }
 }

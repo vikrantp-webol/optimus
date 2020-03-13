@@ -6,9 +6,12 @@ Route::post('login', 'Auth\LoginController@login')->name('admin.login');
 Route::post('logout', 'Auth\LoginController@logout')->name('admin.logout');
 
 // Api
-Route::prefix('api')->middleware('auth:admin')->group(function () {
-    // Register your routes here...
-});
+Route::prefix('api')
+     ->middleware('auth:admin')
+     ->namespace('Api')
+     ->group(function () {
+         Route::get('example', 'ExampleController@index');
+     });
 
 Route::view('{page?}', 'back.layouts.app')
      ->middleware('auth:admin')

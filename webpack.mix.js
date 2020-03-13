@@ -17,10 +17,8 @@ if (mix.inProduction()) {
             ],
             extractors: [
                 {
-                    extractor: class TailwindExtractor {
-                        static extract(content) {
-                            return content.match(/[A-Za-z0-9-_:/]+/g) || [];
-                        }
+                    extractor: content => {
+                        return content.match(/[A-Za-z0-9-_:/]+/g) || [];
                     },
                     extensions: ['js', 'php', 'vue'],
                 },
