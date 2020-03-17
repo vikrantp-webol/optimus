@@ -15,7 +15,8 @@ class CreateMetaTable extends Migration
     {
         Schema::create('meta', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->morphs('metable');
+            $table->unsignedBigInteger('metable_id')->index();
+            $table->string('metable_type');
             $table->string('title')->nullable();
             $table->string('description')->nullable();
             $table->string('og_title')->nullable();

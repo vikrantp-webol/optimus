@@ -29,7 +29,11 @@ class Meta extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'og_title', 'og_description', 'additional_tags',
+        'title',
+        'description',
+        'og_title',
+        'og_description',
+        'additional_tags',
     ];
 
     /**
@@ -71,7 +75,7 @@ class Meta extends Model
     public function registerMediaGroups()
     {
         $this->addMediaGroup(self::OG_IMAGE_MEDIA_GROUP)
-             ->performConversions(self::OG_IMAGE_MEDIA_CONVERSION);
+            ->performConversions(self::OG_IMAGE_MEDIA_CONVERSION);
     }
 
     /**

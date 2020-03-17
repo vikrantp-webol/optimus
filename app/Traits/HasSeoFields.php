@@ -33,27 +33,27 @@ trait HasSeoFields
      */
     public function saveMeta(array $data = [])
     {
-        /** @var Meta $meta */
-        $meta = $this->meta()->updateOrCreate([], $data);
+        return tap(
+            $this->meta()->updateOrCreate([], $data),
+            function (Meta $meta) use ($data) {
+                if (! array_key_exists('og_image_id', $data)) {
+                    return;
+                }
 
-        if (! array_key_exists('og_image_id', $data)) {
-            return $meta;
-        }
+                if (! $meta->wasRecentlyCreated) {
+                    $meta->clearMediaGroup(Meta::OG_IMAGE_MEDIA_GROUP);
+                }
 
-        if (! $meta->wasRecentlyCreated) {
-            $meta->clearMediaGroup(Meta::OG_IMAGE_MEDIA_GROUP);
-        }
-
-        // Attach an og image to the model if it's
-        // present in the data...
-        if ($ogImageId = $data['og_image_id']) {
-            $meta->attachMedia(
-                $ogImageId,
-                Meta::OG_IMAGE_MEDIA_GROUP
-            );
-        }
-
-        return $meta;
+                // Attach an og image to the model if it's
+                // present in the data...
+                if ($ogImageId = $data['og_image_id']) {
+                    $meta->attachMedia(
+                        $ogImageId,
+                        Meta::OG_IMAGE_MEDIA_GROUP
+                    );
+                }
+            }
+        );
     }
 
     /**
