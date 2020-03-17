@@ -6,7 +6,11 @@
             <div class="p-8 border-b border-grey-400">
                 <div class="max-w-3xl">
                     <!-- Name -->
-                    <o-form-field input="name" label="Name" required>
+                    <o-form-field
+                        input="name"
+                        label="Name"
+                        required
+                    >
                         <o-input
                             id="name"
                             v-model="form.name"
@@ -15,7 +19,11 @@
                     </o-form-field>
 
                     <!-- Email -->
-                    <o-form-field input="email" label="Email" required>
+                    <o-form-field
+                        input="email"
+                        label="Email"
+                        required
+                    >
                         <o-input
                             id="email"
                             v-model="form.email"
@@ -39,7 +47,11 @@
                     </o-form-field>
 
                     <!-- Password -->
-                    <o-form-field input="password" label="Password" :required="! item">
+                    <o-form-field
+                        input="password"
+                        label="Password"
+                        :required="! item"
+                    >
                         <o-input
                             id="password"
                             v-model="form.password"
@@ -50,7 +62,10 @@
                     </o-form-field>
 
                     <!-- Avatar -->
-                    <o-form-field v-if="isEditing" label="Avatar">
+                    <o-form-field
+                        v-if="isEditing"
+                        label="Avatar"
+                    >
                         <div class="control">
                             <div class="w-48 h-48 border border-grey-500 rounded">
                                 <img
@@ -62,9 +77,11 @@
 
                         <template slot="help">
                             Change your avatar via
-                            <a href="http://en.gravatar.com/" class="underline" target="_blank">
-                                gravatar.com
-                            </a>.
+                            <a
+                                href="http://en.gravatar.com/"
+                                class="underline"
+                                target="_blank"
+                            >gravatar.com</a>.
                         </template>
                     </o-form-field>
                 </div>

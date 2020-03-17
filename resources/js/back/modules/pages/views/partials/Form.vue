@@ -8,7 +8,11 @@
                     <o-tabs>
                         <o-tab name="Content">
                             <!-- Title -->
-                            <o-form-field input="title" label="Title" required>
+                            <o-form-field
+                                input="title"
+                                label="Title"
+                                required
+                            >
                                 <o-input
                                     id="title"
                                     v-model="form.title"
@@ -19,7 +23,10 @@
                             <div class="lg:flex lg:-mx-4">
                                 <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Parent -->
-                                    <o-form-field input="parent_id" label="Parent">
+                                    <o-form-field
+                                        input="parent_id"
+                                        label="Parent"
+                                    >
                                         <o-select
                                             id="parent_id"
                                             v-model="form.parent_id"
@@ -32,7 +39,11 @@
 
                                 <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Template -->
-                                    <o-form-field input="template_name" label="Template" required>
+                                    <o-form-field
+                                        input="template_name"
+                                        label="Template"
+                                        required
+                                    >
                                         <o-select
                                             id="template_name"
                                             v-model="form.template.name"
@@ -52,7 +63,10 @@
                             />
 
                             <!-- Stand alone -->
-                            <o-form-field input="is_stand_alone" label="Stand alone">
+                            <o-form-field
+                                input="is_stand_alone"
+                                label="Stand alone"
+                            >
                                 <o-checkbox
                                     id="is_stand_alone"
                                     v-model="form.is_standalone"
@@ -63,7 +77,10 @@
 
                         <o-tab name="Meta">
                             <!-- Slug -->
-                            <o-form-field input="slug" label="Slug">
+                            <o-form-field
+                                input="slug"
+                                label="Slug"
+                            >
                                 <o-input
                                     id="slug"
                                     v-model="form.slug"

@@ -1,15 +1,22 @@
 <template>
     <div class="field">
         <!-- Content -->
-        <o-form-field input="default_content" label="Content" required>
+        <o-form-field
+            input="content"
+            label="Content"
+            required
+        >
             <editor
-                id="default_content"
+                id="content"
                 v-model="form.content"
             />
         </o-form-field>
 
         <!-- Image -->
-        <o-form-field input="image_id" label="Image">
+        <o-form-field
+            input="image_id"
+            label="Image"
+        >
             <media-picker
                 id="image_id"
                 v-model="form.image_id"
@@ -42,12 +49,14 @@ export default {
     watch: {
         item: {
             handler(item) {
-                if (item) {
-                    this.form = {
-                        content: item.content,
-                        image_id: item.image ? item.image.id : null,
-                    };
+                if (! item) {
+                    return;
                 }
+
+                this.form = {
+                    content: item.content,
+                    image_id: item.image ? item.image.id : null,
+                };
             },
             immediate: true,
         },
