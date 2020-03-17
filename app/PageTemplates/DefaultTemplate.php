@@ -2,11 +2,9 @@
 
 namespace App\PageTemplates;
 
-use OptimusCMS\Media\Http\Resources\MediaResource;
-use OptimusCMS\Pages\Contracts\PageTemplate;
-use OptimusCMS\Pages\Models\Page;
+use App\Models\Page;
 
-class DefaultTemplate implements PageTemplate
+class DefaultTemplate implements TemplateInterface
 {
     public static function getId(): string
     {
@@ -16,11 +14,6 @@ class DefaultTemplate implements PageTemplate
     public static function getName(): string
     {
         return 'Default';
-    }
-
-    public static function getMeta(): array
-    {
-        return [];
     }
 
     public static function validateData(array $data)

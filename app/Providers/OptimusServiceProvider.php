@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\PageTemplates\TemplateRegistry;
 use Illuminate\Support\ServiceProvider;
 
 class OptimusServiceProvider extends ServiceProvider
@@ -14,8 +13,6 @@ class OptimusServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        TemplateRegistry::register([
-            //
-        ]);
+        //
     }
 }
