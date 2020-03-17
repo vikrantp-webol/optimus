@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Back\Api;
 
 use App\Http\Controllers\Back\Controller;
-use App\Http\Resources\MediaFolderResource;
+use App\Http\Resources\FolderResource;
 use App\Models\MediaFolder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -26,14 +26,14 @@ class MediaFoldersController extends Controller
             ->orderBy('name')
             ->get();
 
-        return MediaFolderResource::collection($folders);
+        return FolderResource::collection($folders);
     }
 
     /**
      * Create a new media folder.
      *
      * @param Request $request
-     * @return MediaFolderResource
+     * @return FolderResource
      */
     public function store(Request $request)
     {
@@ -46,21 +46,21 @@ class MediaFoldersController extends Controller
 
         $folder->save();
 
-        return new MediaFolderResource($folder);
+        return new FolderResource($folder);
     }
 
     /**
      * Display the specified media folder.
      *
      * @param int $id
-     * @return MediaFolderResource
+     * @return FolderResource
      */
     public function show($id)
     {
         /** @var MediaFolder $folder */
         $folder = MediaFolder::findOrFail($id);
 
-        return new MediaFolderResource($folder);
+        return new FolderResource($folder);
     }
 
     /**
@@ -68,7 +68,7 @@ class MediaFoldersController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return MediaFolderResource
+     * @return FolderResource
      */
     public function update(Request $request, $id)
     {
@@ -83,7 +83,7 @@ class MediaFoldersController extends Controller
 
         $folder->fill($data)->save();
 
-        return new MediaFolderResource($folder);
+        return new FolderResource($folder);
     }
 
     /**

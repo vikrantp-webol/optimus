@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class MediaFolderResource extends JsonResource
+class FolderResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,6 +18,7 @@ class MediaFolderResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'parent_id' => $this->parent_id,
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
         ];

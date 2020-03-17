@@ -6,31 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateMediaFoldersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('media_folders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('parent_id')->index()->nullable();
             $table->string('name');
-            $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->timestamps();
 
             $table->foreign('parent_id')
-                  ->references('id')
-                  ->on('media_folders')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('media_folders')
+                ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('media_folders');
