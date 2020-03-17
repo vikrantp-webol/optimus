@@ -2,38 +2,67 @@
 
 namespace App\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Meta;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Optix\Media\Models\Media;
 
-/**
- * @property Meta $meta
- */
 trait HasSeoFields
 {
     /**
-     * Define the "seoFields" relationship.
+     * Get the meta value with the given key.
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public function getMeta($key, $default = null)
+    {
+        $meta = $this->meta;
+
+        if ($meta && $value = $meta->getAttribute($key)) {
+            return $value;
+        }
+
+        return $default;
+    }
+
+    /**
+     * Save meta to the model.
+     *
+     * @param array $data
+     * @return Meta|false
+     */
+    public function saveMeta(array $data = [])
+    {
+        /** @var Meta $meta */
+        $meta = $this->meta()->updateOrCreate([], $data);
+
+        if (! array_key_exists('og_image_id', $data)) {
+            return $meta;
+        }
+
+        if (! $meta->wasRecentlyCreated) {
+            $meta->clearMediaGroup(Meta::OG_IMAGE_MEDIA_GROUP);
+        }
+
+        // Attach an og image to the model if it's
+        // present in the data...
+        if ($ogImageId = $data['og_image_id']) {
+            $meta->attachMedia(
+                $ogImageId,
+                Meta::OG_IMAGE_MEDIA_GROUP
+            );
+        }
+
+        return $meta;
+    }
+
+    /**
+     * Get the meta relationship.
      *
      * @return MorphOne
      */
     public function meta()
     {
-        /* @var Model $this */
-        return $this->morphOne(Meta::class, 'metable');
-    }
-
-    public function saveMeta(array $data = [])
-    {
-        if (! empty($data)) {
-            $this->load('meta');
-            $this->meta ? $this->meta()->update($data) : $this->meta()->create($data);
-            $this->load('meta');
-
-            // Attach OG image
-            if (! empty($data['og_image_id'])) {
-                $media = Media::findOrFail($data['og_image_id']);
-                $this->meta->attachMedia($media, Meta::OG_MEDIA_GROUP, [Meta::OG_MEDIA_CONVERSION]);
-            }
-        }
+        return $this->morphOne(Meta::class, 'metable')->withDefault();
     }
 }

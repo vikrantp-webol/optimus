@@ -6,6 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMediablesTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('mediables', function (Blueprint $table) {
@@ -15,12 +20,17 @@ class CreateMediablesTable extends Migration
             $table->string('group');
 
             $table->foreign('media_id')
-                ->references('id')
-                ->on('media')
-                ->onDelete('cascade');
+                  ->references('id')
+                  ->on('media')
+                  ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('mediables');

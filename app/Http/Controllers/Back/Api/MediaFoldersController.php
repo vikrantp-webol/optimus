@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Back\Api;
 
 use App\Http\Controllers\Back\Controller;
-use App\Http\Resources\FolderResource;
+use App\Http\Resources\MediaFolderResource;
 use App\Models\MediaFolder;
+use App\Rules\NotDescendantOrSelf;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -26,14 +27,14 @@ class MediaFoldersController extends Controller
             ->orderBy('name')
             ->get();
 
-        return FolderResource::collection($folders);
+        return MediaFolderResource::collection($folders);
     }
 
     /**
      * Create a new media folder.
      *
      * @param Request $request
-     * @return FolderResource
+     * @return MediaFolderResource
      */
     public function store(Request $request)
     {
@@ -46,21 +47,21 @@ class MediaFoldersController extends Controller
 
         $folder->save();
 
-        return new FolderResource($folder);
+        return new MediaFolderResource($folder);
     }
 
     /**
      * Display the specified media folder.
      *
      * @param int $id
-     * @return FolderResource
+     * @return MediaFolderResource
      */
     public function show($id)
     {
         /** @var MediaFolder $folder */
         $folder = MediaFolder::findOrFail($id);
 
-        return new FolderResource($folder);
+        return new MediaFolderResource($folder);
     }
 
     /**
@@ -68,7 +69,7 @@ class MediaFoldersController extends Controller
      *
      * @param Request $request
      * @param int $id
-     * @return FolderResource
+     * @return MediaFolderResource
      */
     public function update(Request $request, $id)
     {
@@ -77,13 +78,15 @@ class MediaFoldersController extends Controller
 
         $data = $request->validate([
             'name' => 'filled|string|max:255',
-            'parent_id' => 'nullable|exists:media,id',
-            // Todo: NotSelfOrAncestor...
+            'parent_id' => [
+                'nullable', 'exists:media,id',
+                new NotDescendantOrSelf($folder->id, 'media_folders'),
+            ],
         ]);
 
         $folder->fill($data)->save();
 
-        return new FolderResource($folder);
+        return new MediaFolderResource($folder);
     }
 
     /**

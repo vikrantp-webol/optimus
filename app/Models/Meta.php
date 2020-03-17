@@ -2,20 +2,26 @@
 
 namespace App\Models;
 
-use App\Traits\HasSeoFields;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Optix\Media\HasMedia;
 
 class Meta extends Model
 {
-    use HasSeoFields;
-
-    const OG_MEDIA_GROUP = 'og_image';
-    const OG_MEDIA_CONVERSION = 'og_image_size';
+    use HasMedia;
 
     /**
-     * @var string The name of the underlying database table.
+     * The table associated with the model.
+     *
+     * @var string
      */
     protected $table = 'meta';
+
+    /** @var string */
+    const OG_IMAGE_MEDIA_GROUP = 'og_image';
+
+    /** @var string */
+    const OG_IMAGE_MEDIA_CONVERSION = '1200x630';
 
     /**
      * The attributes that are mass assignable.
@@ -23,33 +29,58 @@ class Meta extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'og_title', 'og_description', 'custom_tags',
+        'title', 'description', 'og_title', 'og_description', 'additional_tags',
     ];
 
-    public function registerMediaGroups()
-    {
-        $this->addMediaGroup(self::OG_MEDIA_GROUP)->performConversions(self::OG_MEDIA_CONVERSION);
-    }
-
     /**
-     * @return Media|null
+     * Get the og image url.
+     *
+     * @return string
      */
-    public function getOgImage()
+    public function getOgImageAttribute()
     {
-        return $this->getFirstMedia(self::OG_MEDIA_GROUP);
+        return $this->getFirstMediaUrl(
+            self::OG_IMAGE_MEDIA_GROUP,
+            self::OG_IMAGE_MEDIA_CONVERSION
+        );
     }
 
     /**
-     * When presenting the Meta Model on an API endpoint, always include a Media representation of the OG Image.
+     * Get the validation rules.
      *
      * @return array
      */
-    public function toArray(): array
+    public static function rules()
     {
-        $representation = parent::toArray();
-        $ogImage = $this->getOgImage();
-        $representation['og_image'] = $ogImage ? MediaRes::make($this->getOgImage()) : null;
+        return [
+            'meta' => 'array',
+            'meta.title' => 'nullable|string|max:255',
+            'meta.description' => 'nullable|string|max:255',
+            'meta.og_title' => 'nullable|string|max:255',
+            'meta.og_description' => 'nullable|string|max:255',
+            'meta.og_image_id' => 'nullable|exists:media,id',
+            'meta.additional_tags' => 'nullable|string',
+        ];
+    }
 
-        return $representation;
+    /**
+     * Register the model's media groups.
+     *
+     * @return void
+     */
+    public function registerMediaGroups()
+    {
+        $this->addMediaGroup(self::OG_IMAGE_MEDIA_GROUP)
+             ->performConversions(self::OG_IMAGE_MEDIA_CONVERSION);
+    }
+
+    /**
+     * Get the metable relationship.
+     *
+     * @return MorphTo
+     */
+    public function metable()
+    {
+        return $this->morphTo();
     }
 }

@@ -6,6 +6,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMediaTable extends Migration
 {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('media', function (Blueprint $table) {
@@ -21,12 +26,17 @@ class CreateMediaTable extends Migration
             $table->timestamps();
 
             $table->foreign('folder_id')
-                ->references('id')
-                ->on('media_folders')
-                ->onDelete('cascade');
+                  ->references('id')
+                  ->on('media_folders')
+                  ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('media');
