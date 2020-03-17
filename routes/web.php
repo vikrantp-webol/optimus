@@ -11,4 +11,6 @@
 |
 */
 
-Route::view('/', 'front.home');
+Route::get('/', function () {
+    // Todo...
+});

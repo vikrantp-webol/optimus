@@ -165,10 +165,6 @@ return [
         /*
          * Package Service Providers...
          */
-        OptimusCMS\Media\MediaServiceProvider::class,
-        OptimusCMS\Meta\MetaServiceProvider::class,
-        OptimusCMS\Pages\PageServiceProvider::class,
-        OptimusCMS\Users\UserServiceProvider::class,
 
         /*
          * Application Service Providers...
