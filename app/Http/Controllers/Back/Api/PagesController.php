@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back\Api;
 use App\Http\Controllers\Back\Controller;
 use App\Http\Resources\PageResource;
 use App\Jobs\UpdatePagePath;
+use App\Models\Meta;
 use App\Models\Page;
 use App\PageTemplates;
 use App\Rules\NotDescendantOrSelf;
@@ -58,6 +59,7 @@ class PagesController extends Controller
             'parent_id' => 'nullable|exists:pages,id',
             'is_standalone' => 'present|boolean',
             'is_published' => 'present|boolean',
+            'meta' => Meta::rules(),
         ]);
 
         $template = PageTemplates::get(
@@ -139,6 +141,7 @@ class PagesController extends Controller
             ],
             'is_standalone' => 'present|boolean',
             'is_published' => 'present|boolean',
+            'meta' => Meta::rules(),
         ]);
 
         $templateId = ! $page->has_fixed_template
