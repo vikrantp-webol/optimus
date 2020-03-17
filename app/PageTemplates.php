@@ -35,10 +35,8 @@ class PageTemplates
 
         foreach ($templates as $i => $template) {
             if (! is_subclass_of($template, PageTemplate::class, true)) {
-                $detail = is_string($template) ? " [{$template}]" : null;
-
                 throw new InvalidTemplateException(
-                    "The page template given at index {$i}{$detail} is invalid."
+                    "The template given at index {$i} is invalid."
                 );
             }
 

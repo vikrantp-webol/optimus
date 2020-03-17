@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
 
 class AdminUsersController extends Controller
 {
@@ -34,18 +33,19 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'username' => 'required|string|max:255',
             'password' => 'required|string|min:8',
         ]);
 
-        $user = new AdminUser(
-            Arr::except($data, 'password')
-        );
+        $user = new AdminUser();
 
-        $user->password = bcrypt($data['password']);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
+        $user->password = bcrypt($request->input('password'));
 
         $user->save();
 
@@ -78,19 +78,19 @@ class AdminUsersController extends Controller
         /** @var AdminUser $user */
         $user = AdminUser::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => 'filled|string|max:255',
-            'email' => 'filled|email|max:255',
-            'username' => 'filled|string|max:255',
-            'password' => 'filled|string|min:8',
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'username' => 'required|string|max:255',
+            'password' => 'nullable|string|min:8',
         ]);
 
-        $user->fill(
-            Arr::except($data, 'password')
-        );
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->username = $request->input('username');
 
-        if (! empty($data['password'])) {
-            $user->password = bcrypt($data['password']);
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->input('password'));
         }
 
         $user->save();

@@ -38,12 +38,15 @@ class MediaFoldersController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'name' => 'required|string|max:255',
             'parent_id' => 'nullable|exists:media,id',
         ]);
 
-        $folder = new MediaFolder($data);
+        $folder = new MediaFolder();
+
+        $folder->name = $request->input('name');
+        $folder->parent_id = $request->input('parent_id');
 
         $folder->save();
 
@@ -76,15 +79,18 @@ class MediaFoldersController extends Controller
         /** @var MediaFolder $folder */
         $folder = MediaFolder::findOrFail($id);
 
-        $data = $request->validate([
-            'name' => 'filled|string|max:255',
+        $request->validate([
+            'name' => 'required|string|max:255',
             'parent_id' => [
                 'nullable', 'exists:media,id',
                 new NotDescendantOrSelf($folder->id, 'media_folders'),
             ],
         ]);
 
-        $folder->fill($data)->save();
+        $folder->name = $request->input('name');
+        $folder->parent_id = $request->input('parent_id');
+
+        $folder->save();
 
         return new MediaFolderResource($folder);
     }
