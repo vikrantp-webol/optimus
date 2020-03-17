@@ -1,10 +1,10 @@
 <?php
 
-namespace App\PageTemplates;
+namespace App\Contracts;
 
 use App\Models\Page;
 
-interface TemplateInterface
+interface PageTemplate
 {
     public static function getId(): string;
 

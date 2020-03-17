@@ -1,11 +1,12 @@
 <?php
 
-namespace App\PageTemplates;
+namespace App;
 
+use App\Contracts\PageTemplate;
 use App\Exceptions\InvalidTemplateException;
 use App\Exceptions\TemplateNotFoundException;
 
-class TemplateRegistry
+class PageTemplates
 {
     /** @var array */
     protected static $templates = [];
@@ -33,15 +34,15 @@ class TemplateRegistry
         $classes = [];
 
         foreach ($templates as $i => $template) {
-            // Todo...
+            if (! is_subclass_of($template, PageTemplate::class, true)) {
+                $detail = is_string($template) ? " [{$template}]" : null;
 
-            if (! is_subclass_of($template, TemplateInterface::class, true)) {
                 throw new InvalidTemplateException(
-                    "The page template given at index {$i} [{$template}] is invalid."
+                    "The page template given at index {$i}{$detail} is invalid."
                 );
             }
 
-            if ($template instanceof TemplateInterface) {
+            if ($template instanceof PageTemplate) {
                 $template = get_class($template);
             }
 
@@ -56,6 +57,8 @@ class TemplateRegistry
      *
      * @param string $id
      * @return mixed
+     *
+     * @throws TemplateNotFoundException
      */
     public static function get(string $id)
     {

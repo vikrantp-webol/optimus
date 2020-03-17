@@ -30,6 +30,24 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
         Route::get('/', 'MediaController@index');
         Route::post('/', 'MediaController@store');
     });
+
+    // Page Templates
+    Route::prefix('page-templates')->group(function () {
+        Route::get('/', 'PageTemplatesController@index');
+        Route::get('{id}', 'PageTemplatesController@show');
+    });
+
+    // Pages
+    Route::prefix('pages')->group(function () {
+        Route::get('/', 'PagesController@index');
+        Route::post('/', 'PagesController@store');
+        Route::get('{id}', 'PagesController@show');
+        Route::patch('{id}', 'PagesController@update');
+        Route::delete('{id}', 'PagesController@destroy');
+
+        // Move
+        Route::post('{id}/move', 'PagesController@move');
+    });
 });
 
 Route::view('{path?}', 'back.layouts.app')

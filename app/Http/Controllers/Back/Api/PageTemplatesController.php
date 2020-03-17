@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Back\Api;
 
 use App\Http\Controllers\Back\Controller;
 use App\Http\Resources\PageTemplateResource;
-use App\PageTemplates\TemplateRegistry;
+use App\PageTemplates;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PageTemplatesController extends Controller
@@ -16,7 +16,7 @@ class PageTemplatesController extends Controller
      */
     public function index()
     {
-        $templates = TemplateRegistry::all();
+        $templates = PageTemplates::all();
 
         return PageTemplateResource::collection($templates);
     }
@@ -29,7 +29,7 @@ class PageTemplatesController extends Controller
      */
     public function show($id)
     {
-        $template = TemplateRegistry::get($id);
+        $template = PageTemplates::get($id);
 
         return new PageTemplateResource($template);
     }

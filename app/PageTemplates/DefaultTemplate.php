@@ -2,9 +2,10 @@
 
 namespace App\PageTemplates;
 
+use App\Contracts\PageTemplate;
 use App\Models\Page;
 
-class DefaultTemplate implements TemplateInterface
+class DefaultTemplate implements PageTemplate
 {
     public static function getId(): string
     {
