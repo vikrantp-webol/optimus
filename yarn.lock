@@ -786,15 +786,15 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@optimuscms/editor@^2.2.5":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.6.tgz#5ad465bf3732f27e32f8beaa9e16781484270743"
-  integrity sha512-sOUk9gJsOSQuQcM4S3r8W0eZKFJWDQPu6dxN4pFtAVqk98L1MvZ8RQL85m8C1R4sCb7qsyOzwX+Pw7CP4qUibg==
+"@optimuscms/editor@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.7.tgz#edbceea3788e4c665d6e79de965176b7de7825e2"
+  integrity sha512-BUNuwn4EUIlLQszVDbqHv6qdHIw5C6IFOIizrQ2onnIT7IXsFLrViuDXyuobd6x41Bl6ir3fGy7DNHULf+HblQ==
   dependencies:
     "@tinymce/tinymce-vue" "^1.1.0"
     vue "^2.6.10"
 
-"@optimuscms/media-manager@^1.3.4":
+"@optimuscms/media-manager@^1.3.5":
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.5.tgz#f697436797cb3432fae15dde14ee4b4ddce3ff5b"
   integrity sha512-CB3EJNryK8PuhPBpR7Plb8ikB6d6hgE/2ob5L+GEq6+v5INK3RKAddx9b55mTL4aT8pgiMxgpXU5YinKxJHC3g==
@@ -808,7 +808,7 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.3.1":
+"@optimuscms/theme@^0.3.3":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.3.tgz#5a8e13e8f55532b83c0dafd61b92d15b3d3a4bb5"
   integrity sha512-F/bdscu1v2vW7UFJI1RXJ/F1HuNsa/xwQQXFU0afA2uQO/1ovvi1RG1Y+T1VaywvCY6ZoR590Ki1eLOa4f5ZvA==
@@ -825,7 +825,7 @@
     vue "^2.6.10"
     vuex "^3.1.0"
 
-"@optix/sass@^0.2.4", "@optix/sass@^0.2.5":
+"@optix/sass@^0.2.5":
   version "0.2.5"
   resolved "https://registry.yarnpkg.com/@optix/sass/-/sass-0.2.5.tgz#126ea7d79d3e5e44d9af76cb5bd59ad80d2b123d"
   integrity sha512-rmzdHCvTZ9NlrdplxjTQi4/bEFedBt0twjqKMRxaX1LJuVBK0F2qBONg+F28vX2D3NUrqUXlJ629348BIE2ufA==

@@ -1,12 +1,20 @@
 <template>
     <o-dashboard-layout :loading="isLoading('app.*')" :avatar="avatar">
         <template slot="side-nav">
-            <o-side-nav-item :to="{ name: 'pages.index' }" label="Pages" section="pages">
-                <o-side-sub-nav-item :to="{ name: 'pages.index' }">
+            <o-side-nav-item
+                :to="{ name: 'pages.index' }"
+                label="Pages"
+                section="pages"
+            >
+                <o-side-sub-nav-item
+                    :to="{ name: 'pages.index' }"
+                >
                     Manage Pages
                 </o-side-sub-nav-item>
 
-                <o-side-sub-nav-item :to="{ name: 'pages.create' }">
+                <o-side-sub-nav-item
+                    :to="{ name: 'pages.create' }"
+                >
                     Add Page
                 </o-side-sub-nav-item>
             </o-side-nav-item>
@@ -16,12 +24,20 @@
                 @click="openMediaManager()"
             />
 
-            <o-side-nav-item :to="{ name: 'users.index' }" label="Users" section="users">
-                <o-side-sub-nav-item :to="{ name: 'users.index' }">
+            <o-side-nav-item
+                :to="{ name: 'users.index' }"
+                label="Users"
+                section="users"
+            >
+                <o-side-sub-nav-item
+                    :to="{ name: 'users.index' }"
+                >
                     Manage Users
                 </o-side-sub-nav-item>
 
-                <o-side-sub-nav-item :to="{ name: 'users.create' }">
+                <o-side-sub-nav-item
+                    :to="{ name: 'users.create' }"
+                >
                     Add User
                 </o-side-sub-nav-item>
             </o-side-nav-item>
