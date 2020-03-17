@@ -1,5 +1,7 @@
 <template>
-    <page-form :item="page" />
+    <page-form
+        :item="page"
+    />
 </template>
 
 <script>

@@ -4,8 +4,8 @@ Vue.use(VueRouter);
 import store from '../store';
 
 // Routes
+import adminUserRoutes from '../modules/admin-users/routes/app';
 import pageRoutes from '../modules/pages/routes/app';
-import userRoutes from '../modules/users/routes/app';
 
 const router = new VueRouter({
     base: '/admin',
@@ -24,8 +24,8 @@ const router = new VueRouter({
             },
         },
 
+        ...adminUserRoutes,
         ...pageRoutes,
-        ...userRoutes,
     ],
 });
 

@@ -104,7 +104,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import { formMixin } from '@optimuscms/theme';
 
-import { createUser, updateUser } from '../../routes/api';
+import { createAdminUser, updateAdminUser } from '../../routes/api';
 
 export default {
     mixins: [ formMixin ],
@@ -160,10 +160,10 @@ export default {
 
         save() {
             if (this.isEditing) {
-                return updateUser(this.item.id, this.form);
+                return updateAdminUser(this.item.id, this.form);
             }
 
-            return createUser(this.form);
+            return createAdminUser(this.form);
         },
 
         onSuccess(response) {

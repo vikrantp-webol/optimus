@@ -25,20 +25,20 @@
             />
 
             <o-side-nav-item
-                :to="{ name: 'users.index' }"
-                label="Users"
-                section="users"
+                :to="{ name: 'admin-users.index' }"
+                label="Admin Users"
+                section="admin-users"
             >
                 <o-side-sub-nav-item
-                    :to="{ name: 'users.index' }"
+                    :to="{ name: 'admin-users.index' }"
                 >
-                    Manage Users
+                    Manage Admin Users
                 </o-side-sub-nav-item>
 
                 <o-side-sub-nav-item
-                    :to="{ name: 'users.create' }"
+                    :to="{ name: 'admin-users.create' }"
                 >
-                    Add User
+                    Add Admin User
                 </o-side-sub-nav-item>
             </o-side-nav-item>
         </template>

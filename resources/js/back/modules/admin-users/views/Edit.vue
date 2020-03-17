@@ -1,13 +1,15 @@
 <template>
-    <user-form :item="user" />
+    <admin-user-form
+        :item="user"
+    />
 </template>
 
 <script>
-import { getUser } from '../routes/api';
-import UserForm from './partials/Form';
+import { getAdminUser } from '../routes/api';
+import AdminUserForm from './partials/Form';
 
 export default {
-    components: { UserForm },
+    components: { AdminUserForm },
 
     data() {
         return {
@@ -28,22 +30,22 @@ export default {
     },
 
     created() {
-        this.setTitle('Edit User');
+        this.setTitle('Edit Admin User');
 
         this.fetchUser();
     },
 
     methods: {
         fetchUser() {
-            this.startLoading('primary.user');
+            this.startLoading('primary.admin-user');
 
-            getUser(this.userId).then(response => {
+            getAdminUser(this.userId).then(response => {
                 this.user = response.data.data;
 
-                this.stopLoading('primary.user');
+                this.stopLoading('primary.admin-user');
             }).catch(() => {
                 this.$router.push({
-                    name: 'users.index',
+                    name: 'admin-users.index',
                 });
             });
         },

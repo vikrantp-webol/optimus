@@ -38,7 +38,7 @@
                     <td class="actions">
                         <router-link
                             :to="{
-                                name: 'users.edit',
+                                name: 'admin-users.edit',
                                 params: { id: user.id },
                             }"
                             class="icon medium"
@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { getUsers, deleteUser } from '../routes/api';
+import { getAdminUsers, deleteAdminUser } from '../routes/api';
 
 export default {
     data() {
@@ -81,7 +81,7 @@ export default {
     },
 
     created() {
-        this.setTitle('Manage Users');
+        this.setTitle('Manage Admin Users');
 
         this.fetchUsers();
     },
@@ -90,7 +90,7 @@ export default {
         fetchUsers(params = {}) {
             this.startLoading('primary.admin-users');
 
-            getUsers(params).then(response => {
+            getAdminUsers(params).then(response => {
                 this.users = response.data.data;
 
                 this.stopLoading('primary.admin-users');
@@ -98,9 +98,11 @@ export default {
         },
 
         deleteUser(user) {
-            deleteUser(user.id);
+            deleteAdminUser(user.id);
 
-            this.users = this.users.filter(({ id }) => id !== user.id);
+            this.users = this.users.filter(({ id }) => {
+                id !== user.id;
+            });
         },
     },
 };

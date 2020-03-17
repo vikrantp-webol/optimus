@@ -7,24 +7,24 @@ import Edit from '../views/Edit';
 
 let routes = [
     {
-        path: '/users',
+        path: '/admin-users',
         component: Dashboard,
-        meta: { section: 'users' },
+        meta: { section: 'admin-users' },
 
         children: [
             {
                 path: '',
-                name: 'users.index',
+                name: 'admin-users.index',
                 component: Index,
             },
             {
                 path: 'create',
-                name: 'users.create',
+                name: 'admin-users.create',
                 component: Create,
             },
             {
                 path: ':id/edit',
-                name: 'users.edit',
+                name: 'admin-users.edit',
                 component: Edit,
             },
         ],
