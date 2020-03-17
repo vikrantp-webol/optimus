@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
+use App\PageTemplates;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Optix\Draftable\Draftable;
 use Optix\Media\HasMedia;
-use PageContent;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\Sluggable\HasSlug;
@@ -155,11 +154,6 @@ class Page extends Model implements Sortable
         return PageTemplates::get($this->template_id);
     }
 
-    /**
-     * @param $key
-     * @param $value
-     * @return PageContent|false
-     */
     public function addContent($key, $value)
     {
         $content = new PageContent([
@@ -170,10 +164,6 @@ class Page extends Model implements Sortable
         return $this->contents()->save($content);
     }
 
-    /**
-     * @param array $contents
-     * @return Collection
-     */
     public function addContents(array $contents)
     {
         $models = $this->newCollection();
@@ -185,11 +175,6 @@ class Page extends Model implements Sortable
         return $models;
     }
 
-    /**
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
     public function getContent($key, $default = null)
     {
         foreach ($this->contents as $content) {
@@ -201,10 +186,6 @@ class Page extends Model implements Sortable
         return $default;
     }
 
-    /**
-     * @param $key
-     * @return bool
-     */
     public function hasContent($key)
     {
         foreach ($this->contents as $content) {
@@ -216,9 +197,6 @@ class Page extends Model implements Sortable
         return false;
     }
 
-    /**
-     * @return mixed
-     */
     public function clearContents()
     {
         return $this->contents()->delete();

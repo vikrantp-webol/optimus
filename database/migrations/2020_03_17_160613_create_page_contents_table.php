@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMediablesTable extends Migration
+class CreatePageContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateMediablesTable extends Migration
      */
     public function up()
     {
-        Schema::create('mediables', function (Blueprint $table) {
-            $table->unsignedInteger('media_id')->index();
-            $table->unsignedInteger('mediable_id')->index();
-            $table->string('mediable_type');
-            $table->string('group');
+        Schema::create('page_contents', function (Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedBigInteger('page_id')->index();
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
 
-            $table->foreign('media_id')
+            $table->foreign('page_id')
                   ->references('id')
-                  ->on('media')
+                  ->on('pages')
                   ->onDelete('cascade');
         });
     }
@@ -33,6 +34,6 @@ class CreateMediablesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mediables');
+        Schema::dropIfExists('page_contents');
     }
 }

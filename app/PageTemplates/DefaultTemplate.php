@@ -3,6 +3,7 @@
 namespace App\PageTemplates;
 
 use App\Contracts\PageTemplate;
+use App\Http\Resources\MediaResource;
 use App\Models\Page;
 
 class DefaultTemplate implements PageTemplate
