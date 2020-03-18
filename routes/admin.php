@@ -32,6 +32,9 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
     Route::prefix('media')->group(function () {
         Route::get('/', 'MediaController@index');
         Route::post('/', 'MediaController@store');
+        Route::get('{id}', 'MediaController@show');
+        Route::patch('{id}', 'MediaController@update');
+        Route::delete('{id}', 'MediaController@destroy');
     });
 
     // Page Templates

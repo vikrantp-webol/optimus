@@ -14,7 +14,7 @@ use Illuminate\Http\Response;
 class MediaFoldersController extends Controller
 {
     /**
-     * Display a list of media folders.
+     * Display a list of folders.
      *
      * @param Request $request
      * @return ResourceCollection
@@ -31,17 +31,14 @@ class MediaFoldersController extends Controller
     }
 
     /**
-     * Create a new media folder.
+     * Create a new folder.
      *
      * @param Request $request
      * @return MediaFolderResource
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:media,id',
-        ]);
+        $this->validateFolder($request);
 
         $folder = new MediaFolder();
 
@@ -54,7 +51,7 @@ class MediaFoldersController extends Controller
     }
 
     /**
-     * Display the specified media folder.
+     * Display the specified folder.
      *
      * @param int $id
      * @return MediaFolderResource
@@ -68,7 +65,7 @@ class MediaFoldersController extends Controller
     }
 
     /**
-     * Update the specified media folder.
+     * Update the specified folder.
      *
      * @param Request $request
      * @param int $id
@@ -79,13 +76,7 @@ class MediaFoldersController extends Controller
         /** @var MediaFolder $folder */
         $folder = MediaFolder::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'parent_id' => [
-                'nullable', 'exists:media,id',
-                new NotDescendantOrSelf($folder->id, 'media_folders'),
-            ],
-        ]);
+        $this->validateFolder($request, $folder);
 
         $folder->name = $request->input('name');
         $folder->parent_id = $request->input('parent_id');
@@ -96,7 +87,7 @@ class MediaFoldersController extends Controller
     }
 
     /**
-     * Delete the specified media folder.
+     * Delete the specified folder.
      *
      * @param int $id
      * @return Response
@@ -106,5 +97,30 @@ class MediaFoldersController extends Controller
         MediaFolder::findOrFail($id)->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Validate the request.
+     *
+     * @param Request $request
+     * @param MediaFolder|null $folder
+     * @return void
+     */
+    protected function validateFolder(Request $request, MediaFolder $folder = null)
+    {
+        $parentIdRules = [
+            'nullable', 'exists:media,id',
+        ];
+
+        if ($folder) {
+            $parentIdRules[] = new NotDescendantOrSelf(
+                $folder->id, 'media_folders'
+            );
+        }
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'parent_id' => $parentIdRules,
+        ]);
     }
 }
