@@ -64,7 +64,7 @@ class NotDescendantOrSelf implements Rule
         }
 
         $children = DB::table($this->table)
-            ->where($this->parentIdColumn, $parentId)
+            ->where($this->parentIdColumn, $id)
             ->get();
 
         if ($children->isEmpty()) {
@@ -72,7 +72,7 @@ class NotDescendantOrSelf implements Rule
         }
 
         foreach ($children as $child) {
-            if ($this->isDescendantOrSelf($child->{$this->idColumn}, $id)) {
+            if ($this->isDescendantOrSelf($parentId, $child->{$this->idColumn})) {
                 return true;
             }
         }

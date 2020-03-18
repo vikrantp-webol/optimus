@@ -45,7 +45,11 @@ class MediaController extends Controller
         ]);
 
         /** @var Media $media */
-        $media = MediaUploader::fromFile($request->file('file'))->upload();
+        $media = MediaUploader::fromFile($request->file('file'))
+            ->withAttributes([
+                'folder_id' => $request->input('folder_id'),
+            ])
+            ->upload();
 
         if ($media->isOfType('image')) {
             PerformConversions::dispatchNow($media, [
