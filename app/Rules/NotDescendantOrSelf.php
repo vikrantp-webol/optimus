@@ -36,7 +36,7 @@ class NotDescendantOrSelf implements Rule
      */
     public function passes($attribute, $value)
     {
-        return ! $this->isDescendantOrSelf($value);
+        return ! $this->isDescendantOrSelf($value, $this->id);
     }
 
     /**
@@ -53,17 +53,18 @@ class NotDescendantOrSelf implements Rule
      * Determine if the given id is the same as,
      * or a descendant of the id on the instance.
      *
-     * @param $id
+     * @param mixed $parentId
+     * @param mixed $id
      * @return bool
      */
-    protected function isDescendantOrSelf($id)
+    protected function isDescendantOrSelf($parentId, $id)
     {
-        if ($id == $this->id) {
+        if ($parentId == $id) {
             return true;
         }
 
         $children = DB::table($this->table)
-            ->where($this->parentIdColumn, $id)
+            ->where($this->parentIdColumn, $parentId)
             ->get();
 
         if ($children->isEmpty()) {
@@ -71,7 +72,7 @@ class NotDescendantOrSelf implements Rule
         }
 
         foreach ($children as $child) {
-            if ($this->isDescendantOrSelf($child->{$this->idColumn})) {
+            if ($this->isDescendantOrSelf($child->{$this->idColumn}, $id)) {
                 return true;
             }
         }
