@@ -101,7 +101,7 @@ export default {
             deleteAdminUser(user.id);
 
             this.users = this.users.filter(({ id }) => {
-                id !== user.id;
+                return id !== user.id;
             });
         },
     },

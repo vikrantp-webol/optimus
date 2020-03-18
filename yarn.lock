@@ -808,10 +808,10 @@
     vue "^2.6.10"
     vuex "^3.0.1"
 
-"@optimuscms/theme@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.3.3.tgz#5a8e13e8f55532b83c0dafd61b92d15b3d3a4bb5"
-  integrity sha512-F/bdscu1v2vW7UFJI1RXJ/F1HuNsa/xwQQXFU0afA2uQO/1ovvi1RG1Y+T1VaywvCY6ZoR590Ki1eLOa4f5ZvA==
+"@optimuscms/theme@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@optimuscms/theme/-/theme-0.4.0.tgz#13405f9eeead7800073f45c11c8458ad54165a3f"
+  integrity sha512-5nBKV6ioIuUjFS1GJYzLP3gnq1O06VowopFY3kC634Yadr0Gon8cCOzf3mH+DQ3MpKDjjF5+1TkN9CH6LBfCrA==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.4"
     "@fortawesome/free-regular-svg-icons" "^5.3.1"

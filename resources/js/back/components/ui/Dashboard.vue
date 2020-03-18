@@ -1,5 +1,5 @@
 <template>
-    <o-dashboard-layout :loading="isLoading('app.*')" :avatar="avatar">
+    <o-dashboard-layout :user="userData">
         <template slot="side-nav">
             <o-side-nav-item
                 :to="{ name: 'pages.index' }"
@@ -65,15 +65,15 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     computed: {
         ...mapGetters({
-            user: 'user/data',
+            user: 'adminUser/userData',
         }),
 
-        avatar() {
-            if (this.user) {
-                return `${this.user.gravatar_url}?d=identicon&s=96`;
-            }
-
-            return null;
+        userData() {
+            return {
+                id: this.user.id,
+                name: this.user.name,
+                avatar: `${this.user.gravatar_url}?d=identicon&s=96`,
+            };
         },
 
         csrfToken() {
@@ -81,17 +81,8 @@ export default {
         },
     },
 
-    created() {
-        this.startLoading('app.user');
-
-        this.fetchUser().then(() => {
-            this.stopLoading('app.user');
-        });
-    },
-
     methods: {
         ...mapActions({
-            fetchUser: 'user/fetch',
             openMediaManager: 'mediaManager/openMediaManager',
         }),
     },

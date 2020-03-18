@@ -1,4 +1,10 @@
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-export default new Vuex.Store();
+import adminUser from '../modules/admin-users/store/admin-user';
+
+export default new Vuex.Store({
+    modules: {
+        adminUser,
+    },
+});

@@ -19,9 +19,10 @@ Vue.use(Editor, {
     config: editorConfig,
 });
 
+Vue.component('vue-app', App);
+
 new Vue({
     el: '#app',
     router,
     store,
-    render: h => h(App),
 });

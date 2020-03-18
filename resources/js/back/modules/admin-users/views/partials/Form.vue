@@ -122,7 +122,7 @@ export default {
 
     computed: {
         ...mapGetters({
-            authedUser: 'user/data',
+            currentUser: 'adminUser/userData',
         }),
 
         isEditingAdmin() {
@@ -130,7 +130,7 @@ export default {
         },
 
         isEditingSelf() {
-            return this.authedUser.id == this.$route.params.id;
+            return this.currentUser.id == this.$route.params.id;
         },
 
         avatar() {
@@ -155,7 +155,7 @@ export default {
 
     methods: {
         ...mapActions({
-            updateCurrentUser: 'user/update',
+            updateCurrentUser: 'adminUser/updateUserData',
         }),
 
         save() {
@@ -172,7 +172,7 @@ export default {
             }
 
             this.$router.push({
-                name: 'users.index',
+                name: 'admin-users.index',
             });
         },
     },
