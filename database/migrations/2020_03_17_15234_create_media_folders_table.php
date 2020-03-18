@@ -14,15 +14,15 @@ class CreateMediaFoldersTable extends Migration
     public function up()
     {
         Schema::create('media_folders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('parent_id')->index()->nullable();
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->string('name');
             $table->timestamps();
 
             $table->foreign('parent_id')
-                ->references('id')
-                ->on('media_folders')
-                ->onDelete('cascade');
+                  ->references('id')
+                  ->on('media_folders')
+                  ->onDelete('cascade');
         });
     }
 

@@ -14,9 +14,9 @@ class CreateMediablesTable extends Migration
     public function up()
     {
         Schema::create('mediables', function (Blueprint $table) {
-            $table->unsignedInteger('media_id')->index();
-            $table->unsignedInteger('mediable_id')->index();
-            $table->string('mediable_type');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('media_id')->index();
+            $table->morphs('mediable');
             $table->string('group');
 
             $table->foreign('media_id')

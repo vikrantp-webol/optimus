@@ -14,7 +14,7 @@ class CreatePageContentsTable extends Migration
     public function up()
     {
         Schema::create('page_contents', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('page_id')->index();
             $table->string('key');
             $table->text('value')->nullable();
