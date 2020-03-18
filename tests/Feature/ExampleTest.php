@@ -13,7 +13,7 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('admin.login'));
 
         $response->assertStatus(200);
     }
