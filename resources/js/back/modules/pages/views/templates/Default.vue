@@ -23,11 +23,11 @@
                 :media="getItemAttribute('image')"
                 show-preview
                 accepted-extensions="image"
-            >
-                <template slot="help">
-                    This image will be constrained to 1000px width
-                </template>
-            </media-picker>
+            />
+
+            <template slot="help">
+                This image will be constrained to 1000px width
+            </template>
         </o-form-field>
     </div>
 </template>
