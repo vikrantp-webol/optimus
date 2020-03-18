@@ -13,7 +13,7 @@ use Illuminate\Http\Response;
 class AdminUsersController extends Controller
 {
     /**
-     * Display a paginated list of admin users.
+     * Display a paginated list of users.
      *
      * @return ResourceCollection
      */
@@ -26,19 +26,14 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * Create a new admin user.
+     * Create a new user.
      *
      * @param Request $request
      * @return AdminUserResource
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'username' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-        ]);
+        $this->validateUser($request);
 
         $user = new AdminUser();
 
@@ -53,21 +48,24 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * Display the specified admin user.
+     * Display the specified user.
      *
+     * @param Request $request
      * @param int $id
      * @return AdminUserResource
      */
-    public function show($id)
+    public function show(Request $request, $id = null)
     {
-        /** @var AdminUser */
-        $user = AdminUser::findOrFail($id);
+        /** @var AdminUser $user */
+        $user = $id
+            ? AdminUser::findOrFail($id)
+            : $request->user('admin');
 
         return new AdminUserResource($user);
     }
 
     /**
-     * Update the specified admin user.
+     * Update the specified user.
      *
      * @param Request $request
      * @param int $id
@@ -78,12 +76,7 @@ class AdminUsersController extends Controller
         /** @var AdminUser $user */
         $user = AdminUser::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'username' => 'required|string|max:255',
-            'password' => 'nullable|string|min:8',
-        ]);
+        $this->validateUser($request, $user);
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -99,7 +92,7 @@ class AdminUsersController extends Controller
     }
 
     /**
-     * Display the specified admin user.
+     * Display the specified user.
      *
      * @param int $id
      * @return Response
@@ -109,5 +102,24 @@ class AdminUsersController extends Controller
         AdminUser::findOrFail($id)->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Validate the request.
+     *
+     * @param Request $request
+     * @param AdminUser|null $user
+     * @return void
+     */
+    protected function validateUser(Request $request, AdminUser $user = null)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'username' => 'required|string|max:255',
+            'password' => [
+                $user ? 'nullable' : 'required', 'string', 'min:8',
+            ],
+        ]);
     }
 }

@@ -16,6 +16,9 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
         Route::delete('{id}', 'AdminUsersController@destroy');
     });
 
+    // Current Admin User
+    Route::get('admin-user', 'AdminUsersController@show');
+
     // Media Folders
     Route::prefix('media-folders')->group(function () {
         Route::get('/', 'MediaFoldersController@index');
