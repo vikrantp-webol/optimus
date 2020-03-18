@@ -38,7 +38,10 @@ class MediaFoldersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateFolder($request);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'parent_id' => 'nullable|exists:media_folders,id',
+        ]);
 
         $folder = new MediaFolder();
 
@@ -76,12 +79,15 @@ class MediaFoldersController extends Controller
         /** @var MediaFolder $folder */
         $folder = MediaFolder::findOrFail($id);
 
-        $this->validateFolder($request, $folder);
+        $data = $request->validate([
+            'name' => 'filled|string|max:255',
+            'parent_id' => [
+                'nullable', 'exists:media_folders,id',
+                new NotDescendantOrSelf($folder->id, 'media_folders'),
+            ],
+        ]);
 
-        $folder->name = $request->input('name');
-        $folder->parent_id = $request->input('parent_id');
-
-        $folder->save();
+        $folder->update($data);
 
         return new MediaFolderResource($folder);
     }
@@ -97,32 +103,5 @@ class MediaFoldersController extends Controller
         MediaFolder::findOrFail($id)->delete();
 
         return response()->noContent();
-    }
-
-    /**
-     * Validate the request.
-     *
-     * @param Request $request
-     * @param MediaFolder|null $folder
-     * @return void
-     */
-    protected function validateFolder(Request $request, MediaFolder $folder = null)
-    {
-        $parentIdRules = [
-            'nullable', 'exists:media,id',
-        ];
-
-        if ($folder) {
-            $parentIdRules[] = new NotDescendantOrSelf(
-                $folder->id, 'media_folders'
-            );
-        }
-
-        $request->validate([
-            'name' => [
-                $folder ? 'filled' : 'required', 'string', 'max:255',
-            ],
-            'parent_id' => $parentIdRules,
-        ]);
     }
 }

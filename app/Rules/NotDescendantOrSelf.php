@@ -36,7 +36,7 @@ class NotDescendantOrSelf implements Rule
      */
     public function passes($attribute, $value)
     {
-        return $this->isDescendantOrSelf($value);
+        return ! $this->isDescendantOrSelf($value);
     }
 
     /**
