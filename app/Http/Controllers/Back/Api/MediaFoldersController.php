@@ -119,7 +119,9 @@ class MediaFoldersController extends Controller
         }
 
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => [
+                $folder ? 'filled' : 'required', 'string', 'max:255',
+            ],
             'parent_id' => $parentIdRules,
         ]);
     }
