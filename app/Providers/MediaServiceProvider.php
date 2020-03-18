@@ -20,11 +20,8 @@ class MediaServiceProvider extends ServiceProvider
     public function boot()
     {
         // Media thumbnail...
-        Conversion::register(
-            Media::THUMBNAIL_CONVERSION,
-            function (Image $image) {
-                return $image->fit(400, 300);
-            }
-        );
+        Conversion::register('1024x768', function (Image $image) {
+            return $image->fit(1024, 768);
+        });
     }
 }

@@ -40,15 +40,15 @@
                                 <div class="mb-8 lg:w-1/2 lg:px-4">
                                     <!-- Template -->
                                     <o-form-field
-                                        input="template_name"
+                                        input="template_id"
                                         label="Template"
                                         required
                                     >
                                         <o-select
-                                            id="template_name"
-                                            v-model="form.template.name"
+                                            id="template_id"
+                                            v-model="form.template_id"
                                             :options="templates"
-                                            :disabled="item && item.template.is_fixed"
+                                            :disabled="getItemAttribute('has_fixed_template', false)"
                                         />
                                     </o-form-field>
                                 </div>
@@ -56,10 +56,9 @@
 
                             <!-- Contents -->
                             <component
-                                :is="getTemplateComponent(form.template.name)"
-                                v-if="form.template.name"
-                                v-model="form.template.data"
-                                :item="item ? item.template.data : null"
+                                :is="templateComponent"
+                                v-model="form.template_data"
+                                :item="getItemAttribute('template_data')"
                             />
 
                             <!-- Stand alone -->
@@ -145,10 +144,8 @@ export default {
             form: {
                 title: '',
                 slug: '',
-                template: {
-                    name: '',
-                    data: {},
-                },
+                template_id: '',
+                template_data: null,
                 parent_id: null,
                 is_standalone: false,
                 is_published: true,
@@ -167,18 +164,29 @@ export default {
         };
     },
 
+    computed: {
+        templateComponent() {
+            const template = this.templates.find(({ value }) => {
+                return value === this.form.template_id;
+            });
+
+            if (template) {
+                return `Template${template.label.charAt(0).toUpperCase()}${template.label.slice(1)}`;
+            }
+
+            return null;
+        },
+    },
+
     watch: {
         item(item) {
             const meta = item.meta;
-            const template = item.template;
 
             this.form = {
                 title: item.title,
                 slug: item.slug,
-                template: {
-                    name: template.name,
-                    data: template.data,
-                },
+                template_id: item.template_id,
+                template_data: item.template_data,
                 parent_id: item.parent_id,
                 is_standalone: item.is_standalone,
                 is_published: item.is_published,
@@ -221,19 +229,15 @@ export default {
             this.startLoading('primary.templates');
 
             getPageTemplates().then(response => {
-                this.templates = response.data.data.map(({ name, label }) => {
+                this.templates = response.data.data.map(({ id, name }) => {
                     return {
-                        value: name,
-                        label,
+                        value: id,
+                        label: name,
                     };
                 });
 
                 this.stopLoading('primary.templates');
             });
-        },
-
-        getTemplateComponent(templateName) {
-            return `Template${templateName.charAt(0).toUpperCase()}${templateName.slice(1)}`;
         },
 
         save() {

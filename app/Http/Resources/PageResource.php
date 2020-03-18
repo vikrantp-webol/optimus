@@ -47,7 +47,7 @@ class PageResource extends JsonResource
             'is_standalone' => $page->is_standalone,
             'is_deletable' => $page->is_deletable,
             'is_published' => $page->isPublished(),
-            // 'meta' => new MetaResource($page->meta),
+            'meta' => new MetaResource($page->meta),
             'created_at' => (string) $page->created_at,
             'updated_at' => (string) $page->updated_at,
         ];

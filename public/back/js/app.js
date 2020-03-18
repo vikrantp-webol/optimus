@@ -23520,7 +23520,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -23532,10 +23531,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       form: {
         title: '',
         slug: '',
-        template: {
-          name: '',
-          data: {}
-        },
+        template_id: '',
+        template_data: null,
         parent_id: null,
         is_standalone: false,
         is_published: true,
@@ -23552,17 +23549,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       templates: []
     };
   },
+  computed: {
+    templateComponent: function templateComponent() {
+      var _this = this;
+
+      var template = this.templates.find(function (_ref) {
+        var value = _ref.value;
+        return value === _this.form.template_id;
+      });
+
+      if (template) {
+        return "Template".concat(template.label.charAt(0).toUpperCase()).concat(template.label.slice(1));
+      }
+
+      return null;
+    }
+  },
   watch: {
     item: function item(_item) {
       var meta = _item.meta;
-      var template = _item.template;
       this.form = {
         title: _item.title,
         slug: _item.slug,
-        template: {
-          name: template.name,
-          data: template.data
-        },
+        template_id: _item.template_id,
+        template_data: _item.template_data,
         parent_id: _item.parent_id,
         is_standalone: _item.is_standalone,
         is_published: _item.is_published,
@@ -23583,46 +23593,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     fetchPages: function fetchPages() {
-      var _this = this;
+      var _this2 = this;
 
       this.startLoading('primary.pages');
       Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getPages"])({
         parent: 'root'
       }).then(function (response) {
-        _this.pages = response.data.data.filter(function (_ref) {
-          var id = _ref.id;
-          return id !== _this.$route.params.id;
-        }).map(function (_ref2) {
-          var id = _ref2.id,
-              title = _ref2.title;
+        _this2.pages = response.data.data.filter(function (_ref2) {
+          var id = _ref2.id;
+          return id !== _this2.$route.params.id;
+        }).map(function (_ref3) {
+          var id = _ref3.id,
+              title = _ref3.title;
           return {
             value: id,
             label: title
           };
         });
 
-        _this.stopLoading('primary.pages');
+        _this2.stopLoading('primary.pages');
       });
     },
     fetchTemplates: function fetchTemplates() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.startLoading('primary.templates');
       Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getPageTemplates"])().then(function (response) {
-        _this2.templates = response.data.data.map(function (_ref3) {
-          var name = _ref3.name,
-              label = _ref3.label;
+        _this3.templates = response.data.data.map(function (_ref4) {
+          var id = _ref4.id,
+              name = _ref4.name;
           return {
-            value: name,
-            label: label
+            value: id,
+            label: name
           };
         });
 
-        _this2.stopLoading('primary.templates');
+        _this3.stopLoading('primary.templates');
       });
-    },
-    getTemplateComponent: function getTemplateComponent(templateName) {
-      return "Template".concat(templateName.charAt(0).toUpperCase()).concat(templateName.slice(1));
     },
     save: function save() {
       if (this.isEditing) {
@@ -59921,7 +59928,7 @@ var render = function() {
                               "o-form-field",
                               {
                                 attrs: {
-                                  input: "template_name",
+                                  input: "template_id",
                                   label: "Template",
                                   required: ""
                                 }
@@ -59929,17 +59936,19 @@ var render = function() {
                               [
                                 _c("o-select", {
                                   attrs: {
-                                    id: "template_name",
+                                    id: "template_id",
                                     options: _vm.templates,
-                                    disabled:
-                                      _vm.item && _vm.item.template.is_fixed
+                                    disabled: _vm.getItemAttribute(
+                                      "has_fixed_template",
+                                      false
+                                    )
                                   },
                                   model: {
-                                    value: _vm.form.template.name,
+                                    value: _vm.form.template_id,
                                     callback: function($$v) {
-                                      _vm.$set(_vm.form.template, "name", $$v)
+                                      _vm.$set(_vm.form, "template_id", $$v)
                                     },
-                                    expression: "form.template.name"
+                                    expression: "form.template_id"
                                   }
                                 })
                               ],
@@ -59950,21 +59959,17 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _vm.form.template.name
-                        ? _c(_vm.getTemplateComponent(_vm.form.template.name), {
-                            tag: "component",
-                            attrs: {
-                              item: _vm.item ? _vm.item.template.data : null
-                            },
-                            model: {
-                              value: _vm.form.template.data,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form.template, "data", $$v)
-                              },
-                              expression: "form.template.data"
-                            }
-                          })
-                        : _vm._e(),
+                      _c(_vm.templateComponent, {
+                        tag: "component",
+                        attrs: { item: _vm.getItemAttribute("template_data") },
+                        model: {
+                          value: _vm.form.template_data,
+                          callback: function($$v) {
+                            _vm.$set(_vm.form, "template_data", $$v)
+                          },
+                          expression: "form.template_data"
+                        }
+                      }),
                       _vm._v(" "),
                       _c(
                         "o-form-field",

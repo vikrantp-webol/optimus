@@ -3,11 +3,14 @@
 namespace App\Jobs;
 
 use App\Models\Page;
+use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class UpdatePagePath
 {
-    use Dispatchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /** @var Page */
     protected $page;

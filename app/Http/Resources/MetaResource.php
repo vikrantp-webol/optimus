@@ -1,6 +1,6 @@
 <?php
 
-namespace OptimusCMS\Meta\Http\Resources;
+namespace App\Http\Resources;
 
 use App\Http\Resources\MediaResource;
 use App\Models\Meta;

@@ -7,6 +7,15 @@ use Illuminate\Foundation\Auth\User;
 class AdminUser extends User
 {
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'gravatar_url',
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array

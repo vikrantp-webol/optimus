@@ -116,7 +116,7 @@ class Page extends Model implements Sortable
             $parent = $filters['parent'];
 
             if ($parent === 'root') {
-                $parentId = null;
+                $parent = null;
             }
 
             $query->where('parent_id', $parent);
