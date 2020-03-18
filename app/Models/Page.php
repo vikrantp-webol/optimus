@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\PageTemplates;
+use App\Traits\HasSeoFields;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +19,7 @@ class Page extends Model implements Sortable
 {
     use Draftable,
         HasMedia,
-        // HasMeta,
+        HasSeoFields,
         HasSlug,
         SortableTrait;
 

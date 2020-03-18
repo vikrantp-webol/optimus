@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 class PageTemplatesController extends Controller
 {
     /**
-     * Display a list of page templates.
+     * Display a list of templates.
      *
      * @return ResourceCollection
      */
@@ -22,7 +22,7 @@ class PageTemplatesController extends Controller
     }
 
     /**
-     * Display the specified page template.
+     * Display the specified template.
      *
      * @param string $id
      * @return PageTemplateResource

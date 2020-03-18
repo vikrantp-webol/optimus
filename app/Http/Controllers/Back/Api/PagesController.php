@@ -46,21 +46,7 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => [
-                'nullable', 'string', 'max:255',
-                Rule::unique('pages'),
-            ],
-            'template_id' => [
-                'required', new ValidPageTemplate(),
-            ],
-            'template_data' => 'array',
-            'parent_id' => 'nullable|exists:pages,id',
-            'is_standalone' => 'present|boolean',
-            'is_published' => 'present|boolean',
-            'meta' => Meta::rules(),
-        ]);
+        $this->validatePage($request);
 
         $template = PageTemplates::get(
             $templateId = $request->input('template_id')
@@ -86,14 +72,14 @@ class PagesController extends Controller
 
         $template::saveData($page, $templateData);
 
-        // $page->saveMeta(
-        //     $request->input('meta', [])
-        // );
+        $page->saveMeta(
+            $request->input('meta', [])
+        );
 
         UpdatePagePath::dispatch($page)->onQueue('sync');
 
         $page->publish(
-            $request->input('is_published', false)
+            $request->input('is_published')
         );
 
         return new PageResource($page);
@@ -125,24 +111,7 @@ class PagesController extends Controller
         /** @var Page $page */
         $page = Page::withDrafts()->findOrFail($id);
 
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => [
-                'required', 'string', 'max:255',
-                Rule::unique('pages')->ignore($page),
-            ],
-            'template_id' => [
-                'required', new ValidPageTemplate(),
-            ],
-            'template_data' => 'array',
-            'parent_id' => [
-                'nullable', 'exists:pages,id',
-                new NotDescendantOrSelf($page->id, 'pages'),
-            ],
-            'is_standalone' => 'present|boolean',
-            'is_published' => 'present|boolean',
-            'meta' => Meta::rules(),
-        ]);
+        $this->validatePage($request, $page);
 
         $templateId = ! $page->has_fixed_template
             ? $request->input('template_id')
@@ -169,9 +138,9 @@ class PagesController extends Controller
         $template::resetData($page);
         $template::saveData($page, $templateData);
 
-        // $page->saveMeta(
-        //     $request->input('meta', [])
-        // );
+        $page->saveMeta(
+            $request->input('meta', [])
+        );
 
         if (! $page->has_fixed_path) {
             UpdatePagePath::dispatch($page)->onQueue('sync');
@@ -227,5 +196,40 @@ class PagesController extends Controller
         $page->delete();
 
         return response()->noContent();
+    }
+
+    /**
+     * Validate the request.
+     *
+     * @param Request $request
+     * @param Page|null $page
+     * @return void
+     */
+    protected function validatePage(Request $request, Page $page = null)
+    {
+        $parentIdRules = [
+            'nullable', 'exists:pages,id',
+        ];
+
+        if ($page) {
+            $parentIdRules[] = new NotDescendantOrSelf(
+                $page->id, 'pages'
+            );
+        }
+
+        $request->validate(array_merge([
+            'title' => 'required|string|max:255',
+            'slug' => [
+                $page ? 'required' : 'nullable', 'string', 'max:255',
+                Rule::unique('pages')->ignore($page),
+            ],
+            'template_id' => [
+                'required', new ValidPageTemplate(),
+            ],
+            'template_data' => 'array',
+            'parent_id' => $parentIdRules,
+            'is_standalone' => 'present|boolean',
+            'is_published' => 'present|boolean',
+        ], Meta::rules()));
     }
 }
