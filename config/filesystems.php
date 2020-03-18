@@ -15,6 +15,10 @@ return [
 
     'default' => env('FILESYSTEM_DRIVER', 'local'),
 
+    'public' => env('FILESYSTEM_PUBLIC_DRIVER', 'public'),
+
+    'private' => env('FILESYSTEM_PRIVATE_DRIVER', 'private'),
+
     /*
     |--------------------------------------------------------------------------
     | Default Cloud Filesystem Disk
@@ -62,6 +66,26 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+        ],
+
+        'minio_public' => [
+            'driver' => 's3',
+            'key' => env('MINIO_ACCESS_KEY_ID'),
+            'secret' => env('MINIO_SECRET_ACCESS_KEY'),
+            'region' => env('MINIO_DEFAULT_REGION', 'eu-west-2'),
+            'bucket' => env('MINIO_PUBLIC_BUCKET'),
+            'endpoint' => env('MINIO_ENDPOINT'),
+            'use_path_style_endpoint' => true,
+        ],
+
+        'minio_private' => [
+            'driver' => 's3',
+            'key' => env('MINIO_ACCESS_KEY_ID'),
+            'secret' => env('MINIO_SECRET_ACCESS_KEY'),
+            'region' => env('MINIO_DEFAULT_REGION', 'eu-west-2'),
+            'bucket' => env('MINIO_PRIVATE_BUCKET'),
+            'endpoint' => env('MINIO_ENDPOINT'),
+            'use_path_style_endpoint' => true,
         ],
 
     ],
