@@ -36,8 +36,16 @@
                 </tr>
             </thead>
 
-            <o-loader tag="tbody" :loading="isLoading('secondary.*')" transition-name="flip-list">
-                <tr v-for="page in pages" :key="page.id" :class="{ 'draft': ! page.is_published }">
+            <o-loader
+                tag="tbody"
+                :loading="isLoading('secondary.*')"
+                transition-name="flip-list"
+            >
+                <tr
+                    v-for="page in pages"
+                    :key="page.id"
+                    :class="{ 'draft': ! page.is_published }"
+                >
                     <td class="actions">
                         <a
                             class="icon"
@@ -104,7 +112,10 @@
             @confirm="deletePage"
         >
             Are you sure you want to delete page<br>
-            <strong>{{ page.title }}</strong>
+
+            <strong>
+                {{ page.title }}
+            </strong>
         </o-confirmation>
     </o-loader>
 </template>
@@ -172,7 +183,9 @@ export default {
         deletePage(page) {
             deletePage(page.id);
 
-            this.pages = this.pages.filter(({ id }) => id !== page.id);
+            this.pages = this.pages.filter(({ id }) => {
+                return id !== page.id;
+            });
         },
     },
 };

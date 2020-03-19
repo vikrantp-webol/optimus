@@ -65,7 +65,10 @@
             @confirm="deleteUser"
         >
             Are you sure you want to delete user<br>
-            <strong>{{ user.name }}</strong>
+
+            <strong>
+                {{ user.name }}
+            </strong>
         </o-confirmation>
     </o-loader>
 </template>
