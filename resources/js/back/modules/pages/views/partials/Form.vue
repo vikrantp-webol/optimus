@@ -110,7 +110,7 @@
 
                     <!-- Publish -->
                     <o-checkbox
-                        v-if="! getItemAttribute('is_deletable', false)"
+                        v-if="getItemAttribute('is_deletable', true)"
                         id="is_published"
                         v-model="form.is_published"
                         label="Publish"
