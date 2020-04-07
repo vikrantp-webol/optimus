@@ -170,11 +170,11 @@ export default {
                 return value === this.form.template_id;
             });
 
-            if (template) {
-                return `Template${template.label.charAt(0).toUpperCase()}${template.label.slice(1)}`;
+            if (! template) {
+                return null;
             }
 
-            return null;
+            return `template-${template.value}`;
         },
     },
 
