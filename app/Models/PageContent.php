@@ -2,9 +2,17 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property string $key
+ * @property string $value
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class PageContent extends Model
 {
     /**

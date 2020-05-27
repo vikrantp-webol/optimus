@@ -16,16 +16,16 @@
         @include('front.partials.meta')
 
         {{-- Styles --}}
-        <link rel="stylesheet" href="{{ mix('/front/css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('front/css/app.css') }}">
 
         {{-- Analytics --}}
-        {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-xxxxxxxx-1"></script>
+        {{-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'UA-xxxxxxxx-1');
+            gtag('config', 'UA-XXXXXXXX-1');
         </script> --}}
 
         {{-- Recaptcha --}}
@@ -35,13 +35,13 @@
     <body>
         <div id="app">
             @include('front.partials.header')
-            
+
             @yield('content')
-            
+
             @include('front.partials.footer')
         </div>
 
-        <script src="{{ mix('/front/js/app.js') }}"></script>
+        <script src="{{ mix('front/js/app.js') }}"></script>
         @stack('scripts')
     </body>
 </html>

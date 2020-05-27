@@ -190,7 +190,7 @@ class PagesController extends Controller
         $page = Page::withDrafts()->findOrFail($id);
 
         if (! $page->is_deletable) {
-            abort(403);
+            abort(403, 'This page cannot be deleted.');
         }
 
         $page->delete();

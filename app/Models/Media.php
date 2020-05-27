@@ -2,10 +2,25 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Optix\Media\Models\Media as BaseMedia;
 
+/**
+ * @property int $id
+ * @property int|null $folder_id
+ * @property MediaFolder|null $folder
+ * @property string $name
+ * @property string $file_name
+ * @property string $disk
+ * @property string $mime_type
+ * @property int $size
+ * @property string|null $alt_text
+ * @property string|null $caption
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Media extends BaseMedia
 {
     /** @var string */
@@ -17,8 +32,8 @@ class Media extends BaseMedia
      * @var array
      */
     protected $fillable = [
-        'folder_id', 'name', 'alt_text', 'caption',
-        'file_name', 'disk', 'mime_type', 'size',
+        'folder_id', 'name', 'file_name', 'disk',
+        'mime_type', 'size', 'alt_text', 'caption',
     ];
 
     /**

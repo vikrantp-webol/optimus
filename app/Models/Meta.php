@@ -2,10 +2,23 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Optix\Media\HasMedia;
 
+/**
+ * @property int $id
+ * @property int $metable_id
+ * @property string $metable_type
+ * @property string|null $title
+ * @property string|null $description
+ * @property string|null $og_title
+ * @property string|null $og_description
+ * @property string|null $additional_tags
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Meta extends Model
 {
     use HasMedia;
@@ -75,7 +88,7 @@ class Meta extends Model
     public function registerMediaGroups()
     {
         $this->addMediaGroup(self::OG_IMAGE_MEDIA_GROUP)
-            ->performConversions(self::OG_IMAGE_MEDIA_CONVERSION);
+             ->performConversions(self::OG_IMAGE_MEDIA_CONVERSION);
     }
 
     /**

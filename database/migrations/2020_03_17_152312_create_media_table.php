@@ -17,12 +17,12 @@ class CreateMediaTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('folder_id')->index()->nullable();
             $table->string('name');
-            $table->string('alt_text')->nullable();
-            $table->string('caption')->nullable();
             $table->string('file_name');
             $table->string('disk');
             $table->string('mime_type');
             $table->unsignedInteger('size');
+            $table->string('alt_text')->nullable();
+            $table->string('caption')->nullable();
             $table->timestamps();
 
             $table->foreign('folder_id')

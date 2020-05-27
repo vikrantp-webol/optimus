@@ -4,7 +4,9 @@ namespace App\Models;
 
 use App\PageTemplates;
 use App\Traits\HasSeoFields;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +17,24 @@ use Spatie\EloquentSortable\SortableTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @property int $id
+ * @property string $title
+ * @property string|null $slug
+ * @property string|null $path
+ * @property bool $has_fixed_path
+ * @property int|null $parent_id
+ * @property Page|null $parent
+ * @property Collection<Page> $children
+ * @property int $template_id
+ * @property bool $has_fixed_template
+ * @property bool $is_standalone
+ * @property bool $is_deletable
+ * @property Collection<PageContent> $contents
+ * @property Carbon|null $published_at
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class Page extends Model implements Sortable
 {
     use Draftable,
@@ -29,8 +49,8 @@ class Page extends Model implements Sortable
      * @var array
      */
     protected $casts = [
-        'has_fixed_template' => 'bool',
         'has_fixed_path' => 'bool',
+        'has_fixed_template' => 'bool',
         'is_standalone' => 'bool',
         'is_deletable' => 'bool',
     ];
@@ -50,7 +70,7 @@ class Page extends Model implements Sortable
      * @var array
      */
     protected $fillable = [
-        'title', 'slug', 'template_id', 'parent_id', 'is_standalone',
+        'title', 'slug', 'parent_id', 'template_id', 'is_standalone',
     ];
 
     /**

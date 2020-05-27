@@ -2,8 +2,19 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $username
+ * @property string $password
+ * @property string $gravatar_url
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ */
 class AdminUser extends User
 {
     /**
