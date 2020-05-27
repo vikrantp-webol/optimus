@@ -20,6 +20,20 @@
             </o-side-nav-item>
 
             <o-side-nav-item
+                :to="{ name: 'menus.index' }"
+                label="Menus"
+                section="menus"
+            >
+                <o-side-sub-nav-item :to="{ name: 'menus.index' }">
+                    Manage Menus
+                </o-side-sub-nav-item>
+
+                <o-side-sub-nav-item :to="{ name: 'menus.create' }">
+                    Create Menu
+                </o-side-sub-nav-item>
+            </o-side-nav-item>
+
+            <o-side-nav-item
                 label="Media manager"
                 @click="openMediaManager()"
             />

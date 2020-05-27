@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use App\PageTemplates;
+use App\Contracts\Linkable;
+use App\Contracts\SynchronisesMenuItemUrls;
+use App\Registries\PageTemplates;
 use App\Traits\HasSeoFields;
+use App\Traits\LinkableTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -35,12 +38,13 @@ use Spatie\Sluggable\SlugOptions;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Page extends Model implements Sortable
+class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
 {
     use Draftable,
         HasMedia,
         HasSeoFields,
         HasSlug,
+        LinkableTrait,
         SortableTrait;
 
     /**
@@ -81,6 +85,31 @@ class Page extends Model implements Sortable
     protected $sortable = [
         'order_column_name' => 'order',
     ];
+
+    public static function getLinkableTypeIdentifier(): string
+    {
+        return 'pages';
+    }
+
+    public static function getLinkableTypeName(): string
+    {
+        return 'Pages';
+    }
+
+    public function getUrl(): string
+    {
+        return url()->to($this->path);
+    }
+
+    public function urlHasChanged(): bool
+    {
+        return $this->isDirty('path');
+    }
+
+    public function getLabel(): string
+    {
+        return $this->title;
+    }
 
     /**
      * Get the model's slug options.
@@ -221,6 +250,18 @@ class Page extends Model implements Sortable
     public function clearContents()
     {
         return $this->contents()->delete();
+    }
+
+    public static function buildLinkableQuery(): Builder
+    {
+        return self::query();
+    }
+
+    public static function buildLinkableSearchQuery(string $input): Builder
+    {
+        return self::buildLinkableQuery()->where(
+            'title', 'like', '%'.$input.'%'
+        );
     }
 
     /**

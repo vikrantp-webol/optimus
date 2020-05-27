@@ -54,6 +54,30 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
         // Move
         Route::post('{id}/move', 'PagesController@move');
     });
+
+    // Linkables
+    Route::get('linkable-types', 'LinkableTypesController@index');
+    Route::get('linkable-types/{alias}', 'LinkableTypesController@show');
+    Route::get('linkable-types/{alias}/items', 'LinkableItemsController@index');
+
+    // Menu Types
+    Route::get('menu-types', 'MenuTypesController@index');
+    Route::get('menu-types/{id}', 'MenuTypesController@show');
+
+    // Menus
+    Route::get('menus', 'MenusController@index');
+    Route::post('menus', 'MenusController@store');
+    Route::get('menus/{id}', 'MenusController@show');
+    Route::patch('menus/{id}', 'MenusController@update');
+    Route::delete('menus/{id}', 'MenusController@destroy');
+
+    // Menu Items
+    Route::get('menus/{menuId}/items', 'MenuItemsController@index');
+    Route::post('menus/{menuId}/items', 'MenuItemsController@store');
+    Route::get('menu-items/{id}', 'MenuItemsController@show');
+    Route::patch('menu-items/{id}', 'MenuItemsController@update');
+    Route::put('menu-items/{id}/move', 'MenuItemsController@move');
+    Route::delete('menu-items/{id}', 'MenuItemsController@destroy');
 });
 
 Route::view('{path?}', 'back.layouts.app')

@@ -7,7 +7,7 @@ import {
 export default {
     register() {
         library.add(
-            faAngleDown
+            faAngleDown,
         );
     },
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Registries;
 
 use App\Contracts\PageTemplate;
 use App\Exceptions\InvalidTemplateException;

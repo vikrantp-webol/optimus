@@ -7,7 +7,7 @@ use App\Http\Resources\PageResource;
 use App\Jobs\UpdatePagePath;
 use App\Models\Meta;
 use App\Models\Page;
-use App\PageTemplates;
+use App\Registries\PageTemplates;
 use App\Rules\NotDescendantOrSelf;
 use App\Rules\ValidPageTemplate;
 use Exception;
