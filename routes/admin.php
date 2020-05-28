@@ -50,9 +50,6 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
         Route::get('{id}', 'PagesController@show');
         Route::patch('{id}', 'PagesController@update');
         Route::delete('{id}', 'PagesController@destroy');
-
-        // Move
-        Route::post('{id}/move', 'PagesController@move');
     });
 
     // Linkables

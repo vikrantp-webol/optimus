@@ -48,17 +48,6 @@
                     </td>
 
                     <td class="actions">
-                        <a
-                            title="Copy"
-                            class="icon medium"
-                            :class="{
-                                'opacity-25 pointer-events-none': menu.is_published,
-                            }"
-                            @click="publish(menu)"
-                        >
-                            <icon icon="copy" />
-                        </a>
-
                         <router-link
                             :to="{
                                 name: 'menus.edit',

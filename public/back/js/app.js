@@ -23321,17 +23321,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -24489,30 +24478,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _optimuscms_theme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @optimuscms/theme */ "./node_modules/@optimuscms/theme/dist/optimus.esm.js");
 /* harmony import */ var _routes_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../routes/api */ "./resources/js/back/modules/pages/routes/api.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -61045,25 +61010,6 @@ var render = function() {
                       { staticClass: "actions" },
                       [
                         _c(
-                          "a",
-                          {
-                            staticClass: "icon medium",
-                            class: {
-                              "opacity-25 pointer-events-none":
-                                menu.is_published
-                            },
-                            attrs: { title: "Copy" },
-                            on: {
-                              click: function($event) {
-                                return _vm.publish(menu)
-                              }
-                            }
-                          },
-                          [_c("icon", { attrs: { icon: "copy" } })],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
                           "router-link",
                           {
                             staticClass: "icon medium",
@@ -61994,8 +61940,6 @@ var render = function() {
             [
               _c("thead", [
                 _c("tr", [
-                  _c("th", { staticClass: "narrow" }),
-                  _vm._v(" "),
                   _c("th", [
                     _vm._v("\n                    Title\n                ")
                   ]),
@@ -62028,48 +61972,6 @@ var render = function() {
                     "tr",
                     { key: page.id, class: { draft: !page.is_published } },
                     [
-                      _c("td", { staticClass: "actions" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "icon",
-                            class: {
-                              "pointer-events-none opacity-50": !_vm.canMoveItemUp(
-                                _vm.pages,
-                                page.id
-                              )
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.moveItemUp(_vm.pages, page.id)
-                              }
-                            }
-                          },
-                          [_c("icon", { attrs: { icon: "angle-up" } })],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "icon",
-                            class: {
-                              "pointer-events-none opacity-50": !_vm.canMoveItemDown(
-                                _vm.pages,
-                                page.id
-                              )
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.moveItemDown(_vm.pages, page.id)
-                              }
-                            }
-                          },
-                          [_c("icon", { attrs: { icon: "angle-down" } })],
-                          1
-                        )
-                      ]),
-                      _vm._v(" "),
                       _c("td", [
                         _vm._v(
                           "\n                    " +

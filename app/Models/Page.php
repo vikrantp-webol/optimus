@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Optix\Draftable\Draftable;
 use Optix\Media\HasMedia;
-use Spatie\EloquentSortable\Sortable;
-use Spatie\EloquentSortable\SortableTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -38,14 +36,13 @@ use Spatie\Sluggable\SlugOptions;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
+class Page extends Model implements Linkable, SynchronisesMenuItemUrls
 {
     use Draftable,
         HasMedia,
         HasSeoFields,
         HasSlug,
-        LinkableTrait,
-        SortableTrait;
+        LinkableTrait;
 
     /**
      * The attributes that should be cast to native types.
@@ -75,15 +72,6 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
      */
     protected $fillable = [
         'title', 'slug', 'parent_id', 'template_id', 'is_standalone',
-    ];
-
-    /**
-     * The model's sortable options.
-     *
-     * @var array
-     */
-    protected $sortable = [
-        'order_column_name' => 'order',
     ];
 
     /**
@@ -152,18 +140,6 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
             ->where($this->getKeyName(), '!=', $this->getKey() ?? '0')
             ->where('parent_id', $this->parent_id)
             ->exists();
-    }
-
-    /**
-     * Build the query used to group items when sorting.
-     *
-     * @return Builder
-     */
-    public function buildSortQuery()
-    {
-        return $this->newQuery()->where(
-            'parent_id', $this->parent_id
-        );
     }
 
     /**
