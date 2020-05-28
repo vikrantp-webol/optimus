@@ -17,15 +17,19 @@ trait LinkableTrait
         }
 
         self::updated(function ($model) {
-            $model->syncMenuItems();
+            $model->syncMenuItemUrls();
         });
     }
 
     /**
-     * Synchronises the label and url of all associated menu items.
+     * Synchronises the url of all associated menu items.
      */
-    public function syncMenuItems()
+    public function syncMenuItemUrls()
     {
+        if (! $this->urlHasChanged()) {
+            return;
+        }
+
         MenuItem::query()
             ->whereHasMorph(
                 'linkable',
@@ -35,7 +39,6 @@ trait LinkableTrait
                 }
             )
             ->update([
-                'label' => $this->getLabel(),
                 'url' => $this->getUrl(),
             ]);
     }

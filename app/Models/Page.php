@@ -299,6 +299,16 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
     }
 
     /**
+     * Determines if the URL for this instance has changed since the last save.
+     *
+     * @return bool
+     */
+    public function urlHasChanged(): bool
+    {
+        return $this->isDirty('path');
+    }
+
+    /**
      * Builds the query used to retrieve linkable page items.
      *
      * @return Builder

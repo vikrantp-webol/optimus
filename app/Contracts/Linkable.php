@@ -16,6 +16,8 @@ interface Linkable
 
     public function getUrl();
 
+    public function urlHasChanged(): bool;
+
     public static function buildLinkableQuery(): Builder;
 
     public static function buildLinkableSearchQuery(string $input): Builder;

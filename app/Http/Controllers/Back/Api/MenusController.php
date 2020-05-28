@@ -77,8 +77,6 @@ class MenusController
         return new MenuResource($menu);
     }
 
-    // public function duplicate();
-
     /**
      * Delete the specified menu.
      *
