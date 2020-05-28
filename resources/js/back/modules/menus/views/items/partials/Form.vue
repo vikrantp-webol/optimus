@@ -61,7 +61,7 @@
 
             <div class="mb-2">
                 <div class="-m-2 sm:flex">
-                    <div v-if="menuMaxDepth > 0" class="p-2 flex-shink-0 sm:w-2/5">
+                    <div class="p-2 flex-shink-0 sm:w-2/5">
                         <o-form-field input="parent_id" label="Parent">
                             <div class="field addons cursor-pointer">
                                 <div class="control flex-grow control-icon-right">
@@ -183,7 +183,6 @@ export default {
     computed: {
         ...mapGetters({
             menuItems: 'menu/menuItems',
-            menuMaxDepth: 'menu/menuMaxDepth',
             linkableTypes: 'menu/linkableTypes',
             selectedParentId: 'menu/selectedParentId',
             isSelectingParentId: 'menu/isSelectingParentId',

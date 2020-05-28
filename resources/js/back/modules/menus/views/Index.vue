@@ -49,14 +49,14 @@
 
                     <td class="actions">
                         <a
-                            title="Publish"
+                            title="Copy"
                             class="icon medium"
                             :class="{
                                 'opacity-25 pointer-events-none': menu.is_published,
                             }"
                             @click="publish(menu)"
                         >
-                            <icon icon="sign-in-alt" />
+                            <icon icon="copy" />
                         </a>
 
                         <router-link
@@ -72,7 +72,7 @@
                         <a
                             class="icon medium"
                             :class="{
-                                'opacity-25 pointer-events-none': menu.is_published,
+                                'opacity-25 pointer-events-none': ! menu.is_deletable,
                             }"
                             @click="openConfirmation(menu)"
                         >

@@ -60,10 +60,6 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
     Route::get('linkable-types/{alias}', 'LinkableTypesController@show');
     Route::get('linkable-types/{alias}/items', 'LinkableItemsController@index');
 
-    // Menu Types
-    Route::get('menu-types', 'MenuTypesController@index');
-    Route::get('menu-types/{id}', 'MenuTypesController@show');
-
     // Menus
     Route::get('menus', 'MenusController@index');
     Route::post('menus', 'MenusController@store');

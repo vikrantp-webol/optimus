@@ -3,16 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Menu extends Model
 {
-    protected $dates = ['published_at'];
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_deletable' => 'bool',
+    ];
 
-    public function type()
-    {
-        return $this->belongsTo(MenuType::class, 'type_id');
-    }
+    /** @var string */
+    const PRIMARY = 'primary';
 
+    /**
+     * Get the items relationship.
+     *
+     * @return HasMany
+     */
     public function items()
     {
         return $this->hasMany(MenuItem::class, 'menu_id');

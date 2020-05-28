@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         if (app()->environment('local')) {
             $this->call(AdminUsersTableSeeder::class);
+            $this->call(MenusTableSeeder::class);
         }
     }
 }

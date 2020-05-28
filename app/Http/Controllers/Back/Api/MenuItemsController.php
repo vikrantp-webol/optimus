@@ -8,6 +8,8 @@ use App\Models\MenuItem;
 use App\Registries\LinkableTypes;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Validation\ValidationException;
 
@@ -18,6 +20,11 @@ class MenuItemsController extends Controller
         'id' => 'linkable_id',
     ];
 
+    /**
+     * Display a list of menu items.
+     *
+     * @return ResourceCollection
+     */
     public function index($menuId)
     {
         $menu = Menu::findOrFail($menuId);
@@ -29,6 +36,14 @@ class MenuItemsController extends Controller
         return MenuItemResource::collection($items);
     }
 
+    /**
+     * Create a new menu item.
+     *
+     * @param Request $request
+     * @param int $menuId
+     * @return MenuItemResource
+     * @throws ValidationException
+     */
     public function store(Request $request, $menuId)
     {
         $menu = Menu::findOrFail($menuId);
@@ -56,6 +71,12 @@ class MenuItemsController extends Controller
         return new MenuItemResource($menuItem);
     }
 
+    /**
+     * Display the specified menu item.
+     *
+     * @param int $id
+     * @return MenuItemResource
+     */
     public function show($id)
     {
         $menuItem = MenuItem::findOrFail($id);
@@ -63,6 +84,14 @@ class MenuItemsController extends Controller
         return new MenuItemResource($menuItem);
     }
 
+    /**
+     * Update the specified menu item.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return MenuItemResource
+     * @throws ValidationException
+     */
     public function update(Request $request, $id)
     {
         $menuItem = MenuItem::findOrFail($id);
@@ -88,6 +117,13 @@ class MenuItemsController extends Controller
         return new MenuItemResource($menuItem);
     }
 
+    /**
+     * Update the order of the specified menu item.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return Response
+     */
     public function move(Request $request, $id)
     {
         $menuItem = MenuItem::findOrFail($id);
@@ -103,6 +139,12 @@ class MenuItemsController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Delete the specified menu item.
+     *
+     * @param int $id
+     * @return Response
+     */
     public function destroy($id)
     {
         MenuItem::findOrFail($id)->delete();
@@ -110,11 +152,17 @@ class MenuItemsController extends Controller
         return response()->noContent();
     }
 
+    /**
+     * Validate the request.
+     *
+     * @param Request $request
+     * @return void
+     */
     protected function validateMenuItem(Request $request)
     {
         $rules = [
             'label' => 'required|string|max:255',
-            'parent_id' => 'nullable|exists:menu_items,id', // Todo: Verify depth...
+            'parent_id' => 'nullable|exists:menu_items,id',
         ];
 
         if ($request->anyFilled($this->morphKeys)) {
@@ -134,6 +182,12 @@ class MenuItemsController extends Controller
         $request->validate($rules);
     }
 
+    /**
+     * Retrieves the linkable items for the requested model.
+     *
+     * @param Request $request
+     * @throws ValidationException
+     */
     protected function getLinkableItem(Request $request)
     {
         if (! $request->anyFilled($this->morphKeys)) {

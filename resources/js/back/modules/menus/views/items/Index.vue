@@ -83,7 +83,6 @@ export default {
         ...mapActions({
             setMenuItems: 'menu/setMenuItems',
             removeMenuItem: 'menu/removeMenuItem',
-            setMenuMaxDepth: 'menu/setMenuMaxDepth',
             setLinkableTypes: 'menu/setLinkableTypes',
         }),
 
@@ -102,7 +101,6 @@ export default {
 
             getMenu(this.$route.params.menuId).then(response => {
                 const menu = response.data.data;
-                this.setMenuMaxDepth(menu.type.max_depth);
 
                 this.stopLoading('primary.menu');
             }).catch(() => {

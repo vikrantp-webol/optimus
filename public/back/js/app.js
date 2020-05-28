@@ -23491,7 +23491,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     setMenuItems: 'menu/setMenuItems',
     removeMenuItem: 'menu/removeMenuItem',
-    setMenuMaxDepth: 'menu/setMenuMaxDepth',
     setLinkableTypes: 'menu/setLinkableTypes'
   }), {
     getLinkableTypes: function getLinkableTypes() {
@@ -23511,8 +23510,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.startLoading('primary.menu');
       Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getMenu"])(this.$route.params.menuId).then(function (response) {
         var menu = response.data.data;
-
-        _this2.setMenuMaxDepth(menu.type.max_depth);
 
         _this2.stopLoading('primary.menu');
       })["catch"](function () {
@@ -23914,7 +23911,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     menuItems: 'menu/menuItems',
-    menuMaxDepth: 'menu/menuMaxDepth',
     linkableTypes: 'menu/linkableTypes',
     selectedParentId: 'menu/selectedParentId',
     isSelectingParentId: 'menu/isSelectingParentId'
@@ -24172,6 +24168,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -24191,7 +24188,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
     menuItems: 'menu/menuItems',
-    menuMaxDepth: 'menu/menuMaxDepth',
     formMenuItem: 'menu/formMenuItem',
     isSelectable: 'menu/isSelectingParentId',
     groupedMenuItems: 'menu/groupedMenuItems'
@@ -24203,6 +24199,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return null;
     },
+    isEditing: function isEditing() {
+      return this.activeId === this.item.id;
+    },
     isActive: function isActive() {
       return this.item.id === this.activeId;
     },
@@ -24211,7 +24210,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           descendantIds = _this$getDescendantId.ids,
           descendantsDepth = _this$getDescendantId.depth;
 
-      return this.isActive || descendantIds.includes(this.item.id) || this.getItemDepth(this.item) + descendantsDepth > this.menuMaxDepth;
+      return this.isActive || descendantIds.includes(this.item.id);
     },
     currentItems: function currentItems() {
       return this.groupedMenuItems[this.item.parent_id || 'root'];
@@ -24374,37 +24373,19 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: {
         name: '',
-        type_id: null
-      },
-      menuTypes: []
+        identifier: ''
+      }
     };
   },
   watch: {
     item: function item(_item) {
       this.form = {
         name: _item.name,
-        type_id: _item.type ? _item.type.id : null
+        identifier: _item.identifier
       };
     }
   },
-  created: function created() {
-    this.getMenuTypes();
-  },
   methods: {
-    getMenuTypes: function getMenuTypes() {
-      var _this = this;
-
-      Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getMenuTypes"])().then(function (response) {
-        _this.menuTypes = response.data.data.map(function (_ref) {
-          var id = _ref.id,
-              name = _ref.name;
-          return {
-            value: id,
-            label: name
-          };
-        });
-      });
-    },
     save: function save() {
       if (this.isEditing) {
         return Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["updateMenu"])(this.item.id, this.form);
@@ -61036,14 +61017,14 @@ var render = function() {
                               "opacity-25 pointer-events-none":
                                 menu.is_published
                             },
-                            attrs: { title: "Publish" },
+                            attrs: { title: "Copy" },
                             on: {
                               click: function($event) {
                                 return _vm.publish(menu)
                               }
                             }
                           },
-                          [_c("icon", { attrs: { icon: "sign-in-alt" } })],
+                          [_c("icon", { attrs: { icon: "copy" } })],
                           1
                         ),
                         _vm._v(" "),
@@ -61067,8 +61048,7 @@ var render = function() {
                           {
                             staticClass: "icon medium",
                             class: {
-                              "opacity-25 pointer-events-none":
-                                menu.is_published
+                              "opacity-25 pointer-events-none": !menu.is_deletable
                             },
                             on: {
                               click: function($event) {
@@ -61384,84 +61364,73 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "mb-2" }, [
           _c("div", { staticClass: "-m-2 sm:flex" }, [
-            _vm.menuMaxDepth > 0
-              ? _c(
-                  "div",
-                  { staticClass: "p-2 flex-shink-0 sm:w-2/5" },
+            _c(
+              "div",
+              { staticClass: "p-2 flex-shink-0 sm:w-2/5" },
+              [
+                _c(
+                  "o-form-field",
+                  { attrs: { input: "parent_id", label: "Parent" } },
                   [
-                    _c(
-                      "o-form-field",
-                      { attrs: { input: "parent_id", label: "Parent" } },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "field addons cursor-pointer" },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "control flex-grow control-icon-right"
-                              },
-                              [
-                                _c("o-input", {
-                                  staticClass: "cursor-pointer",
-                                  attrs: {
-                                    id: "parent_id",
-                                    value: _vm.parentPickerLabel,
-                                    readonly: ""
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _vm.form.parent_id
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass: "icon",
-                                        on: {
-                                          click: function($event) {
-                                            _vm.form.parent_id = null
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("icon", { attrs: { icon: "times" } })
-                                      ],
-                                      1
-                                    )
-                                  : _vm._e()
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "control" }, [
-                              _c(
-                                "div",
+                    _c("div", { staticClass: "field addons cursor-pointer" }, [
+                      _c(
+                        "div",
+                        { staticClass: "control flex-grow control-icon-right" },
+                        [
+                          _c("o-input", {
+                            staticClass: "cursor-pointer",
+                            attrs: {
+                              id: "parent_id",
+                              value: _vm.parentPickerLabel,
+                              readonly: ""
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.form.parent_id
+                            ? _c(
+                                "a",
                                 {
-                                  staticClass: "button",
-                                  attrs: { title: "Choose parent" },
-                                  on: { click: _vm.toggleSelectingParentId }
-                                },
-                                [
-                                  _c("icon", {
-                                    attrs: {
-                                      icon: _vm.isSelectingParentId
-                                        ? "stop"
-                                        : "hand-pointer"
+                                  staticClass: "icon",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.form.parent_id = null
                                     }
-                                  })
-                                ],
+                                  }
+                                },
+                                [_c("icon", { attrs: { icon: "times" } })],
                                 1
                               )
-                            ])
-                          ]
+                            : _vm._e()
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "button",
+                            attrs: { title: "Choose parent" },
+                            on: { click: _vm.toggleSelectingParentId }
+                          },
+                          [
+                            _c("icon", {
+                              attrs: {
+                                icon: _vm.isSelectingParentId
+                                  ? "stop"
+                                  : "hand-pointer"
+                              }
+                            })
+                          ],
+                          1
                         )
-                      ]
-                    )
-                  ],
-                  1
+                      ])
+                    ])
+                  ]
                 )
-              : _vm._e(),
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
@@ -61615,7 +61584,8 @@ var render = function() {
             "menu-item p-4 mb-4 border border-grey-400 shadow-lg rounded",
           class: {
             disabled: _vm.isDisabled,
-            selectable: _vm.isSelectable
+            selectable: _vm.isSelectable,
+            "bg-grey-300": _vm.isEditing
           },
           on: { click: _vm.setFormItemParent }
         },
@@ -61836,16 +61806,22 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "o-form-field",
-                { attrs: { input: "type_id", label: "Type", required: "" } },
+                {
+                  attrs: {
+                    input: "identifier",
+                    label: "Identifier",
+                    required: ""
+                  }
+                },
                 [
-                  _c("o-select", {
-                    attrs: { id: "type_id", options: _vm.menuTypes },
+                  _c("o-input", {
+                    attrs: { id: "identifier", required: "" },
                     model: {
-                      value: _vm.form.type_id,
+                      value: _vm.form.identifier,
                       callback: function($$v) {
-                        _vm.$set(_vm.form, "type_id", $$v)
+                        _vm.$set(_vm.form, "identifier", $$v)
                       },
-                      expression: "form.type_id"
+                      expression: "form.identifier"
                     }
                   })
                 ],
@@ -79569,7 +79545,6 @@ var initialFormValues = function initialFormValues() {
 var state = {
   linkableTypes: [],
   items: [],
-  menuMaxDepth: null,
   formItem: initialFormValues(),
   selectedParentId: null,
   isSelectingParentId: false
@@ -79606,9 +79581,6 @@ var getters = {
   },
   isSelectingParentId: function isSelectingParentId(state) {
     return state.isSelectingParentId;
-  },
-  menuMaxDepth: function menuMaxDepth(state) {
-    return state.menuMaxDepth;
   }
 };
 var mutations = {
@@ -79650,9 +79622,6 @@ var mutations = {
   },
   stopSelectingParentId: function stopSelectingParentId(state) {
     state.isSelectingParentId = false;
-  },
-  setMenuMaxDepth: function setMenuMaxDepth(state, depth) {
-    state.menuMaxDepth = depth;
   }
 };
 var actions = {
@@ -79730,10 +79699,6 @@ var actions = {
   stopSelectingParentId: function stopSelectingParentId(_ref20) {
     var commit = _ref20.commit;
     commit('stopSelectingParentId');
-  },
-  setMenuMaxDepth: function setMenuMaxDepth(_ref21, depth) {
-    var commit = _ref21.commit;
-    commit('setMenuMaxDepth', depth);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

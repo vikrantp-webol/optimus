@@ -6,16 +6,29 @@ use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use App\Models\MenuItem;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Response;
 
 class MenusController
 {
+    /**
+     * Display a list of menus.
+     *
+     * @return ResourceCollection
+     */
     public function index()
     {
-        $menus = Menu::with('type')->get();
+        $menus = Menu::orderByDesc('name')->get();
 
         return MenuResource::collection($menus);
     }
 
+    /**
+     * Create a new menu.
+     *
+     * @param Request $request
+     * @return MenuResource
+     */
     public function store(Request $request)
     {
         $this->validateMenu($request);
@@ -23,20 +36,33 @@ class MenusController
         $menu = new Menu();
 
         $menu->name = $request->input('name');
-        $menu->type_id = $request->input('type_id');
+        $menu->identifier = $request->input('identifier');
 
         $menu->save();
 
         return new MenuResource($menu);
     }
 
+    /**
+     * Display the specified menu.
+     *
+     * @param int $id
+     * @return MenuResource
+     */
     public function show($id)
     {
-        $menu = Menu::with('type')->findOrFail($id);
+        $menu = Menu::findOrFail($id);
 
         return new MenuResource($menu);
     }
 
+    /**
+     * Update the specified menu.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return MenuResource
+     */
     public function update(Request $request, $id)
     {
         $menu = Menu::findOrFail($id);
@@ -44,13 +70,21 @@ class MenusController
         $this->validateMenu($request);
 
         $menu->name = $request->input('name');
-        $menu->type_id = $request->input('type_id');
+        $menu->identifier = $request->input('identifier');
+
+        $menu->save();
 
         return new MenuResource($menu);
     }
 
     // public function duplicate();
 
+    /**
+     * Delete the specified menu.
+     *
+     * @param int $id
+     * @return Response
+     */
     public function delete($id)
     {
         MenuItem::findOrFail($id)->delete();
@@ -58,11 +92,17 @@ class MenusController
         return response()->noContent();
     }
 
+    /**
+     * Validate the request.
+     *
+     * @param Request $request
+     * @return void
+     */
     protected function validateMenu(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'type_id' => 'required|exists:menu_types,id',
+            'identifier' => 'required|string|max:255',
         ]);
     }
 }

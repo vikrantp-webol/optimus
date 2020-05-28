@@ -5,6 +5,7 @@
             :class="{
                 'disabled': isDisabled,
                 'selectable': isSelectable,
+                'bg-grey-300': isEditing,
             }"
             @click="setFormItemParent"
         >
@@ -121,7 +122,6 @@ export default {
     computed: {
         ...mapGetters({
             menuItems: 'menu/menuItems',
-            menuMaxDepth: 'menu/menuMaxDepth',
             formMenuItem: 'menu/formMenuItem',
             isSelectable: 'menu/isSelectingParentId',
             groupedMenuItems: 'menu/groupedMenuItems',
@@ -133,6 +133,10 @@ export default {
             }
 
             return null;
+        },
+
+        isEditing() {
+            return this.activeId === this.item.id;
         },
 
         isActive() {
@@ -148,10 +152,6 @@ export default {
             return (
                 this.isActive
                 || descendantIds.includes(this.item.id)
-                || (
-                    (this.getItemDepth(this.item) + descendantsDepth)
-                    > this.menuMaxDepth
-                )
             );
         },
 

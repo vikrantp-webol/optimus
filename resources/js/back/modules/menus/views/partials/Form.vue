@@ -18,16 +18,16 @@
                         />
                     </o-form-field>
 
-                    <!-- Type -->
+                    <!-- Identifier -->
                     <o-form-field
-                        input="type_id"
-                        label="Type"
+                        input="identifier"
+                        label="Identifier"
                         required
                     >
-                        <o-select
-                            id="type_id"
-                            v-model="form.type_id"
-                            :options="menuTypes"
+                        <o-input
+                            id="identifier"
+                            v-model="form.identifier"
+                            required
                         />
                     </o-form-field>
                 </div>
@@ -51,7 +51,6 @@ import { formMixin } from '@optimuscms/theme';
 import {
     createMenu,
     updateMenu,
-    getMenuTypes,
 } from '../../routes/api';
 
 export default {
@@ -61,10 +60,8 @@ export default {
         return {
             form: {
                 name: '',
-                type_id: null,
+                identifier: '',
             },
-
-            menuTypes: [],
         };
     },
 
@@ -72,27 +69,12 @@ export default {
         item(item) {
             this.form = {
                 name: item.name,
-                type_id: item.type ? item.type.id : null,
+                identifier: item.identifier,
             };
         },
     },
 
-    created() {
-        this.getMenuTypes();
-    },
-
     methods: {
-        getMenuTypes() {
-            getMenuTypes().then(response => {
-                this.menuTypes = response.data.data.map(({ id, name }) => {
-                    return {
-                        value: id,
-                        label: name,
-                    };
-                });
-            });
-        },
-
         save() {
             if (this.isEditing) {
                 return updateMenu(this.item.id, this.form);

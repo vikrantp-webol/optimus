@@ -16,8 +16,8 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->unsignedBigInteger('type_id')->index()->nullable();
-            $table->timestamp('published_at')->nullable();
+            $table->string('identifier')->nullable(); // todo - remove when menus selected externally
+            $table->boolean('is_deletable')->default(true);
             $table->timestamps();
         });
     }

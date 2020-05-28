@@ -86,29 +86,44 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         'order_column_name' => 'order',
     ];
 
+    /**
+     * Returns the linkable type identifier for this model instance.
+     *
+     * @return string
+     */
     public static function getLinkableTypeIdentifier(): string
     {
         return 'pages';
     }
 
+    /**
+     * Returns the linkable type name for this model instance.
+     *
+     * @return string
+     */
     public static function getLinkableTypeName(): string
     {
         return 'Pages';
     }
 
-    public function getUrl(): string
-    {
-        return url()->to($this->path);
-    }
-
-    public function urlHasChanged(): bool
-    {
-        return $this->isDirty('path');
-    }
-
+    /**
+     * Returns the menu label for this model instance.
+     *
+     * @return string
+     */
     public function getLabel(): string
     {
         return $this->title;
+    }
+
+    /**
+     * Builds the page URL for this model instance.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return url()->to($this->path);
     }
 
     /**
@@ -140,7 +155,7 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
     }
 
     /**
-     * Build the sort query.
+     * Build the query used to group items when sorting.
      *
      * @return Builder
      */
@@ -204,6 +219,13 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         return PageTemplates::get($this->template_id);
     }
 
+    /**
+     * Adds content to this page at the provided key.
+     *
+     * @param $key
+     * @param $value
+     * @return bool|false|Model
+     */
     public function addContent($key, $value)
     {
         $content = new PageContent([
@@ -214,6 +236,12 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         return $this->contents()->save($content);
     }
 
+    /**
+     * Adds an array of content to this page.
+     *
+     * @param array $contents
+     * @return Collection
+     */
     public function addContents(array $contents)
     {
         $models = $this->newCollection();
@@ -225,6 +253,13 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         return $models;
     }
 
+    /**
+     * Retrieves the page content associated with the provided key.
+     *
+     * @param $key
+     * @param null $default
+     * @return |null
+     */
     public function getContent($key, $default = null)
     {
         foreach ($this->contents as $content) {
@@ -236,6 +271,12 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         return $default;
     }
 
+    /**
+     * Determines if the page has content associated with the provided key.
+     *
+     * @param $key
+     * @return bool
+     */
     public function hasContent($key)
     {
         foreach ($this->contents as $content) {
@@ -247,16 +288,32 @@ class Page extends Model implements Sortable, Linkable, SynchronisesMenuItemUrls
         return false;
     }
 
+    /**
+     * Removes all content from this page.
+     *
+     * @return mixed
+     */
     public function clearContents()
     {
         return $this->contents()->delete();
     }
 
+    /**
+     * Builds the query used to retrieve linkable page items.
+     *
+     * @return Builder
+     */
     public static function buildLinkableQuery(): Builder
     {
         return self::query();
     }
 
+    /**
+     * Builds the search query used to find linkable page items matching the provided query.
+     *
+     * @param string $input
+     * @return Builder
+     */
     public static function buildLinkableSearchQuery(string $input): Builder
     {
         return self::buildLinkableQuery()->where(

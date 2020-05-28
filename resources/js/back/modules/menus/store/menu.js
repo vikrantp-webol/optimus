@@ -15,8 +15,6 @@ export const initialFormValues = () => {
 const state = {
     linkableTypes: [],
     items: [],
-    menuMaxDepth: null,
-
     formItem: initialFormValues(),
 
     selectedParentId: null,
@@ -49,8 +47,6 @@ const getters = {
     selectedParentId: state => state.selectedParentId,
 
     isSelectingParentId: state => state.isSelectingParentId,
-
-    menuMaxDepth: state => state.menuMaxDepth,
 };
 
 const mutations = {
@@ -97,10 +93,6 @@ const mutations = {
 
     stopSelectingParentId(state) {
         state.isSelectingParentId = false;
-    },
-
-    setMenuMaxDepth(state, depth) {
-        state.menuMaxDepth = depth;
     },
 };
 
@@ -169,10 +161,6 @@ const actions = {
 
     stopSelectingParentId({ commit }) {
         commit('stopSelectingParentId');
-    },
-
-    setMenuMaxDepth({ commit }, depth) {
-        commit('setMenuMaxDepth', depth);
     },
 };
 

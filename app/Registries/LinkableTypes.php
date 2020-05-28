@@ -7,8 +7,25 @@ use App\Exceptions\InvalidLinkableTypeException;
 
 class LinkableTypes
 {
+    /** @var array */
     protected static $types = [];
 
+    /**
+     * Get all the registered linkable types.
+     *
+     * @return array
+     */
+    public static function all(): array
+    {
+        return array_values(self::$types);
+    }
+
+    /**
+     * Registers the provided classes as linkable types.
+     *
+     * @param array $types
+     * @throws InvalidLinkableTypeException
+     */
     public static function register(array $types)
     {
         foreach ($types as $type) {
@@ -24,11 +41,14 @@ class LinkableTypes
         }
     }
 
-    public static function all(): array
-    {
-        return array_values(self::$types);
-    }
-
+    /**
+     * Get the specified linkable type.
+     *
+     * @param string $identifier
+     * @return mixed
+     *
+     * @throws InvalidArgumentException
+     */
     public static function get(string $identifier): string
     {
         if (! self::exists($identifier)) {
@@ -40,6 +60,12 @@ class LinkableTypes
         return self::$types[$identifier];
     }
 
+    /**
+     * Determine if the specified linkable type is registered.
+     *
+     * @param string $identifier
+     * @return bool
+     */
     public static function exists(string $identifier): bool
     {
         return isset(self::$types[$identifier]);

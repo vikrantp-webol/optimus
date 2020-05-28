@@ -7,6 +7,9 @@ use App\Models\MenuItem;
 
 trait LinkableTrait
 {
+    /**
+     *  Binds the synchronisation of menu items to the models update event.
+     */
     public function initializeLinkableTrait()
     {
         if (! $this instanceof SynchronisesMenuItemUrls) {
@@ -18,6 +21,9 @@ trait LinkableTrait
         });
     }
 
+    /**
+     * Synchronises the label and url of all associated menu items.
+     */
     public function syncMenuItems()
     {
         MenuItem::query()
