@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Back\Api;
 use App\Http\Controllers\Back\Controller;
 use App\Http\Resources\PageResource;
 use App\Jobs\UpdatePagePath;
+use App\Models\Menu;
+use App\Models\MenuItem;
 use App\Models\Meta;
 use App\Models\Page;
-use App\PageTemplates;
+use App\Registries\PageTemplates;
 use App\Rules\NotDescendantOrSelf;
 use App\Rules\ValidPageTemplate;
 use Exception;
@@ -32,7 +34,6 @@ class PagesController extends Controller
             ->applyFilters($request->all())
             ->withCount('children')
             ->with('contents', 'meta')
-            ->ordered()
             ->get();
 
         return PageResource::collection($pages);
@@ -151,29 +152,6 @@ class PagesController extends Controller
         );
 
         return new PageResource($page);
-    }
-
-    /**
-     * Update the order of the specified page.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function move(Request $request, $id)
-    {
-        /** @var Page $page */
-        $page = Page::withDrafts()->findOrFail($id);
-
-        $request->validate([
-            'direction' => 'required|in:up,down',
-        ]);
-
-        $request->input('direction') === 'down'
-            ? $page->moveOrderDown()
-            : $page->moveOrderUp();
-
-        return response()->noContent();
     }
 
     /**

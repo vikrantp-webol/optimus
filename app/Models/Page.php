@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use App\PageTemplates;
+use App\Contracts\Linkable;
+use App\Contracts\SynchronisesMenuItemUrls;
+use App\Registries\PageTemplates;
 use App\Traits\HasSeoFields;
+use App\Traits\LinkableTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Optix\Draftable\Draftable;
 use Optix\Media\HasMedia;
-use Spatie\EloquentSortable\Sortable;
-use Spatie\EloquentSortable\SortableTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -35,13 +36,13 @@ use Spatie\Sluggable\SlugOptions;
  * @property Carbon $created_at
  * @property Carbon $updated_at
  */
-class Page extends Model implements Sortable
+class Page extends Model implements Linkable, SynchronisesMenuItemUrls
 {
     use Draftable,
         HasMedia,
         HasSeoFields,
         HasSlug,
-        SortableTrait;
+        LinkableTrait;
 
     /**
      * The attributes that should be cast to native types.
@@ -74,13 +75,44 @@ class Page extends Model implements Sortable
     ];
 
     /**
-     * The model's sortable options.
+     * Returns the linkable type identifier for this model instance.
      *
-     * @var array
+     * @return string
      */
-    protected $sortable = [
-        'order_column_name' => 'order',
-    ];
+    public static function getLinkableTypeIdentifier(): string
+    {
+        return 'pages';
+    }
+
+    /**
+     * Returns the linkable type name for this model instance.
+     *
+     * @return string
+     */
+    public static function getLinkableTypeName(): string
+    {
+        return 'Pages';
+    }
+
+    /**
+     * Returns the menu label for this model instance.
+     *
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Builds the page URL for this model instance.
+     *
+     * @return string
+     */
+    public function getUrl(): string
+    {
+        return url()->to($this->path);
+    }
 
     /**
      * Get the model's slug options.
@@ -108,18 +140,6 @@ class Page extends Model implements Sortable
             ->where($this->getKeyName(), '!=', $this->getKey() ?? '0')
             ->where('parent_id', $this->parent_id)
             ->exists();
-    }
-
-    /**
-     * Build the sort query.
-     *
-     * @return Builder
-     */
-    public function buildSortQuery()
-    {
-        return $this->newQuery()->where(
-            'parent_id', $this->parent_id
-        );
     }
 
     /**
@@ -175,6 +195,13 @@ class Page extends Model implements Sortable
         return PageTemplates::get($this->template_id);
     }
 
+    /**
+     * Adds content to this page at the provided key.
+     *
+     * @param $key
+     * @param $value
+     * @return bool|false|Model
+     */
     public function addContent($key, $value)
     {
         $content = new PageContent([
@@ -185,6 +212,12 @@ class Page extends Model implements Sortable
         return $this->contents()->save($content);
     }
 
+    /**
+     * Adds an array of content to this page.
+     *
+     * @param array $contents
+     * @return Collection
+     */
     public function addContents(array $contents)
     {
         $models = $this->newCollection();
@@ -196,6 +229,13 @@ class Page extends Model implements Sortable
         return $models;
     }
 
+    /**
+     * Retrieves the page content associated with the provided key.
+     *
+     * @param $key
+     * @param null $default
+     * @return |null
+     */
     public function getContent($key, $default = null)
     {
         foreach ($this->contents as $content) {
@@ -207,6 +247,12 @@ class Page extends Model implements Sortable
         return $default;
     }
 
+    /**
+     * Determines if the page has content associated with the provided key.
+     *
+     * @param $key
+     * @return bool
+     */
     public function hasContent($key)
     {
         foreach ($this->contents as $content) {
@@ -218,9 +264,47 @@ class Page extends Model implements Sortable
         return false;
     }
 
+    /**
+     * Removes all content from this page.
+     *
+     * @return mixed
+     */
     public function clearContents()
     {
         return $this->contents()->delete();
+    }
+
+    /**
+     * Determines if the URL for this instance has changed since the last save.
+     *
+     * @return bool
+     */
+    public function urlHasChanged(): bool
+    {
+        return $this->isDirty('path');
+    }
+
+    /**
+     * Builds the query used to retrieve linkable page items.
+     *
+     * @return Builder
+     */
+    public static function buildLinkableQuery(): Builder
+    {
+        return self::query();
+    }
+
+    /**
+     * Builds the search query used to find linkable page items matching the provided query.
+     *
+     * @param string $input
+     * @return Builder
+     */
+    public static function buildLinkableSearchQuery(string $input): Builder
+    {
+        return self::buildLinkableQuery()->where(
+            'title', 'like', '%'.$input.'%'
+        );
     }
 
     /**

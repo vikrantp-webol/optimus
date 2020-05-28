@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\PageTemplates;
+use App\Registries\PageTemplates;
 use Illuminate\Contracts\Validation\Rule;
 
 class ValidPageTemplate implements Rule

@@ -16,8 +16,6 @@
         <table v-else class="table">
             <thead>
                 <tr>
-                    <th class="narrow" />
-
                     <th>
                         Title
                     </th>
@@ -46,28 +44,6 @@
                     :key="page.id"
                     :class="{ 'draft': ! page.is_published }"
                 >
-                    <td class="actions">
-                        <a
-                            class="icon"
-                            :class="{
-                                'pointer-events-none opacity-50': ! canMoveItemUp(pages, page.id)
-                            }"
-                            @click="moveItemUp(pages, page.id)"
-                        >
-                            <icon icon="angle-up" />
-                        </a>
-
-                        <a
-                            class="icon"
-                            :class="{
-                                'pointer-events-none opacity-50': ! canMoveItemDown(pages, page.id)
-                            }"
-                            @click="moveItemDown(pages, page.id)"
-                        >
-                            <icon icon="angle-down" />
-                        </a>
-                    </td>
-
                     <td>
                         {{ page.title }}
                     </td>

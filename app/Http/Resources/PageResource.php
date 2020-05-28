@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Contracts\PageTemplate;
 use App\Models\Page;
-use App\PageTemplates;
+use App\Registries\PageTemplates;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use stdClass;

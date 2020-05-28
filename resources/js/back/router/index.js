@@ -5,6 +5,7 @@ import store from '../store';
 
 // Routes
 import adminUserRoutes from '../modules/admin-users/routes/app';
+import menuRoutes from '../modules/menus/routes/app';
 import pageRoutes from '../modules/pages/routes/app';
 
 const router = new VueRouter({
@@ -25,6 +26,7 @@ const router = new VueRouter({
         },
 
         ...adminUserRoutes,
+        ...menuRoutes,
         ...pageRoutes,
     ],
 });

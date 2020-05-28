@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Back\Api;
 
 use App\Http\Controllers\Back\Controller;
 use App\Http\Resources\PageTemplateResource;
-use App\PageTemplates;
+use App\Registries\PageTemplates;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class PageTemplatesController extends Controller

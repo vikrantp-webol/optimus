@@ -61,17 +61,23 @@
                                 :item="getItemAttribute('template_data')"
                             />
 
-                            <!-- Stand alone -->
-                            <o-form-field
-                                input="is_stand_alone"
-                                label="Stand alone"
-                            >
-                                <o-checkbox
-                                    id="is_stand_alone"
-                                    v-model="form.is_standalone"
-                                    label="Yes"
-                                />
-                            </o-form-field>
+                            <div class="md:flex">
+                                <div class="lg:w-1/2">
+                                    <!-- Stand alone -->
+                                    <o-form-field
+                                        input="is_stand_alone"
+                                        label="Stand alone"
+                                    >
+                                        <o-checkbox
+                                            id="is_stand_alone"
+                                            v-model="form.is_standalone"
+                                            label="Yes"
+                                        />
+                                    </o-form-field>
+                                </div>
+
+                                <div class="lg:w-1/2 lg:px-4" />
+                            </div>
                         </o-tab>
 
                         <o-tab name="Meta">
@@ -116,6 +122,15 @@
                         label="Publish"
                         class="ml-4"
                     />
+
+                    <!-- Add to menu -->
+                    <o-checkbox
+                        v-if="! isEditing"
+                        id="addToMenu"
+                        v-model="addToMenu"
+                        label="Add to menu"
+                        class="ml-4"
+                    />
                 </div>
             </div>
         </form>
@@ -124,6 +139,7 @@
 
 <script>
 import { formMixin } from '@optimuscms/theme';
+import {createMenuItem, getMenus} from '../../../menus/routes/api';
 
 import {
     getPages,
@@ -149,6 +165,7 @@ export default {
                 parent_id: null,
                 is_standalone: false,
                 is_published: true,
+
                 meta: {
                     title: '',
                     description: '',
@@ -161,6 +178,7 @@ export default {
 
             pages: [],
             templates: [],
+            addToMenu: true,
         };
     },
 
@@ -245,7 +263,24 @@ export default {
                 return updatePage(this.item.id, this.form);
             }
 
-            return createPage(this.form);
+            return createPage(this.form)
+                .then(pageResponse => { if (this.addToMenu) {
+                    getMenus().then(menuResponse => {
+                        let menu = menuResponse.data.data.find(({ identifier }) => {
+                            return identifier === 'primary';
+                        });
+
+                        createMenuItem(menu.id, {
+                            linkable_id: pageResponse.data.data.id,
+                            linkable_type: 'pages',
+                            label: this.form.title,
+                            opens_in_new_tab: false,
+                            url_parameters: '',
+                            parent_id: null,
+                            url: '',
+                        });
+                    });
+                }});
         },
 
         onSuccess() {

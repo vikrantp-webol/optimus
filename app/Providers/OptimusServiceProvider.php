@@ -5,8 +5,10 @@ namespace App\Providers;
 use App\Exceptions\InvalidTemplateException;
 use App\Models\Media;
 use App\Models\Meta;
-use App\PageTemplates;
+use App\Models\Page;
 use App\PageTemplates\DefaultTemplate;
+use App\Registries\LinkableTypes;
+use App\Registries\PageTemplates;
 use Illuminate\Support\ServiceProvider;
 use Intervention\Image\Image;
 use Optix\Media\Facades\Conversion;
@@ -24,6 +26,10 @@ class OptimusServiceProvider extends ServiceProvider
     {
         PageTemplates::set([
             DefaultTemplate::class,
+        ]);
+
+        LinkableTypes::register([
+            Page::class,
         ]);
 
         // Media thumbnail...
