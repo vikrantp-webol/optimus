@@ -146,7 +146,6 @@ export default {
         isDisabled() {
             const {
                 ids: descendantIds,
-                depth: descendantsDepth,
             } = this.getDescendantIdsAndDepth(this.activeId);
 
             return (

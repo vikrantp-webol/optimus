@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Back\Api;
 use App\Http\Controllers\Back\Controller;
 use App\Http\Resources\PageResource;
 use App\Jobs\UpdatePagePath;
+use App\Models\Menu;
+use App\Models\MenuItem;
 use App\Models\Meta;
 use App\Models\Page;
 use App\Registries\PageTemplates;

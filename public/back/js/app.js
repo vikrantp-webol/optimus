@@ -23508,9 +23508,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.startLoading('primary.menu');
-      Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getMenu"])(this.$route.params.menuId).then(function (response) {
-        var menu = response.data.data;
-
+      Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getMenu"])(this.$route.params.menuId).then(function () {
         _this2.stopLoading('primary.menu');
       })["catch"](function () {
         _this2.$router.push({
@@ -24207,8 +24205,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isDisabled: function isDisabled() {
       var _this$getDescendantId = this.getDescendantIdsAndDepth(this.activeId),
-          descendantIds = _this$getDescendantId.ids,
-          descendantsDepth = _this$getDescendantId.depth;
+          descendantIds = _this$getDescendantId.ids;
 
       return this.isActive || descendantIds.includes(this.item.id);
     },
@@ -24684,8 +24681,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _optimuscms_theme__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @optimuscms/theme */ "./node_modules/@optimuscms/theme/dist/optimus.esm.js");
-/* harmony import */ var _routes_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../routes/api */ "./resources/js/back/modules/pages/routes/api.js");
-/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../templates */ "./resources/js/back/modules/pages/views/templates/index.js");
+/* harmony import */ var _menus_routes_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../menus/routes/api */ "./resources/js/back/modules/menus/routes/api.js");
+/* harmony import */ var _routes_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routes/api */ "./resources/js/back/modules/pages/routes/api.js");
+/* harmony import */ var _templates__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../templates */ "./resources/js/back/modules/pages/views/templates/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -24816,11 +24814,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: _objectSpread({}, _templates__WEBPACK_IMPORTED_MODULE_2__["default"]),
+  components: _objectSpread({}, _templates__WEBPACK_IMPORTED_MODULE_3__["default"]),
   mixins: [_optimuscms_theme__WEBPACK_IMPORTED_MODULE_0__["formMixin"]],
   data: function data() {
     return {
@@ -24842,7 +24856,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       },
       pages: [],
-      templates: []
+      templates: [],
+      addToMenu: true
     };
   },
   computed: {
@@ -24892,7 +24907,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       this.startLoading('primary.pages');
-      Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getPages"])({
+      Object(_routes_api__WEBPACK_IMPORTED_MODULE_2__["getPages"])({
         parent: 'root'
       }).then(function (response) {
         _this2.pages = response.data.data.filter(function (_ref2) {
@@ -24914,7 +24929,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this3 = this;
 
       this.startLoading('primary.templates');
-      Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getPageTemplates"])().then(function (response) {
+      Object(_routes_api__WEBPACK_IMPORTED_MODULE_2__["getPageTemplates"])().then(function (response) {
         _this3.templates = response.data.data.map(function (_ref4) {
           var id = _ref4.id,
               name = _ref4.name;
@@ -24928,11 +24943,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     save: function save() {
+      var _this4 = this;
+
       if (this.isEditing) {
-        return Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["updatePage"])(this.item.id, this.form);
+        return Object(_routes_api__WEBPACK_IMPORTED_MODULE_2__["updatePage"])(this.item.id, this.form);
       }
 
-      return Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["createPage"])(this.form);
+      return Object(_routes_api__WEBPACK_IMPORTED_MODULE_2__["createPage"])(this.form).then(function (pageResponse) {
+        if (_this4.addToMenu) {
+          Object(_menus_routes_api__WEBPACK_IMPORTED_MODULE_1__["getMenus"])().then(function (menuResponse) {
+            var menu = menuResponse.data.data.find(function (_ref5) {
+              var identifier = _ref5.identifier;
+              return identifier === 'primary';
+            });
+            Object(_menus_routes_api__WEBPACK_IMPORTED_MODULE_1__["createMenuItem"])(menu.id, {
+              linkable_id: pageResponse.data.data.id,
+              linkable_type: 'pages',
+              label: _this4.form.title,
+              opens_in_new_tab: false,
+              url_parameters: '',
+              parent_id: null,
+              url: ''
+            });
+          });
+        }
+      });
     },
     onSuccess: function onSuccess() {
       var query = null;
@@ -62302,28 +62337,39 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c(
-                        "o-form-field",
-                        {
-                          attrs: {
-                            input: "is_stand_alone",
-                            label: "Stand alone"
-                          }
-                        },
-                        [
-                          _c("o-checkbox", {
-                            attrs: { id: "is_stand_alone", label: "Yes" },
-                            model: {
-                              value: _vm.form.is_standalone,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "is_standalone", $$v)
+                      _c("div", { staticClass: "md:flex" }, [
+                        _c(
+                          "div",
+                          { staticClass: "lg:w-1/2" },
+                          [
+                            _c(
+                              "o-form-field",
+                              {
+                                attrs: {
+                                  input: "is_stand_alone",
+                                  label: "Stand alone"
+                                }
                               },
-                              expression: "form.is_standalone"
-                            }
-                          })
-                        ],
-                        1
-                      )
+                              [
+                                _c("o-checkbox", {
+                                  attrs: { id: "is_stand_alone", label: "Yes" },
+                                  model: {
+                                    value: _vm.form.is_standalone,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.form, "is_standalone", $$v)
+                                    },
+                                    expression: "form.is_standalone"
+                                  }
+                                })
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "lg:w-1/2 lg:px-4" })
+                      ])
                     ],
                     1
                   ),
@@ -62408,6 +62454,20 @@ var render = function() {
                         _vm.$set(_vm.form, "is_published", $$v)
                       },
                       expression: "form.is_published"
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.isEditing
+                ? _c("o-checkbox", {
+                    staticClass: "ml-4",
+                    attrs: { id: "addToMenu", label: "Add to menu" },
+                    model: {
+                      value: _vm.addToMenu,
+                      callback: function($$v) {
+                        _vm.addToMenu = $$v
+                      },
+                      expression: "addToMenu"
                     }
                   })
                 : _vm._e()

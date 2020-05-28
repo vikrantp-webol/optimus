@@ -99,9 +99,7 @@ export default {
         fetchMenu() {
             this.startLoading('primary.menu');
 
-            getMenu(this.$route.params.menuId).then(response => {
-                const menu = response.data.data;
-
+            getMenu(this.$route.params.menuId).then(() => {
                 this.stopLoading('primary.menu');
             }).catch(() => {
                 this.$router.push({

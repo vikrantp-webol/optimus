@@ -20,6 +20,17 @@ class Menu extends Model
     const PRIMARY = 'primary';
 
     /**
+     * Retrieves the menu with the given identifier.
+     *
+     * @param string $identifier
+     * @return mixed
+     */
+    public static function findByIdentifierOrFail(string $identifier)
+    {
+        return static::where('identifier', $identifier)->firstOrFail();
+    }
+
+    /**
      * Get the items relationship.
      *
      * @return HasMany
