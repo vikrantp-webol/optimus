@@ -23564,6 +23564,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -23603,15 +23609,33 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       searchQuery: null
     };
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    formMenuItem: 'menu/formMenuItem'
+  })),
   watch: {
     value: {
-      handler: function handler(value) {
-        this.newValue = value;
+      handler: function handler(newValue) {
+        if (!this.items.find(function (_ref) {
+          var value = _ref.value;
+          return value === newValue;
+        })) {
+          this.items.push({
+            label: this.formMenuItem.label,
+            value: this.formMenuItem.linkable_id
+          });
+        }
+
+        this.newValue = newValue;
       },
       immediate: true
     },
     newValue: function newValue(_newValue) {
+      var item = this.items.find(function (_ref2) {
+        var value = _ref2.value;
+        return value === _newValue;
+      });
       this.$emit('input', _newValue);
+      this.$emit('labelChanged', item.label);
     },
     linkableType: {
       handler: function handler(linkableType) {
@@ -23632,9 +23656,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       this.loading = true;
       Object(_routes_api__WEBPACK_IMPORTED_MODULE_1__["getLinkableItems"])(this.linkableType, queryParams).then(function (response) {
         _this.nextPageNumber = _this.getNextPageNumber(response.data.meta);
-        _this.items = response.data.data.map(function (_ref) {
-          var id = _ref.id,
-              label = _ref.label;
+        _this.items = response.data.data.map(function (_ref3) {
+          var id = _ref3.id,
+              label = _ref3.label;
           return {
             value: id,
             label: label
@@ -23661,9 +23685,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
           _this2.nextPageNumber = _this2.getNextPageNumber(response.data.meta);
 
-          (_this2$items = _this2.items).push.apply(_this2$items, _toConsumableArray(response.data.data.map(function (_ref2) {
-            var id = _ref2.id,
-                label = _ref2.label;
+          (_this2$items = _this2.items).push.apply(_this2$items, _toConsumableArray(response.data.data.map(function (_ref4) {
+            var id = _ref4.id,
+                label = _ref4.label;
             return {
               value: id,
               label: label
@@ -23872,6 +23896,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -23895,7 +23920,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isSelectingParentId: 'menu/isSelectingParentId'
   }), {
     linkableTypeOptions: function linkableTypeOptions() {
-      return this.linkableTypes.map(function (_ref) {
+      var options = this.linkableTypes.map(function (_ref) {
         var identifier = _ref.identifier,
             name = _ref.name;
         return {
@@ -23903,12 +23928,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           label: name
         };
       });
+      options.push({
+        label: 'External Url',
+        value: null
+      });
+      return options;
     },
     isEditing: function isEditing() {
       return !!(this.item && this.item.id);
     },
     selectedLinkableType: function selectedLinkableType() {
       return this.form.linkable_type;
+    },
+    selectedLinkableItem: function selectedLinkableItem() {
+      return this.form.linkable_id || this.form.url;
     },
     linkablePickerLabel: function linkablePickerLabel() {
       var _this = this;
@@ -24003,6 +24036,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.stopSelectingParentId();
       this.resetForm();
       this.clearSelectedParentId();
+    },
+    updateLabel: function updateLabel(label) {
+      this.form.label = label;
     }
   })
 });
@@ -61201,7 +61237,7 @@ var render = function() {
       loading: _vm.loading,
       "loading-more": _vm.loadingMore
     },
-    on: { "load-more": _vm.fetchMoreItems, "query-change": _vm.searchItems },
+    on: { "load-more": _vm.fetchMoreItems, "search-change": _vm.searchItems },
     model: {
       value: _vm.newValue,
       callback: function($$v) {
@@ -61254,23 +61290,34 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "mb-2" }, [
-          _c("div", { staticClass: "-m-2 sm:flex" }, [
+          _c("div", { staticClass: "-m-2 md:flex" }, [
             _c(
               "div",
-              { staticClass: "p-2 flex-grow" },
+              { staticClass: "p-2 flex-shink-0 sm:w-2/5" },
               [
                 _c(
                   "o-form-field",
-                  { attrs: { input: "label", label: "Label", required: "" } },
+                  {
+                    attrs: {
+                      input: "linkable_type",
+                      label: "Link type",
+                      required: ""
+                    }
+                  },
                   [
-                    _c("o-input", {
-                      attrs: { id: "label", required: "" },
+                    _c("o-select", {
+                      attrs: {
+                        id: "linkable_type",
+                        options: _vm.linkableTypeOptions,
+                        placeholder: "External Url"
+                      },
+                      on: { change: _vm.resetRelationship },
                       model: {
-                        value: _vm.form.label,
+                        value: _vm.form.linkable_type,
                         callback: function($$v) {
-                          _vm.$set(_vm.form, "label", $$v)
+                          _vm.$set(_vm.form, "linkable_type", $$v)
                         },
-                        expression: "form.label"
+                        expression: "form.linkable_type"
                       }
                     })
                   ],
@@ -61280,6 +61327,63 @@ var render = function() {
               1
             ),
             _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-2 flex-grow" },
+              [
+                !_vm.selectedLinkableType
+                  ? _c(
+                      "o-form-field",
+                      { attrs: { input: "url", label: "Url", required: "" } },
+                      [
+                        _c("o-input", {
+                          attrs: { id: "url", required: "" },
+                          model: {
+                            value: _vm.form.url,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "url", $$v)
+                            },
+                            expression: "form.url"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  : _c(
+                      "o-form-field",
+                      {
+                        attrs: {
+                          input: "linkable_id",
+                          label: _vm.linkablePickerLabel,
+                          required: ""
+                        }
+                      },
+                      [
+                        _c("linkable-items-selector", {
+                          attrs: {
+                            id: "linkable_id",
+                            "linkable-type": _vm.selectedLinkableType
+                          },
+                          on: { labelChanged: _vm.updateLabel },
+                          model: {
+                            value: _vm.form.linkable_id,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "linkable_id", $$v)
+                            },
+                            expression: "form.linkable_id"
+                          }
+                        })
+                      ],
+                      1
+                    )
+              ],
+              1
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "mb-2" }, [
+          _c("div", { staticClass: "-m-2 sm:flex" }, [
             _vm.menuMaxDepth > 0
               ? _c(
                   "div",
@@ -61357,96 +61461,29 @@ var render = function() {
                   ],
                   1
                 )
-              : _vm._e()
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "mb-2" }, [
-          _c("div", { staticClass: "-m-2 md:flex" }, [
-            _c(
-              "div",
-              { staticClass: "p-2 flex-shink-0 sm:w-2/5" },
-              [
-                _c(
-                  "o-form-field",
-                  {
-                    attrs: {
-                      input: "linkable_type",
-                      label: "Link type",
-                      required: ""
-                    }
-                  },
-                  [
-                    _c("o-select", {
-                      attrs: {
-                        id: "linkable_type",
-                        options: _vm.linkableTypeOptions,
-                        placeholder: "External Url"
-                      },
-                      on: { change: _vm.resetRelationship },
-                      model: {
-                        value: _vm.form.linkable_type,
-                        callback: function($$v) {
-                          _vm.$set(_vm.form, "linkable_type", $$v)
-                        },
-                        expression: "form.linkable_type"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ],
-              1
-            ),
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "p-2 flex-grow" },
               [
-                !_vm.selectedLinkableType
-                  ? _c(
-                      "o-form-field",
-                      { attrs: { input: "url", label: "Url", required: "" } },
-                      [
-                        _c("o-input", {
-                          attrs: { id: "url", required: "" },
-                          model: {
-                            value: _vm.form.url,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "url", $$v)
-                            },
-                            expression: "form.url"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  : _c(
-                      "o-form-field",
-                      {
-                        attrs: {
-                          input: "linkable_id",
-                          label: _vm.linkablePickerLabel,
-                          required: ""
-                        }
-                      },
-                      [
-                        _c("linkable-items-selector", {
-                          attrs: {
-                            id: "linkable_id",
-                            "linkable-type": _vm.selectedLinkableType
-                          },
-                          model: {
-                            value: _vm.form.linkable_id,
-                            callback: function($$v) {
-                              _vm.$set(_vm.form, "linkable_id", $$v)
-                            },
-                            expression: "form.linkable_id"
-                          }
-                        })
-                      ],
-                      1
-                    )
+                _c(
+                  "o-form-field",
+                  { attrs: { input: "label", label: "Label", required: "" } },
+                  [
+                    _c("o-input", {
+                      attrs: { id: "label", required: "" },
+                      model: {
+                        value: _vm.form.label,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form, "label", $$v)
+                        },
+                        expression: "form.label"
+                      }
+                    })
+                  ],
+                  1
+                )
               ],
               1
             )
@@ -61569,11 +61606,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "menu-item-wrap" },
     [
       _c(
         "div",
         {
-          staticClass: "p-4 border border-grey-400 shadow-lg rounded",
+          staticClass:
+            "menu-item p-4 mb-4 border border-grey-400 shadow-lg rounded",
           class: {
             disabled: _vm.isDisabled,
             selectable: _vm.isSelectable

@@ -6,12 +6,12 @@
         :loading="loading"
         :loading-more="loadingMore"
         @load-more="fetchMoreItems"
-        @query-change="searchItems"
+        @search-change="searchItems"
     />
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import { getLinkableItems } from '../../../routes/api';
 
 export default {
@@ -44,16 +44,32 @@ export default {
         };
     },
 
+    computed: {
+        ...mapGetters({
+            formMenuItem: 'menu/formMenuItem',
+        }),
+    },
+
     watch: {
         value: {
-            handler(value) {
-                this.newValue = value;
+            handler(newValue) {
+                if (! this.items.find( ({ value }) => value === newValue)) {
+                    this.items.push({
+                        label: this.formMenuItem.label,
+                        value: this.formMenuItem.linkable_id,
+                    });
+                }
+
+                this.newValue = newValue;
             },
             immediate: true,
         },
 
         newValue(newValue) {
+            let item = this.items.find( ({ value }) => value === newValue);
+
             this.$emit('input', newValue);
+            this.$emit('labelChanged', item.label);
         },
 
         linkableType: {

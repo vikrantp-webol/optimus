@@ -2,7 +2,8 @@
 
 namespace App\Registries;
 
-use InvalidArgumentException;
+use App\Contracts\Linkable;
+use App\Exceptions\InvalidLinkableTypeException;
 
 class LinkableTypes
 {
@@ -11,7 +12,11 @@ class LinkableTypes
     public static function register(array $types)
     {
         foreach ($types as $type) {
-            // Todo: Verify that $type is linkable...
+            if (! is_subclass_of($type, Linkable::class, true)) {
+                throw new InvalidLinkableTypeException(
+                    'The given type does not implement Linkable.'
+                );
+            }
 
             $identifier = $type::getLinkableTypeIdentifier();
 

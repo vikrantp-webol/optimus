@@ -14,16 +14,12 @@ trait LinkableTrait
         }
 
         self::updated(function ($model) {
-            $model->syncMenuItemUrls();
+            $model->syncMenuItems();
         });
     }
 
-    public function syncMenuItemUrls()
+    public function syncMenuItems()
     {
-        if (! $this->urlHasChanged()) {
-            return;
-        }
-
         MenuItem::query()
             ->whereHasMorph(
                 'linkable',
@@ -33,6 +29,7 @@ trait LinkableTrait
                 }
             )
             ->update([
+                'label' => $this->getLabel(),
                 'url' => $this->getUrl(),
             ]);
     }

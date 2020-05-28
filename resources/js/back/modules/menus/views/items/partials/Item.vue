@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="menu-item-wrap">
         <div
-            class="p-4 border border-grey-400 shadow-lg rounded"
+            class="menu-item p-4 mb-4 border border-grey-400 shadow-lg rounded"
             :class="{
                 'disabled': isDisabled,
                 'selectable': isSelectable,

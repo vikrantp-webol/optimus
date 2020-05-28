@@ -10,7 +10,7 @@ class MenuTypeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'identifier' => $this->identifier, // Todo: human_identifier?
+            'identifier' => $this->identifier,
             'name' => $this->name,
             'max_depth' => $this->max_depth,
             'created_at' => (string) $this->created_at,

@@ -11,7 +11,6 @@ class MenusController
 {
     public function index()
     {
-        // Todo: Order by type.order?
         $menus = Menu::with('type')->get();
 
         return MenuResource::collection($menus);
@@ -49,8 +48,6 @@ class MenusController
 
         return new MenuResource($menu);
     }
-
-    // public function publish();
 
     // public function duplicate();
 

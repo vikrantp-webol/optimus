@@ -8,60 +8,6 @@
             />
 
             <div class="mb-2">
-                <div class="-m-2 sm:flex">
-                    <div class="p-2 flex-grow">
-                        <!-- Label -->
-                        <o-form-field
-                            input="label"
-                            label="Label"
-                            required
-                        >
-                            <o-input
-                                id="label"
-                                v-model="form.label"
-                                required
-                            />
-                        </o-form-field>
-                    </div>
-
-                    <div v-if="menuMaxDepth > 0" class="p-2 flex-shink-0 sm:w-2/5">
-                        <o-form-field input="parent_id" label="Parent">
-                            <div class="field addons cursor-pointer">
-                                <div class="control flex-grow control-icon-right">
-                                    <o-input
-                                        id="parent_id"
-                                        class="cursor-pointer"
-                                        :value="parentPickerLabel"
-                                        readonly
-                                    />
-
-                                    <a
-                                        v-if="form.parent_id"
-                                        class="icon"
-                                        @click="form.parent_id = null"
-                                    >
-                                        <icon icon="times" />
-                                    </a>
-                                </div>
-
-                                <div class="control">
-                                    <div
-                                        class="button"
-                                        title="Choose parent"
-                                        @click="toggleSelectingParentId"
-                                    >
-                                        <icon
-                                            :icon="isSelectingParentId ? 'stop' : 'hand-pointer'"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </o-form-field>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-2">
                 <div class="-m-2 md:flex">
                     <div class="p-2 flex-shink-0 sm:w-2/5">
                         <!-- Linkable type -->
@@ -106,6 +52,61 @@
                                 id="linkable_id"
                                 v-model="form.linkable_id"
                                 :linkable-type="selectedLinkableType"
+                                @labelChanged="updateLabel"
+                            />
+                        </o-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <div class="-m-2 sm:flex">
+                    <div v-if="menuMaxDepth > 0" class="p-2 flex-shink-0 sm:w-2/5">
+                        <o-form-field input="parent_id" label="Parent">
+                            <div class="field addons cursor-pointer">
+                                <div class="control flex-grow control-icon-right">
+                                    <o-input
+                                        id="parent_id"
+                                        class="cursor-pointer"
+                                        :value="parentPickerLabel"
+                                        readonly
+                                    />
+
+                                    <a
+                                        v-if="form.parent_id"
+                                        class="icon"
+                                        @click="form.parent_id = null"
+                                    >
+                                        <icon icon="times" />
+                                    </a>
+                                </div>
+
+                                <div class="control">
+                                    <div
+                                        class="button"
+                                        title="Choose parent"
+                                        @click="toggleSelectingParentId"
+                                    >
+                                        <icon
+                                            :icon="isSelectingParentId ? 'stop' : 'hand-pointer'"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </o-form-field>
+                    </div>
+
+                    <div class="p-2 flex-grow">
+                        <!-- Label -->
+                        <o-form-field
+                            input="label"
+                            label="Label"
+                            required
+                        >
+                            <o-input
+                                id="label"
+                                v-model="form.label"
+                                required
                             />
                         </o-form-field>
                     </div>
@@ -162,7 +163,6 @@ import { formMixin } from '@optimuscms/theme';
 import { initialFormValues } from '../../../store/menu';
 
 import {
-    getLinkableTypes,
     createMenuItem,
     updateMenuItem,
 } from '../../../routes/api';
@@ -190,12 +190,19 @@ export default {
         }),
 
         linkableTypeOptions() {
-            return this.linkableTypes.map(({ identifier, name }) => {
+            let options = this.linkableTypes.map(({ identifier, name }) => {
                 return {
                     value: identifier,
                     label: name,
                 };
             });
+
+            options.push({
+                label: 'External Url',
+                value: null,
+            });
+
+            return options;
         },
 
         isEditing() {
@@ -204,6 +211,10 @@ export default {
 
         selectedLinkableType() {
             return this.form.linkable_type;
+        },
+
+        selectedLinkableItem() {
+            return this.form.linkable_id || this.form.url;
         },
 
         linkablePickerLabel() {
@@ -306,6 +317,10 @@ export default {
 
             this.resetForm();
             this.clearSelectedParentId();
+        },
+
+        updateLabel(label) {
+            this.form.label = label;
         },
     },
 };

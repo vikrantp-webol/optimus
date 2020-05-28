@@ -16,7 +16,7 @@ class CreateMenuTypesTable extends Migration
         Schema::create('menu_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('identifier')->unique(); // Todo: Rename to human_identifier?
+            $table->string('identifier')->unique();
             $table->unsignedInteger('max_depth');
             $table->timestamps();
         });

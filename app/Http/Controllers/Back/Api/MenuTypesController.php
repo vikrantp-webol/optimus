@@ -10,7 +10,6 @@ class MenuTypesController extends Controller
 {
     public function index()
     {
-        // Todo: Sort by order?
         $types = MenuType::orderBy('name')->get();
 
         return MenuTypeResource::collection($types);
