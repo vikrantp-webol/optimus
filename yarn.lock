@@ -812,18 +812,18 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@optimuscms/editor@^2.2.7":
-  version "2.2.7"
-  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.7.tgz#edbceea3788e4c665d6e79de965176b7de7825e2"
-  integrity sha512-BUNuwn4EUIlLQszVDbqHv6qdHIw5C6IFOIizrQ2onnIT7IXsFLrViuDXyuobd6x41Bl6ir3fGy7DNHULf+HblQ==
+"@optimuscms/editor@^2.2.8":
+  version "2.2.8"
+  resolved "https://registry.yarnpkg.com/@optimuscms/editor/-/editor-2.2.8.tgz#9a1b9104006ae9711f18277c7faf4d156d1c394a"
+  integrity sha512-y8FyLYNDpXdzFqcjWahSkfcPnLL7R1oWLTx/c7llawM09KHEjxQiH9sBpe1V1wvkeF9JWyic3S03vgJaaZ8yvw==
   dependencies:
     "@tinymce/tinymce-vue" "^1.1.0"
     vue "^2.6.10"
 
-"@optimuscms/media-manager@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.5.tgz#f697436797cb3432fae15dde14ee4b4ddce3ff5b"
-  integrity sha512-CB3EJNryK8PuhPBpR7Plb8ikB6d6hgE/2ob5L+GEq6+v5INK3RKAddx9b55mTL4aT8pgiMxgpXU5YinKxJHC3g==
+"@optimuscms/media-manager@^1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@optimuscms/media-manager/-/media-manager-1.3.6.tgz#6c9c8ddffeba3596f7ca2f2681cb01afdfd1fb27"
+  integrity sha512-LlKB7KA9a24wx/XGpqomVYtU+uhtrHYEcz/bfKy+DS/mwmcgxirXD5fqIxksEPhhrTMqQzLWddB6dUXEUnsmxw==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.22"
     "@fortawesome/free-regular-svg-icons" "^5.10.2"
@@ -7668,9 +7668,9 @@ websocket-driver@>=0.5.1:
     websocket-extensions ">=0.1.1"
 
 websocket-extensions@>=0.1.1:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
-  integrity sha512-nqHUnMXmBzT0w570r2JpJxfiSD1IzoI+HGVdd3aZ0yNi3ngvQ4jv1dtHt5VGxfI2yj5yqImPhOK4vmIh2xMbGg==
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
+  integrity sha512-OqedPIGOfsDlo31UNwYbCFMSaO9m9G/0faIHj5/dZFDMFqPTcx6UwqyOy3COEaEOg/9VsGIpdqn62W5KhoKSpg==
 
 which-module@^2.0.0:
   version "2.0.0"
