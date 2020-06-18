@@ -71,6 +71,8 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
     Route::patch('menu-items/{id}', 'MenuItemsController@update');
     Route::put('menu-items/{id}/move', 'MenuItemsController@move');
     Route::delete('menu-items/{id}', 'MenuItemsController@destroy');
+
+    /*--OPTIMUS-CLI:routes--*/
 });
 
 Route::view('{path?}', 'back.layouts.app')

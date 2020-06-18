@@ -8,6 +8,8 @@ import adminUserRoutes from '../modules/admin-users/routes/app';
 import menuRoutes from '../modules/menus/routes/app';
 import pageRoutes from '../modules/pages/routes/app';
 
+/*--OPTIMUS-CLI:imports--*/
+
 const router = new VueRouter({
     base: '/admin',
     mode: 'history',
@@ -28,6 +30,8 @@ const router = new VueRouter({
         ...adminUserRoutes,
         ...menuRoutes,
         ...pageRoutes,
+
+        /*--OPTIMUS-CLI:routes--*/
     ],
 });
 

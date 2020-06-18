@@ -33,6 +33,8 @@
                 </o-side-sub-nav-item>
             </o-side-nav-item>
 
+            <!--OPTIMUS-CLI:navigation-->
+
             <o-side-nav-item
                 label="Media manager"
                 @click="openMediaManager()"
