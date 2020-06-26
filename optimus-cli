@@ -2,7 +2,7 @@
 
 INSTALL_DIRECTORY=".cli"
 CLI_ENTRY_POINT="python3 ./${INSTALL_DIRECTORY}/cli.py"
-REPOSITORY="git@github.com:callumbloomfield/optimus-cli.git"
+REPOSITORY="git@github.com:optimuscms/optimus-cli.git"
 
 # Outputs usage instructions to the console
 print_help () {
