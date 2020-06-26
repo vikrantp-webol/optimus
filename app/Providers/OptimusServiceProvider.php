@@ -13,6 +13,8 @@ use Illuminate\Support\ServiceProvider;
 use Intervention\Image\Image;
 use Optix\Media\Facades\Conversion;
 
+/*--OPTIMUS-CLI:imports--*/
+
 class OptimusServiceProvider extends ServiceProvider
 {
     /**
@@ -26,10 +28,14 @@ class OptimusServiceProvider extends ServiceProvider
     {
         PageTemplates::set([
             DefaultTemplate::class,
+
+            /*--OPTIMUS-CLI:page-templates--*/
         ]);
 
         LinkableTypes::register([
             Page::class,
+
+            /*--OPTIMUS-CLI:linkable-types--*/
         ]);
 
         // Media thumbnail...
@@ -47,5 +53,7 @@ class OptimusServiceProvider extends ServiceProvider
                 return $image->fit(1200, 630);
             }
         );
+
+        /*--OPTIMUS-CLI:media-conversions--*/
     }
 }

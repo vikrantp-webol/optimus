@@ -1,0 +1,44 @@
+#!/bin/bash
+
+INSTALL_DIRECTORY=".cli"
+CLI_ENTRY_POINT="python3 ./${INSTALL_DIRECTORY}/cli.py"
+REPOSITORY="git@github.com:optimuscms/optimus-cli.git"
+
+# Outputs usage instructions to the console
+print_help () {
+    echo "";
+    echo "Usage:";
+    echo "  optimus-cli <command>"
+    echo "";
+    echo "Available commands:";
+    echo "  optimus-cli update     Updates optimus-cli to the latest version";
+    echo "  optimus-cli <command>  Passes the provided <command> to optimus-cli."
+}
+
+# Clones the cli repository and removes .git, preventing nested repositories.
+update_cli () {
+    echo "";
+    echo "Updating optimus-cli...";
+
+    rm -rf $INSTALL_DIRECTORY
+
+    git clone --quiet $REPOSITORY $INSTALL_DIRECTORY
+    rm -rf ./$INSTALL_DIRECTORY/.git
+
+    echo "Successfully updated optimus-cli to the latest version";
+}
+
+if [ "$#" -lt 1 ]
+then
+    print_help;
+
+elif [ $1 = "update" ]
+then
+    update_cli
+
+elif [[ ! -d $INSTALL_DIRECTORY ]]
+then
+    echo "optimus-cli files not found, have you run optimus-cli update?";
+else
+    eval "${CLI_ENTRY_POINT} $@"
+fi
