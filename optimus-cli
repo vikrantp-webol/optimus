@@ -6,8 +6,8 @@ REPOSITORY="git@github.com:optimuscms/optimus-cli.git"
 
 # Ensures the necessary dependencies are available
 check_dependencies() {
-    hash php-cs-fixer 2>/dev/null || {
-        echo >&2 "php-cs-fixer is required but not available, aborting...";
+    hash composer 2>/dev/null || {
+        echo >&2 "composer is required but not available, aborting...";
         exit 1;
     }
 
@@ -23,6 +23,11 @@ check_dependencies() {
 
     if [[ $(python3 -c 'import sys; print(sys.version_info[1] >= 6)') != 'True' ]]; then
         echo "Python version >= 3.6 required, aborting...";
+        exit 1;
+    fi
+
+    if [ ! -d 'vendor' ]; then
+        echo "Please run 'composer install' before using optimus-cli.";
         exit 1;
     fi
 
