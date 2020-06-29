@@ -1,11 +1,10 @@
-<site-header inline-template>
-    <header>
-        @include('front.partials.navigation.mobile')
+@include('front.partials.navigation.mobile')
 
+<header>
+    <div class="container p-4">
         <span
-            class="hamburger"
-            @click="toggleMobileNavigation"
-            :class="{ 'active': mobileNavigationIsVisible }"
+            class="hamburger lg:hidden"
+            @click="showMobileNavigation"
         >
             <span class="hamburger-holder">
                 <span class="hamburger-inner"></span>
@@ -17,5 +16,5 @@
         ])
 
         @include('front.partials.navigation.main')
-    </header>
-</site-header>
+    </div>
+</header>

@@ -6,7 +6,7 @@
 @import 'variables';
 @import '~@optix/sass';
 
-// @import './components/index';
-// @import './elements/index';
+@import './components/index';
+@import './elements/index';
 
 @tailwind utilities;

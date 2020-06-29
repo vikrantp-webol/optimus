@@ -1,20 +1,28 @@
-<mobile-navigation
-    v-if="mobileNavigationIsVisible"
-    v-cloak
-    @close="closeMobileNavigation"
->
-    <ul class="mobile-nav">
+<mobile-navigation v-cloak>
+    <ul class="mobile-navigation">
+        <collapsible-nav-item
+            title="About"
+            href="/"
+        >
+            @foreach(range(1, 5) as $i)
+                <li>
+                    <a href="/default">
+                        Example Link
+                    </a>
+                </li>
+            @endforeach
+        </collapsible-nav-item>
+
         <li>
-            <a href="">Top level</a>
+            <a href="">
+                Default
+            </a>
         </li>
 
-        <collapsible-nav-item
-            title="Top level with sub"
-            href=""
-        >
-            <li>
-                <a href="">Sub Level</a>
-            </li>
-        </collapsible-nav-item>
+        <li>
+            <a href="/contact">
+                Contact Us
+            </a>
+        </li>
     </ul>
 </mobile-navigation>

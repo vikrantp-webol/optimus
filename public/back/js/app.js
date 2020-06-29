@@ -14294,7 +14294,7 @@ function install(Vue) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(global, setImmediate, process) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formHelpersMixin", function() { return formHelpersMixin; });
+/* WEBPACK VAR INJECTION */(function(global, setImmediate) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formHelpersMixin", function() { return formHelpersMixin; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formMixin", function() { return form; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "listingMixin", function() { return listing; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sortableMixin", function() { return sortable; });
@@ -16680,7 +16680,7 @@ var mutations$2 = {
 var actions$2 = {
   setTitle: function setTitle(_ref, title) {
     var commit = _ref.commit;
-    var appName = process.env.MIX_APP_NAME;
+    var appName = "Optimus";
     commit('setTitle', title);
     document.title = "".concat(title, " | ").concat(appName ? appName + ' -' : '', " Optimus");
   },
@@ -20424,7 +20424,7 @@ function install$1(Vue) {
 /* harmony default export */ __webpack_exports__["default"] = (install$1);
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate, __webpack_require__(/*! ./../../../process/browser.js */ "./node_modules/process/browser.js")))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
 
 /***/ }),
 
@@ -22647,6 +22647,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
 //
 //
 //
@@ -80853,6 +80855,8 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
 
 
+/*--OPTIMUS-CLI:imports--*/
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   base: '/admin',
   mode: 'history',
@@ -81031,7 +81035,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/callum/Documents/Optix/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
+module.exports = __webpack_require__(/*! /Users/rich/Code/optimus/resources/js/back/app.js */"./resources/js/back/app.js");
 
 
 /***/ })
