@@ -60,4 +60,24 @@ class MenuItem extends Model implements Sortable
     {
         return $this->belongsTo(Menu::class, 'menu_id');
     }
+    
+    /**
+     * Get the parent relationship.
+     *
+     * @return BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    /**
+     * Get the children relationship.
+     *
+     * @return HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
+    }
 }
