@@ -59,7 +59,7 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *  "email": "admin@test.com",
          *  "password": "Admin123"
          * }
-         
+         *
          * @apiSuccessExample Success
          * {
          *   "data": {
@@ -71,6 +71,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *    "created_at": "2020-10-21 13:02:46",
          *    "updated_at": "2020-10-21 13:02:46"
          *  }
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::post('/', 'AdminUsersController@store');
@@ -101,6 +109,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *   "created_at": "2020-10-06 06:51:50",
          *   "updated_at": "2020-10-06 06:51:50"
          * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::get('{id}', 'AdminUsersController@show');
 
@@ -119,6 +135,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *  "email": "admin@test.com",
          *  "password": null
          * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::patch('{id}', 'AdminUsersController@update');
 
@@ -135,6 +159,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          * HTTP/1.1 404 Not Found
          * {
          *   message: "No query results for model [App\Models\AdminUser] :id."
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::delete('{id}', 'AdminUsersController@destroy');
@@ -209,6 +241,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *    "updated_at": "2020-10-21 13:02:46"
          *  }
          * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::post('/', 'MediaFoldersController@store');
 
@@ -233,6 +273,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *  "parent_id": null,
          *  "created_at": "2020-10-09 12:08:21",
          *  "updated_at": "2020-10-09 12:08:21"
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::get('{id}', 'MediaFoldersController@show');
@@ -261,6 +309,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *    "updated_at": "2020-10-21 13:02:46"
          *  }
          * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::patch('{id}', 'MediaFoldersController@update');
 
@@ -277,6 +333,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          * HTTP/1.1 404 Not Found
          * {
          *   message: "No query results for model [App\Models\MediaFolder] :id."
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::delete('{id}', 'MediaFoldersController@destroy');
@@ -415,6 +479,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *          "updated_at": "2020-10-06 06:51:50"
          *      }
          *  }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::get('{id}', 'MediaController@show');
 
@@ -451,6 +523,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *          "updated_at": "2020-10-06 06:51:50"
          *      }
          * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::patch('{id}', 'MediaController@update');
 
@@ -467,6 +547,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          * HTTP/1.1 404 Not Found
          * {
          *   message: "No query results for model [App\Models\Media] :id."
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::delete('{id}', 'MediaController@destroy');
@@ -686,6 +774,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *      "updated_at": "2020-10-09 12:10:06"
          *    }
          *  }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::post('/', 'PagesController@store');
 
@@ -744,6 +840,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *      "updated_at": "2020-10-09 12:10:06"
          *    }
          *  }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::get('{id}', 'PagesController@show');
 
@@ -825,6 +929,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          *      "updated_at": "2020-10-09 12:10:06"
          *    }
          *  }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
+         * }
          */
         Route::patch('{id}', 'PagesController@update');
 
@@ -841,6 +953,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
          * HTTP/1.1 404 Not Found
          * {
          *   message: "No query results for model [App\Models\Page] :id."
+         * }
+         *
+         * @apiError Unauthenticated If user is not in the authorized session
+         * 
+         * @apiErrorExample Error-Response:
+         * HTTP/1.1 401 Unauthorized
+         * {
+         *   message: "Unauthenticated"
          * }
          */
         Route::delete('{id}', 'PagesController@destroy');
@@ -910,6 +1030,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *    "updated_at": "2020-10-21 14:06:49"
      *  }
      * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::post('menus', 'MenusController@store');
 
@@ -936,6 +1064,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *   "is_deletable": true,
      *   "created_at": "2020-10-06 06:51:50",
      *   "updated_at": "2020-10-06 06:51:50"
+     * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
      * }
      */
     Route::get('menus/{id}', 'MenusController@show');
@@ -965,6 +1101,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *    "updated_at": "2020-10-22 13:02:46"
      *  }
      * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::patch('menus/{id}', 'MenusController@update');
 
@@ -981,6 +1125,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      * HTTP/1.1 404 Not Found
      * {
      *   message: "No query results for model [App\Models\Menu] :id."
+     * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
      * }
      */
     Route::delete('menus/{id}', 'MenusController@destroy');
@@ -1040,6 +1192,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *      }
      *    ]
      *  }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::get('menus/{menuId}/items', 'MenuItemsController@index');
 
@@ -1076,6 +1236,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *      "order": 1,
      *  }
      * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::post('menus/{menuId}/items', 'MenuItemsController@store');
 
@@ -1107,6 +1275,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *   "order": 1,
      *   "created_at": "2020-10-06 06:51:50",
      *   "updated_at": "2020-10-06 06:51:50"
+     * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
      * }
      */
     Route::get('menu-items/{id}', 'MenuItemsController@show');
@@ -1144,6 +1320,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *      "updated_at": "2020-10-06 06:51:50"
      *  }
      * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::patch('menu-items/{id}', 'MenuItemsController@update');
 
@@ -1160,6 +1344,13 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      *   "direction": "up"
      * }
      *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
+     * }
      */
     Route::put('menu-items/{id}/move', 'MenuItemsController@move');
 
@@ -1176,6 +1367,14 @@ Route::prefix('api')->middleware('auth:admin')->namespace('Api')->group(function
      * HTTP/1.1 404 Not Found
      * {
      *   message: "No query results for model [App\Models\MenuItem] :id."
+     * }
+     *
+     * @apiError Unauthenticated If user is not in the authorized session
+     * 
+     * @apiErrorExample Error-Response:
+     * HTTP/1.1 401 Unauthorized
+     * {
+     *   message: "Unauthenticated"
      * }
      */
     Route::delete('menu-items/{id}', 'MenuItemsController@destroy');
