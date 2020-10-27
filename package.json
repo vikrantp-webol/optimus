@@ -4,7 +4,8 @@
         "dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "watch": "npm run dev -- --watch",
         "prod": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "lint": "node_modules/eslint/bin/eslint.js --ext .js,.vue resources/js"
+        "lint": "node_modules/eslint/bin/eslint.js --ext .js,.vue resources/js",
+        "docs": "apidoc -i routes/ -o apidoc/"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.22",
